@@ -1,3 +1,6 @@
+# External binary executables
+bin/
+
 # Logs
 logs
 *.log

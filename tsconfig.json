@@ -17,13 +17,10 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "jsx": "react-jsx",
     "paths": {
-      "@/common": [
-        "libs/common/src"
-      ],
-      "@/common/*": [
-        "libs/common/src/*"
-      ]
+      "@/common": ["libs/common/src"],
+      "@/common/*": ["libs/common/src/*"]
     }
   }
 }

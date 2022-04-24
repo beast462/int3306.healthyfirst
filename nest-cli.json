@@ -21,10 +21,12 @@
     "view": {
       "type": "application",
       "root": "apps/view",
-      "entryFile": "main",
+      "entryFile": "index",
       "sourceRoot": "apps/view/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/view/tsconfig.app.json"
+        "tsConfigPath": "apps/view/tsconfig.app.json",
+        "webpack": true,
+        "webpackConfigPath": "apps/view/webpack.config.js"
       }
     },
     "common": {

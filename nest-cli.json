@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/healthy-first/src",
+  "monorepo": true,
+  "root": "apps/healthy-first",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/healthy-first/tsconfig.app.json"
+  },
+  "projects": {
+    "healthy-first": {
+      "type": "application",
+      "root": "apps/healthy-first",
+      "entryFile": "main",
+      "sourceRoot": "apps/healthy-first/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/healthy-first/tsconfig.app.json"
+      }
+    },
+    "view": {
+      "type": "application",
+      "root": "apps/view",
+      "entryFile": "index",
+      "sourceRoot": "apps/view/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/view/tsconfig.app.json",
+        "webpack": true,
+        "webpackConfigPath": "apps/view/webpack.config.js"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    }
+  }
+}

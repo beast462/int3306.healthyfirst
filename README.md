@@ -3,27 +3,12 @@
 ## Development environment setup
 
 1.  Windows<br>
-    1.1. Nginx<br>
-
-    - Download Nginx from <a href="http://nginx.org/en/download.html">here</a>
-    - Extract everything to %PROJECT%/bin/nginx
-    - Edit Nginx config file at %PROJECT%/bin/nginx/conf/nginx.conf to anything you like but http block should at least has these things:
-
-            http {
-                include       mime.types;
-                default_type  application/octet-stream;
-                sendfile        on;
-                gzip  on;
-
-                include ./../../config/win/nginx/site.conf;
-            }
-
-    1.2. Runtime<br>
+    1.1. Runtime<br>
 
     - Install Node from <a href="https://nodejs.org/en/download/">here</a> (version >= 16)
     - Upgrade npm to newest version with `npm i -g npm`
 
-    1.3. Project<br>
+    1.2. Project<br>
 
     - Install NestJS CLI with `npm i -g @nestjs/cli`
     - Install project dependencies with `npm i` from project root
@@ -36,10 +21,15 @@
     - Node package will always be older version than stable release, remove old version with `sudo apt remove nodejs` then install newest lts version with `sudo n lts`
     - Upgrade npm to newest version with `npm i -g npm`
 
-      2.2. Project<br>
+    2.2. Project<br>
 
     - Install NestJS CLI with `sudo npm i -g @nestjs/cli`
     - Install project dependencies with `npm i` from project root
+
+3.  Editor<br>
+    - Use Visual Studio Code
+    - Your VSCode must install <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml">PlantUML</a>, <a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint">ESLint</a>, <a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next">JavaScript and TypeScript Nightly</a>.
+    - Your VSCode should install <a href="https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode">IntelliCode</a>, <a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag">Auto Close Tag</a>, <a href="https://marketplace.visualstudio.com/items?itemName=steoates.autoimport">Auto Import</a>, <a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag">Auto Rename Tag</a>, <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot">Copilot</a>
 
 ## Development
 

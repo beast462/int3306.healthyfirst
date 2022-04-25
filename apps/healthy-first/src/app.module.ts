@@ -1,9 +1,10 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ViewModule } from './view/view.module';
 import configModule from './base/config.module';
 
 @Module({
-  imports: [configModule],
+  imports: [configModule, ViewModule],
   providers: [ConfigService],
 })
 export class AppModule {

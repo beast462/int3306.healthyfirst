@@ -4,6 +4,7 @@ import { SupportedDatabaseTypes } from './type-orm.module';
 
 export type Schema = {
   port: number;
+  env: string;
   database: {
     type: SupportedDatabaseTypes;
     host: string;
@@ -17,6 +18,7 @@ export type Schema = {
 function load(): Schema {
   return {
     port: Number(process.env.PORT),
+    env: process.env.ENVIRONMENT,
     database: {
       type: process.env.DB_TYPE as SupportedDatabaseTypes,
       host: process.env.DB_HOST,
@@ -30,6 +32,9 @@ function load(): Schema {
 
 const schema = Joi.object({
   PORT: Joi.number().min(1).max(65535).required(),
+  ENVIRONMENT: Joi.string()
+    .valid('development', 'production')
+    .default('development'),
   DB_TYPE: Joi.string().valid(...SupportedDatabaseTypes),
   DB_HOST: Joi.alternatives(
     Joi.string().ip().required(),
@@ -44,6 +49,7 @@ const schema = Joi.object({
 
 export enum ConfigKeys {
   SERVER_PORT = 'port',
+  ENVIRONMENT = 'env',
   DATABASE_TYPE = 'database.type',
   DATABASE_HOST = 'database.host',
   DATABASE_PORT = 'database.port',

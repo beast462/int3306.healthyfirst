@@ -1,4 +1,4 @@
-import { randomRange } from './randomRange';
+import { randomRange } from './random-range';
 
 const defaultCharset = '';
 

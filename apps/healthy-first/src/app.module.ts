@@ -2,9 +2,11 @@ import { Logger, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ViewModule } from './view/view.module';
 import configModule from './base/config.module';
+import { PingController } from './ping/ping.controller';
 
 @Module({
   imports: [configModule, ViewModule],
+  controllers: [PingController],
   providers: [ConfigService],
 })
 export class AppModule {

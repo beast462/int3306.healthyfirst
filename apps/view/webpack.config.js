@@ -54,7 +54,7 @@ const prodDependencies = {
   ],
 };
 
-module.exports = {
+const config = {
   entry: join(__dirname, 'src', 'index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
@@ -129,3 +129,22 @@ module.exports = {
     }),
   ],
 };
+
+const devServer = {
+  compress: false,
+  port: 61492,
+  hot: true,
+  devMiddleware: {
+    writeToDisk: true,
+  }
+}
+
+if (isDev) {
+  const DevServer = require('webpack-dev-server');
+  const compiler = require('webpack')(config);
+  const server = new DevServer({ ...devServer, open: true }, compiler);
+
+  server.start();
+}
+
+module.exports = config;

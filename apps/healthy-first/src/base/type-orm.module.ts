@@ -15,7 +15,7 @@ export default TypeOrmModule.forRootAsync({
     port: configService.get<number>(ConfigKeys.DATABASE_PORT),
     username: configService.get<string>(ConfigKeys.DATABASE_USERNAME),
     password: configService.get<string>(ConfigKeys.DATABASE_PASSWORD),
-    name: configService.get<string>(ConfigKeys.DATABASE_NAME),
+    database: configService.get<string>(ConfigKeys.DATABASE_NAME),
     entities: Entities,
     synchronize: false,
     autoLoadEntities: true,

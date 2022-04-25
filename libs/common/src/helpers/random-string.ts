@@ -1,6 +1,7 @@
 import { randomRange } from './random-range';
 
-const defaultCharset = '';
+const defaultCharset =
+  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$_';
 
 export function randomString(
   length: number,

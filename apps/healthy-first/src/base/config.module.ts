@@ -53,7 +53,7 @@ export enum ConfigKeys {
 }
 
 export default ConfigModule.forRoot({
-  envFilePath: ['.default.env', '.env'],
+  envFilePath: ['.env', '.default.env'],
   load: [load],
   validationSchema: schema,
   validationOptions: {

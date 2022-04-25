@@ -17,7 +17,8 @@ export default TypeOrmModule.forRootAsync({
     password: configService.get<string>(ConfigKeys.DATABASE_PASSWORD),
     database: configService.get<string>(ConfigKeys.DATABASE_NAME),
     entities: Entities,
-    synchronize: false,
+    synchronize:
+      configService.get<string>(ConfigKeys.ENVIRONMENT) === 'development',
     autoLoadEntities: true,
   }),
 });

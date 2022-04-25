@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { randomBytes } from 'crypto';
-import session from 'express-session';
+import * as session from 'express-session';
 import { AppModule } from './app.module';
 import { ConfigKeys } from './base/config.module';
 

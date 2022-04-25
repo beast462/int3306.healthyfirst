@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { PrivilegeEntity } from './privilege.entity';
+import { RoleEntity } from './role.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -21,9 +21,9 @@ export class UserEntity {
   @Column({ name: 'secret', type: 'varchar', length: 64 })
   secret!: string;
 
-  @Column({ name: 'privilege_id', type: 'int' })
-  @ManyToOne(() => PrivilegeEntity, (privilege) => privilege.id)
-  privilege!: PrivilegeEntity;
+  @Column({ name: 'role_id', type: 'int' })
+  @ManyToOne(() => RoleEntity, (privilege) => privilege.id)
+  role!: RoleEntity;
 
   @Column({ name: 'created_at', type: 'timestamp' })
   createdAt!: Date;

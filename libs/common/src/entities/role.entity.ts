@@ -1,13 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('privileges')
-export class PrivilegeEntity {
+@Entity('roles')
+export class RoleEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
 
-  @Column({ name: 'role', type: 'varchar', length: 20 })
-  role!: string;
+  @Column({ name: 'name', type: 'varchar', length: 20 })
+  name!: string;
 
   @Column({ name: 'level', type: 'int' })
   level!: number;
+
+  @Column({ name: 'description', type: 'text' })
+  description!: string;
 }

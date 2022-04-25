@@ -1,6 +1,6 @@
-import { PrivilegeEntity } from './privilege.entity';
+import { RoleEntity } from './role.entity';
 import { UserEntity } from './user.entity';
 
-export const Entities = [PrivilegeEntity, UserEntity];
+export const Entities = [RoleEntity, UserEntity];
 
-export { PrivilegeEntity, UserEntity };
+export { RoleEntity, UserEntity };

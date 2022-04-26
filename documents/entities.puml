@@ -1,0 +1,110 @@
+@startuml Entities
+entity FABranch {
+    int id;
+    Location responsible_location;
+    String address;
+    String email;
+    String phone;
+    String website;
+    String fax;
+}
+
+entity Facility {
+    int id;
+    String name;
+    String owner;
+    FacilityType type;
+    Location location;
+    String address;
+    String phone;
+}
+
+entity Certificate {
+    int id;
+    Facility facility;
+    boolean revoked;
+    Date issued_date;
+    String issue_id;
+    Date expires;
+    String issued_by;
+}
+
+entity Location {
+    int id;
+    int code;
+    String name;
+    String type;
+}
+
+entity CheckingPlan {
+    int id;
+    Date created_at;
+    Date checked_at;
+    Facility facility;
+}
+
+entity CheckingActivity {
+    int id;
+}
+
+entity FoodSample {
+    int id;
+    int name;
+    DateTime picked_at;
+    double amount;
+    Facility facility;
+    String examiner;
+    InspectionUnit inspector;
+    boolean passed;
+}
+
+entity FoodSampleCriteria {
+    int id;
+    FoodSample sample;
+    String name;
+    double result;
+    double limit;
+    boolean passed;
+}
+
+entity Violation {
+    int id;
+}
+
+entity InspectionUnit {
+    int id;
+}
+
+entity Role {
+    int id;
+    String name;
+    int level;
+    String description;
+}
+
+entity User {
+    int id;
+    String username;
+    String password;
+    String secret;
+    String display_name;
+    String email;
+    String phone;
+    int role_id;
+}
+
+entity ResponsibleArea {
+    int id;
+    User user;
+}
+
+Facility ||--|| Certificate
+FoodSampleCriteria }|--|| FoodSample
+FABranch }|--|| Location
+ResponsibleArea }|--|| Location
+CheckingPlan }|--|| Facility
+CheckingActivity }|--|| CheckingPlan
+User }|--|| Role
+ResponsibleArea }|--|| User
+
+@enduml

@@ -7,9 +7,9 @@ export type GenerateAnswerOptions = {
 export function generateAnswer(
   question,
   password,
-  options?: GenerateAnswerOptions,
+  options: GenerateAnswerOptions = { hashPassword: false },
 ): string {
-  const { hashPassword = false } = options || {};
+  const { hashPassword } = options;
 
   const hashedPassword = hashPassword
     ? createHash('sha256').update(password).digest('hex')

@@ -34,7 +34,7 @@ const schema = Joi.object({
   PORT: Joi.number().min(1).max(65535).required(),
   ENVIRONMENT: Joi.string()
     .valid('development', 'production')
-    .default('development'),
+    .default('production'),
   DB_TYPE: Joi.string().valid(...SupportedDatabaseTypes),
   DB_HOST: Joi.alternatives(
     Joi.string().ip().required(),

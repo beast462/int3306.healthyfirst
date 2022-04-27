@@ -5,6 +5,7 @@ import { AuthGuardMiddleware } from './auth-guard.middleware';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],
+  providers: [AuthGuardMiddleware],
   exports: [AuthGuardMiddleware],
 })
 export class AuthGuardModule {}

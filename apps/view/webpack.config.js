@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const dependencies = require('../../package.json').dependencies;
 
 const __root = resolve(__dirname, '..', '..');
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.argv.includes('--dev');
 const outDir = resolve(__dirname, tsConfig.compilerOptions.outDir);
 
 function getDep(name) {

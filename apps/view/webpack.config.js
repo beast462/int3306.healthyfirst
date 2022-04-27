@@ -3,8 +3,8 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { join, resolve } = require('path');
-const tsConfig = require('./tsconfig.app.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const tsConfig = require('./tsconfig.app.json');
 const dependencies = require('../../package.json').dependencies;
 
 const __root = resolve(__dirname, '..', '..');
@@ -132,19 +132,26 @@ const config = {
 
 const devServer = {
   compress: false,
-  port: 61492,
   hot: true,
+  static: false,
+  open: false,
   devMiddleware: {
     writeToDisk: true,
   }
 }
 
 if (isDev) {
+  const portfinder = require('portfinder');
   const DevServer = require('webpack-dev-server');
   const compiler = require('webpack')(config);
-  const server = new DevServer({ ...devServer, open: true }, compiler);
 
-  server.start();
+  portfinder.getPort((err, port) => {
+    if (err) throw err;
+
+    const server = new DevServer({ ...devServer, port }, compiler);
+
+    server.start();
+  });
 }
 
 module.exports = config;

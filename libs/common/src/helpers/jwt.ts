@@ -32,7 +32,7 @@ export function sign(
 
 export function decode<T>(
   token: string,
-  decodeOptions: DecodeOptions & { complete: true },
+  decodeOptions?: DecodeOptions & { complete: true },
 ): Promise<T | CompleteJwt<T>> {
   return new Promise((resolve, reject) => {
     const decoded = _decode(token, decodeOptions);

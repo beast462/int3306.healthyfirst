@@ -1,12 +1,12 @@
 import { HttpStatus } from '@nestjs/common';
 
 export class ResponseDTO<BodyType> {
-  status: HttpStatus;
+  statusCode: HttpStatus;
   message: string[];
   body?: BodyType;
 
   constructor(status: HttpStatus, message: string[], body?: BodyType) {
-    this.status = status;
+    this.statusCode = status;
     this.message = message;
     this.body = body;
   }

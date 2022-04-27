@@ -132,8 +132,10 @@ const config = {
 
 const devServer = {
   compress: false,
-  port: 61492,
+  port: 0,
   hot: true,
+  static: false,
+  open: false,
   devMiddleware: {
     writeToDisk: true,
   }
@@ -142,7 +144,8 @@ const devServer = {
 if (isDev) {
   const DevServer = require('webpack-dev-server');
   const compiler = require('webpack')(config);
-  const server = new DevServer({ ...devServer, open: true }, compiler);
+
+  const server = new DevServer({ ...devServer }, compiler);
 
   server.start();
 }

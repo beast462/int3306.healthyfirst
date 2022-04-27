@@ -3,10 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { ViewModule } from './view/view.module';
 import configModule, { ConfigKeys } from './base/config.module';
 import { PingController } from './ping/ping.controller';
+import { RequestIdentifierModule } from './request-identifier/request-identifier.module';
 import typeOrmModule from './base/type-orm.module';
 
 @Module({
-  imports: [configModule, typeOrmModule, ViewModule],
+  imports: [configModule, typeOrmModule, ViewModule, RequestIdentifierModule],
   controllers: [PingController],
   providers: [ConfigService],
 })

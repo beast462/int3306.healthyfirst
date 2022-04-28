@@ -1,8 +1,10 @@
 import { CookieEntries } from '@/common/constants/cookie-entries';
+import { Environments } from '@/common/constants/environments';
 import { Cookies } from '@/common/decorators/cookies';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { GetQuestionQueryDTO } from '@/common/dto/user/get-question.query.dto';
 import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
+import { byHours } from '@/common/helpers/timespan';
 import {
   Body,
   Controller,
@@ -13,12 +15,19 @@ import {
   NotFoundException,
   Post,
   Query,
+  Res,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
+import { ConfigKeys } from '../base/config.module';
 import { AnswerValidationErrors, UserService } from './user.service';
 
 @Controller('/api/user')
 export class UserController {
-  public constructor(private readonly userService: UserService) {}
+  public constructor(
+    private readonly userService: UserService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get('/login')
   public async getQuestion(
@@ -37,12 +46,22 @@ export class UserController {
   @Post('/login')
   public async login(
     @Cookies(CookieEntries.REQUEST_ID) rid: string,
+    @Res({ passthrough: true }) res: Response,
     @Body() { answer }: LoginBodyDTO,
-  ): Promise<ResponseDTO<string>> {
+  ): Promise<ResponseDTO<void>> {
     const validation = this.userService.validateAnswer(rid, answer);
 
     if (typeof validation === 'string') {
-      return new ResponseDTO(HttpStatus.OK, [], validation);
+      res.cookie(CookieEntries.AUTH_TOKEN, validation, {
+        httpOnly: true,
+        signed:
+          this.configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
+          Environments.PRODUCTION,
+        expires: new Date(Date.now() + byHours(5)),
+        sameSite: 'strict',
+      });
+
+      return new ResponseDTO(HttpStatus.OK, []);
     }
 
     switch (validation) {

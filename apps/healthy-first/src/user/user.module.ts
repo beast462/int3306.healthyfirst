@@ -5,9 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '@/common/entities';
 import { AuthGuardModule } from '../auth-guard/auth-guard.module';
 import { AuthGuardMiddleware } from '../auth-guard/auth-guard.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), AuthGuardModule],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    AuthGuardModule,
+    ConfigModule,
+  ],
   providers: [UserService],
   controllers: [UserController],
 })

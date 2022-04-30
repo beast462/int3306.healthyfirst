@@ -1,18 +1,50 @@
+import { ThemeProvider } from '@mui/material';
 import { connect, ConnectedProps } from 'react-redux';
 import { Route, Routes } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './components/NotFound/NotFound';
 import { ApplicationState } from './store';
+import { theme as lightTheme } from './theme.light';
+import { theme as darkTheme } from './theme.dark';
+import { useUser } from './hooks/useUser';
+import { setUser as _setUser } from './store/actions/app/setUser';
+import { useEffect } from 'react';
 
-const connector = connect((_state: ApplicationState) => ({}), {});
+const themes = [lightTheme, darkTheme];
 
-function App(_props: ConnectedProps<typeof connector>) {
+const connector = connect(
+  (state: ApplicationState) => ({
+    viewMode: state.app.viewMode,
+    storedUser: state.app.user,
+  }),
+  {
+    setUser: _setUser,
+  },
+);
+
+function App({
+  viewMode,
+  storedUser,
+  setUser,
+}: ConnectedProps<typeof connector>) {
+  const { user, isLoading, isError } = useUser();
+
+  useEffect(() => {
+    if (isLoading && storedUser) setUser(null);
+    if (isError && storedUser) setUser(null);
+    setUser(user);
+  }, [isLoading, isError]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={themes[viewMode]}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

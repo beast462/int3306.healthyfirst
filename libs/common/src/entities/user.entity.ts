@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { RoleEntity } from './role.entity';
 
 @Entity('users')
@@ -21,8 +27,12 @@ export class UserEntity {
   @Column({ name: 'secret', type: 'varchar', length: 64 })
   secret!: string;
 
-  @Column({ name: 'role_id', type: 'int' })
-  @ManyToOne(() => RoleEntity, (privilege) => privilege.id)
+  @ManyToOne(() => RoleEntity, (role) => role.id, {
+    nullable: false,
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'role_id' })
   role!: RoleEntity;
 
   @Column({

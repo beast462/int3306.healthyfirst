@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+import { ActionTypes } from './ActionTypes';
 import { reduce as appReduce, initialState as appIS } from './reducers/app';
 
 const store = configureStore({
@@ -17,6 +18,10 @@ const store = configureStore({
 
 export type ApplicationState = ReturnType<typeof store.getState>;
 export type GetState = () => ApplicationState;
+export type Action<PayloadType> = {
+  type: ActionTypes;
+  payload: PayloadType;
+};
 
 export interface AppThunkAction<TAction, TResult = void> {
   (dispatch: (action: TAction) => void, getState: GetState):

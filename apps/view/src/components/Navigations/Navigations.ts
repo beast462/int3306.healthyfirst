@@ -1,10 +1,15 @@
-import { ListItemProps } from '@mui/material';
 import { ReactElement } from 'react';
 
 type Element = (props: unknown) => ReactElement;
+type TabProps = {
+  avatar: ReactElement;
+  label: string;
+  caption?: string;
+  childOf: string;
+};
 export type RegisterValue = {
   element: Element;
-  tabProps: ListItemProps;
+  tabProps: TabProps;
 };
 
 export class Navigations {
@@ -16,7 +21,7 @@ export class Navigations {
     this.register = new Map();
   }
 
-  public registerNavigation(path: string, props: ListItemProps) {
+  public registerNavigation(path: string, props: TabProps) {
     return (element: Element) => {
       this.register.set(path, {
         element,

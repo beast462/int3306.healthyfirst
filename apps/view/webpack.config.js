@@ -59,6 +59,9 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     modules: [join(__dirname, 'src'), join(__root, 'node_modules')],
+    alias: {
+      '@/view': resolve(__dirname, 'src'),
+    },
   },
   node: {
     __dirname: false,

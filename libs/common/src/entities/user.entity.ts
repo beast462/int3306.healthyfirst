@@ -1,7 +1,15 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { RoleEntity } from './role.entity';
 
-@Entity('users')
+export const TABLE_NAME = 'users';
+
+@Entity(TABLE_NAME)
 export class UserEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
@@ -21,8 +29,13 @@ export class UserEntity {
   @Column({ name: 'secret', type: 'varchar', length: 64 })
   secret!: string;
 
-  @Column({ name: 'role_id', type: 'int' })
-  @ManyToOne(() => RoleEntity, (privilege) => privilege.id)
+  @ManyToOne(() => RoleEntity, (role) => role.id, {
+    nullable: false,
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE',
+    eager: false,
+  })
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role!: RoleEntity;
 
   @Column({

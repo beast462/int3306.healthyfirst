@@ -28,11 +28,17 @@ export class UserService {
   ) {}
 
   public async getUserById(id: number): Promise<UserEntity> {
-    return await this.userRepository.findOneBy({ id });
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: ['role'],
+    });
   }
 
   public async getUserByUsername(username: string): Promise<UserEntity> {
-    return await this.userRepository.findOneBy({ username });
+    return await this.userRepository.findOne({
+      where: { username },
+      relations: ['role'],
+    });
   }
 
   private deleteChallengeCache(requestId: string): void {

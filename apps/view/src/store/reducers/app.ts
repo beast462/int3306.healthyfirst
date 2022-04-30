@@ -1,9 +1,11 @@
 import { AnyAction } from 'redux';
+import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
 
 type AppState = {
   /* dark = 1 | light = 0 */
   viewMode: number;
+  showMenu: boolean;
 };
 
 function getDefaultViewMode(): number {
@@ -20,6 +22,7 @@ function getDefaultViewMode(): number {
 
 export const initialState: AppState = {
   viewMode: getDefaultViewMode(),
+  showMenu: window.innerWidth > breakpoints.values.md,
 };
 
 export function reduce(

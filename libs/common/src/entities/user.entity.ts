@@ -7,7 +7,9 @@ import {
 } from 'typeorm';
 import { RoleEntity } from './role.entity';
 
-@Entity('users')
+export const TABLE_NAME = 'users';
+
+@Entity(TABLE_NAME)
 export class UserEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
@@ -31,8 +33,9 @@ export class UserEntity {
     nullable: false,
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE',
+    eager: false,
   })
-  @JoinColumn({ name: 'role_id' })
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role!: RoleEntity;
 
   @Column({

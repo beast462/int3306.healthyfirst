@@ -1,3 +1,4 @@
+import { PublicUser } from '@/common/models/public-user';
 import { AnyAction } from 'redux';
 import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
@@ -7,6 +8,7 @@ type AppState = {
   /* dark = 1 | light = 0 */
   viewMode: number;
   showMenu: boolean;
+  user: PublicUser;
 };
 
 function getDefaultViewMode(): number {
@@ -24,6 +26,7 @@ function getDefaultViewMode(): number {
 export const initialState: AppState = {
   viewMode: getDefaultViewMode(),
   showMenu: window.innerWidth > breakpoints.values.md,
+  user: null,
 };
 
 export function reduce(
@@ -33,6 +36,9 @@ export function reduce(
   switch (action.type) {
     case ActionTypes.APP__CHANGE_MENU_STATE:
       return { ...state, showMenu: action.payload };
+
+    case ActionTypes.APP__SET_USER:
+      return { ...state, user: action.payload };
 
     default:
       return state;

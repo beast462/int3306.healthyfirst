@@ -45,6 +45,7 @@ export class AuthGuardMiddleware implements NestMiddleware {
 
     const user = await this.userRepository.findOne({
       where: { id: userId },
+      relations: ['role'],
     });
 
     if (!user) {

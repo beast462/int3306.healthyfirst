@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
+import { ActionTypes } from '../ActionTypes';
 
 type AppState = {
   /* dark = 1 | light = 0 */
@@ -30,6 +31,9 @@ export function reduce(
   action: AnyAction,
 ): AppState {
   switch (action.type) {
+    case ActionTypes.APP__CHANGE_MENU_STATE:
+      return { ...state, showMenu: action.payload };
+
     default:
       return state;
   }

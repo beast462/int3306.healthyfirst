@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('md')]: {
       position: 'relative',
       height: '100%',
-      width: '260px',
     },
   },
   paper: {
@@ -78,9 +77,7 @@ function Menu({
   const navigations = useMemo(() => {
     const allMenu = Navigations.getInstance().getAllNavigations();
 
-    console.log(allMenu);
-
-    return allMenu;
+    return allMenu.filter((nav) => nav[1].tabProps);
   }, []);
 
   return (

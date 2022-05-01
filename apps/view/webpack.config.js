@@ -10,6 +10,7 @@ const dependencies = require('../../package.json').dependencies;
 const __root = resolve(__dirname, '..', '..');
 const isDev = process.argv.includes('--dev');
 const outDir = resolve(__dirname, tsConfig.compilerOptions.outDir);
+const commonLibDir = resolve(__root, 'libs', 'common', 'src');
 
 function getDep(name) {
   return dependencies[name].replace('^', '').trim();
@@ -58,9 +59,14 @@ const config = {
   entry: join(__dirname, 'src', 'index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
-    modules: [join(__dirname, 'src'), join(__root, 'node_modules')],
+    modules: [
+      join(__dirname, 'src'),
+      commonLibDir,
+      join(__root, 'node_modules'),
+    ],
     alias: {
       '@/view': resolve(__dirname, 'src'),
+      '@/common': commonLibDir,
     },
   },
   node: {
@@ -81,7 +87,35 @@ const config = {
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-typescript',
+              [
+                '@babel/preset-react',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+            ],
+            plugins: [
+              '@babel/plugin-transform-runtime',
+              '@babel/plugin-transform-typescript',
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-proposal-nullish-coalescing-operator',
+              '@babel/plugin-proposal-optional-chaining',
+              '@babel/plugin-transform-async-to-generator',
+              [
+                '@babel/plugin-transform-react-jsx',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+            ],
+          },
+        }
       },
       {
         test: /\.(png|jpg|gif|webp|woff|woff2)$/,
@@ -140,8 +174,8 @@ const devServer = {
   open: false,
   devMiddleware: {
     writeToDisk: true,
-  }
-}
+  },
+};
 
 if (isDev) {
   const portfinder = require('portfinder');

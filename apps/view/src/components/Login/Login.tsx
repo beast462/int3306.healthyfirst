@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
+import { Navigations } from '../Navigations';
 
 function Login(): ReactElement {
   return <>This is login</>;
 }
 
-export default Login;
+Navigations.getInstance().registerNavigation('/login', null)(Login);

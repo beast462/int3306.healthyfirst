@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@mui/material';
 import { connect, ConnectedProps } from 'react-redux';
 import { Route, Routes } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './components/NotFound/NotFound';
 import { ApplicationState } from './store';
@@ -33,17 +32,16 @@ function App({
   useEffect(() => {
     if (isLoading && storedUser) setUser(null);
     if (isError && storedUser) setUser(null);
-    setUser(user);
+
+    storedUser !== user && setUser(user);
   }, [isLoading, isError]);
 
   return (
     <ThemeProvider theme={themes[viewMode]}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="*" element={<Dashboard />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </ThemeProvider>
   );
 }

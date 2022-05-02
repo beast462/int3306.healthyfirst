@@ -16,50 +16,54 @@ function getDep(name) {
   return deps[name].replace('^', '').trim();
 }
 
-const dependencies = isDev ? [] : [
-  [
-    'lodash',
-    '_',
-    `https://unpkg.com/lodash@${getDep('lodash')}/lodash.min.js`,
-    'crossorigin="anonymous"',
-  ],
-  [
-    'react',
-    'React',
-    `https://unpkg.com/react@${getDep('react')}/umd/react.production.min.js`,
-    'crossorigin="anonymous"',
-  ],
-  [
-    'react-dom',
-    'ReactDOM',
-    `https://unpkg.com/react-dom@${getDep(
+const dependencies = isDev
+  ? []
+  : [
+    [
+      'lodash',
+      '_',
+      `https://unpkg.com/lodash@${getDep('lodash')}/lodash.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
+      'react',
+      'React',
+      `https://unpkg.com/react@${getDep(
+        'react',
+      )}/umd/react.production.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
       'react-dom',
-    )}/umd/react-dom.production.min.js`,
-    'crossorigin="anonymous"',
-  ],
-  [
-    'redux',
-    'Redux',
-    `https://unpkg.com/redux@${getDep('redux')}/dist/redux.min.js`,
-    'crossorigin="anonymous"',
-  ],
-  [
-    'react-redux',
-    'ReactRedux',
-    `https://unpkg.com/react-redux@${getDep(
+      'ReactDOM',
+      `https://unpkg.com/react-dom@${getDep(
+        'react-dom',
+      )}/umd/react-dom.production.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
+      'redux',
+      'Redux',
+      `https://unpkg.com/redux@${getDep('redux')}/dist/redux.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
       'react-redux',
-    )}/dist/react-redux.min.js`,
-    'crossorigin="anonymous"',
-  ],
-  [
-    'react-router',
-    'ReactRouter',
-    `https://unpkg.com/react-router@${getDep(
+      'ReactRedux',
+      `https://unpkg.com/react-redux@${getDep(
+        'react-redux',
+      )}/dist/react-redux.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
       'react-router',
-    )}/umd/react-router.production.min.js`,
-    'crossorigin="anonymous"',
-  ],
-];
+      'ReactRouter',
+      `https://unpkg.com/react-router@${getDep(
+        'react-router',
+      )}/umd/react-router.production.min.js`,
+      'crossorigin="anonymous"',
+    ],
+  ];
 
 const html = new HtmlWebpackPlugin({
   filename: 'index.html',
@@ -67,7 +71,7 @@ const html = new HtmlWebpackPlugin({
   inject: true,
   minify: !isDev,
   templateParameters: {
-    dependencies
+    dependencies,
   },
 });
 
@@ -83,6 +87,11 @@ const config = {
     alias: {
       '@/view': resolve(__dirname, 'src'),
       '@/common': commonLibDir,
+    },
+    fallback: {
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      'readable-stream': require.resolve('readable-stream'),
     },
   },
   node: {

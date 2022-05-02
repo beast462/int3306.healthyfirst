@@ -5,7 +5,7 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { join, resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const tsConfig = require('./tsconfig.app.json');
-const dependencies = require('../../package.json').dependencies;
+const deps = require('../../package.json').dependencies;
 
 const __root = resolve(__dirname, '..', '..');
 const isDev = process.argv.includes('--dev');
@@ -13,47 +13,63 @@ const outDir = resolve(__dirname, tsConfig.compilerOptions.outDir);
 const commonLibDir = resolve(__root, 'libs', 'common', 'src');
 
 function getDep(name) {
-  return dependencies[name].replace('^', '').trim();
+  return deps[name].replace('^', '').trim();
 }
 
-const prodDependencies = {
-  react: [
-    `https://unpkg.com/react@${getDep('react')}/umd/react.production.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
+const dependencies = isDev ? [] : [
+  [
+    'lodash',
+    '_',
+    `https://unpkg.com/lodash@${getDep('lodash')}/lodash.min.js`,
+    'crossorigin="anonymous"',
   ],
-  'react-dom': [
+  [
+    'react',
+    'React',
+    `https://unpkg.com/react@${getDep('react')}/umd/react.production.min.js`,
+    'crossorigin="anonymous"',
+  ],
+  [
+    'react-dom',
+    'ReactDOM',
     `https://unpkg.com/react-dom@${getDep(
       'react-dom',
     )}/umd/react-dom.production.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
+    'crossorigin="anonymous"',
   ],
-  redux: [
+  [
+    'redux',
+    'Redux',
     `https://unpkg.com/redux@${getDep('redux')}/dist/redux.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
+    'crossorigin="anonymous"',
   ],
-  'react-redux': [
+  [
+    'react-redux',
+    'ReactRedux',
     `https://unpkg.com/react-redux@${getDep(
       'react-redux',
     )}/dist/react-redux.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
+    'crossorigin="anonymous"',
   ],
-  'react-router': [
+  [
+    'react-router',
+    'ReactRouter',
     `https://unpkg.com/react-router@${getDep(
       'react-router',
     )}/umd/react-router.production.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
+    'crossorigin="anonymous"',
   ],
-};
+];
+
+const html = new HtmlWebpackPlugin({
+  filename: 'index.html',
+  template: join(__dirname, 'index.ejs'),
+  inject: true,
+  minify: !isDev,
+  templateParameters: {
+    dependencies
+  },
+});
 
 const config = {
   entry: join(__dirname, 'src', 'index.tsx'),
@@ -115,7 +131,7 @@ const config = {
               ],
             ],
           },
-        }
+        },
       },
       {
         test: /\.(png|jpg|gif|webp|woff|woff2)$/,
@@ -132,7 +148,9 @@ const config = {
     ],
   },
   externalsType: 'script',
-  externals: isDev ? {} : prodDependencies,
+  externals: Object.fromEntries(
+    dependencies.map((dep) => [dep[0], 'root ' + dep[1]]),
+  ),
   optimization: {
     minimize: !isDev,
     minimizer: [
@@ -150,11 +168,7 @@ const config = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: join(__dirname, 'index.html'),
-      inject: true,
-    }),
+    html,
     new CopyPlugin({
       patterns: [
         {

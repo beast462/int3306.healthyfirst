@@ -12,7 +12,9 @@ async function fetchUser(url) {
 }
 
 export function useUser() {
-  const { data, error } = useSWR('/api/user/me', fetchUser);
+  const { data, error } = useSWR('/api/user/me', fetchUser, {
+    revalidateOnFocus: false,
+  });
 
   return {
     user: data,

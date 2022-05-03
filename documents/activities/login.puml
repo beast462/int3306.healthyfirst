@@ -1,0 +1,26 @@
+@startuml LoginActivity
+start
+:user sends username;
+:server checks user's existence;
+if (user does not exist?) then (yes)
+    :server sends 404 error;
+    stop
+endif
+:server generates random question;
+:server calculates answer using user's stored password
+and stores answer with user's request's id;
+:server sends question to user;
+:user calculates answer using
+user's password in form;
+:user sends answer to server;
+:server checks answer;
+if (answer is incorrect?) then (yes)
+    :server sends 406 error;
+    stop
+endif
+
+:server generates access token;
+:server sends access token to user's cookie;
+
+stop
+@enduml

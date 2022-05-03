@@ -1,6 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('roles')
+export const TABLE_NAME = 'roles';
+
+@Entity(TABLE_NAME)
 export class RoleEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;

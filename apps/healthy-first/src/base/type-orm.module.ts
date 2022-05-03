@@ -1,3 +1,4 @@
+import { Environments } from '@/common/constants/environments';
 import { Entities } from '@/common/entities';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -18,7 +19,8 @@ export default TypeOrmModule.forRootAsync({
     database: configService.get<string>(ConfigKeys.DATABASE_NAME),
     entities: Entities,
     synchronize:
-      configService.get<string>(ConfigKeys.ENVIRONMENT) === 'development',
+      configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
+      Environments.DEVELOPMENT,
     autoLoadEntities: true,
   }),
 });

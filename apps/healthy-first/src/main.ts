@@ -9,9 +9,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
-  app.use(cookieParser());
 
   const configService = app.get(ConfigService);
+
+  const secret = configService.get<string>(ConfigKeys.COOKIE_SECRET);
+  app.use(cookieParser(secret));
 
   await app.listen(configService.get<number>(ConfigKeys.SERVER_PORT));
 }

@@ -18,9 +18,12 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "jsx": "react-jsx",
+    "esModuleInterop": false,
     "paths": {
       "@/common": ["libs/common/src"],
-      "@/common/*": ["libs/common/src/*"]
+      "@/common/*": ["libs/common/src/*"],
+      "@/view": ["apps/view/src"],
+      "@/view/*": ["apps/view/src/*"]
     }
   }
 }

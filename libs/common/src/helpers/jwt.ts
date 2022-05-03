@@ -32,14 +32,14 @@ export function sign(
 
 export function decode<T>(
   token: string,
-  decodeOptions?: DecodeOptions & { complete: true },
+  decodeOptions?: DecodeOptions & { complete: boolean },
 ): Promise<T | CompleteJwt<T>> {
   return new Promise((resolve, reject) => {
     const decoded = _decode(token, decodeOptions);
 
     if (decoded === null) return reject(new Error('Invalid token'));
 
-    if (decodeOptions.complete) {
+    if (decodeOptions?.complete) {
       const { header, payload, signature } = decoded as CompleteJwt<T>;
       resolve({ header, payload, signature });
     } else {

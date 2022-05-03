@@ -4,10 +4,12 @@ import { sign } from '@/common/helpers/jwt';
 import { randomString } from '@/common/helpers/random-string';
 import { byMinutes } from '@/common/helpers/timespan';
 import { LoginChallenge } from '@/common/models/login-challenge';
+import { PublicUser } from '@/common/models/public-user';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes } from 'crypto';
 import { Repository } from 'typeorm';
+import { omit } from 'lodash';
 
 export enum AnswerValidationErrors {
   NOT_FOUND = 0,
@@ -26,11 +28,17 @@ export class UserService {
   ) {}
 
   public async getUserById(id: number): Promise<UserEntity> {
-    return await this.userRepository.findOneBy({ id });
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: ['role'],
+    });
   }
 
   public async getUserByUsername(username: string): Promise<UserEntity> {
-    return await this.userRepository.findOneBy({ username });
+    return await this.userRepository.findOne({
+      where: { username },
+      relations: ['role'],
+    });
   }
 
   private deleteChallengeCache(requestId: string): void {
@@ -99,5 +107,9 @@ export class UserService {
     }
 
     return AnswerValidationErrors.INVALID;
+  }
+
+  public reduceUser(user: UserEntity): PublicUser {
+    return omit(user, 'secret', 'password');
   }
 }

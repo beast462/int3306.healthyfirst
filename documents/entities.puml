@@ -45,12 +45,20 @@ entity CheckingPlan {
 
 entity CheckingActivity {
     int id;
+    CheckingPlan plan;
+    Date checked_at;
+    Date end_at;
+    User inspector;
+    Purpose inspectionActivity;
+    boolean passed;
 }
 
 entity FoodSample {
     int id;
     int name;
-    DateTime picked_at;
+    CheckingActivity activity;
+    Date picked_at;
+    Date receive_at;
     double amount;
     Facility facility;
     String examiner;
@@ -69,10 +77,16 @@ entity FoodSampleCriteria {
 
 entity Violation {
     int id;
+    String description;
 }
 
 entity InspectionUnit {
     int id;
+    String address;
+    String email;
+    String phone;
+    String website;
+    String fax;
 }
 
 entity Role {
@@ -96,6 +110,17 @@ entity User {
 entity ResponsibleArea {
     int id;
     User user;
+    Location responsible_location;
+}
+
+entity Purpose {
+    int id;
+    String name;
+}
+
+entity FacilityType {
+    int id;
+    String name;
 }
 
 Facility ||--|| Certificate
@@ -106,5 +131,11 @@ CheckingPlan }|--|| Facility
 CheckingActivity }|--|| CheckingPlan
 User }|--|| Role
 ResponsibleArea }|--|| User
+CheckingActivity }|--|| Violation
+FoodSample }|--|| CheckingActivity
+InspectionUnit ||--|| FoodSample
+CheckingActivity }|--|| User
+CheckingActivity ||--|| Purpose
+FacilityType ||--|| Facility
 
 @enduml

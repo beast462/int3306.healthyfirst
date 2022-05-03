@@ -5,60 +5,94 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { join, resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const tsConfig = require('./tsconfig.app.json');
-const dependencies = require('../../package.json').dependencies;
+const deps = require('../../package.json').dependencies;
 
 const __root = resolve(__dirname, '..', '..');
 const isDev = process.argv.includes('--dev');
 const outDir = resolve(__dirname, tsConfig.compilerOptions.outDir);
+const commonLibDir = resolve(__root, 'libs', 'common', 'src');
 
 function getDep(name) {
-  return dependencies[name].replace('^', '').trim();
+  return deps[name].replace('^', '').trim();
 }
 
-const prodDependencies = {
-  react: [
-    `https://unpkg.com/react@${getDep('react')}/umd/react.production.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
-  ],
-  'react-dom': [
-    `https://unpkg.com/react-dom@${getDep(
+const dependencies = isDev
+  ? []
+  : [
+    [
+      'lodash',
+      '_',
+      `https://unpkg.com/lodash@${getDep('lodash')}/lodash.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
+      'react',
+      'React',
+      `https://unpkg.com/react@${getDep(
+        'react',
+      )}/umd/react.production.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
       'react-dom',
-    )}/umd/react-dom.production.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
-  ],
-  redux: [
-    `https://unpkg.com/redux@${getDep('redux')}/dist/redux.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
-  ],
-  'react-redux': [
-    `https://unpkg.com/react-redux@${getDep(
+      'ReactDOM',
+      `https://unpkg.com/react-dom@${getDep(
+        'react-dom',
+      )}/umd/react-dom.production.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
+      'redux',
+      'Redux',
+      `https://unpkg.com/redux@${getDep('redux')}/dist/redux.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
       'react-redux',
-    )}/dist/react-redux.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
-  ],
-  'react-router': [
-    `https://unpkg.com/react-router@${getDep(
+      'ReactRedux',
+      `https://unpkg.com/react-redux@${getDep(
+        'react-redux',
+      )}/dist/react-redux.min.js`,
+      'crossorigin="anonymous"',
+    ],
+    [
       'react-router',
-    )}/umd/react-router.production.min.js`,
-    'global',
-    'crossorigin',
-    'anonymous',
-  ],
-};
+      'ReactRouter',
+      `https://unpkg.com/react-router@${getDep(
+        'react-router',
+      )}/umd/react-router.production.min.js`,
+      'crossorigin="anonymous"',
+    ],
+  ];
+
+const html = new HtmlWebpackPlugin({
+  filename: 'index.html',
+  template: join(__dirname, 'index.ejs'),
+  inject: true,
+  minify: !isDev,
+  templateParameters: {
+    dependencies,
+  },
+});
 
 const config = {
   entry: join(__dirname, 'src', 'index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
-    modules: [join(__dirname, 'src'), join(__root, 'node_modules')],
+    modules: [
+      join(__dirname, 'src'),
+      commonLibDir,
+      join(__root, 'node_modules'),
+    ],
+    alias: {
+      '@/view': resolve(__dirname, 'src'),
+      '@/common': commonLibDir,
+    },
+    fallback: {
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      'readable-stream': require.resolve('readable-stream'),
+    },
   },
   node: {
     __dirname: false,
@@ -78,7 +112,35 @@ const config = {
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-typescript',
+              [
+                '@babel/preset-react',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+            ],
+            plugins: [
+              '@babel/plugin-transform-runtime',
+              '@babel/plugin-transform-typescript',
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-proposal-nullish-coalescing-operator',
+              '@babel/plugin-proposal-optional-chaining',
+              '@babel/plugin-transform-async-to-generator',
+              [
+                '@babel/plugin-transform-react-jsx',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+            ],
+          },
+        },
       },
       {
         test: /\.(png|jpg|gif|webp|woff|woff2)$/,
@@ -95,7 +157,9 @@ const config = {
     ],
   },
   externalsType: 'script',
-  externals: isDev ? {} : prodDependencies,
+  externals: Object.fromEntries(
+    dependencies.map((dep) => [dep[0], 'root ' + dep[1]]),
+  ),
   optimization: {
     minimize: !isDev,
     minimizer: [
@@ -113,11 +177,7 @@ const config = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: join(__dirname, 'index.html'),
-      inject: true,
-    }),
+    html,
     new CopyPlugin({
       patterns: [
         {
@@ -137,8 +197,8 @@ const devServer = {
   open: false,
   devMiddleware: {
     writeToDisk: true,
-  }
-}
+  },
+};
 
 if (isDev) {
   const portfinder = require('portfinder');

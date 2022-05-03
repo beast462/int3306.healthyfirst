@@ -4,6 +4,7 @@ import { Cookies } from '@/common/decorators/cookies';
 import { CurrentUser } from '@/common/decorators/current-user';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { GetQuestionQueryDTO } from '@/common/dto/user/get-question.query.dto';
+import { GetQuestionResDto } from '@/common/dto/user/get-question.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
 import { UserEntity } from '@/common/entities';
@@ -40,14 +41,18 @@ export class UserController {
   public async getQuestion(
     @Cookies(CookieEntries.REQUEST_ID) rid: string,
     @Query() { username }: GetQuestionQueryDTO,
-  ): Promise<ResponseDTO<string>> {
+  ): Promise<ResponseDTO<GetQuestionResDto>> {
     const user = await this.userService.getUserByUsername(username);
 
     if (!user) throw new NotFoundException('Username not found');
 
     const { question } = await this.userService.generateChallenge(rid, user);
 
-    return new ResponseDTO(HttpStatus.OK, [], question);
+    return new ResponseDTO(HttpStatus.OK, [], {
+      question,
+      displayName: user.displayName,
+      role: user.role.name,
+    });
   }
 
   @Post('/login')

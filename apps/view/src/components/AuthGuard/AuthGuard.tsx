@@ -1,23 +1,18 @@
 import { ReactElement } from 'react';
+import { Navigate, useLocation } from 'react-router';
 import { useUser } from '../../hooks/useUser';
 
-interface IProps {
-  children?: ReactElement | ReactElement[];
-  userShouldExist: boolean;
-  fallback: ReactElement;
-}
+function AuthGuard(): ReactElement {
+  const { user, isLoading, error } = useUser();
+  const location = useLocation();
 
-function AuthGuard({
-  children,
-  userShouldExist,
-  fallback,
-}: IProps): ReactElement {
-  const { user } = useUser();
+  if (!isLoading && error && !location.pathname.match(/^\/login(\/)?$/))
+    return <Navigate to="/login" />;
 
-  if (userShouldExist && !user) return fallback;
-  if (!userShouldExist && user) return fallback;
+  if (!isLoading && !error && user && location.pathname.match(/^\/login(\/)?$/))
+    return <Navigate to="/" />;
 
-  return <>{children}</>;
+  return null;
 }
 
 export default AuthGuard;

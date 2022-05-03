@@ -6,40 +6,30 @@ import NotFound from './components/NotFound/NotFound';
 import { ApplicationState } from './store';
 import { theme as lightTheme } from './theme.light';
 import { theme as darkTheme } from './theme.dark';
-import { useUser } from './hooks/useUser';
-import { setUser as _setUser } from './store/actions/app/setUser';
-import { useEffect } from 'react';
+import AuthGuard from './components/AuthGuard/AuthGuard';
 
 const themes = [lightTheme, darkTheme];
 
 const connector = connect(
   (state: ApplicationState) => ({
     viewMode: state.app.viewMode,
-    storedUser: state.app.user,
   }),
-  {
-    setUser: _setUser,
-  },
+  {},
 );
 
-function App({
-  viewMode,
-  storedUser,
-  setUser,
-}: ConnectedProps<typeof connector>) {
-  const { user, isLoading, isError } = useUser();
-
-  useEffect(() => {
-    if (isLoading && storedUser) setUser(null);
-    if (isError && storedUser) setUser(null);
-
-    storedUser !== user && setUser(user);
-  }, [isLoading, isError]);
-
+function App({ viewMode }: ConnectedProps<typeof connector>) {
   return (
     <ThemeProvider theme={themes[viewMode]}>
       <Routes>
-        <Route path="*" element={<Dashboard />} />
+        <Route
+          path="*"
+          element={
+            <>
+              <AuthGuard />
+              <Dashboard />
+            </>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </ThemeProvider>

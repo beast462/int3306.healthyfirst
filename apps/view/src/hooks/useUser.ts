@@ -1,24 +1,33 @@
+import { PublicUser } from '@/common/models/public-user';
+import { SerializableError } from '@/common/models/serializable-error';
 import { HttpStatus } from '@nestjs/common/enums';
 import useSWR from 'swr';
 
-async function fetchUser(url) {
+async function fetchUser(url): Promise<PublicUser> {
   const { statusCode, message, body } = await fetch(url).then((res) =>
     res.json(),
   );
 
-  if (statusCode !== HttpStatus.OK) throw new Error(message);
+  if (statusCode !== HttpStatus.OK) {
+    const error = new SerializableError(new Error(message));
+    throw error;
+  }
 
   return body;
 }
 
 export function useUser() {
-  const { data, error } = useSWR('/api/user/me', fetchUser, {
+  const { data, error } = useSWR<PublicUser, Error>('/api/user/me', fetchUser, {
     revalidateOnFocus: false,
   });
+
+  const isError =
+    error &&
+    (error instanceof Error || SerializableError.isSerializableError(error));
 
   return {
     user: data,
     isLoading: !error && !data,
-    isError: error,
+    error: isError ? error : null,
   };
 }

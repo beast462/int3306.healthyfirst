@@ -1,65 +1,67 @@
 @startuml Features
 
-actor :Chuyên viên: as cv
-actor :Chủ cơ sỏ: as ccs
-actor :Người quản lý: as ngl
+:User: --> Roles
 
-rectangle "Tra cứu thông tin về cơ sở" {
-    usecase "Tra cứu giấy chứng nhận" as ccs_UC1
-    usecase "Tra cứu kết quả kiểm tra" as ccs_UC3
-    usecase "Yêu cầu cấp giấy chứng nhận" as ccs_UC2
-    usecase "In giấy chứng nhận" as ccs_UC4
-
-}
-ccs --> ccs_UC1
-ccs --> ccs_UC2
-ccs --> ccs_UC3
-ccs --> ccs_UC4
-
-rectangle "Quản lý giấy chứng nhận cơ sở" {
-    usecase "Cấp giấy chứng nhận" as cv_UC1
-    usecase "Thu hồi giấy chứng nhận" as cv_UC2
-    usecase "In giấy chứng nhận" as cv_UC3
+package Roles {
+    actor Specialist as role_sp
+    actor Manager as role_mng
+    actor Admin as role_adm
 }
 
-rectangle "Quản lý kết quả thanh kiểm tra" {
-    usecase "Tạo kế hoạch kiểm tra" as cv_UC4
+package UserController {
+    usecase "Login @ /api/user/login" as uc_login
+    usecase "Get account @ /api/user/(:userId|me)" as uc_getProfile
+    usecase "Update account @ /api/user/(:userId|me)" as uc_updateProfile
+    usecase "Get accounts @ /api/user" as uc_getAccounts
+    usecase "Disable account @ /api/user/(:userId|me)" as uc_disableAccount
 }
 
-rectangle "Quản lý cơ sở kinh doanh" {
-    usecase "Thêm cơ sở" as cv_UC5
-    usecase "Xóa cơ sở" as cv_UC6
-    usecase "Điều chỉnh thông tin cơ sở" as cv_UC7
+package FacilityController {
+    usecase "Create facility @ /api/facility" as fc_createFacility
+    usecase "Get facilities @ /api/facility" as fc_getFacilities
+    usecase "Update facility @ /api/facility/:facilityId" as fc_updateFacility
+    usecase "Disable facility @ /api/facility/:facilityId" as fc_disableFacility
 }
 
-rectangle "Quản lý mẫu thực phẩm" {
-    usecase "Tra cứu kết quả mẫu" as cv_UC8
-    usecase "Điều chỉnh kết quả mẫu" as cv_UC9
-    usecase "Xóa kết quả mẫu" as cv_UC10
-}
-cv --> cv_UC1
-cv --> cv_UC2
-cv --> cv_UC3
-cv --> cv_UC4
-cv --> cv_UC6
-cv --> cv_UC7
-cv --> cv_UC8
-cv --> cv_UC9
-cv --> cv_UC10
-
-rectangle "Quản lý người dùng" {
-    usecase "Phân quyền tài khoản" as ngl_UC1
-    usecase "Thêm người dùng" as ngl_UC2
-    usecase "Điều chỉnh thông tin người dùng" as ngl_UC3
+package CertificateController {
+    usecase "Get certificates @ /api/certificate" as cc_getCertificates
+    usecase "Create certificate @ /api/certificate" as cc_createCertificate
+    usecase "Revoke certificate @ /api/certificate/:certificateId" as cc_revokeCertificate
 }
 
-ngl --> cv_UC1
-ngl --> cv_UC2
-ngl --> cv_UC3
-ngl --> cv_UC4
-ngl --> cv_UC4
-ngl --> ngl_UC1
-ngl --> ngl_UC2
-ngl --> ngl_UC3
+package InspectationModule {
+    package PlanController {
+        usecase "Create plan @ /api/plan" as pc_createPlan
+    }
+
+    package ActivityController {
+        usecase "Create activity @ /api/activity" as ac_createActivity
+    }
+
+    package ResultController {
+        usecase "Create result @ /api/result" as rc_createResult
+        usecase "Get result @ /api/result" as rc_getResult
+    }
+}
+
+:User: --> uc_login
+:User: --> uc_getProfile
+:User: --> uc_updateProfile
+role_adm --> uc_getAccounts : Get everyone's\naccounts
+role_mng --> uc_getAccounts : Get specialists'\naccounts
+role_mng --> fc_createFacility
+role_mng --> fc_getFacilities
+role_mng --> fc_updateFacility
+role_mng --> fc_disableFacility
+role_sp --> fc_getFacilities
+role_sp --> ac_createActivity
+role_sp --> cc_createCertificate
+role_sp --> cc_revokeCertificate
+role_sp --> rc_createResult
+
+:User: --> rc_getResult
+
+:FacilityOwner: --> cc_getCertificates
+:FacilityOwner: --> rc_getResult
 
 @enduml

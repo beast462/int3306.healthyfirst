@@ -1,3 +1,5 @@
+import { Response } from 'express';
+
 import { CookieEntries } from '@/common/constants/cookie-entries';
 import { Environments } from '@/common/constants/environments';
 import { Cookies } from '@/common/decorators/cookies';
@@ -15,7 +17,6 @@ import {
   Body,
   Controller,
   Get,
-  GoneException,
   HttpStatus,
   NotAcceptableException,
   NotFoundException,
@@ -26,7 +27,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
+
 import { ConfigKeys } from '../base/config.module';
 import { AnswerValidationErrors, UserService } from './user.service';
 
@@ -61,7 +62,7 @@ export class UserController {
     @Res({ passthrough: true }) res: Response,
     @Body() { answer }: LoginBodyDTO,
   ): Promise<ResponseDTO<void>> {
-    const validation = this.userService.validateAnswer(rid, answer);
+    const validation = await this.userService.validateAnswer(rid, answer);
 
     if (typeof validation === 'string') {
       res.cookie(CookieEntries.AUTH_TOKEN, validation, {
@@ -79,9 +80,6 @@ export class UserController {
     switch (validation) {
       case AnswerValidationErrors.NOT_FOUND:
         throw new NotFoundException('Challenge not found');
-
-      case AnswerValidationErrors.EXPIRED:
-        throw new GoneException('Challenge expired');
 
       case AnswerValidationErrors.INVALID:
         throw new NotAcceptableException('Invalid or wrong answer');

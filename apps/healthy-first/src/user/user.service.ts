@@ -1,30 +1,29 @@
+import { Cache } from 'cache-manager';
+import { randomBytes } from 'crypto';
+import { omit } from 'lodash';
+import { Repository } from 'typeorm';
+
 import { UserEntity } from '@/common/entities';
 import { generateAnswer } from '@/common/helpers/generate-answer';
 import { sign } from '@/common/helpers/jwt';
 import { randomString } from '@/common/helpers/random-string';
-import { byMinutes } from '@/common/helpers/timespan';
 import { LoginChallenge } from '@/common/models/login-challenge';
 import { PublicUser } from '@/common/models/public-user';
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { randomBytes } from 'crypto';
-import { Repository } from 'typeorm';
-import { omit } from 'lodash';
 
 export enum AnswerValidationErrors {
   NOT_FOUND = 0,
-  EXPIRED = 1,
   INVALID = 2,
 }
 
 @Injectable()
 export class UserService {
-  private static readonly challengeCache: Map<string, LoginChallenge> =
-    new Map();
-
   public constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
   ) {}
 
   public async getUserById(id: number): Promise<UserEntity> {
@@ -41,15 +40,6 @@ export class UserService {
     });
   }
 
-  private deleteChallengeCache(requestId: string): void {
-    const cachedChallenge = UserService.challengeCache.get(requestId);
-
-    if (cachedChallenge) {
-      clearTimeout(cachedChallenge.removalTask);
-      UserService.challengeCache.delete(requestId);
-    }
-  }
-
   public async generateChallenge(
     requestId: string,
     user: UserEntity,
@@ -58,51 +48,34 @@ export class UserService {
       requestId,
       question: '',
       answer: '',
-      expires: new Date(Date.now() + byMinutes(5)),
       presignedToken: await sign(
         {
           userId: user.id,
-          level: user.role.level,
+          level: user.role,
         },
         user.secret,
         { expiresIn: '1h' },
       ),
-      removalTask: null,
     };
-
-    challenge.removalTask = setTimeout(() => {
-      const cachedChallenge = UserService.challengeCache.get(requestId);
-
-      if (+cachedChallenge.expires < Date.now())
-        UserService.challengeCache.delete(requestId);
-    }, byMinutes(5));
-
-    if (UserService.challengeCache.has(requestId))
-      this.deleteChallengeCache(requestId);
 
     challenge.question = randomString(64, randomBytes(32).toString('utf-8'));
     challenge.answer = generateAnswer(challenge.question, user.password);
 
-    UserService.challengeCache.set(requestId, challenge);
+    this.cacheManager.set(requestId, challenge);
 
     return { ...challenge };
   }
 
-  public validateAnswer(
+  public async validateAnswer(
     requestId: string,
     answer: string,
-  ): AnswerValidationErrors | string {
-    const challenge = UserService.challengeCache.get(requestId);
+  ): Promise<AnswerValidationErrors | string> {
+    const challenge = await this.cacheManager.get<LoginChallenge>(requestId);
 
     if (!challenge) return AnswerValidationErrors.NOT_FOUND;
 
-    if (+challenge.expires < Date.now()) {
-      this.deleteChallengeCache(requestId);
-      return AnswerValidationErrors.EXPIRED;
-    }
-
     if (challenge.answer === answer) {
-      this.deleteChallengeCache(requestId);
+      this.cacheManager.del(requestId);
       return challenge.presignedToken;
     }
 

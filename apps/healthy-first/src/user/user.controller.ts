@@ -18,6 +18,7 @@ import {
   Controller,
   ForbiddenException,
   Get,
+  HttpCode,
   HttpStatus,
   NotAcceptableException,
   NotFoundException,
@@ -61,6 +62,7 @@ export class UserController {
     });
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('/login')
   public async login(
     @Cookies(CookieEntries.REQUEST_ID) rid: string,
@@ -89,6 +91,16 @@ export class UserController {
       case AnswerValidationErrors.INVALID:
         throw new NotAcceptableException('Invalid or wrong answer');
     }
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('/logout')
+  public async logout(
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<ResponseDTO<void>> {
+    res.clearCookie(CookieEntries.AUTH_TOKEN);
+
+    return new ResponseDTO(HttpStatus.OK, []);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

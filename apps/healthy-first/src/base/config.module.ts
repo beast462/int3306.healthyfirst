@@ -63,8 +63,8 @@ function load(): Schema {
     email: {
       host: process.env.EMAIL_HOST,
       port: Number(process.env.EMAIL_PORT),
-      username: process.env.EMAIL_USER,
-      password: process.env.EMAIL_PASS,
+      username: process.env.EMAIL_USERNAME,
+      password: process.env.EMAIL_PASSWORD,
     },
   };
 }

@@ -11,10 +11,10 @@ import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
 import { UserEntity } from '@/common/entities';
 import { byHours } from '@/common/helpers/timespan';
-import { PublicUser } from '@/common/models/public-user';
 import {
   BadRequestException,
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpStatus,
@@ -25,6 +25,7 @@ import {
   Query,
   Res,
   UnauthorizedException,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -86,22 +87,18 @@ export class UserController {
     }
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:userId')
   public async getUser(
     @Param() { userId: _userId }: GetUserParamDTO,
     @CurrentUser() user: UserEntity,
-  ): Promise<ResponseDTO<PublicUser>> {
+  ): Promise<ResponseDTO<UserEntity>> {
     if (!user)
       throw new UnauthorizedException(
         'This action requires authenticated access',
       );
 
-    if (_userId === 'me')
-      return new ResponseDTO(
-        HttpStatus.OK,
-        [],
-        this.userService.reduceUser(user),
-      );
+    if (_userId === 'me') return new ResponseDTO(HttpStatus.OK, [], user);
 
     if (_userId.match(/\D/))
       throw new BadRequestException([
@@ -115,7 +112,7 @@ export class UserController {
     return new ResponseDTO(
       HttpStatus.OK,
       [],
-      this.userService.reduceUser(await this.userService.getUserById(userId)),
+      await this.userService.getUserById(userId),
     );
   }
 }

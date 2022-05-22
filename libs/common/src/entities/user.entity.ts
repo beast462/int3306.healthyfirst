@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   Column,
   Entity,
@@ -24,9 +25,11 @@ export class UserEntity {
   email!: string;
 
   @Column({ name: 'password', type: 'varchar', length: 64 })
+  @Exclude()
   password!: string;
 
   @Column({ name: 'secret', type: 'varchar', length: 64 })
+  @Exclude()
   secret!: string;
 
   @ManyToOne(() => RoleEntity, (role) => role.id, {

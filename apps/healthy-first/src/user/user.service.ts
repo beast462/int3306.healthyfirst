@@ -1,6 +1,5 @@
 import { Cache } from 'cache-manager';
 import { randomBytes } from 'crypto';
-import { omit } from 'lodash';
 import { Repository } from 'typeorm';
 
 import { UserEntity } from '@/common/entities';
@@ -8,7 +7,6 @@ import { generateAnswer } from '@/common/helpers/generate-answer';
 import { sign } from '@/common/helpers/jwt';
 import { randomString } from '@/common/helpers/random-string';
 import { LoginChallenge } from '@/common/models/login-challenge';
-import { PublicUser } from '@/common/models/public-user';
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -80,9 +78,5 @@ export class UserService {
     }
 
     return AnswerValidationErrors.INVALID;
-  }
-
-  public reduceUser(user: UserEntity): PublicUser {
-    return omit(user, 'secret', 'password');
   }
 }

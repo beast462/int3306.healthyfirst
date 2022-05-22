@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { AuthGuardModule } from './auth-guard/auth-guard.module';
 import configModule, { ConfigKeys } from './base/config.module';
 import typeOrmModule from './base/type-orm.module';
+import { MailModule } from './mail/mail.module';
 import { PingController } from './ping/ping.controller';
 import { RequestIdentifierModule } from './request-identifier/request-identifier.module';
 import { UserModule } from './user/user.module';
@@ -17,6 +18,7 @@ import { ViewModule } from './view/view.module';
     UserModule,
     RequestIdentifierModule,
     AuthGuardModule,
+    MailModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

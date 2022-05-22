@@ -16,6 +16,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  ForbiddenException,
   Get,
   HttpStatus,
   NotAcceptableException,
@@ -30,12 +31,15 @@ import {
 import { ConfigService } from '@nestjs/config';
 
 import { ConfigKeys } from '../base/config.module';
+import { RoleService } from './role.service';
 import { AnswerValidationErrors, UserService } from './user.service';
+import { CreateUserBodyDTO } from '@/common/dto/user/create-user.body.dto';
 
 @Controller('/api/user')
 export class UserController {
   public constructor(
     private readonly userService: UserService,
+    private readonly roleService: RoleService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -114,5 +118,28 @@ export class UserController {
       [],
       await this.userService.getUserById(userId),
     );
+  }
+
+  @Post()
+  public async createUser(
+    @CurrentUser() user: UserEntity,
+    @Body()
+    { username, displayName, email, role: roleId }: CreateUserBodyDTO,
+  ): Promise<ResponseDTO<UserEntity>> {
+    const role = await this.roleService.getRoleById(roleId);
+
+    if (!role) throw new NotFoundException('role not found');
+
+    if (role.level <= user.role.level)
+      throw new ForbiddenException('user can only create lower level users');
+
+    const newUser = await this.userService.createUser(
+      username,
+      displayName,
+      email,
+      role,
+    );
+
+    return new ResponseDTO(HttpStatus.CREATED, [], newUser);
   }
 }

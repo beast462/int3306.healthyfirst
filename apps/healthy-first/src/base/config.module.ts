@@ -1,9 +1,11 @@
-import { Environments } from '@/common/constants/environments';
-import { ConfigModule } from '@nestjs/config';
 import { randomBytes } from 'crypto';
 import { existsSync, readFileSync, statSync, writeFileSync } from 'fs';
 import * as Joi from 'joi';
 import { join } from 'path';
+
+import { Environments } from '@/common/constants/environments';
+import { ConfigModule } from '@nestjs/config';
+
 import { SupportedDatabaseTypes } from './type-orm.module';
 
 export type Schema = {
@@ -19,6 +21,12 @@ export type Schema = {
     username: string;
     password: string;
     name: string;
+  };
+  email: {
+    host: string;
+    port: number;
+    username: string;
+    password: string;
   };
 };
 
@@ -52,6 +60,12 @@ function load(): Schema {
       password: process.env.DB_PASS,
       name: process.env.DB_NAME,
     },
+    email: {
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      username: process.env.EMAIL_USER,
+      password: process.env.EMAIL_PASS,
+    },
   };
 }
 
@@ -70,6 +84,10 @@ const schema = Joi.object({
   DB_USER: Joi.string().required(),
   DB_PASS: Joi.string().required(),
   DB_NAME: Joi.string().required(),
+  EMAIL_USERNAME: Joi.string().required(),
+  EMAIL_PASSWORD: Joi.string().required(),
+  EMAIL_HOST: Joi.string().domain().required(),
+  EMAIL_PORT: Joi.number().min(1).max(65535).required(),
 });
 
 export enum ConfigKeys {
@@ -82,6 +100,10 @@ export enum ConfigKeys {
   DATABASE_USERNAME = 'database.username',
   DATABASE_PASSWORD = 'database.password',
   DATABASE_NAME = 'database.name',
+  EMAIL_USERNAME = 'email.username',
+  EMAIL_PASSWORD = 'email.password',
+  EMAIL_HOST = 'email.host',
+  EMAIL_PORT = 'email.port',
 }
 
 export default ConfigModule.forRoot({

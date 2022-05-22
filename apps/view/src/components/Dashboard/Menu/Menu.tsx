@@ -14,6 +14,7 @@ import { ReactElement, useMemo } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useBreakpoints } from '@/view/hooks/useBreakpoints';
 import { Navigations } from '../../Navigations';
+import { Link } from 'react-router-dom';
 
 export const menuFullWidth = 260;
 
@@ -80,6 +81,10 @@ function Menu({
     return allMenu.filter((nav) => nav[1].tabProps);
   }, []);
 
+  navigations.map((nav) => {
+    console.log(nav);
+  });
+
   return (
     <Drawer
       anchor="left"
@@ -91,7 +96,11 @@ function Menu({
     >
       <List>
         {navigations.map((nav) => (
-          <ListItemButton key={`nav.menu@${nav[0]}`}>
+          <ListItemButton
+            key={`nav.menu@${nav[0]}`}
+            component={Link}
+            to={`${nav[0]}`}
+          >
             <ListItemAvatar>{nav[1].tabProps.avatar}</ListItemAvatar>
             <ListItemText
               primary={nav[1].tabProps.label}

@@ -14,7 +14,7 @@ function getDefaultViewMode(): number {
   let result: number;
 
   if (!['1', '0'].includes(savedPref)) result = 0;
-  else result = -(-savedPref);
+  else result = ~~savedPref;
 
   localStorage.setItem(LSEntries.VIEW_MODE, result.toString());
 

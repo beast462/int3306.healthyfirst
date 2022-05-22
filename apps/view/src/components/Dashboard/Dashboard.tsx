@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 
 import '../Overview';
 import '../Login';
+import '../AccountManagement';
 import Contents from './Contents/Contents';
 import Header from './Header/Header';
 import Menu from './Menu/Menu';

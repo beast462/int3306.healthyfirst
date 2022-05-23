@@ -5,12 +5,14 @@ import { Environments } from '@/common/constants/environments';
 import { Cookies } from '@/common/decorators/cookies';
 import { CurrentUser } from '@/common/decorators/current-user';
 import { ResponseDTO } from '@/common/dto/response.dto';
+import { CreateUserBodyDTO } from '@/common/dto/user/create-user.body.dto';
 import { GetQuestionQueryDTO } from '@/common/dto/user/get-question.query.dto';
 import { GetQuestionResDto } from '@/common/dto/user/get-question.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
 import { UserEntity } from '@/common/entities';
 import { byHours } from '@/common/helpers/timespan';
+import { HttpErrorMessages } from '@/common/messages/http-error';
 import {
   BadRequestException,
   Body,
@@ -26,15 +28,23 @@ import {
   Post,
   Query,
   Res,
-  UnauthorizedException,
   UseInterceptors,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { ConfigKeys } from '../base/config.module';
 import { RoleService } from './role.service';
-import { AnswerValidationErrors, UserService } from './user.service';
-import { CreateUserBodyDTO } from '@/common/dto/user/create-user.body.dto';
+import {
+  AnswerValidationErrors,
+  CreateUserErrors,
+  UserService,
+} from './user.service';
+
+const createUserErrorMessages: Record<CreateUserErrors, string[]> = {
+  [CreateUserErrors.USERNAME_EXISTS]: HttpErrorMessages.USERNAME_EXISTS,
+  [CreateUserErrors.EMAIL_EXISTS]: HttpErrorMessages.EMAIL_EXISTS,
+  [CreateUserErrors.BOTH]: HttpErrorMessages.USERNAME_AND_EMAIL_EXISTS,
+};
 
 @Controller('/api/user')
 export class UserController {
@@ -51,7 +61,8 @@ export class UserController {
   ): Promise<ResponseDTO<GetQuestionResDto>> {
     const user = await this.userService.getUserByUsername(username);
 
-    if (!user) throw new NotFoundException('Username not found');
+    if (!user)
+      throw new NotFoundException(HttpErrorMessages.USERNAME_DOES_NOT_EXIST);
 
     const { question } = await this.userService.generateChallenge(rid, user);
 
@@ -86,10 +97,14 @@ export class UserController {
 
     switch (validation) {
       case AnswerValidationErrors.NOT_FOUND:
-        throw new NotFoundException('Challenge not found');
+        throw new NotFoundException(
+          HttpErrorMessages.LOGIN_CHALLENGE_NOT_FOUND,
+        );
 
       case AnswerValidationErrors.INVALID:
-        throw new NotAcceptableException('Invalid or wrong answer');
+        throw new NotAcceptableException(
+          HttpErrorMessages.LOGIN_ANSWER_WRONG_OR_INVALID,
+        );
     }
   }
 
@@ -109,19 +124,10 @@ export class UserController {
     @Param() { userId: _userId }: GetUserParamDTO,
     @CurrentUser() user: UserEntity,
   ): Promise<ResponseDTO<UserEntity>> {
-    if (!user)
-      throw new UnauthorizedException(
-        'This action requires authenticated access',
-      );
-
     if (_userId === 'me') return new ResponseDTO(HttpStatus.OK, [], user);
 
     if (_userId.match(/\D/))
-      throw new BadRequestException([
-        'userId can be either',
-        '"me" or a number',
-        '"me" is a shortcut for the current user',
-      ]);
+      throw new BadRequestException(HttpErrorMessages.USERID_INVALID);
 
     const userId = parseInt(_userId, 10);
 
@@ -140,18 +146,22 @@ export class UserController {
   ): Promise<ResponseDTO<UserEntity>> {
     const role = await this.roleService.getRoleById(roleId);
 
-    if (!role) throw new NotFoundException('role not found');
+    if (!role)
+      throw new NotFoundException(HttpErrorMessages.ROLE_DOES_NOT_EXIST);
 
     if (role.level <= user.role.level)
-      throw new ForbiddenException('user can only create lower level users');
+      throw new ForbiddenException(HttpErrorMessages.USER_CREATION_RESTRICTED);
 
-    const newUser = await this.userService.createUser(
+    const createUserResult = await this.userService.createUser(
       username,
       displayName,
       email,
       role,
     );
 
-    return new ResponseDTO(HttpStatus.CREATED, [], newUser);
+    if (createUserResult instanceof UserEntity)
+      return new ResponseDTO(HttpStatus.CREATED, [], createUserResult);
+
+    throw new BadRequestException(createUserErrorMessages[createUserResult]);
   }
 }

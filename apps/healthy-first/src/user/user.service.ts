@@ -18,6 +18,12 @@ export enum AnswerValidationErrors {
   INVALID = 2,
 }
 
+export enum CreateUserErrors {
+  USERNAME_EXISTS = 0,
+  EMAIL_EXISTS = 1,
+  BOTH = 2,
+}
+
 @Injectable()
 export class UserService {
   public constructor(
@@ -93,7 +99,22 @@ export class UserService {
     displayName: string,
     email: string,
     role: RoleEntity,
-  ): Promise<UserEntity> {
+  ): Promise<CreateUserErrors | UserEntity> {
+    const existedUsers = await this.userRepository.find({
+      where: [{ username }, { email }],
+    });
+
+    if (existedUsers.length > 0) {
+      if (existedUsers.length === 2)
+        // username or email is unique so it's impossible to have both
+        return CreateUserErrors.BOTH;
+
+      if (existedUsers[0].username === username)
+        return CreateUserErrors.USERNAME_EXISTS;
+
+      return CreateUserErrors.EMAIL_EXISTS;
+    }
+
     const plainPassword = randomRange(100000, 999999, true).toString();
 
     const user = this.userRepository.create({

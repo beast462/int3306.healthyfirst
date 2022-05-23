@@ -1,4 +1,6 @@
 export const HttpErrorMessages = {
+  /* Resource handler middleware */
+  VIEW_NOT_BUILT: ['view was not built'],
   /* Auth guard middleware */
   AUTH_TOKEN_MISSING: ['required auth token not found'],
   AUTH_TOKEN_INVALID: ['invalid auth token'],

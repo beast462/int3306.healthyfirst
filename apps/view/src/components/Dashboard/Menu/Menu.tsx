@@ -1,4 +1,5 @@
 import {
+  Divider,
   Drawer,
   List,
   ListItemAvatar,
@@ -15,6 +16,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { useBreakpoints } from '@/view/hooks/useBreakpoints';
 import { Navigations } from '../../Navigations';
 import { Link } from 'react-router-dom';
+import UserInfo from './UserInfo/UserInfo';
 
 export const menuFullWidth = 260;
 
@@ -109,6 +111,10 @@ function Menu({
           </ListItemButton>
         ))}
       </List>
+
+      <Divider />
+
+      <UserInfo />
     </Drawer>
   );
 }

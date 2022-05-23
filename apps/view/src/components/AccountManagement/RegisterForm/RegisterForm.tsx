@@ -14,6 +14,7 @@ import {
   Button,
   Box,
 } from '@mui/material';
+import { HttpStatus } from '@nestjs/common/enums/http-status.enum';
 import { ReactElement, useState } from 'react';
 
 const Root = styled.div`
@@ -28,7 +29,7 @@ function RegisterForm(): ReactElement {
   const [displayNameError, setDisplayNameError] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
-  const [role, setRole] = useState<string>('1');
+  const [role, setRole] = useState<string>('2');
 
   const handleChangeUsername = (event) => {
     const tmp = event.target.value;
@@ -58,17 +59,20 @@ function RegisterForm(): ReactElement {
       role: +role,
     };
 
-    console.log(newUser);
+    console.log(newUser, JSON.stringify(newUser));
 
     const { statusCode, message } = await fetch('/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
-      body: JSON.stringify({ newUser }),
+      body: JSON.stringify(newUser),
     }).then((res) => res.json());
 
-    if (statusCode !== HttpStatus.OK) {
+    console.log(statusCode, message);
+
+    if (statusCode !== HttpStatus.CREATED) {
       setUsernameError('');
       setDisplayNameError('');
       setEmailError('');
@@ -100,6 +104,7 @@ function RegisterForm(): ReactElement {
             onChange={handleChangeUsername}
             error={usernameError.length > 0}
             helperText={usernameError}
+            autoComplete="username"
           />
         </Grid>
         <Grid item xs={12}>
@@ -113,6 +118,7 @@ function RegisterForm(): ReactElement {
             onChange={handleChangeDisplayName}
             error={displayNameError.length > 0}
             helperText={displayNameError}
+            autoComplete="name"
           />
         </Grid>
         <Grid item xs={12}>
@@ -126,6 +132,7 @@ function RegisterForm(): ReactElement {
             onChange={handleChangeEmail}
             error={emailError.length > 0}
             helperText={emailError}
+            autoComplete="email"
           />
         </Grid>
         <Grid item xs={12}>
@@ -138,8 +145,8 @@ function RegisterForm(): ReactElement {
               value={role}
               onChange={handleChange}
             >
-              <MenuItem value={1}>Manager</MenuItem>
-              <MenuItem value={2}>Specialist</MenuItem>
+              <MenuItem value={2}>Quản lý chi cục</MenuItem>
+              <MenuItem value={3}>Chuyên viên chi cục</MenuItem>
             </Select>
           </FormControl>
         </Grid>

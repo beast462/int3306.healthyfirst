@@ -137,11 +137,11 @@ function RegisterForm(): ReactElement {
         </Grid>
         <Grid item xs={12}>
           <FormControl fullWidth size="small" variant="standard">
-            <InputLabel id="roleLabel">Role</InputLabel>
+            <InputLabel id="roleLabel">Vai trò</InputLabel>
             <Select
               id="demo-simple-select"
               labelId="roleLabel"
-              label="Role"
+              label="Vai trò"
               value={role}
               onChange={handleChange}
             >

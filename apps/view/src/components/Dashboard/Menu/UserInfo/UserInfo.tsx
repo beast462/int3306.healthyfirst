@@ -11,6 +11,7 @@ import {
 import { ReactElement } from 'react';
 
 const Root = styled.div`
+  margin-top: auto;
   padding-top: 1rem;
   width: 100%;
 `;
@@ -25,20 +26,14 @@ function UserInfo(): ReactElement {
   return (
     <Root>
       <List>
-        <ListItemButton>
+        <ListItemButton onClick={handleLogout}>
           <ListItemAvatar>
             <Avatar>
               <AccountCircle />
             </Avatar>
           </ListItemAvatar>
 
-          <ListItemText
-            secondary={
-              <Button variant="text" onClick={handleLogout}>
-                <b>Log out</b>
-              </Button>
-            }
-          />
+          <ListItemText primary="Logout" />
         </ListItemButton>
       </List>
     </Root>

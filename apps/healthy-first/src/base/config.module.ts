@@ -7,10 +7,14 @@ import { Environments } from '@/common/constants/environments';
 import { ConfigModule } from '@nestjs/config';
 
 import { SupportedDatabaseTypes } from './type-orm.module';
+import { byDays, byHours, bySeconds } from '@/common/helpers/timespan';
 
 export type Schema = {
   port: number;
   env: Environments;
+  exp: {
+    authToken: number;
+  };
   cookie: {
     secret?: string;
   };
@@ -49,6 +53,9 @@ function load(): Schema {
   return {
     port: Number(process.env.PORT),
     env,
+    exp: {
+      authToken: Number(process.env.AUTH_TOKEN_EXP),
+    },
     cookie: {
       secret: env === Environments.PRODUCTION ? loadCookieSecret() : undefined,
     },
@@ -74,6 +81,10 @@ const schema = Joi.object({
   ENVIRONMENT: Joi.string()
     .valid('development', 'production')
     .default('production'),
+  AUTH_TOKEN_EXP: Joi.number()
+    .min(bySeconds(100))
+    .max(byDays(365))
+    .default(byHours(1)),
   DB_TYPE: Joi.string().valid(...SupportedDatabaseTypes),
   DB_HOST: Joi.alternatives(
     Joi.string().ip().required(),
@@ -93,6 +104,7 @@ const schema = Joi.object({
 export enum ConfigKeys {
   SERVER_PORT = 'port',
   ENVIRONMENT = 'env',
+  AUTH_TOKEN_EXP = 'exp.authToken',
   COOKIE_SECRET = 'cookie.secret',
   DATABASE_TYPE = 'database.type',
   DATABASE_HOST = 'database.host',

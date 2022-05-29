@@ -50,6 +50,15 @@ export class UserEntity {
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role!: RoleEntity;
 
+  @ManyToOne(() => UserEntity, (user) => user.id, {
+    nullable: true,
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE',
+    eager: false,
+  })
+  @JoinColumn({ name: 'creator_id', referencedColumnName: 'id' })
+  createdBy!: UserEntity;
+
   @Column({
     name: 'created_at',
     type: 'timestamp',

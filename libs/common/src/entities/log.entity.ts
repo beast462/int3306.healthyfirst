@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum LogTypes {
-  LOG = 0,
-  ERROR = 1,
-  WARNING = 2,
+  ERROR = 0,
+  WARNING = 1,
+  LOG = 2,
   VERBOSE = 3,
   DEBUG = 4,
 }

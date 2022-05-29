@@ -6,20 +6,25 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 @Catch()
 export class ErrorLoggingFilter implements ExceptionFilter {
   public constructor(private readonly dbLoggerService: DbLoggerService) {}
 
   catch(exception: HttpException, host: ArgumentsHost) {
-    if (exception.getStatus() < HttpStatus.INTERNAL_SERVER_ERROR) return;
+    const context = host.switchToHttp();
+    const request = context.getRequest<Request>();
+    const response = context.getResponse<Response>();
+    const statusCode = exception.getStatus();
 
-    const http = host.switchToHttp();
-    const request = http.getRequest<Request>();
+    if (statusCode < HttpStatus.INTERNAL_SERVER_ERROR) {
+      response.status(statusCode).json(exception.getResponse());
+      return;
+    }
 
     const errorDetail = `Message: ${exception.message}
-StatusCode: ${exception.getStatus()}
+StatusCode: ${statusCode}
 RequestedPath: ${request.url}
 RequestedQuery: ${JSON.stringify(request.query, null, 2)}
 RequestedBody: ${JSON.stringify(request.body, null, 2)}
@@ -31,5 +36,7 @@ RequestedBody: ${JSON.stringify(request.body, null, 2)}
       exception.stack,
       'ErrorLoggingFilter',
     );
+
+    response.status(statusCode).json(exception.getResponse());
   }
 }

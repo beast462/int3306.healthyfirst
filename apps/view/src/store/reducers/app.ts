@@ -1,3 +1,4 @@
+import { DialogContents } from '@/view/components/MasterDialog/DialogContents';
 import { AnyAction } from 'redux';
 import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
@@ -7,6 +8,8 @@ type AppState = {
   /* dark = 1 | light = 0 */
   viewMode: number;
   showMenu: boolean;
+  dialogContent: DialogContents;
+  confirmCallback: (accepted: boolean) => void;
 };
 
 function getDefaultViewMode(): number {
@@ -24,6 +27,10 @@ function getDefaultViewMode(): number {
 export const initialState: AppState = {
   viewMode: getDefaultViewMode(),
   showMenu: window.innerWidth > breakpoints.values.md,
+  dialogContent: DialogContents.NONE,
+  confirmCallback() {
+    return;
+  },
 };
 
 export function reduce(
@@ -33,6 +40,9 @@ export function reduce(
   switch (action.type) {
     case ActionTypes.APP__CHANGE_MENU_STATE:
       return { ...state, showMenu: action.payload };
+
+    case ActionTypes.APP__OPEN_DIALOG:
+      return { ...state, dialogContent: action.payload };
 
     default:
       return state;

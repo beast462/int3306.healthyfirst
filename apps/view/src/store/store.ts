@@ -23,7 +23,12 @@ const store = configureStore({
     accountsData: accountsDataIS,
   },
   middleware(getDefaultMiddleware) {
-    return [...getDefaultMiddleware(), thunk];
+    return [
+      ...getDefaultMiddleware({
+        serializableCheck: false,
+      }),
+      thunk,
+    ];
   },
   devTools: process.env.NODE_ENV === 'development',
 });

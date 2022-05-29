@@ -7,6 +7,7 @@ type AppState = {
   /* dark = 1 | light = 0 */
   viewMode: number;
   showMenu: boolean;
+  showRegisForm: boolean;
 };
 
 function getDefaultViewMode(): number {
@@ -24,6 +25,7 @@ function getDefaultViewMode(): number {
 export const initialState: AppState = {
   viewMode: getDefaultViewMode(),
   showMenu: window.innerWidth > breakpoints.values.md,
+  showRegisForm: false,
 };
 
 export function reduce(
@@ -33,6 +35,9 @@ export function reduce(
   switch (action.type) {
     case ActionTypes.APP__CHANGE_MENU_STATE:
       return { ...state, showMenu: action.payload };
+
+    case ActionTypes.APP__CHANGE_SHOW_REGIS_FORM_STATE:
+      return { ...state, showRegisForm: action.payload };
 
     default:
       return state;

@@ -116,14 +116,18 @@ function Login(): ReactElement {
         username: { value: username },
       } = form;
 
-      const { statusCode, message, body } = await fetch(
+      const { statusCode, message, body, errorCode } = await fetch(
         `/api/user/login?username=${username}`,
       ).then((res) => res.json());
 
       if (statusCode !== HttpStatus.OK) {
-        setUsernameInputError(
-          typeof message === 'string' ? message : message.join(' '),
-        );
+        if (errorCode === 257) {
+          setUsernameInputError('Tên đăng nhập của bạn không tồn tại');
+        } else {
+          setUsernameInputError(
+            typeof message === 'string' ? message : message.join(' '),
+          );
+        }
         return;
       }
 
@@ -150,7 +154,7 @@ function Login(): ReactElement {
 
     const answer = generateAnswer(question, password, { hashPassword: true });
 
-    const { statusCode, message } = await fetch('/api/user/login', {
+    const { statusCode, message, errorCode } = await fetch('/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -159,9 +163,13 @@ function Login(): ReactElement {
     }).then((res) => res.json());
 
     if (statusCode !== HttpStatus.OK) {
-      setPasswordInputError(
-        typeof message === 'string' ? message : message.join(''),
-      );
+      if (errorCode === 263) {
+        setPasswordInputError('Mật khẩu không đúng. Hãy thử lại');
+      } else {
+        setPasswordInputError(
+          typeof message === 'string' ? message : message.join(' '),
+        );
+      }
       return;
     }
 

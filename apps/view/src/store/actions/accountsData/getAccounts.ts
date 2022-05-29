@@ -2,7 +2,7 @@ import { AccountData } from './../../reducers/accountsData';
 import { ActionTypes } from '../../ActionTypes';
 import { Action, AppThunkAction } from '../../store';
 
-export function getStudents(
+export function getAccounts(
   creatorId: number,
 ): AppThunkAction<Action<AccountData[]>, unknown> {
   return async (dispatch) => {

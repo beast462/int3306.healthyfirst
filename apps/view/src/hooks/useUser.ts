@@ -25,6 +25,12 @@ export function useUser() {
     error &&
     (error instanceof Error || SerializableError.isSerializableError(error));
 
+  console.log({
+    user: data,
+    isLoading: !error && !data,
+    error: isError ? error : null,
+  });
+
   return {
     user: data,
     isLoading: !error && !data,

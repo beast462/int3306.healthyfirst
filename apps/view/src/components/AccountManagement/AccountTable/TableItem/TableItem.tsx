@@ -12,10 +12,10 @@ interface AccountData {
 }
 
 interface IProps {
-  accounts: AccountData;
+  account: AccountData;
 }
 
-function TableItem({ accounts }: IProps) {
+function TableItem({ account }: IProps) {
   const [showActions, setShowActions] = useState(false);
 
   return (
@@ -23,12 +23,12 @@ function TableItem({ accounts }: IProps) {
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
-      <TableCell>{accounts.id}</TableCell>
-      <TableCell>{accounts.username}</TableCell>
-      <TableCell>{accounts.displayName}</TableCell>
-      <TableCell>{accounts.email}</TableCell>
-      <TableCell>{accounts.role}</TableCell>
-      <TableCell>{accounts.createdAt}</TableCell>
+      <TableCell>{account.id}</TableCell>
+      <TableCell>{account.username}</TableCell>
+      <TableCell>{account.displayName}</TableCell>
+      <TableCell>{account.email}</TableCell>
+      <TableCell>{account.role}</TableCell>
+      <TableCell>{account.createdAt}</TableCell>
       <TableCell>
         <IconButton
           size="small"

@@ -1,6 +1,7 @@
 import { ApplicationState } from '@/view/store';
 import { changePage as _changePage } from '@/view/store/actions/accountTable/changePage';
 import { changeRpp as _changeRpp } from '@/view/store/actions/accountTable/changeRPP';
+import { getAccounts as _getAccounts } from '@/view/store/actions/accountsData/getAccounts';
 import { Add } from '@mui/icons-material';
 import {
   Box,
@@ -10,19 +11,23 @@ import {
   TableBody,
   TablePagination,
 } from '@mui/material';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import TableHeader from './TableHeader/TableHeader';
+import { useUser } from '@/view/hooks/useUser';
+import TableItem from './TableItem/TableItem';
 
 const connector = connect(
   (state: ApplicationState) => ({
     rowsPerPage: state.accountsTable.rowsPerPage,
     page: state.accountsTable.page,
     itemsCount: state.accountsTable.itemsCount,
+    accounts: state.accountsData,
   }),
   {
     changePage: _changePage,
     changeRpp: _changeRpp,
+    getAccounts: _getAccounts,
   },
 );
 
@@ -30,9 +35,17 @@ function AccountTable({
   rowsPerPage,
   page,
   itemsCount,
+  accounts,
   changePage,
   changeRpp,
+  getAccounts,
 }: ConnectedProps<typeof connector>): ReactElement {
+  const user = useUser().user;
+
+  useEffect(() => {
+    getAccounts(user.id);
+  }, []);
+
   return (
     <Box width="100%">
       <Paper>
@@ -49,7 +62,11 @@ function AccountTable({
 
         <Table>
           <TableHeader />
-          <TableBody></TableBody>
+          <TableBody>
+            {accounts.map((account) => (
+              <TableItem key={`account#${account.id}`} account={account} />
+            ))}
+          </TableBody>
         </Table>
 
         <TablePagination

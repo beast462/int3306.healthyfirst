@@ -68,8 +68,8 @@ export class DbLoggerService implements LoggerService {
   }
 
   public log(
-    detail: string,
     message: string,
+    detail: string,
     _stack?: string,
     _context?: string,
   ): void {
@@ -77,8 +77,8 @@ export class DbLoggerService implements LoggerService {
   }
 
   public warn(
-    detail: string,
     message: string,
+    detail: string,
     _stack?: string,
     _context?: string,
   ): void {
@@ -86,8 +86,8 @@ export class DbLoggerService implements LoggerService {
   }
 
   public error(
-    detail: string,
     message: string,
+    detail: string,
     _stack?: string,
     _context?: string,
   ): void {
@@ -95,8 +95,8 @@ export class DbLoggerService implements LoggerService {
   }
 
   public debug?(
-    detail: string,
     message: string,
+    detail: string,
     _stack?: string,
     _context?: string,
   ): void {
@@ -104,8 +104,8 @@ export class DbLoggerService implements LoggerService {
   }
 
   public verbose?(
-    detail: string,
     message: string,
+    detail: string,
     _stack?: string,
     _context?: string,
   ): void {

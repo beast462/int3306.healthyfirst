@@ -1,21 +1,30 @@
-import { Cache } from 'cache-manager';
 import { createHash, randomBytes } from 'crypto';
 import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
 
 import { RoleEntity, UserEntity } from '@/common/entities';
 import { generateAnswer } from '@/common/helpers/generate-answer';
-import { sign } from '@/common/helpers/jwt';
-import { randomString } from '@/common/helpers/random-string';
-import { LoginChallenge } from '@/common/models/login-challenge';
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { decode, sign, verify } from '@/common/helpers/jwt';
 import { randomRange } from '@/common/helpers/random-range';
+import { randomString } from '@/common/helpers/random-string';
+import { byMinutes, bySeconds } from '@/common/helpers/timespan';
+import {
+  LoginChallenge,
+  LoginQuestionCheckBody,
+} from '@/common/models/login-challenge';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { ConfigKeys } from '../base/config.module';
 import { MailService } from '../mail/mail.service';
 
 export enum AnswerValidationErrors {
-  NOT_FOUND = 0,
-  INVALID = 2,
+  NOT_DECODABLE = 0,
+  NOT_VERIFIABLE = 1,
+  USER_NOT_FOUND = 2,
+  EXPIRED = 3,
+  WRONG = 4,
 }
 
 export enum CreateUserErrors {
@@ -27,10 +36,9 @@ export enum CreateUserErrors {
 @Injectable()
 export class UserService {
   public constructor(
+    private readonly configService: ConfigService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @Inject(CACHE_MANAGER)
-    private readonly cacheManager: Cache,
     private readonly mailService: MailService,
   ) {}
 
@@ -48,46 +56,83 @@ export class UserService {
     });
   }
 
-  public async generateChallenge(
-    requestId: string,
-    user: UserEntity,
-  ): Promise<LoginChallenge> {
+  public async generateToken(user: UserEntity): Promise<string> {
+    return await sign(
+      {
+        userId: user.id,
+        level: user.role,
+        exp: ~~(
+          (Date.now() +
+            this.configService.get<number>(ConfigKeys.AUTH_TOKEN_EXP)) /
+          bySeconds(1)
+        ),
+      },
+      user.secret,
+    );
+  }
+
+  public async generateChallenge(user: UserEntity): Promise<LoginChallenge> {
     const challenge: LoginChallenge = {
-      requestId,
-      question: '',
-      answer: '',
-      presignedToken: await sign(
-        {
-          userId: user.id,
-          level: user.role,
-        },
-        user.secret,
-        { expiresIn: '1h' },
-      ),
+      question: randomString(64, randomBytes(32).toString('utf-8')),
+      questionCheckBody: null,
+      questionCheck: null,
     };
 
-    challenge.question = randomString(64, randomBytes(32).toString('utf-8'));
-    challenge.answer = generateAnswer(challenge.question, user.password);
+    challenge.questionCheckBody = {
+      question: challenge.question,
+      exp: Date.now() + byMinutes(2),
+      userId: user.id,
+    };
 
-    this.cacheManager.set(requestId, challenge);
+    const signedQuestionCheck = await sign(
+      challenge.questionCheckBody,
+      user.secret,
+    );
 
-    return { ...challenge };
+    challenge.questionCheck = signedQuestionCheck;
+
+    return challenge;
   }
 
   public async validateAnswer(
-    requestId: string,
+    questionCheck: string,
     answer: string,
   ): Promise<AnswerValidationErrors | string> {
-    const challenge = await this.cacheManager.get<LoginChallenge>(requestId);
+    let questionCheckBody: LoginQuestionCheckBody;
 
-    if (!challenge) return AnswerValidationErrors.NOT_FOUND;
-
-    if (challenge.answer === answer) {
-      this.cacheManager.del(requestId);
-      return challenge.presignedToken;
+    try {
+      questionCheckBody = (await decode<LoginQuestionCheckBody>(
+        questionCheck,
+      )) as LoginQuestionCheckBody;
+    } catch (err) {
+      return AnswerValidationErrors.NOT_DECODABLE;
     }
 
-    return AnswerValidationErrors.INVALID;
+    const { userId, exp, question } = questionCheckBody;
+
+    if (exp < Date.now()) return AnswerValidationErrors.EXPIRED;
+
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) return AnswerValidationErrors.USER_NOT_FOUND;
+
+    const { secret } = user;
+
+    try {
+      await verify(questionCheck, secret);
+    } catch (err) {
+      return AnswerValidationErrors.NOT_VERIFIABLE;
+    }
+
+    const correctAnswer = generateAnswer(question, user.password);
+
+    if (correctAnswer !== answer) return AnswerValidationErrors.WRONG;
+
+    return await this.generateToken(user);
   }
 
   public hashPassword(password: string): string {

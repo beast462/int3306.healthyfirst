@@ -11,7 +11,6 @@ import { GetQuestionResDto } from '@/common/dto/user/get-question.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
 import { UserEntity } from '@/common/entities';
-import { byHours } from '@/common/helpers/timespan';
 import { HttpErrorMessages } from '@/common/messages/http-error';
 import {
   BadRequestException,
@@ -22,8 +21,8 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  NotAcceptableException,
   NotFoundException,
+  NotImplementedException,
   Param,
   Post,
   Query,
@@ -56,15 +55,29 @@ export class UserController {
 
   @Get('/login')
   public async getQuestion(
-    @Cookies(CookieEntries.REQUEST_ID) rid: string,
+    @CurrentUser() currentUser: UserEntity,
+    @Res({ passthrough: true }) res: Response,
     @Query() { username }: GetQuestionQueryDTO,
   ): Promise<ResponseDTO<GetQuestionResDto>> {
+    if (currentUser)
+      throw new ForbiddenException(HttpErrorMessages.ALREADY_LOGGED_IN);
+
     const user = await this.userService.getUserByUsername(username);
 
     if (!user)
       throw new NotFoundException(HttpErrorMessages.USERNAME_DOES_NOT_EXIST);
 
-    const { question } = await this.userService.generateChallenge(rid, user);
+    const { question, questionCheck, questionCheckBody } =
+      await this.userService.generateChallenge(user);
+
+    res.cookie(CookieEntries.QUESTION_CHECK, questionCheck, {
+      httpOnly: true,
+      signed:
+        this.configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
+        Environments.PRODUCTION,
+      expires: new Date(questionCheckBody.exp),
+      sameSite: 'strict',
+    });
 
     return new ResponseDTO(HttpStatus.OK, [], {
       question,
@@ -76,11 +89,21 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @Post('/login')
   public async login(
-    @Cookies(CookieEntries.REQUEST_ID) rid: string,
+    @CurrentUser() currentUser: UserEntity,
+    @Cookies(CookieEntries.QUESTION_CHECK) questionCheck: string,
     @Res({ passthrough: true }) res: Response,
     @Body() { answer }: LoginBodyDTO,
   ): Promise<ResponseDTO<void>> {
-    const validation = await this.userService.validateAnswer(rid, answer);
+    if (currentUser)
+      throw new ForbiddenException(HttpErrorMessages.ALREADY_LOGGED_IN);
+
+    if (!questionCheck)
+      throw new BadRequestException(HttpErrorMessages.QUESTION_CHECK_MISSING);
+
+    const validation = await this.userService.validateAnswer(
+      questionCheck,
+      answer,
+    );
 
     if (typeof validation === 'string') {
       res.cookie(CookieEntries.AUTH_TOKEN, validation, {
@@ -88,23 +111,40 @@ export class UserController {
         signed:
           this.configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
           Environments.PRODUCTION,
-        expires: new Date(Date.now() + byHours(5)),
+        expires: new Date(
+          Date.now() +
+            this.configService.get<number>(ConfigKeys.AUTH_TOKEN_EXP),
+        ),
         sameSite: 'strict',
       });
+
+      res.clearCookie(CookieEntries.QUESTION_CHECK);
 
       return new ResponseDTO(HttpStatus.OK, []);
     }
 
     switch (validation) {
-      case AnswerValidationErrors.NOT_FOUND:
-        throw new NotFoundException(
-          HttpErrorMessages.LOGIN_CHALLENGE_NOT_FOUND,
+      case AnswerValidationErrors.NOT_DECODABLE:
+        throw new BadRequestException(
+          HttpErrorMessages.QUESTION_CHECK_CAN_NOT_BE_DECODED,
         );
 
-      case AnswerValidationErrors.INVALID:
-        throw new NotAcceptableException(
-          HttpErrorMessages.LOGIN_ANSWER_WRONG_OR_INVALID,
+      case AnswerValidationErrors.NOT_VERIFIABLE:
+        throw new BadRequestException(
+          HttpErrorMessages.QUESTION_CHECK_WRONG_SIGNATURE,
         );
+
+      case AnswerValidationErrors.USER_NOT_FOUND:
+        throw new NotFoundException(HttpErrorMessages.USER_DOES_NOT_EXIST);
+
+      case AnswerValidationErrors.EXPIRED:
+        throw new BadRequestException(HttpErrorMessages.QUESTION_CHECK_EXPIRED);
+
+      case AnswerValidationErrors.WRONG:
+        throw new BadRequestException(HttpErrorMessages.ANSWER_IS_INCORRECT);
+
+      default:
+        throw new NotImplementedException(HttpErrorMessages.$_UNKNOWN_ERROR);
     }
   }
 

@@ -5,7 +5,8 @@ import { readdir, readFile } from 'fs/promises';
 import { join, resolve } from 'path';
 
 import { Environments } from '@/common/constants/environments';
-import { HttpErrorMessages } from '@/common/messages/http-error';
+import { ErrorCodes } from '@/common/constants/error-codes';
+import { createError } from '@/common/helpers/create-error';
 import {
   CACHE_MANAGER,
   HttpStatus,
@@ -89,7 +90,7 @@ export class ResourceHandlerMiddleware implements NestMiddleware {
 
     if (!(await this.isPathAvailable(filePath))) {
       if (!(await this.isPathAvailable(viewIndex)))
-        throw new NotImplementedException(HttpErrorMessages.VIEW_NOT_BUILT);
+        createError(NotImplementedException, ErrorCodes.VIEW_NOT_BUILT);
 
       return this.loadFile(res.status(HttpStatus.OK), viewIndex);
     }

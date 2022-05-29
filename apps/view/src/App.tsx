@@ -7,6 +7,7 @@ import AuthGuard from './components/AuthGuard/AuthGuard';
 import Dashboard from './components/Dashboard/Dashboard';
 import MasterDialog from './components/MasterDialog/MasterDialog';
 import NotFound from './components/NotFound/NotFound';
+import Notificator from './components/Notificator/Notificator';
 import { ApplicationState } from './store';
 import { theme as darkTheme } from './theme.dark';
 import { theme as lightTheme } from './theme.light';
@@ -24,6 +25,7 @@ function App({ viewMode }: ConnectedProps<typeof connector>) {
   return (
     <ThemeProvider theme={themes[viewMode]}>
       <MasterDialog />
+      <Notificator />
 
       <Routes>
         <Route

@@ -67,6 +67,14 @@ export class DbLoggerService implements LoggerService {
     this.logRepository.insert(log);
   }
 
+  public log(message: string, detail: string, context: string): void;
+  public log(
+    message: string,
+    detail: string,
+    stack: string,
+    context: string,
+  ): void;
+
   public log(
     message: string,
     detail: string,
@@ -75,6 +83,14 @@ export class DbLoggerService implements LoggerService {
   ): void {
     this.generalLog(message, detail, LogTypes.LOG, _stack, _context);
   }
+
+  public warn(message: string, detail: string, context: string): void;
+  public warn(
+    message: string,
+    detail: string,
+    stack: string,
+    context: string,
+  ): void;
 
   public warn(
     message: string,
@@ -85,6 +101,14 @@ export class DbLoggerService implements LoggerService {
     this.generalLog(message, detail, LogTypes.WARNING, _stack, _context);
   }
 
+  public error(message: string, detail: string, context: string): void;
+  public error(
+    message: string,
+    detail: string,
+    stack: string,
+    context: string,
+  ): void;
+
   public error(
     message: string,
     detail: string,
@@ -94,7 +118,15 @@ export class DbLoggerService implements LoggerService {
     this.generalLog(message, detail, LogTypes.ERROR, _stack, _context);
   }
 
-  public debug?(
+  public debug(message: string, detail: string, context: string): void;
+  public debug(
+    message: string,
+    detail: string,
+    stack: string,
+    context: string,
+  ): void;
+
+  public debug(
     message: string,
     detail: string,
     _stack?: string,
@@ -103,7 +135,15 @@ export class DbLoggerService implements LoggerService {
     this.generalLog(message, detail, LogTypes.DEBUG, _stack, _context);
   }
 
-  public verbose?(
+  public verbose(message: string, detail: string, context: string): void;
+  public verbose(
+    message: string,
+    detail: string,
+    stack: string,
+    context: string,
+  ): void;
+
+  public verbose(
     message: string,
     detail: string,
     _stack?: string,

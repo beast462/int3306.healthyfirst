@@ -6,15 +6,21 @@ import {
   reduce as accountsTableReduce,
   initialState as accountsTableIS,
 } from './reducers/accountsTable';
+import {
+  reduce as accountsDataReduce,
+  initialState as accountsDataIS,
+} from './reducers/accountsData';
 
 const store = configureStore({
   reducer: {
     app: appReduce,
     accountsTable: accountsTableReduce,
+    accountsData: accountsDataReduce,
   },
   preloadedState: {
     app: appIS,
     accountsTable: accountsTableIS,
+    accountsData: accountsDataIS,
   },
   middleware(getDefaultMiddleware) {
     return [...getDefaultMiddleware(), thunk];

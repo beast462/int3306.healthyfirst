@@ -48,3 +48,5 @@ function TableItem({ accounts }: IProps) {
     </TableRow>
   );
 }
+
+export default TableItem;

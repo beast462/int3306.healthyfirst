@@ -36,11 +36,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: '100%vw',
     },
     zIndex: theme.zIndex.appBar,
-    // backgroundColor: theme.palette.primary.main,
     boxShadow: '0px 2px 5px rgba(0 0 0 / 30%)',
     '&, & *': {
       color: 'black',
-      // color: theme.palette.primary.contrastText,
     },
   },
   toolbar: {
@@ -72,12 +70,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       '& > .MuiIcon-Menu': {
         display: 'none',
       },
-      // '& > .MuiIcon-ArrowRightRounded.show': {
-      //   display: 'block',
-      // },
-      // '& > .MuiIcon-ArrowLeftRounded.show': {
-      //   display: 'block',
-      // },
     },
   },
 }));
@@ -111,18 +103,6 @@ function Header({
           >
             <div className={classes.menuBtn}>
               <Menu className={'MuiIcon-Menu'} />
-              {/* <ArrowRightRounded
-                className={clsx(
-                  'MuiIcon-ArrowRightRounded',
-                  menuShown ? '' : 'show',
-                )}
-              />
-              <ArrowLeftRounded
-                className={clsx(
-                  'MuiIcon-ArrowLeftRounded',
-                  menuShown ? 'show' : '',
-                )}
-              /> */}
             </div>
           </IconButton>
 

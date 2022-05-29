@@ -32,6 +32,6 @@ export default AccountManagement;
 
 Navigations.getInstance().registerNavigation('/account-management', {
   icon: <ManageAccountsRounded />,
-  label: 'Manage Account',
+  label: 'Quản lý tài khoản',
   childOf: null,
 })(AccountManagement);

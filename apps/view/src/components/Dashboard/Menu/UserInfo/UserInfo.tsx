@@ -33,7 +33,7 @@ function UserInfo(): ReactElement {
             </Avatar>
           </ListItemAvatar>
 
-          <ListItemText primary="Logout" />
+          <ListItemText primary="Đăng xuất" />
         </ListItemButton>
       </List>
     </Root>

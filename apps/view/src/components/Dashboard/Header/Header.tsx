@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     zIndex: theme.zIndex.appBar,
     // backgroundColor: theme.palette.primary.main,
-    boxShadow: '0px 2px 5px rgba(100 116 139 / 20%)',
+    boxShadow: '0px 2px 5px rgba(0 0 0 / 30%)',
     '&, & *': {
       color: 'black',
       // color: theme.palette.primary.contrastText,

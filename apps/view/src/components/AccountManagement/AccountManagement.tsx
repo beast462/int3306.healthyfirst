@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { ReactElement, useState } from 'react';
 import { Navigations } from '../Navigations';
+import AccountTable from './AccountTable/AccountTable';
 import RegisterForm from './RegisterForm/RegisterForm';
 
 const Root = styled.div`
@@ -23,6 +24,7 @@ const Root = styled.div`
 function AccountManagement(): ReactElement {
   return (
     <Root>
+      <AccountTable />
       <RegisterForm />
     </Root>
   );

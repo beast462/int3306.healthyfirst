@@ -49,7 +49,7 @@ function AccountTable({
 
         <Table>
           <TableHeader />
-          <TableBody>qưeqeqưeqưeqưeưqqưeqưeqưeqưeqêqưeqưeqưe</TableBody>
+          <TableBody></TableBody>
         </Table>
 
         <TablePagination
@@ -88,4 +88,4 @@ function AccountTable({
   );
 }
 
-export default AccountTable;
+export default connector(AccountTable);

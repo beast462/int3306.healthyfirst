@@ -6,9 +6,12 @@ import { HttpException } from '@nestjs/common';
 type Ctor = new (...args: unknown[]) => unknown;
 
 const messagesDictionary: Map<ErrorCodes, string[]> = new Map();
-const { set: d } = messagesDictionary;
 const e = ErrorCodes;
 const m = HttpErrorMessages;
+
+function d(k: ErrorCodes, v: string[]) {
+  messagesDictionary.set(k, v);
+}
 
 d(e.SUCCESS, []);
 

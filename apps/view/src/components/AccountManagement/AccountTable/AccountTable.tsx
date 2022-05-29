@@ -1,7 +1,4 @@
 import { ApplicationState } from '@/view/store';
-import { changePage as _changePage } from '@/view/store/actions/accountTable/changePage';
-import { changeRpp as _changeRpp } from '@/view/store/actions/accountTable/changeRPP';
-import { getAccounts as _getAccounts } from '@/view/store/actions/accountsData/getAccounts';
 import { Add } from '@mui/icons-material';
 import {
   Box,
@@ -16,6 +13,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import TableHeader from './TableHeader/TableHeader';
 import { useUser } from '@/view/hooks/useUser';
 import TableItem from './TableItem/TableItem';
+import { changePage as _changePage } from '@/view/store/actions/accountTable/changePage';
+import { changeRpp as _changeRpp } from '@/view/store/actions/accountTable/changeRPP';
+import { getAccounts as _getAccounts } from '@/view/store/actions/accountsData/getAccounts';
+import { changeShowRegisForm } from '@/view/store/actions/app/changeShowRegisForm';
 
 const connector = connect(
   (state: ApplicationState) => ({
@@ -28,6 +29,7 @@ const connector = connect(
     changePage: _changePage,
     changeRpp: _changeRpp,
     getAccounts: _getAccounts,
+    changeShowRegisForm,
   },
 );
 
@@ -39,6 +41,7 @@ function AccountTable({
   changePage,
   changeRpp,
   getAccounts,
+  changeShowRegisForm,
 }: ConnectedProps<typeof connector>): ReactElement {
   const user = useUser().user;
 
@@ -55,7 +58,7 @@ function AccountTable({
           width="100%"
           justifyContent="flex-end"
         >
-          <Button variant="contained">
+          <Button variant="contained" onClick={() => changeShowRegisForm(true)}>
             <Add /> Thêm tài khoản
           </Button>
         </Box>

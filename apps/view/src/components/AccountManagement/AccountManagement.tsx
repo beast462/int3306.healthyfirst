@@ -4,6 +4,7 @@ import { ReactElement } from 'react';
 import { Navigations } from '../Navigations';
 import AccountTable from './AccountTable/AccountTable';
 import RegisterForm from './RegisterForm/RegisterForm1';
+import RegistrationForm from './RegisterForm/RegistrationForm';
 
 const Root = styled.div`
    width: 100%,
@@ -14,7 +15,7 @@ function AccountManagement(): ReactElement {
   return (
     <Root>
       <AccountTable />
-      <RegisterForm />
+      <RegistrationForm />
     </Root>
   );
 }

@@ -5,7 +5,6 @@ import { CookieEntries } from '@/common/constants/cookie-entries';
 import { Environments } from '@/common/constants/environments';
 import { UserEntity } from '@/common/entities';
 import { decode, verify } from '@/common/helpers/jwt';
-import { HttpErrorMessages } from '@/common/messages/http-error';
 import { AuthTokenPayload } from '@/common/models/auth-token-payload';
 import {
   BadRequestException,
@@ -17,6 +16,8 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ConfigKeys } from '../base/config.module';
+import { createError } from '@/common/helpers/create-error';
+import { ErrorCodes } from '@/common/constants/error-codes';
 
 @Injectable()
 export class AuthGuardMiddleware implements NestMiddleware {
@@ -35,7 +36,7 @@ export class AuthGuardMiddleware implements NestMiddleware {
       req[isProd ? 'signedCookies' : 'cookies'][CookieEntries.AUTH_TOKEN];
 
     if (typeof token !== 'string')
-      throw new BadRequestException(HttpErrorMessages.AUTH_TOKEN_MISSING);
+      createError(BadRequestException, ErrorCodes.AUTH_TOKEN_MISSING);
 
     let id: number;
 
@@ -47,10 +48,10 @@ export class AuthGuardMiddleware implements NestMiddleware {
 
       if (typeof userId !== 'number' && typeof level !== 'number') {
         res.clearCookie(CookieEntries.AUTH_TOKEN);
-        throw new BadRequestException(HttpErrorMessages.AUTH_TOKEN_INVALID);
+        createError(BadRequestException, ErrorCodes.AUTH_TOKEN_INVALID);
       }
     } catch (err) {
-      throw new BadRequestException(HttpErrorMessages.AUTH_TOKEN_INVALID);
+      createError(BadRequestException, ErrorCodes.AUTH_TOKEN_INVALID);
     }
 
     const user = await this.userRepository.findOne({
@@ -60,16 +61,14 @@ export class AuthGuardMiddleware implements NestMiddleware {
 
     if (!user) {
       res.clearCookie(CookieEntries.AUTH_TOKEN);
-      throw new NotFoundException(
-        HttpErrorMessages.USER_IN_AUTH_TOKEN_NOT_FOUND,
-      );
+      createError(NotFoundException, ErrorCodes.USER_IN_AUTH_TOKEN_NOT_FOUND);
     }
 
     try {
       await verify(token, user.secret);
     } catch (err) {
       res.clearCookie(CookieEntries.AUTH_TOKEN);
-      throw new BadRequestException(HttpErrorMessages.AUTH_TOKEN_INVALID);
+      createError(BadRequestException, ErrorCodes.AUTH_TOKEN_INVALID);
     }
 
     req.user = user;

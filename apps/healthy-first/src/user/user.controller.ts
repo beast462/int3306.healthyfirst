@@ -2,6 +2,7 @@ import { Response } from 'express';
 
 import { CookieEntries } from '@/common/constants/cookie-entries';
 import { Environments } from '@/common/constants/environments';
+import { ErrorCodes } from '@/common/constants/error-codes';
 import { Cookies } from '@/common/decorators/cookies';
 import { CurrentUser } from '@/common/decorators/current-user';
 import { ResponseDTO } from '@/common/dto/response.dto';
@@ -11,7 +12,7 @@ import { GetQuestionResDto } from '@/common/dto/user/get-question.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
 import { UserEntity } from '@/common/entities';
-import { HttpErrorMessages } from '@/common/messages/http-error';
+import { createError } from '@/common/helpers/create-error';
 import {
   BadRequestException,
   Body,
@@ -39,12 +40,6 @@ import {
   UserService,
 } from './user.service';
 
-const createUserErrorMessages: Record<CreateUserErrors, string[]> = {
-  [CreateUserErrors.USERNAME_EXISTS]: HttpErrorMessages.USERNAME_EXISTS,
-  [CreateUserErrors.EMAIL_EXISTS]: HttpErrorMessages.EMAIL_EXISTS,
-  [CreateUserErrors.BOTH]: HttpErrorMessages.USERNAME_AND_EMAIL_EXISTS,
-};
-
 @Controller('/api/user')
 export class UserController {
   public constructor(
@@ -60,12 +55,12 @@ export class UserController {
     @Query() { username }: GetQuestionQueryDTO,
   ): Promise<ResponseDTO<GetQuestionResDto>> {
     if (currentUser)
-      throw new ForbiddenException(HttpErrorMessages.ALREADY_LOGGED_IN);
+      createError(ForbiddenException, ErrorCodes.ALREADY_LOGGED_IN);
 
     const user = await this.userService.getUserByUsername(username);
 
     if (!user)
-      throw new NotFoundException(HttpErrorMessages.USERNAME_DOES_NOT_EXIST);
+      createError(NotFoundException, ErrorCodes.USERNAME_DOES_NOT_EXIST);
 
     const { question, questionCheck, questionCheckBody } =
       await this.userService.generateChallenge(user);
@@ -79,7 +74,7 @@ export class UserController {
       sameSite: 'strict',
     });
 
-    return new ResponseDTO(HttpStatus.OK, [], {
+    return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, {
       question,
       displayName: user.displayName,
       role: user.role.name,
@@ -95,10 +90,10 @@ export class UserController {
     @Body() { answer }: LoginBodyDTO,
   ): Promise<ResponseDTO<void>> {
     if (currentUser)
-      throw new ForbiddenException(HttpErrorMessages.ALREADY_LOGGED_IN);
+      createError(ForbiddenException, ErrorCodes.ALREADY_LOGGED_IN);
 
     if (!questionCheck)
-      throw new BadRequestException(HttpErrorMessages.QUESTION_CHECK_MISSING);
+      createError(BadRequestException, ErrorCodes.QUESTION_CHECK_MISSING);
 
     const validation = await this.userService.validateAnswer(
       questionCheck,
@@ -120,31 +115,33 @@ export class UserController {
 
       res.clearCookie(CookieEntries.QUESTION_CHECK);
 
-      return new ResponseDTO(HttpStatus.OK, []);
+      return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS);
     }
 
     switch (validation) {
       case AnswerValidationErrors.NOT_DECODABLE:
-        throw new BadRequestException(
-          HttpErrorMessages.QUESTION_CHECK_CAN_NOT_BE_DECODED,
+        createError(
+          BadRequestException,
+          ErrorCodes.QUESTION_CHECK_CAN_NOT_BE_DECODED,
         );
 
       case AnswerValidationErrors.NOT_VERIFIABLE:
-        throw new BadRequestException(
-          HttpErrorMessages.QUESTION_CHECK_WRONG_SIGNATURE,
+        createError(
+          BadRequestException,
+          ErrorCodes.QUESTION_CHECK_WRONG_SIGNATURE,
         );
 
       case AnswerValidationErrors.USER_NOT_FOUND:
-        throw new NotFoundException(HttpErrorMessages.USER_DOES_NOT_EXIST);
+        createError(NotFoundException, ErrorCodes.USER_DOES_NOT_EXIST);
 
       case AnswerValidationErrors.EXPIRED:
-        throw new BadRequestException(HttpErrorMessages.QUESTION_CHECK_EXPIRED);
+        createError(BadRequestException, ErrorCodes.QUESTION_CHECK_EXPIRED);
 
       case AnswerValidationErrors.WRONG:
-        throw new BadRequestException(HttpErrorMessages.ANSWER_IS_INCORRECT);
+        createError(BadRequestException, ErrorCodes.ANSWER_IS_INCORRECT);
 
       default:
-        throw new NotImplementedException(HttpErrorMessages.$_UNKNOWN_ERROR);
+        createError(NotImplementedException, ErrorCodes.UNKNOWN_ERROR);
     }
   }
 
@@ -155,7 +152,7 @@ export class UserController {
   ): Promise<ResponseDTO<void>> {
     res.clearCookie(CookieEntries.AUTH_TOKEN);
 
-    return new ResponseDTO(HttpStatus.OK, []);
+    return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -164,16 +161,18 @@ export class UserController {
     @Param() { userId: _userId }: GetUserParamDTO,
     @CurrentUser() user: UserEntity,
   ): Promise<ResponseDTO<UserEntity>> {
-    if (_userId === 'me') return new ResponseDTO(HttpStatus.OK, [], user);
+    if (_userId === 'me')
+      return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, user);
 
     if (_userId.match(/\D/))
-      throw new BadRequestException(HttpErrorMessages.USERID_INVALID);
+      createError(BadRequestException, ErrorCodes.USERID_INVALID);
 
     const userId = parseInt(_userId, 10);
 
     return new ResponseDTO(
       HttpStatus.OK,
       [],
+      ErrorCodes.SUCCESS,
       await this.userService.getUserById(userId),
     );
   }
@@ -186,11 +185,10 @@ export class UserController {
   ): Promise<ResponseDTO<UserEntity>> {
     const role = await this.roleService.getRoleById(roleId);
 
-    if (!role)
-      throw new NotFoundException(HttpErrorMessages.ROLE_DOES_NOT_EXIST);
+    if (!role) createError(NotFoundException, ErrorCodes.ROLE_DOES_NOT_EXIST);
 
     if (role.level <= user.role.level)
-      throw new ForbiddenException(HttpErrorMessages.USER_CREATION_RESTRICTED);
+      createError(ForbiddenException, ErrorCodes.USER_CREATION_RESTRICTED);
 
     const createUserResult = await this.userService.createUser(
       username,
@@ -200,8 +198,28 @@ export class UserController {
     );
 
     if (createUserResult instanceof UserEntity)
-      return new ResponseDTO(HttpStatus.CREATED, [], createUserResult);
+      return new ResponseDTO(
+        HttpStatus.CREATED,
+        [],
+        ErrorCodes.SUCCESS,
+        createUserResult,
+      );
 
-    throw new BadRequestException(createUserErrorMessages[createUserResult]);
+    switch (createUserResult) {
+      case CreateUserErrors.USERNAME_EXISTS:
+        createError(BadRequestException, ErrorCodes.USERNAME_ALREADY_EXISTS);
+
+      case CreateUserErrors.EMAIL_EXISTS:
+        createError(BadRequestException, ErrorCodes.EMAIL_ALREADY_EXISTS);
+
+      case CreateUserErrors.BOTH:
+        createError(
+          BadRequestException,
+          ErrorCodes.USERNAME_AND_EMAIL_ALREADY_EXIST,
+        );
+
+      default:
+        createError(NotImplementedException, ErrorCodes.UNKNOWN_ERROR);
+    }
   }
 }

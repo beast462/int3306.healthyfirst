@@ -1,4 +1,6 @@
+import { ApplicationState } from '@/view/store';
 import { TableHead, TableRow } from '@mui/material';
+import { connect, ConnectedProps } from 'react-redux';
 
 const props = ['id', 'username', 'displayName', 'email', 'role', 'createdAt'];
 const propLabels = {
@@ -10,7 +12,15 @@ const propLabels = {
   createdAt: 'Thời gian tạo',
 };
 
-function TableHeader() {
+const connector = connect(
+  (state: ApplicationState) => ({
+    order: state.accountsTable.order,
+    orderBy: state.accountsTable.orderBy,
+  }),
+  {},
+);
+
+function TableHeader({ order, orderBy }: ConnectedProps<typeof connector>) {
   return (
     <TableHead>
       <TableRow>weqeqweqweqeqweqweqweqweqeqwewwwwwwwwwwwwwwwwww</TableRow>
@@ -18,4 +28,4 @@ function TableHeader() {
   );
 }
 
-export default TableHeader;
+export default connector(TableHeader);

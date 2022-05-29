@@ -11,7 +11,7 @@ export type TableState = {
   // confirmCallback: (confirmation: boolean) => void | Promise<void>;
 };
 
-export const inititalState: TableState = {
+export const initialState: TableState = {
   rowsPerPage: 5,
   page: 0,
   itemsCount: 0,
@@ -24,7 +24,7 @@ export const inititalState: TableState = {
 };
 
 export function reduce(
-  state: TableState = inititalState,
+  state: TableState = initialState,
   action: AnyAction,
 ): TableState {
   switch (action.type) {

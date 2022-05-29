@@ -1,5 +1,5 @@
 import { ApplicationState } from '@/view/store';
-import { TableHead, TableRow } from '@mui/material';
+import { TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { connect, ConnectedProps } from 'react-redux';
 
 const props = ['id', 'username', 'displayName', 'email', 'role', 'createdAt'];
@@ -23,7 +23,23 @@ const connector = connect(
 function TableHeader({ order, orderBy }: ConnectedProps<typeof connector>) {
   return (
     <TableHead>
-      <TableRow>weqeqweqweqeqweqweqweqweqeqwewwwwwwwwwwwwwwwwww</TableRow>
+      <TableRow>
+        {props.map((prop) => (
+          <TableCell
+            key={`head.${prop}`}
+            align="left"
+            padding="normal"
+            sortDirection={orderBy === prop ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === prop}
+              direction={orderBy === prop ? order : 'asc'}
+            >
+              {propLabels[prop]}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
     </TableHead>
   );
 }

@@ -1,5 +1,11 @@
-import { DialogContents } from '@/view/components/MasterDialog/DialogContents';
 import { AnyAction } from 'redux';
+
+import {
+  Notification,
+  NotificationSeverity,
+} from '@/view/common/types/Notification';
+import { DialogContents } from '@/view/components/MasterDialog/DialogContents';
+
 import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
 import { ActionTypes } from '../ActionTypes';
@@ -11,6 +17,7 @@ type AppState = {
   showRegisForm: boolean;
   dialogContent: DialogContents;
   confirmCallback: (accepted: boolean) => void;
+  notification: Notification;
 };
 
 function getDefaultViewMode(): number {
@@ -32,6 +39,11 @@ export const initialState: AppState = {
   dialogContent: DialogContents.NONE,
   confirmCallback() {
     return;
+  },
+  notification: {
+    open: false,
+    severity: NotificationSeverity.INFO,
+    message: '',
   },
 };
 

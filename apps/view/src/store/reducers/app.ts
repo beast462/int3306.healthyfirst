@@ -1,3 +1,4 @@
+import { DialogContents } from '@/view/components/MasterDialog/DialogContents';
 import { AnyAction } from 'redux';
 import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
@@ -8,6 +9,8 @@ type AppState = {
   viewMode: number;
   showMenu: boolean;
   showRegisForm: boolean;
+  dialogContent: DialogContents;
+  confirmCallback: (accepted: boolean) => void;
 };
 
 function getDefaultViewMode(): number {
@@ -26,6 +29,10 @@ export const initialState: AppState = {
   viewMode: getDefaultViewMode(),
   showMenu: window.innerWidth > breakpoints.values.md,
   showRegisForm: false,
+  dialogContent: DialogContents.NONE,
+  confirmCallback() {
+    return;
+  },
 };
 
 export function reduce(
@@ -38,6 +45,9 @@ export function reduce(
 
     case ActionTypes.APP__CHANGE_SHOW_REGIS_FORM_STATE:
       return { ...state, showRegisForm: action.payload };
+
+    case ActionTypes.APP__OPEN_DIALOG:
+      return { ...state, dialogContent: action.payload };
 
     default:
       return state;

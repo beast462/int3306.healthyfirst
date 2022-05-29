@@ -8,11 +8,7 @@ function Overview(): ReactElement {
 }
 
 Navigations.getInstance().registerNavigation('/overview', {
-  avatar: (
-    <Avatar>
-      <Info />
-    </Avatar>
-  ),
+  icon: <Info />,
   label: 'Overview',
   childOf: null,
 })(Overview);

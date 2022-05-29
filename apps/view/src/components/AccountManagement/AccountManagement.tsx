@@ -31,11 +31,7 @@ function AccountManagement(): ReactElement {
 export default AccountManagement;
 
 Navigations.getInstance().registerNavigation('/account-management', {
-  avatar: (
-    <Avatar>
-      <ManageAccountsRounded />
-    </Avatar>
-  ),
+  icon: <ManageAccountsRounded />,
   label: 'Manage Account',
   childOf: null,
 })(AccountManagement);

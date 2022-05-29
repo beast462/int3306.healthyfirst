@@ -2,16 +2,17 @@ import {
   Divider,
   Drawer,
   List,
-  ListItemAvatar,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Theme,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ApplicationState } from '@/view/store';
 import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
+import { showMenu as _showMenu } from '@/view/store/actions/app/showMenu';
 import clsx from 'clsx';
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useBreakpoints } from '@/view/hooks/useBreakpoints';
 import { Navigations } from '../../Navigations';
@@ -40,6 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     position: 'relative',
     height: '100%',
+    backgroundColor: '#111827',
+    color: '#fff',
     [theme.breakpoints.up(menuFullWidth)]: {
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -60,6 +63,35 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: '100%',
     },
   },
+  listItem: {
+    color: '#D1D5DB',
+    display: 'flex',
+    borderRadius: '10px',
+    margin: '5px 1rem',
+    '&:hover': {
+      backgroundColor: '#ffffff14',
+    },
+    '& div': {
+      minWidth: 'fit-content',
+      width: 'fit-content',
+      padding: '0 5px',
+    },
+  },
+  listItemActivate: {
+    color: '#10B981',
+    backgroundColor: '#ffffff14',
+    display: 'flex',
+    borderRadius: '10px',
+    margin: '5px 1rem',
+    '&:hover': {
+      backgroundColor: '#ffffff14',
+    },
+    '& div': {
+      minWidth: 'fit-content',
+      width: 'fit-content',
+      padding: '0 5px',
+    },
+  },
 }));
 
 const connector = connect(
@@ -67,6 +99,7 @@ const connector = connect(
     show: state.app.showMenu,
   }),
   {
+    showMenu: _showMenu,
     hideMenu: _hideMenu,
   },
 );
@@ -74,6 +107,7 @@ const connector = connect(
 function Menu({
   show,
   hideMenu,
+  showMenu,
 }: ConnectedProps<typeof connector>): ReactElement {
   const classes = useStyles();
   const checker = useBreakpoints();
@@ -82,10 +116,13 @@ function Menu({
 
     return allMenu.filter((nav) => nav[1].tabProps);
   }, []);
+  const [activateItem, setActivateItem] = useState(0);
 
-  navigations.map((nav) => {
-    console.log(nav);
-  });
+  useEffect(() => {
+    if (checker.up('md')) {
+      showMenu();
+    }
+  }, [checker.up('md')]);
 
   return (
     <Drawer
@@ -97,13 +134,21 @@ function Menu({
       PaperProps={{ className: clsx(classes.paper, { show }), elevation: 4 }}
     >
       <List>
-        {navigations.map((nav) => (
+        {navigations.map((nav, index) => (
           <ListItemButton
             key={`nav.menu@${nav[0]}`}
             component={Link}
             to={`${nav[0]}`}
+            className={
+              activateItem === index
+                ? classes.listItemActivate
+                : classes.listItem
+            }
+            onClick={() => setActivateItem(index)}
           >
-            <ListItemAvatar>{nav[1].tabProps.avatar}</ListItemAvatar>
+            <ListItemIcon sx={{ color: 'inherit' }}>
+              {nav[1].tabProps.icon}
+            </ListItemIcon>
             <ListItemText
               primary={nav[1].tabProps.label}
               secondary={nav[1].tabProps.caption}

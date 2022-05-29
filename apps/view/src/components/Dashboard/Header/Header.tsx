@@ -1,3 +1,4 @@
+import { useBreakpoints } from '@/view/hooks/useBreakpoints';
 import { ApplicationState } from '@/view/store';
 import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
 import { showMenu as _showMenu } from '@/view/store/actions/app/showMenu';
@@ -30,11 +31,16 @@ const Container = styled.div`
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: '100vw',
+    width: 'calc(100%vw - 260px)',
+    [theme.breakpoints.down('md')]: {
+      width: '100%vw',
+    },
     zIndex: theme.zIndex.appBar,
-    backgroundColor: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
+    boxShadow: '0px 2px 5px rgba(100 116 139 / 20%)',
     '&, & *': {
-      color: theme.palette.primary.contrastText,
+      color: 'black',
+      // color: theme.palette.primary.contrastText,
     },
   },
   toolbar: {
@@ -55,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '1.5rem',
     height: '1.5rem',
     overflow: 'hidden',
+    color: 'black',
     '& > .MuiIcon-ArrowRightRounded,.MuiIcon-ArrowLeftRounded': {
       display: 'none',
       fontSize: '3rem',
@@ -65,12 +72,12 @@ const useStyles = makeStyles((theme: Theme) => ({
       '& > .MuiIcon-Menu': {
         display: 'none',
       },
-      '& > .MuiIcon-ArrowRightRounded.show': {
-        display: 'block',
-      },
-      '& > .MuiIcon-ArrowLeftRounded.show': {
-        display: 'block',
-      },
+      // '& > .MuiIcon-ArrowRightRounded.show': {
+      //   display: 'block',
+      // },
+      // '& > .MuiIcon-ArrowLeftRounded.show': {
+      //   display: 'block',
+      // },
     },
   },
 }));
@@ -93,15 +100,19 @@ function Header({
   showMenu,
 }: ConnectedProps<typeof connector>): ReactElement {
   const classes = useStyles();
+  const checker = useBreakpoints();
 
   return (
     <div className={classes.root}>
       <Toolbar variant="dense" className={classes.toolbar}>
         <Container>
-          <IconButton onClick={menuShown ? hideMenu : showMenu}>
+          <IconButton
+            disabled={checker.up('md')}
+            onClick={menuShown ? hideMenu : showMenu}
+          >
             <div className={classes.menuBtn}>
               <Menu className={'MuiIcon-Menu'} />
-              <ArrowRightRounded
+              {/* <ArrowRightRounded
                 className={clsx(
                   'MuiIcon-ArrowRightRounded',
                   menuShown ? '' : 'show',
@@ -112,7 +123,7 @@ function Header({
                   'MuiIcon-ArrowLeftRounded',
                   menuShown ? 'show' : '',
                 )}
-              />
+              /> */}
             </div>
           </IconButton>
 

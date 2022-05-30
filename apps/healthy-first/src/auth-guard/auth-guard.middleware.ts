@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { CookieEntries } from '@/common/constants/cookie-entries';
 import { Environments } from '@/common/constants/environments';
 import { UserEntity } from '@/common/entities';
-import { decode, verify } from '@/common/helpers/jwt';
+import { decode, sign, verify } from '@/common/helpers/jwt';
 import { AuthTokenPayload } from '@/common/models/auth-token-payload';
 import {
   BadRequestException,
@@ -21,19 +21,23 @@ import { ErrorCodes } from '@/common/constants/error-codes';
 
 @Injectable()
 export class AuthGuardMiddleware implements NestMiddleware {
+  private readonly isProd: boolean;
+  private readonly tokenExpiration: number;
+
   public constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private readonly configService: ConfigService,
-  ) {}
+    configService: ConfigService,
+  ) {
+    this.isProd =
+      configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
+      Environments.PRODUCTION;
+    this.tokenExpiration = configService.get<number>(ConfigKeys.AUTH_TOKEN_EXP);
+  }
 
   async use(req: Request, res: Response, next: NextFunction) {
-    const isProd =
-      this.configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
-      Environments.PRODUCTION;
-
     const token =
-      req[isProd ? 'signedCookies' : 'cookies'][CookieEntries.AUTH_TOKEN];
+      req[this.isProd ? 'signedCookies' : 'cookies'][CookieEntries.AUTH_TOKEN];
 
     if (typeof token !== 'string')
       createError(BadRequestException, ErrorCodes.AUTH_TOKEN_MISSING);
@@ -70,6 +74,23 @@ export class AuthGuardMiddleware implements NestMiddleware {
       res.clearCookie(CookieEntries.AUTH_TOKEN);
       createError(BadRequestException, ErrorCodes.AUTH_TOKEN_INVALID);
     }
+
+    const newTokenExpiration = Date.now() + this.tokenExpiration;
+    const newToken = await sign(
+      {
+        userId: user.id,
+        level: user.role,
+        exp: ~~(newTokenExpiration / 1000),
+      },
+      user.secret,
+    );
+
+    res.cookie(CookieEntries.AUTH_TOKEN, newToken, {
+      httpOnly: true,
+      signed: this.isProd,
+      expires: new Date(newTokenExpiration),
+      sameSite: 'strict',
+    });
 
     req.user = user;
     next();

@@ -108,7 +108,8 @@ export class UserController {
   public async getUserCreations(
     @CurrentUser() currentUser: UserEntity,
     @Param() { userId: _userId }: GetUserCreationsParamDTO,
-    @Query() { limit: _limit, offset: _offset }: GetUserCreationsQueryDTO,
+    @Query()
+    { limit, offset, order, orderBy }: GetUserCreationsQueryDTO,
   ): Promise<ResponseDTO<GetUserCreationsResDTO>> {
     let userId: number;
 
@@ -116,15 +117,13 @@ export class UserController {
     else if (_userId.match(/\D/))
       createError(BadRequestException, ErrorCodes.USERID_INVALID);
     else userId = Number(_userId);
-
-    const limit = _limit ?? Number.MAX_SAFE_INTEGER;
-    const offset = _offset ?? 0;
-
     const total = await this.userService.getCreationsCount(userId);
     const creations = await this.userService.getCreations(
       userId,
-      limit,
-      offset,
+      limit ?? Number.MAX_SAFE_INTEGER,
+      offset ?? 0,
+      order ?? 'asc',
+      orderBy ?? 'id',
     );
 
     return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, {

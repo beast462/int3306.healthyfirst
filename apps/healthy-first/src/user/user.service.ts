@@ -8,6 +8,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { MailService } from '../mail/mail.service';
+import { PublicUser } from '@/common/models/public-user';
 
 export enum CreateUserErrors {
   USERNAME_EXISTS = 0,
@@ -106,9 +107,14 @@ export class UserService {
     creatorId: number,
     limit: number,
     offset: number,
+    order: 'asc' | 'desc',
+    orderBy: keyof PublicUser,
   ): Promise<UserEntity[]> {
     return await this.userRepository.find({
       where: { creatorId },
+      order: {
+        [orderBy]: order,
+      },
       take: limit,
       skip: offset,
       relations: ['role'],

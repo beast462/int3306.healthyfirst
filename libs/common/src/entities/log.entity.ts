@@ -34,11 +34,11 @@ export class LogEntity {
   detail!: string;
 
   @Column('timestamp', {
-    name: 'creation_date',
+    name: 'created_at',
     nullable: false,
     default: () => 'CURRENT_TIMESTAMP',
   })
-  creationDate!: Date;
+  createdAt!: Date;
 
   @Column('varchar', {
     name: 'fingerprint',

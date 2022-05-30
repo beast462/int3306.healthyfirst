@@ -41,6 +41,9 @@ export class UserEntity {
   @Exclude()
   secret!: string;
 
+  @Column('int', { name: 'role_id', nullable: false })
+  roleId!: number;
+
   @ManyToOne(() => RoleEntity, (role) => role.id, {
     nullable: false,
     onDelete: 'RESTRICT',
@@ -49,6 +52,9 @@ export class UserEntity {
   })
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role!: RoleEntity;
+
+  @Column('int', { name: 'creator_id', nullable: true })
+  creatorId!: number;
 
   @ManyToOne(() => UserEntity, (user) => user.id, {
     nullable: true,

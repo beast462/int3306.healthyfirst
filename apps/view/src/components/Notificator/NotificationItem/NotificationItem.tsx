@@ -57,7 +57,11 @@ const NotificationItem = forwardRef<HTMLDivElement, IProps>(
 
             <AccordionDetails>
               {details.map((detail, index) => (
-                <Typography key={`detail#${index}`} variant="caption">
+                <Typography
+                  component="div"
+                  key={`detail#${index}`}
+                  variant="caption"
+                >
                   {detail}
                 </Typography>
               ))}

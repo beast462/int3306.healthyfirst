@@ -17,6 +17,6 @@ import { UserUtilsService } from './user-utils.service';
     MailModule,
   ],
   providers: [UserService, RoleService, UserUtilsService],
-  controllers: [UserController, UserUtilsController],
+  controllers: [UserUtilsController, UserController],
 })
 export class UserModule {}

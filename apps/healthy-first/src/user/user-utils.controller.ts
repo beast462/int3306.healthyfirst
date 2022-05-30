@@ -31,7 +31,7 @@ import { ConfigKeys } from '../base/config.module';
 import { AnswerValidationErrors, UserUtilsService } from './user-utils.service';
 import { UserService } from './user.service';
 
-@Controller('user-utils')
+@Controller('/api/user')
 export class UserUtilsController {
   public constructor(
     private readonly userService: UserService,

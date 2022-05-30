@@ -1,21 +1,54 @@
+import { ReactElement, useState } from 'react';
+
+import Flexbox from '@/view/common/components/Flexbox';
 import styled from '@emotion/styled';
 import { ManageAccountsRounded } from '@mui/icons-material';
-import { ReactElement } from 'react';
+
 import { Navigations } from '../Navigations';
-import AccountTable from './AccountTable/AccountTable';
-import RegisterForm from './RegisterForm/RegisterForm1';
-import RegistrationForm from './RegisterForm/RegistrationForm';
+import AccountsTable from './AccountsTable/AccountsTable';
+import RegistrationForm from './RegistrationForm/RegistrationForm';
+
+export interface ISegmentProps {
+  switchSegment: () => void;
+}
 
 const Root = styled.div`
-   width: 100%,
-   display: flex,
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
+
+const Content = styled(Flexbox)`
+  width: 200%;
+  height: 100%;
+  overflow: hidden;
+  transition: margin 0.2s ease-out;
+
+  &.next {
+    margin-left: -100%;
+  }
+`;
+
+const Segment = styled.div`
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
 `;
 
 function AccountManagement(): ReactElement {
+  const [viewingSegment, setViewingSegment] = useState(0);
+
   return (
     <Root>
-      <AccountTable />
-      <RegistrationForm />
+      <Content className={viewingSegment === 0 ? '' : 'next'}>
+        <Segment>
+          <AccountsTable switchSegment={() => setViewingSegment(1)} />
+        </Segment>
+
+        <Segment>
+          <RegistrationForm switchSegment={() => setViewingSegment(0)} />
+        </Segment>
+      </Content>
     </Root>
   );
 }

@@ -1,3 +1,5 @@
+import { v4 } from 'uuid';
+
 import { NotificationSeverity } from '@/view/common/types/Notification';
 
 import { ActionTypes } from '../../ActionTypes';
@@ -12,6 +14,7 @@ export function notify(
     dispatch({
       type: ActionTypes.APP__NOTIFY,
       payload: {
+        id: v4(),
         message,
         severity,
         details: typeof details === 'string' ? [details] : details,

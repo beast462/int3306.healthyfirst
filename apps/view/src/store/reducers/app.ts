@@ -1,9 +1,6 @@
 import { AnyAction } from 'redux';
 
-import {
-  Notification,
-  NotificationSeverity,
-} from '@/view/common/types/Notification';
+import { Notification } from '@/view/common/types/Notification';
 import { DialogContents } from '@/view/components/MasterDialog/DialogContents';
 
 import { breakpoints } from '../../constants/breakpoints';
@@ -17,7 +14,7 @@ type AppState = {
   showRegisForm: boolean;
   dialogContent: DialogContents;
   confirmCallback: (accepted: boolean) => void;
-  notification: Notification;
+  nextNotification: Notification;
 };
 
 function getDefaultViewMode(): number {
@@ -40,12 +37,7 @@ export const initialState: AppState = {
   confirmCallback() {
     return;
   },
-  notification: {
-    open: false,
-    severity: NotificationSeverity.INFO,
-    message: '',
-    details: [],
-  },
+  nextNotification: null,
 };
 
 export function reduce(
@@ -63,10 +55,10 @@ export function reduce(
       return { ...state, dialogContent: action.payload };
 
     case ActionTypes.APP__NOTIFY:
-      return { ...state, notification: { ...action.payload, open: true } };
-
-    case ActionTypes.APP__HIDE_NOTIFICATION:
-      return { ...state, notification: { ...state.notification, open: false } };
+      return {
+        ...state,
+        nextNotification: action.payload,
+      };
 
     default:
       return state;

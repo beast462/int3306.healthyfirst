@@ -6,7 +6,7 @@ export enum NotificationSeverity {
 }
 
 export type Notification = {
-  open: boolean;
+  id: string;
   message: string;
   severity: NotificationSeverity;
   details: string[];

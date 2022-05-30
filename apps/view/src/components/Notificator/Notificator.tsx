@@ -12,7 +12,9 @@ function Transition(props: SlideProps) {
 
 const connector = connect(
   (state: ApplicationState) => ({
-    notification: state.app.notification,
+    open: state.app.notification.open,
+    severity: state.app.notification.severity,
+    message: state.app.notification.message,
   }),
   {
     hideNotification,
@@ -20,10 +22,12 @@ const connector = connect(
 );
 
 function Notificator({
-  notification,
+  open,
+  severity,
+  message,
   hideNotification,
 }: ConnectedProps<typeof connector>) {
-  const { open, severity, message } = notification;
+  console.log(open, severity);
 
   return (
     <Snackbar

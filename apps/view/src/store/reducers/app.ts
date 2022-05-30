@@ -61,6 +61,12 @@ export function reduce(
     case ActionTypes.APP__OPEN_DIALOG:
       return { ...state, dialogContent: action.payload };
 
+    case ActionTypes.APP__NOTIFY:
+      return { ...state, notification: { ...action.payload, open: true } };
+
+    case ActionTypes.APP__HIDE_NOTIFICATION:
+      return { ...state, notification: { ...state.notification, open: false } };
+
     default:
       return state;
   }

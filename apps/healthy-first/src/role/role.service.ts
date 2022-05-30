@@ -10,6 +10,10 @@ export class RoleService {
     private readonly roleRepository: Repository<RoleEntity>,
   ) {}
 
+  public async getAllRoles(): Promise<RoleEntity[]> {
+    return await this.roleRepository.find();
+  }
+
   public async getRoleById(id: number): Promise<RoleEntity> {
     return await this.roleRepository.findOne({
       where: { id },

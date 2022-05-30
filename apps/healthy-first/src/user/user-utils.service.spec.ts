@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { UserUtilsService } from './user-utils.service';
 
 describe('UserUtilsService', () => {

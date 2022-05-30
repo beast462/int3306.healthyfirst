@@ -4,19 +4,20 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { MailModule } from '../mail/mail.module';
-import { RoleService } from './role.service';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
+import { RoleModule } from '../role/role.module';
 import { UserUtilsController } from './user-utils.controller';
 import { UserUtilsService } from './user-utils.service';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, RoleEntity]),
     ConfigModule,
     MailModule,
+    RoleModule,
   ],
-  providers: [UserService, RoleService, UserUtilsService],
+  providers: [UserService, UserUtilsService],
   controllers: [UserUtilsController, UserController],
 })
 export class UserModule {}

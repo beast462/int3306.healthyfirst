@@ -9,6 +9,7 @@ import { MailModule } from './mail/mail.module';
 import { PingController } from './ping/ping.controller';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './view/view.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ViewModule } from './view/view.module';
     AuthGuardModule,
     MailModule,
     DbLoggerModule,
+    RoleModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

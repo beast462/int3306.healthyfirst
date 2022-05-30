@@ -24,7 +24,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 
-import { RoleService } from './role.service';
+import { RoleService } from '../role/role.service';
 import { CreateUserErrors, UserService } from './user.service';
 
 @Controller('/api/user')

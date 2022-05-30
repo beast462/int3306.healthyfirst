@@ -111,6 +111,7 @@ export class UserService {
       where: { creatorId },
       take: limit,
       skip: offset,
+      relations: ['role'],
     });
   }
 }

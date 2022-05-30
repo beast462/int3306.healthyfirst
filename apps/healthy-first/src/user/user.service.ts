@@ -113,7 +113,7 @@ export class UserService {
     return await this.userRepository.find({
       where: { creatorId },
       order: {
-        [orderBy]: order,
+        [orderBy]: order.toUpperCase(),
       },
       take: limit,
       skip: offset,

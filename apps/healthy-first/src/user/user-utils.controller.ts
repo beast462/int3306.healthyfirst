@@ -6,9 +6,9 @@ import { ErrorCodes } from '@/common/constants/error-codes';
 import { Cookies } from '@/common/decorators/cookies';
 import { CurrentUser } from '@/common/decorators/current-user';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { GetQuestionQueryDTO } from '@/common/dto/user/get-question.query.dto';
-import { GetQuestionResDto } from '@/common/dto/user/get-question.res.dto';
-import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
+import { GetQuestionQueryDTO } from '@/common/dto/user-utils/get-question.query.dto';
+import { GetQuestionResDto } from '@/common/dto/user-utils/get-question.res.dto';
+import { LoginBodyDTO } from '@/common/dto/user-utils/login.body.dto';
 import { UserEntity } from '@/common/entities';
 import { createError } from '@/common/helpers/create-error';
 import {
@@ -28,12 +28,14 @@ import {
 import { ConfigService } from '@nestjs/config';
 
 import { ConfigKeys } from '../base/config.module';
-import { AnswerValidationErrors, UserService } from './user.service';
+import { AnswerValidationErrors, UserUtilsService } from './user-utils.service';
+import { UserService } from './user.service';
 
 @Controller('user-utils')
 export class UserUtilsController {
   public constructor(
     private readonly userService: UserService,
+    private readonly userUtilsService: UserUtilsService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -52,7 +54,7 @@ export class UserUtilsController {
       createError(NotFoundException, ErrorCodes.USERNAME_DOES_NOT_EXIST);
 
     const { question, questionCheck, questionCheckBody } =
-      await this.userService.generateChallenge(user);
+      await this.userUtilsService.generateChallenge(user);
 
     res.cookie(CookieEntries.QUESTION_CHECK, questionCheck, {
       httpOnly: true,
@@ -84,7 +86,7 @@ export class UserUtilsController {
     if (!questionCheck)
       createError(BadRequestException, ErrorCodes.QUESTION_CHECK_MISSING);
 
-    const validation = await this.userService.validateAnswer(
+    const validation = await this.userUtilsService.validateAnswer(
       questionCheck,
       answer,
     );

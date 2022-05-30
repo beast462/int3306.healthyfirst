@@ -8,6 +8,7 @@ import { RoleService } from './role.service';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { UserUtilsController } from './user-utils.controller';
+import { UserUtilsService } from './user-utils.service';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { UserUtilsController } from './user-utils.controller';
     ConfigModule,
     MailModule,
   ],
-  providers: [UserService, RoleService],
+  providers: [UserService, RoleService, UserUtilsService],
   controllers: [UserController, UserUtilsController],
 })
 export class UserModule {}

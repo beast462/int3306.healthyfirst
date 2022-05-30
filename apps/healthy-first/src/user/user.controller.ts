@@ -2,9 +2,13 @@ import { ErrorCodes } from '@/common/constants/error-codes';
 import { CurrentUser } from '@/common/decorators/current-user';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { CreateUserBodyDTO } from '@/common/dto/user/create-user.body.dto';
+import { GetUserCreationsParamDTO } from '@/common/dto/user/get-user-creations.param.dto';
+import { GetUserCreationsQueryDTO } from '@/common/dto/user/get-user-creations.query.dto';
+import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { UserEntity } from '@/common/entities';
 import { createError } from '@/common/helpers/create-error';
+import { PublicUser } from '@/common/models/public-user';
 import {
   BadRequestException,
   Body,
@@ -17,6 +21,7 @@ import {
   NotImplementedException,
   Param,
   Post,
+  Query,
   UseInterceptors,
 } from '@nestjs/common';
 
@@ -42,7 +47,7 @@ export class UserController {
     if (_userId.match(/\D/))
       createError(BadRequestException, ErrorCodes.USERID_INVALID);
 
-    const userId = parseInt(_userId, 10);
+    const userId = Number(_userId);
 
     return new ResponseDTO(
       HttpStatus.OK,
@@ -96,5 +101,29 @@ export class UserController {
       default:
         createError(NotImplementedException, ErrorCodes.UNKNOWN_ERROR);
     }
+  }
+
+  @Get('/:userId/creation')
+  public async getUserCreations(
+    @CurrentUser() currentUser: UserEntity,
+    @Param() { userId: _userId }: GetUserCreationsParamDTO,
+    @Query() { limit: _limit, offset: _offset }: GetUserCreationsQueryDTO,
+  ): Promise<ResponseDTO<GetUserCreationsResDTO>> {
+    let userId: number;
+
+    if (_userId === 'me') userId = currentUser.id;
+    else if (_userId.match(/\D/))
+      createError(BadRequestException, ErrorCodes.USERID_INVALID);
+    else userId = Number(_userId);
+
+    const limit = _limit ?? Number.MAX_SAFE_INTEGER;
+    const offset = _offset ?? 0;
+
+    return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, {
+      total: 0,
+      limit,
+      offset,
+      creations: [],
+    });
   }
 }

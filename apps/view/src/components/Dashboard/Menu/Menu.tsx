@@ -1,3 +1,13 @@
+import clsx from 'clsx';
+import { ReactElement, useEffect, useMemo } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import { useBreakpoints } from '@/view/hooks/useBreakpoints';
+import { ApplicationState } from '@/view/store';
+import { hideMenu } from '@/view/store/actions/app/hideMenu';
+import { showMenu } from '@/view/store/actions/app/showMenu';
 import {
   Divider,
   Drawer,
@@ -8,24 +18,12 @@ import {
   Theme,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ApplicationState } from '@/view/store';
-import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
-import { showMenu as _showMenu } from '@/view/store/actions/app/showMenu';
-import clsx from 'clsx';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { useBreakpoints } from '@/view/hooks/useBreakpoints';
+
 import { Navigations } from '../../Navigations';
-import { Link } from 'react-router-dom';
 import UserInfo from './UserInfo/UserInfo';
 
 export const menuFullWidth = 260;
 
-/**
- * Menu will be full screen on < $menuFullWidth
- * Menu will be floating on $menuFullWidth - md
- * Menu will be a part of body on > md
- */
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     [theme.breakpoints.down('md')]: {
@@ -76,20 +74,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: 'fit-content',
       padding: '0 5px',
     },
-  },
-  listItemActivate: {
-    color: '#10B981',
-    backgroundColor: '#ffffff14',
-    display: 'flex',
-    borderRadius: '10px',
-    margin: '5px 1rem',
-    '&:hover': {
+
+    '&.Mui-selected': {
+      color: '#10B981',
       backgroundColor: '#ffffff14',
-    },
-    '& div': {
-      minWidth: 'fit-content',
-      width: 'fit-content',
-      padding: '0 5px',
     },
   },
 }));
@@ -99,8 +87,8 @@ const connector = connect(
     show: state.app.showMenu,
   }),
   {
-    showMenu: _showMenu,
-    hideMenu: _hideMenu,
+    showMenu,
+    hideMenu,
   },
 );
 
@@ -116,7 +104,7 @@ function Menu({
 
     return allMenu.filter((nav) => nav[1].tabProps);
   }, []);
-  const [activateItem, setActivateItem] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     if (checker.up('md')) {
@@ -134,17 +122,13 @@ function Menu({
       PaperProps={{ className: clsx(classes.paper, { show }), elevation: 4 }}
     >
       <List>
-        {navigations.map((nav, index) => (
+        {navigations.map((nav) => (
           <ListItemButton
             key={`nav.menu@${nav[0]}`}
             component={Link}
             to={`${nav[0]}`}
-            className={
-              activateItem === index
-                ? classes.listItemActivate
-                : classes.listItem
-            }
-            onClick={() => setActivateItem(index)}
+            selected={location.pathname === nav[0]}
+            className={classes.listItem}
           >
             <ListItemIcon sx={{ color: 'inherit' }}>
               {nav[1].tabProps.icon}

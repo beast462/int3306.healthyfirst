@@ -4,12 +4,21 @@ import useSWR from 'swr';
 
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { ResponseDTO } from '@/common/dto/response.dto';
+import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
 import { PublicUser } from '@/common/models/public-user';
 import { SerializableError } from '@/common/models/serializable-error';
+import { SortOrders } from '@/common/types/sort-orders';
 import { HttpStatus } from '@nestjs/common/enums/http-status.enum';
 
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
+
+interface IProps {
+  limit: number;
+  offset: number;
+  order: SortOrders;
+  orderBy: keyof PublicUser;
+}
 
 async function fetchCreatedAccounts(
   this: Dispatch<any>,
@@ -32,10 +41,10 @@ async function fetchCreatedAccounts(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useCreatedAccounts() {
+export function useCreatedAccounts({ limit, offset, order, orderBy }: IProps) {
   const dispatch = useDispatch();
-  const { data, error } = useSWR<PublicUser[], Error>(
-    '/api/user/me/creation',
+  const { data, error } = useSWR<GetUserCreationsResDTO, Error>(
+    `/api/user/me/creation?limit=${limit}&offset=${offset}&order=${order}&orderBy=${orderBy}`,
     fetchCreatedAccounts.bind(dispatch),
   );
 
@@ -44,7 +53,7 @@ export function useCreatedAccounts() {
     (error instanceof Error || SerializableError.isSerializableError(error));
 
   return {
-    createdAccounts: data,
+    data,
     isLoading: !error && !data,
     error: isError ? error : null,
   };

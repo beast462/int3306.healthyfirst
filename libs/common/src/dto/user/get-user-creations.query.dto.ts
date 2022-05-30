@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import { IsEnum, IsInt, IsOptional, Min } from 'class-validator';
 
 import { PublicUser } from '@/common/models/public-user';
+import { SortOrders } from '@/common/types/sort-orders';
 
 export class GetUserCreationsQueryDTO {
   @Min(1)
@@ -16,9 +17,9 @@ export class GetUserCreationsQueryDTO {
   @IsOptional()
   offset: number;
 
-  @IsEnum(['asc', 'desc'])
+  @IsEnum(SortOrders)
   @IsOptional()
-  order: 'asc' | 'desc';
+  order: SortOrders;
 
   @IsEnum(['id', 'username', 'email', 'displayName', 'roleId', 'createdAt'])
   @IsOptional()

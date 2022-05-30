@@ -4,11 +4,12 @@ import { v4 } from 'uuid';
 
 import { RoleEntity, UserEntity } from '@/common/entities';
 import { randomRange } from '@/common/helpers/random-range';
+import { PublicUser } from '@/common/models/public-user';
+import { SortOrders } from '@/common/types/sort-orders';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { MailService } from '../mail/mail.service';
-import { PublicUser } from '@/common/models/public-user';
 
 export enum CreateUserErrors {
   USERNAME_EXISTS = 0,
@@ -107,7 +108,7 @@ export class UserService {
     creatorId: number,
     limit: number,
     offset: number,
-    order: 'asc' | 'desc',
+    order: SortOrders,
     orderBy: keyof PublicUser,
   ): Promise<UserEntity[]> {
     return await this.userRepository.find({

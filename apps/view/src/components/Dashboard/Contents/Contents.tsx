@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ReactElement, useMemo } from 'react';
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 import { Navigations } from '../../Navigations';
 
 const Root = styled.div`
@@ -19,6 +19,8 @@ function Contents(): ReactElement {
   return (
     <Root>
       <Routes>
+        <Route path="/" element={<Navigate to={navigations[0][0]} />} />
+
         {navigations.map(([path, { element: Element }]) => (
           <Route
             key={`route.contents@${path}`}

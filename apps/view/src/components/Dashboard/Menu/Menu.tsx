@@ -9,7 +9,6 @@ import { ApplicationState } from '@/view/store';
 import { hideMenu } from '@/view/store/actions/app/hideMenu';
 import { showMenu } from '@/view/store/actions/app/showMenu';
 import {
-  Divider,
   Drawer,
   List,
   ListItemButton,
@@ -20,7 +19,6 @@ import {
 import { makeStyles } from '@mui/styles';
 
 import { Navigations } from '../../Navigations';
-import UserInfo from './UserInfo/UserInfo';
 
 export const menuFullWidth = 260;
 
@@ -140,10 +138,6 @@ function Menu({
           </ListItemButton>
         ))}
       </List>
-
-      <Divider />
-
-      <UserInfo />
     </Drawer>
   );
 }

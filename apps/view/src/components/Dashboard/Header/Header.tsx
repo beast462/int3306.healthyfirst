@@ -1,22 +1,14 @@
 import { useBreakpoints } from '@/view/hooks/useBreakpoints';
-import { useUser } from '@/view/hooks/useUser';
 import { ApplicationState } from '@/view/store';
 import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
 import { showMenu as _showMenu } from '@/view/store/actions/app/showMenu';
 import styled from '@emotion/styled';
 import { Menu } from '@mui/icons-material';
-import {
-  Avatar,
-  IconButton,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Theme,
-  Toolbar,
-} from '@mui/material';
+import { IconButton, Theme, Toolbar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ReactElement } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import UserMenu from './UserMenu/UserMenu';
 
 const Container = styled.div`
   width: 100%;
@@ -91,7 +83,6 @@ function Header({
 }: ConnectedProps<typeof connector>): ReactElement {
   const classes = useStyles();
   const checker = useBreakpoints();
-  const user = useUser();
 
   return (
     <div className={classes.root}>
@@ -106,19 +97,7 @@ function Header({
             </div>
           </IconButton>
 
-          <div>
-            <ListItemButton dense>
-              <ListItemAvatar className={classes.avt}>
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-              </ListItemAvatar>
-
-              <ListItemText
-                className={classes.avtText}
-                primary={user.user.displayName ?? ''}
-                secondary={user.user.role?.name ?? ''}
-              />
-            </ListItemButton>
-          </div>
+          <UserMenu />
         </Container>
       </Toolbar>
     </div>

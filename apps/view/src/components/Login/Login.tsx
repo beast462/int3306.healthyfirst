@@ -1,4 +1,5 @@
 import { generateAnswer } from '@/common/helpers/generate-answer';
+import Flexbox from '@/view/common/components/Flexbox';
 import styled from '@emotion/styled';
 import { VisibilityOffRounded, VisibilityRounded } from '@mui/icons-material';
 import {
@@ -23,7 +24,7 @@ import {
 } from 'react';
 import { Navigations } from '../Navigations';
 
-const Root = styled.div`
+const Root = styled(Flexbox)`
   position: fixed;
   top: 0;
   left: 0;
@@ -32,33 +33,21 @@ const Root = styled.div`
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   align-items: center;
   justify-content: center;
   z-index: 99999;
 `;
 
-const RightAligned = styled.div`
+const RightAligned = styled(Flexbox)`
   width: 100%;
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   flex-direction: row;
   -ms-flex-direction: row;
   align-items: center;
   justify-content: flex-end;
 `;
 
-const JustifyBetween = styled.div`
+const JustifyBetween = styled(Flexbox)`
   width: 100%;
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   flex-direction: row;
   -ms-flex-direction: row;
   align-items: center;

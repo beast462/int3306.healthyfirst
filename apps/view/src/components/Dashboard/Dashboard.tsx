@@ -1,18 +1,17 @@
-import styled from '@emotion/styled';
-import { ReactElement } from 'react';
-
 import '../Overview';
 import '../Login';
 import '../AccountManagement';
+
+import { ReactElement } from 'react';
+
+import Flexbox from '@/view/common/components/Flexbox';
+import styled from '@emotion/styled';
+
 import Contents from './Contents/Contents';
 import Header from './Header/Header';
 import Menu from './Menu/Menu';
 
-const Root = styled.div`
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
+const Root = styled(Flexbox)`
   flex-direction: row;
   -ms-flex-direction: row;
   width: 100vw;
@@ -20,12 +19,8 @@ const Root = styled.div`
   overflow: hidden;
 `;
 
-const Body = styled.div`
+const Body = styled(Flexbox)`
   flex: 1;
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   flex-direction: column;
   -ms-flex-direction: column;
   width: 100vw;

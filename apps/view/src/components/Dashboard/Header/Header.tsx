@@ -1,3 +1,7 @@
+import { ReactElement } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+
+import Flexbox from '@/view/common/components/Flexbox';
 import { useBreakpoints } from '@/view/hooks/useBreakpoints';
 import { ApplicationState } from '@/view/store';
 import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
@@ -6,16 +10,11 @@ import styled from '@emotion/styled';
 import { Menu } from '@mui/icons-material';
 import { IconButton, Theme, Toolbar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ReactElement } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+
 import UserMenu from './UserMenu/UserMenu';
 
-const Container = styled.div`
+const Container = styled(Flexbox)`
   width: 100%;
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

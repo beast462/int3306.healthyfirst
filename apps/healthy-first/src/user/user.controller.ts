@@ -8,7 +8,6 @@ import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
 import { UserEntity } from '@/common/entities';
 import { createError } from '@/common/helpers/create-error';
-import { PublicUser } from '@/common/models/public-user';
 import {
   BadRequestException,
   Body,
@@ -119,11 +118,16 @@ export class UserController {
     const limit = _limit ?? Number.MAX_SAFE_INTEGER;
     const offset = _offset ?? 0;
 
-    return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, {
-      total: 0,
+    const total = await this.userService.getCreationsCount(userId);
+    const creations = await this.userService.getCreations(
+      userId,
       limit,
       offset,
-      creations: [],
+    );
+
+    return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, {
+      total,
+      creations,
     });
   }
 }

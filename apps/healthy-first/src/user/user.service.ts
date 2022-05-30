@@ -5,7 +5,6 @@ import { v4 } from 'uuid';
 import { RoleEntity, UserEntity } from '@/common/entities';
 import { randomRange } from '@/common/helpers/random-range';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { MailService } from '../mail/mail.service';
@@ -19,7 +18,6 @@ export enum CreateUserErrors {
 @Injectable()
 export class UserService {
   public constructor(
-    private readonly configService: ConfigService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly mailService: MailService,
@@ -94,5 +92,23 @@ export class UserService {
     );
 
     return result;
+  }
+
+  public async getCreationsCount(creatorId: number): Promise<number> {
+    return await this.userRepository.count({
+      where: { creatorId },
+    });
+  }
+
+  public async getCreations(
+    creatorId: number,
+    limit: number,
+    offset: number,
+  ): Promise<UserEntity[]> {
+    return await this.userRepository.find({
+      where: { creatorId },
+      take: limit,
+      skip: offset,
+    });
   }
 }

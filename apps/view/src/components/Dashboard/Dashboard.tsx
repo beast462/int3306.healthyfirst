@@ -23,7 +23,7 @@ const Body = styled(Flexbox)`
   flex: 1;
   flex-direction: column;
   -ms-flex-direction: column;
-  width: 100vw;
+  overflow: hidden;
 `;
 
 function Dashboard(): ReactElement {

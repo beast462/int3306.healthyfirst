@@ -27,8 +27,6 @@ function Notificator({
   message,
   hideNotification,
 }: ConnectedProps<typeof connector>) {
-  console.log(open, severity);
-
   return (
     <Snackbar
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}

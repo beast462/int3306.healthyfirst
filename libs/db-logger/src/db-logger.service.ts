@@ -11,6 +11,8 @@ type MiscInfo = {
   context: string;
 };
 
+const PROJECT_ROOT = process.cwd();
+
 @Injectable({
   scope: Scope.TRANSIENT,
 })
@@ -54,11 +56,16 @@ export class DbLoggerService implements LoggerService {
   ): Promise<void> {
     const { stack, context } = this.getMisc(_stack, _context);
 
+    const strippedStack = stack
+      .split('\n')
+      .map((line) => line.replace(__dirname, '').replace(PROJECT_ROOT, ''))
+      .join('\n');
+
     const log = this.logRepository.create({
       detail,
       message,
       scope: context,
-      stack,
+      stack: strippedStack,
       type,
       source: DbLoggerService.deviceName,
       fingerprint: await Fingerprint.getFingerprint({ convert: 'hex' }),

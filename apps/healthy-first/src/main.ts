@@ -1,3 +1,5 @@
+import 'source-map-support/register';
+
 import * as cookieParser from 'cookie-parser';
 
 import { DbLoggerService } from '@/db-logger';

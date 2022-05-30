@@ -5,8 +5,9 @@
   "monorepo": true,
   "root": "apps/healthy-first",
   "compilerOptions": {
+    "tsConfigPath": "apps/healthy-first/tsconfig.app.json",
     "webpack": true,
-    "tsConfigPath": "apps/healthy-first/tsconfig.app.json"
+    "webpackConfigPath": "apps/healthy-first/webpack.config.js"
   },
   "projects": {
     "healthy-first": {
@@ -15,7 +16,9 @@
       "entryFile": "main",
       "sourceRoot": "apps/healthy-first/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/healthy-first/tsconfig.app.json"
+        "tsConfigPath": "apps/healthy-first/tsconfig.app.json",
+        "webpack": true,
+        "webpackConfigPath": "apps/healthy-first/webpack.config.js"
       }
     },
     "view": {

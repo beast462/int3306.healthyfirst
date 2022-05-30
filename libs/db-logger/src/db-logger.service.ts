@@ -58,7 +58,12 @@ export class DbLoggerService implements LoggerService {
 
     const strippedStack = stack
       .split('\n')
-      .map((line) => line.replace(__dirname, '').replace(PROJECT_ROOT, ''))
+      .map((line) =>
+        line
+          .replace(__dirname, '')
+          .replace(PROJECT_ROOT, '')
+          .replace(/\\/g, '/'),
+      )
       .join('\n');
 
     const log = this.logRepository.create({

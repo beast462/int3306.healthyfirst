@@ -1,12 +1,15 @@
-import styled from '@emotion/styled';
 import { ReactElement, useMemo } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
+
+import styled from '@emotion/styled';
+
 import { Navigations } from '../../Navigations';
 
 const Root = styled.div`
   flex: 1;
   height: 100%;
   padding: 0.5rem 0.75rem;
+  overflow: hidden;
 `;
 
 function Contents(): ReactElement {

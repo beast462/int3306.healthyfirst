@@ -8,7 +8,7 @@ import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res
 import { PublicUser } from '@/common/models/public-user';
 import { SerializableError } from '@/common/models/serializable-error';
 import { SortOrders } from '@/common/types/sort-orders';
-import { HttpStatus } from '@nestjs/common/enums/http-status.enum';
+import { HttpStatus } from '@nestjs/common/enums';
 
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';

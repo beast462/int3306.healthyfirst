@@ -63,7 +63,8 @@ export class UserEntity {
     eager: false,
   })
   @JoinColumn({ name: 'creator_id', referencedColumnName: 'id' })
-  createdBy!: UserEntity;
+  @Exclude()
+  creator!: UserEntity;
 
   @Column({
     name: 'created_at',

@@ -9,4 +9,5 @@ export type Notification = {
   open: boolean;
   message: string;
   severity: NotificationSeverity;
+  details: string[];
 };

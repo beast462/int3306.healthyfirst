@@ -44,6 +44,7 @@ export const initialState: AppState = {
     open: false,
     severity: NotificationSeverity.INFO,
     message: '',
+    details: [],
   },
 };
 

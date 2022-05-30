@@ -74,6 +74,7 @@ export class UserController {
       displayName,
       email,
       role,
+      user.id,
     );
 
     if (createUserResult instanceof UserEntity)
@@ -102,6 +103,7 @@ export class UserController {
     }
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:userId/creation')
   public async getUserCreations(
     @CurrentUser() currentUser: UserEntity,

@@ -46,6 +46,7 @@ export class UserService {
     displayName: string,
     email: string,
     role: RoleEntity,
+    creatorId?: number,
   ): Promise<CreateUserErrors | UserEntity> {
     const existedUsers = await this.userRepository.find({
       where: [{ username }, { email }],
@@ -71,6 +72,7 @@ export class UserService {
       password: this.hashPassword(plainPassword),
       secret: this.hashPassword(v4()),
       role,
+      creatorId,
     });
 
     const result = (await this.userRepository.insert(user))

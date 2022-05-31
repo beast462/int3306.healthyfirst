@@ -7,7 +7,7 @@ interface IProps {
 }
 
 function RolesSelector({ className }: IProps) {
-  const { roles = [] } = useRoles();
+  const { roles } = useRoles();
   const { user } = useUser();
 
   return (
@@ -15,7 +15,7 @@ function RolesSelector({ className }: IProps) {
       <InputLabel>Vai trò</InputLabel>
 
       <Select label="Vai trò" name="roleId" defaultValue={1}>
-        {roles.map((role) => {
+        {(roles ?? []).map((role) => {
           const disabled = user.role.level >= role.level;
 
           return (

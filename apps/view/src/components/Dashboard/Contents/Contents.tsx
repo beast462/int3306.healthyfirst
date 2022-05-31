@@ -10,6 +10,7 @@ const Root = styled.div`
   height: 100%;
   padding: 0.5rem 0.75rem;
   overflow: hidden;
+  background-color: #f4f4f4;
 `;
 
 function Contents(): ReactElement {

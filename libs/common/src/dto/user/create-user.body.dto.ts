@@ -1,8 +1,7 @@
 import {
   MAX_USERNAME_LENGTH,
   MIN_USERNAME_LENGTH,
-  UP_VALID_CHARSET,
-} from '@/common/entities/user.entity';
+} from '@/common/entity-constraints/user.entity-constraint';
 import {
   IsEmail,
   IsNumber,
@@ -13,7 +12,7 @@ import {
 } from 'class-validator';
 
 export class CreateUserBodyDTO {
-  @Matches(new RegExp(`^[${UP_VALID_CHARSET.replace('-', '\\-')}]{3,32}$`))
+  @Matches(/^[a-z0-9]+$/i)
   @Length(MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH, {
     message: `username must be between ${MIN_USERNAME_LENGTH} and ${MAX_USERNAME_LENGTH} characters`,
   })

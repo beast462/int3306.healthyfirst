@@ -36,7 +36,7 @@ const Segment = styled.div`
 `;
 
 function AccountManagement(): ReactElement {
-  const [viewingSegment, setViewingSegment] = useState(0);
+  const [viewingSegment, setViewingSegment] = useState(1);
 
   return (
     <Root>

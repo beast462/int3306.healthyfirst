@@ -7,14 +7,14 @@ import { TextField, TextFieldProps } from '@mui/material';
 
 interface IProps {
   validator?: Joi.Schema;
+  validationLatency?: number;
 }
 
 function ValidatedInput({
-  validator: _validator,
+  validator = Joi.any().required(),
+  validationLatency = bySeconds(0.5),
   ...textFieldProps
 }: IProps & TextFieldProps) {
-  const validator = _validator ?? Joi.any().required();
-
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLInputElement>();
 
@@ -31,7 +31,7 @@ function ValidatedInput({
 
       setValue(newValue);
     },
-    bySeconds(0.5),
+    validationLatency,
   );
 
   useEffect(() => {

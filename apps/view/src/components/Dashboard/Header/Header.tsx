@@ -4,8 +4,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import Flexbox from '@/view/common/components/Flexbox';
 import { useBreakpoints } from '@/view/hooks/useBreakpoints';
 import { ApplicationState } from '@/view/store';
-import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
-import { showMenu as _showMenu } from '@/view/store/actions/app/showMenu';
+import { hideMenu } from '@/view/store/actions/app/hideMenu';
+import { showMenu } from '@/view/store/actions/app/showMenu';
 import styled from '@emotion/styled';
 import { Menu } from '@mui/icons-material';
 import { IconButton, Theme, Toolbar } from '@mui/material';
@@ -70,8 +70,8 @@ const connector = connect(
     menuShown: state.app.showMenu,
   }),
   {
-    hideMenu: _hideMenu,
-    showMenu: _showMenu,
+    hideMenu,
+    showMenu,
   },
 );
 

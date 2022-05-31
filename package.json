@@ -2,7 +2,12 @@
   "name": "healthy-first",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Persian mages",
+  "contributors": [
+    "Hai Binh Ng. <binhmattroi@gmail.com>",
+    "Duy Tung D. <fmlphongvan@gmail.com>",
+    "Duc Hieu Vu <hieuvuhv34@gmail.com>"
+  ],
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

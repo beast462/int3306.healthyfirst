@@ -84,7 +84,7 @@ export class UserEntity {
     eager: false,
   })
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
-  @Exclude({ toPlainOnly: true })
+  @Exclude({ toClassOnly: true })
   role!: RoleEntity;
 
   @Min(1)

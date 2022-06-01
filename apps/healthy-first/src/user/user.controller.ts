@@ -44,7 +44,8 @@ export class UserController {
       HttpStatus.OK,
       [],
       ErrorCodes.SUCCESS,
-      await this.userService.getUsers(conditions),
+      [],
+      // await this.userService.getUsers(conditions),
     );
   }
 

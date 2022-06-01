@@ -1,14 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum LogTypes {
-  ERROR = 0,
-  WARNING = 1,
-  LOG = 2,
-  VERBOSE = 3,
-  DEBUG = 4,
+  FATAL = 0,
+  ERROR = 1,
+  WARNING = 2,
+  LOG = 3,
+  VERBOSE = 4,
+  DEBUG = 5,
 }
 
 export const LogTypesSet = new Set([
+  'FATAL',
   'ERROR',
   'WARNING',
   'LOG',

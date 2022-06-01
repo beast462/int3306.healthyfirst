@@ -140,6 +140,23 @@ export class DbLoggerService implements LoggerService {
     this.generalLog(message, detail, LogTypes.ERROR, _stack, _context);
   }
 
+  public fatal(message: string, detail: string, context: string): void;
+  public fatal(
+    message: string,
+    detail: string,
+    stack: string,
+    context: string,
+  ): void;
+
+  public fatal(
+    message: string,
+    detail: string,
+    _stack?: string,
+    _context?: string,
+  ): void {
+    this.generalLog(message, detail, LogTypes.FATAL, _stack, _context);
+  }
+
   public debug(message: string, detail: string, context: string): void;
   public debug(
     message: string,

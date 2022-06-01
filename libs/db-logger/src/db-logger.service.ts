@@ -4,7 +4,9 @@ import { Repository } from 'typeorm';
 import { LogEntity, LogTypes } from '@/common/entities/log.entity';
 import { Fingerprint } from '@/common/helpers/fingerprint';
 import { Injectable, LoggerService, Scope } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigKeys } from 'apps/healthy-first/src/base/config.module';
 
 type MiscInfo = {
   stack: string;
@@ -18,11 +20,17 @@ const PROJECT_ROOT = process.cwd();
 })
 export class DbLoggerService implements LoggerService {
   private static readonly deviceName: string = hostname();
+  private readonly allowedLogTypes: Set<LogTypes>;
 
   public constructor(
     @InjectRepository(LogEntity)
     private readonly logRepository: Repository<LogEntity>,
-  ) {}
+    configService: ConfigService,
+  ) {
+    this.allowedLogTypes = new Set(
+      configService.get<Set<LogTypes>>(ConfigKeys.DB_LOG_TYPES),
+    );
+  }
 
   private generateStack(): string {
     const stack = new Error().stack;
@@ -54,6 +62,8 @@ export class DbLoggerService implements LoggerService {
     _stack?: string,
     _context?: string,
   ): Promise<void> {
+    if (!this.allowedLogTypes.has(type)) return;
+
     const { stack, context } = this.getMisc(_stack, _context);
 
     const strippedStack = stack

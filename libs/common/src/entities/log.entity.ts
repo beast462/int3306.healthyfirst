@@ -8,6 +8,14 @@ export enum LogTypes {
   DEBUG = 4,
 }
 
+export const LogTypesSet = new Set([
+  'ERROR',
+  'WARNING',
+  'LOG',
+  'VERBOSE',
+  'DEBUG',
+]);
+
 @Entity('logs')
 export class LogEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

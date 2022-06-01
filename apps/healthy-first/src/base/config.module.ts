@@ -4,10 +4,11 @@ import * as Joi from 'joi';
 import { join } from 'path';
 
 import { Environments } from '@/common/constants/environments';
+import { LogTypes, LogTypesSet } from '@/common/entities/log.entity';
+import { byDays, byHours, bySeconds } from '@/common/helpers/timespan';
 import { ConfigModule } from '@nestjs/config';
 
 import { SupportedDatabaseTypes } from './type-orm.module';
-import { byDays, byHours, bySeconds } from '@/common/helpers/timespan';
 
 export type Schema = {
   port: number;
@@ -32,6 +33,10 @@ export type Schema = {
     username: string;
     password: string;
   };
+  logTypes: {
+    dbLogger: Set<LogTypes>;
+    appLogger: Set<LogTypes>;
+  };
 };
 
 function loadCookieSecret(): string {
@@ -45,6 +50,17 @@ function loadCookieSecret(): string {
   }
 
   return readFileSync(secretLocation, 'utf-8');
+}
+
+function parseLogTypes(env: string): Set<LogTypes> {
+  const parsed: LogTypes[] = env.split(',').map((logType) => LogTypes[logType]);
+
+  if (parsed.length === 0)
+    parsed.push(
+      ...[...LogTypesSet.values()].map((logType) => LogTypes[logType]),
+    );
+
+  return new Set(parsed);
 }
 
 function load(): Schema {
@@ -73,8 +89,21 @@ function load(): Schema {
       username: process.env.EMAIL_USERNAME,
       password: process.env.EMAIL_PASSWORD,
     },
+    logTypes: {
+      dbLogger: new Set(parseLogTypes(process.env.DB_LOG_TYPES)),
+      appLogger: new Set(parseLogTypes(process.env.APP_LOG_TYPES)),
+    },
   };
 }
+
+const customJoi = Joi.extend((joi) => ({
+  base: joi.array(),
+  type: 'stringArray',
+  coerce: ((value) =>
+    typeof value === 'string'
+      ? { value: value.split(',') }
+      : { value }) as Joi.CoerceFunction,
+}));
 
 const schema = Joi.object({
   PORT: Joi.number().min(1).max(65535).required(),
@@ -86,11 +115,7 @@ const schema = Joi.object({
     .max(byDays(365))
     .default(byHours(1)),
   DB_TYPE: Joi.string().valid(...SupportedDatabaseTypes),
-  DB_HOST: Joi.alternatives(
-    Joi.string().ip().required(),
-    Joi.string().domain().required(),
-    Joi.string().valid('localhost').required(),
-  ),
+  DB_HOST: Joi.string().hostname().required(),
   DB_PORT: Joi.number().min(1).max(65535).required(),
   DB_USER: Joi.string().required(),
   DB_PASS: Joi.string().required(),
@@ -99,6 +124,22 @@ const schema = Joi.object({
   EMAIL_PASSWORD: Joi.string().required(),
   EMAIL_HOST: Joi.string().domain().required(),
   EMAIL_PORT: Joi.number().min(1).max(65535).required(),
+  APP_LOG_TYPES: customJoi
+    .stringArray()
+    .items(
+      Joi.string()
+        .valid(...LogTypesSet)
+        .required(),
+    )
+    .default(''),
+  DB_LOG_TYPES: customJoi
+    .stringArray()
+    .items(
+      Joi.string()
+        .valid(...LogTypesSet)
+        .required(),
+    )
+    .default(''),
 });
 
 export enum ConfigKeys {
@@ -116,6 +157,8 @@ export enum ConfigKeys {
   EMAIL_PASSWORD = 'email.password',
   EMAIL_HOST = 'email.host',
   EMAIL_PORT = 'email.port',
+  APP_LOG_TYPES = 'logTypes.appLogger',
+  DB_LOG_TYPES = 'logTypes.dbLogger',
 }
 
 export default ConfigModule.forRoot({

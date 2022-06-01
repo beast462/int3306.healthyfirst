@@ -64,8 +64,6 @@ function parseLogTypes(env: string): Set<LogTypes> {
 function load(): Schema {
   const env = ['development', 'production'].indexOf(process.env.ENVIRONMENT);
 
-  console.log(parseLogTypes(process.env.DB_LOG_TYPES));
-
   return {
     port: Number(process.env.PORT),
     env,

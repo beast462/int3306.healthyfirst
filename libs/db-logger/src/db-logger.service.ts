@@ -27,8 +27,8 @@ export class DbLoggerService implements LoggerService {
     private readonly logRepository: Repository<LogEntity>,
     configService: ConfigService,
   ) {
-    this.allowedLogTypes = new Set(
-      configService.get<Set<LogTypes>>(ConfigKeys.DB_LOG_TYPES),
+    this.allowedLogTypes = configService.get<Set<LogTypes>>(
+      ConfigKeys.DB_LOG_TYPES,
     );
   }
 

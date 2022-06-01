@@ -53,18 +53,18 @@ function loadCookieSecret(): string {
 }
 
 function parseLogTypes(env: string): Set<LogTypes> {
-  const parsed: LogTypes[] = env.split(',').map((logType) => LogTypes[logType]);
-
-  if (parsed.length === 0)
-    parsed.push(
-      ...[...LogTypesSet.values()].map((logType) => LogTypes[logType]),
+  if (env.length === 0)
+    return new Set(
+      [...LogTypesSet.values()].map((logType) => LogTypes[logType]),
     );
 
-  return new Set(parsed);
+  return new Set(env.split(',').map((logType) => LogTypes[logType]));
 }
 
 function load(): Schema {
   const env = ['development', 'production'].indexOf(process.env.ENVIRONMENT);
+
+  console.log(parseLogTypes(process.env.DB_LOG_TYPES));
 
   return {
     port: Number(process.env.PORT),
@@ -90,8 +90,8 @@ function load(): Schema {
       password: process.env.EMAIL_PASSWORD,
     },
     logTypes: {
-      dbLogger: new Set(parseLogTypes(process.env.DB_LOG_TYPES)),
-      appLogger: new Set(parseLogTypes(process.env.APP_LOG_TYPES)),
+      dbLogger: parseLogTypes(process.env.DB_LOG_TYPES),
+      appLogger: parseLogTypes(process.env.APP_LOG_TYPES),
     },
   };
 }
@@ -124,22 +124,28 @@ const schema = Joi.object({
   EMAIL_PASSWORD: Joi.string().required(),
   EMAIL_HOST: Joi.string().domain().required(),
   EMAIL_PORT: Joi.number().min(1).max(65535).required(),
-  APP_LOG_TYPES: customJoi
-    .stringArray()
-    .items(
-      Joi.string()
-        .valid(...LogTypesSet)
-        .required(),
-    )
-    .default(''),
-  DB_LOG_TYPES: customJoi
-    .stringArray()
-    .items(
-      Joi.string()
-        .valid(...LogTypesSet)
-        .required(),
-    )
-    .default(''),
+  APP_LOG_TYPES: Joi.alternatives(
+    customJoi
+      .stringArray()
+      .items(
+        Joi.string()
+          .valid(...LogTypesSet)
+          .required(),
+      )
+      .default(''),
+    Joi.string().valid('').default('').required(),
+  ),
+  DB_LOG_TYPES: Joi.alternatives(
+    customJoi
+      .stringArray()
+      .items(
+        Joi.string()
+          .valid(...LogTypesSet)
+          .required(),
+      )
+      .default(''),
+    Joi.string().valid('').default('').required(),
+  ),
 });
 
 export enum ConfigKeys {

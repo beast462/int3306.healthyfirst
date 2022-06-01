@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/common/constants/error-codes';
 import { DbLoggerService } from '@/db-logger';
 import {
   ArgumentsHost,
@@ -16,6 +17,24 @@ export class ErrorLoggingFilter implements ExceptionFilter {
     const context = host.switchToHttp();
     const request = context.getRequest<Request>();
     const response = context.getResponse<Response>();
+
+    if (!(exception instanceof HttpException)) {
+      this.dbLoggerService.fatal(
+        'Unhandled exception',
+        (exception as Error).message,
+        (exception as Error).stack,
+        'ErrorLoggingFilter',
+      );
+
+      response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        errorCode: ErrorCodes.UNKNOWN_ERROR,
+        message: ['Internal server error'],
+        error: 'Unknown fatal error',
+      });
+      return;
+    }
+
     const statusCode = exception.getStatus();
 
     if (statusCode < HttpStatus.INTERNAL_SERVER_ERROR) {

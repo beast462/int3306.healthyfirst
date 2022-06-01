@@ -6,6 +6,7 @@ import { GetUserCreationsParamDTO } from '@/common/dto/user/get-user-creations.p
 import { GetUserCreationsQueryDTO } from '@/common/dto/user/get-user-creations.query.dto';
 import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
+import { GetUsersQueryDTO } from '@/common/dto/user/get-users.query.dto';
 import { UserEntity } from '@/common/entities';
 import { createError } from '@/common/helpers/create-error';
 import {
@@ -33,6 +34,19 @@ export class UserController {
     private readonly userService: UserService,
     private readonly roleService: RoleService,
   ) {}
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('')
+  public async getUsers(
+    @Query() conditions: GetUsersQueryDTO,
+  ): Promise<ResponseDTO<UserEntity[]>> {
+    return new ResponseDTO(
+      HttpStatus.OK,
+      [],
+      ErrorCodes.SUCCESS,
+      await this.userService.getUsers(conditions),
+    );
+  }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:userId')

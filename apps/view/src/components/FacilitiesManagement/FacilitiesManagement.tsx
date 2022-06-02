@@ -36,10 +36,11 @@ function FacilitiesManagement(): ReactElement {
 
   return (
     <Root>
-      <Content className={viewingSegment === 0 && 'next'}>
+      <Content className={viewingSegment === 0 ? '' : 'next'}>
         <Segment>
           <FacilitiesTable switchSegment={() => setViewingSegment(1)} />
         </Segment>
+
         <Segment>
           dasdfjeghfuighrhgewruihgewigherighewriguhewighewughewighru
         </Segment>

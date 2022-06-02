@@ -1,8 +1,12 @@
+import { ReactElement, useState } from 'react';
+
 import Flexbox from '@/view/common/components/Flexbox';
+
 import styled from '@emotion/styled';
 import { FoodBankRounded } from '@mui/icons-material';
-import { ReactElement, useState } from 'react';
+
 import { Navigations } from '../Navigations';
+import FacilitiesTable from './FacilitiesTable/FacilitiesTable';
 
 const Root = styled.div`
   width: 100%;
@@ -27,14 +31,14 @@ const Segment = styled.div`
   overflow: hidden;
 `;
 
-function FacilityManagement(): ReactElement {
+function FacilitiesManagement(): ReactElement {
   const [viewingSegment, setViewingSegment] = useState(0);
 
   return (
     <Root>
       <Content className={viewingSegment === 0 && 'next'}>
         <Segment>
-          adasdasdadadasdasdasdasdsadadasdfasdfagasgasdfasdfasfdsdaf
+          <FacilitiesTable switchSegment={() => setViewingSegment(1)} />
         </Segment>
         <Segment>
           dasdfjeghfuighrhgewruihgewigherighewriguhewighewughewighru
@@ -44,10 +48,10 @@ function FacilityManagement(): ReactElement {
   );
 }
 
-export default FacilityManagement;
+export default FacilitiesManagement;
 
 Navigations.getInstance().registerNavigation('/facility-management', {
   icon: <FoodBankRounded />,
   label: 'Quản lý cơ sở',
   childOf: null,
-})(FacilityManagement);
+})(FacilitiesManagement);

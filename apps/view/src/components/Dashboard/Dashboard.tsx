@@ -1,6 +1,6 @@
 import '../Login';
 import '../Overview';
-import '../FacilityManagement';
+import '../FacilitiesManagement';
 import '../AccountManagement';
 
 import { ReactElement } from 'react';

@@ -12,6 +12,7 @@ import {
   TablePagination,
   TableRow,
   TableSortLabel,
+  TextField,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -21,6 +22,8 @@ import NowrapCell from '@/view/common/components/NowrapCell';
 
 import { facilities } from '../../../../test/mock-data/facilities/facilities';
 import FacilityItem from './FacilityItem/FacilityItem';
+
+import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 
 const Root = styled.div`
   width: 100%;
@@ -32,12 +35,15 @@ const Container = styled(Paper)`
   width: 100%;
 `;
 
-// const TableContainer = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   overflow-x: auto;
-//   overflow-y: auto;
-// `;
+const CTableContainer = styled(CustomScrollbar)`
+  max-height: calc(100vh - 12rem);
+  width: 100%;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar-track {
+    margin-top: 3.75rem;
+  }
+`;
 
 const fields = ['id', 'facilityName', 'ownerName', 'address', 'facilityType'];
 
@@ -73,9 +79,11 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
       <Container>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography variant="h6">Danh sách cơ sở</Typography>
+
+          <TextField placeholder="Tìm kiếm (đang làm)" size="small" />
         </Toolbar>
 
-        <TableContainer sx={{ maxHeight: 'calc(100vh - 12rem)' }}>
+        <CTableContainer>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -116,7 +124,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
                 ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </CTableContainer>
 
         <TablePagination
           component="div"

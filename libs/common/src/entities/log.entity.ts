@@ -18,7 +18,9 @@ export const LogTypesSet = new Set([
   'DEBUG',
 ]);
 
-@Entity('logs')
+export const TABLE_NAME = 'logs';
+
+@Entity(TABLE_NAME)
 export class LogEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id!: number;

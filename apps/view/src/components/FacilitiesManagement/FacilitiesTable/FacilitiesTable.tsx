@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ChangeEventHandler, ReactElement, useState } from 'react';
 
 import { SortOrders } from '@/common/types/sort-orders';
 
@@ -23,13 +23,15 @@ import {
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import NowrapCell from '@/view/common/components/NowrapCell';
 
-import { facilities } from '../../../../test/mock-data/facilities/facilities';
+import { facilities as mockFacilities } from '../../../../test/mock-data/facilities/facilities';
 import FacilityItem from './FacilityItem/FacilityItem';
 
 import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { AddBusinessRounded } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
+import { debounce } from 'lodash';
+import { bySeconds } from '@/common/helpers/timespan';
 
 const Root = styled.div`
   width: 100%;
@@ -42,7 +44,7 @@ const Container = styled(Paper)`
 `;
 
 const CTableContainer = styled(CustomScrollbar)`
-  max-height: calc(100vh - 12rem);
+  max-height: calc(100vh - 14rem);
   width: 100%;
   overflow-x: auto;
 
@@ -101,8 +103,27 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
     rowsPerPage: 10,
   } as { page: number; rowsPerPage: number });
 
-  const mockData = facilities;
+  const [facilities, setFacilities] = useState(mockFacilities);
   const total = 100;
+
+  const findFacilities = (searchOpt: string, searchVal: string) => {
+    console.log(searchOpt, searchVal);
+    if (searchVal === '') {
+      setFacilities(mockFacilities);
+    } else {
+      console.log(mockFacilities[0][searchOpt].toString());
+
+      const searchRes = mockFacilities.filter((facility) => {
+        if (searchOpt === 'id') {
+          return facility[searchOpt] === +searchVal;
+        } else {
+          return facility[searchOpt].toString().match(searchVal) !== null;
+        }
+      });
+
+      setFacilities(searchRes);
+    }
+  };
 
   return (
     <Root>
@@ -114,7 +135,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
           <Typography variant="h6">Danh sách cơ sở</Typography>
 
           <div className="actionBar">
-            <SearchBox />
+            <SearchBox findFacilities={findFacilities} />
 
             <Button
               variant="contained"
@@ -154,7 +175,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
             </TableHead>
 
             <TableBody>
-              {mockData
+              {facilities
                 .slice(
                   pagination.rowsPerPage * pagination.page,
                   pagination.rowsPerPage * pagination.page +

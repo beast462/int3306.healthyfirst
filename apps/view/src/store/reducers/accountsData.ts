@@ -18,9 +18,6 @@ export function reduce(
   action: AnyAction,
 ): DataState {
   switch (action.type) {
-    case ActionTypes.ACCOUNT_DATA__SET_DATA:
-      return action.payload;
-
     default:
       return state;
   }

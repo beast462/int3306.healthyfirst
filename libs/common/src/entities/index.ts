@@ -1,7 +1,8 @@
+import { LocationEntity } from './location.entity';
+import { LogEntity } from './log.entity';
 import { RoleEntity } from './role.entity';
 import { UserEntity } from './user.entity';
-import { LogEntity } from './log.entity';
 
-export const Entities = [RoleEntity, UserEntity, LogEntity];
+export const Entities = [LocationEntity, LogEntity, RoleEntity, UserEntity];
 
-export { RoleEntity, UserEntity, LogEntity };
+export { LocationEntity, LogEntity, RoleEntity, UserEntity };

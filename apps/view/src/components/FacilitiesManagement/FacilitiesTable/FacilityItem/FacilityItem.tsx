@@ -16,7 +16,7 @@ interface IProps {
 
 function FacilityItem({ facility, onClick }: IProps): ReactElement {
   return (
-    <TableRow onClick={onClick} hover>
+    <TableRow onClick={onClick} hover sx={{ cursor: 'pointer' }}>
       <NowrapCell>{facility.id}</NowrapCell>
       <NowrapCell>{facility.facilityName}</NowrapCell>
       <NowrapCell>{facility.ownerName}</NowrapCell>

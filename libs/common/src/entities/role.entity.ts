@@ -7,12 +7,12 @@ export class RoleEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
 
-  @Column({ name: 'name', type: 'varchar', length: 20 })
+  @Column('varchar', { name: 'name', length: 20 })
   name!: string;
 
-  @Column({ name: 'level', type: 'int' })
+  @Column('int', { name: 'level' })
   level!: number;
 
-  @Column({ name: 'description', type: 'text' })
+  @Column('text', { name: 'description' })
   description!: string;
 }

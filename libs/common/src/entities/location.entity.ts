@@ -7,12 +7,12 @@ export class LocationEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
 
-  @Column({ name: 'code', type: 'int' })
+  @Column('int', { name: 'code' })
   code!: number;
 
-  @Column({ name: 'name', type: 'string' })
+  @Column('varchar', { name: 'name', length: 30 })
   name!: string;
 
-  @Column({ name: 'type', type: 'string' })
+  @Column('varchar', { name: 'type', length: 30 })
   type!: string;
 }

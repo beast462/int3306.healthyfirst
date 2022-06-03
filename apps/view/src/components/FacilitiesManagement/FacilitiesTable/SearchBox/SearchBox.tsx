@@ -55,7 +55,6 @@ const searchOptions = [
 
 function SearchBox({ findFacilities }: IProps): ReactElement {
   const styles = useStyles();
-  const [open, setOpen] = useState(false);
   const [searchOpt, setSearchOpt] = useState(0);
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLInputElement>();

@@ -4,7 +4,9 @@ import { SortOrders } from '@/common/types/sort-orders';
 
 import styled from '@emotion/styled';
 import {
+  Button,
   Paper,
+  Select,
   Table,
   TableBody,
   TableContainer,
@@ -13,6 +15,7 @@ import {
   TableRow,
   TableSortLabel,
   TextField,
+  Theme,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -24,6 +27,9 @@ import { facilities } from '../../../../test/mock-data/facilities/facilities';
 import FacilityItem from './FacilityItem/FacilityItem';
 
 import CustomScrollbar from '@/view/common/components/CustomScrollbar';
+import { AddBusinessRounded } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
+import SearchBox from './SearchBox/SearchBox';
 
 const Root = styled.div`
   width: 100%;
@@ -45,6 +51,29 @@ const CTableContainer = styled(CustomScrollbar)`
   }
 `;
 
+const useStyles = makeStyles((theme: Theme) => ({
+  toolbar: {
+    flexDirection: 'row',
+    '& > div.actionBar': {
+      display: 'flex',
+      minWidth: '500px',
+      marginTop: '1rem',
+    },
+    [theme.breakpoints.down('lg')]: {
+      flexDirection: 'column',
+      '& > div.actionBar': {
+        marginTop: 0,
+      },
+    },
+  },
+  addBtn: {
+    flex: 1,
+    height: '40px',
+    marginTop: '1rem',
+    marginLeft: '1rem',
+  },
+}));
+
 const fields = ['id', 'facilityName', 'ownerName', 'address', 'facilityType'];
 
 const labels = {
@@ -61,6 +90,7 @@ const switchSort: Record<SortOrders, SortOrders> = {
 };
 
 function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
+  const styles = useStyles();
   const [sort, setSort] = useState({
     order: 'asc',
     column: 'id',
@@ -77,10 +107,24 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
   return (
     <Root>
       <Container>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar
+          sx={{ justifyContent: 'space-between' }}
+          className={styles.toolbar}
+        >
           <Typography variant="h6">Danh sách cơ sở</Typography>
 
-          <TextField placeholder="Tìm kiếm (đang làm)" size="small" />
+          <div className="actionBar">
+            <SearchBox />
+
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<AddBusinessRounded />}
+              className={styles.addBtn}
+            >
+              thêm cơ sở
+            </Button>
+          </div>
         </Toolbar>
 
         <CTableContainer>

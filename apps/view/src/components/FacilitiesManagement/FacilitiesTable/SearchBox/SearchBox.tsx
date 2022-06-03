@@ -1,10 +1,21 @@
-import { ReactElement, useState } from 'react';
+import {
+  ChangeEventHandler,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import styled from '@emotion/styled';
 import { MenuItem, Select, TextField, Theme } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { makeStyles } from '@mui/styles';
 import { Settings } from '@mui/icons-material';
+import { bySeconds } from '@/common/helpers/timespan';
+import { debounce } from 'lodash';
+
+interface IProps {
+  findFacilities: (searchOpt: string, searchVal: string) => void;
+}
 
 const Root = styled.div`
   display: flex;
@@ -24,15 +35,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const searchOptions = [
-  { val: 0, label: 'ID' },
-  { val: 1, label: 'Tên cơ sở' },
-  { val: 2, label: 'Chủ cơ sở' },
+  { val: 'id', label: 'ID' },
+  { val: 'facilityName', label: 'Tên cơ sở' },
+  { val: 'ownerName', label: 'Chủ cơ sở' },
 ];
 
-function SearchBox(): ReactElement {
+function SearchBox({ findFacilities }: IProps): ReactElement {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [searchOpt, setSearchOpt] = useState(0);
+  const [value, setValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>();
+
+  const handleChangeValue: ChangeEventHandler<HTMLInputElement> = debounce(
+    (event) => {
+      const newVal = event.target.value;
+      setValue(newVal);
+      findFacilities(searchOptions[searchOpt].val, newVal);
+    },
+    bySeconds(0.5),
+  );
+
+  useEffect(() => {
+    inputRef.current && (inputRef.current.value = value);
+  }, [value]);
 
   return (
     <Root>
@@ -41,6 +67,8 @@ function SearchBox(): ReactElement {
         size="small"
         className={styles.searchBox}
         helperText={`Bạn đang tìm kiếm theo ${searchOptions[searchOpt].label}`}
+        ref={inputRef}
+        onChange={handleChangeValue}
       />
 
       <Select

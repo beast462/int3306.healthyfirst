@@ -92,7 +92,7 @@ export class UserEntity {
   @IsInt()
   @IsNumber()
   @IsOptional()
-  @Column('int', { nullable: false, name: 'role_id' })
+  @Column('int', { nullable: false, name: 'role_id', unsigned: true })
   roleId!: number;
 
   @Exclude({ toClassOnly: true })
@@ -109,7 +109,7 @@ export class UserEntity {
   @IsInt()
   @IsNumber()
   @IsOptional()
-  @Column('int', { nullable: true, name: 'creator_id' })
+  @Column('int', { nullable: true, name: 'creator_id', unsigned: true })
   creatorId!: number;
 
   @Exclude()

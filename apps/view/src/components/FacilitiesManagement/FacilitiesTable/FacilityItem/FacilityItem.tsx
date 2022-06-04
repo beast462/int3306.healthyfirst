@@ -11,11 +11,12 @@ interface IProps {
     address: string;
     facilityType: string;
   };
+  onClick: () => void;
 }
 
-function FacilityItem({ facility }: IProps): ReactElement {
+function FacilityItem({ facility, onClick }: IProps): ReactElement {
   return (
-    <TableRow>
+    <TableRow onClick={onClick} hover>
       <NowrapCell>{facility.id}</NowrapCell>
       <NowrapCell>{facility.facilityName}</NowrapCell>
       <NowrapCell>{facility.ownerName}</NowrapCell>

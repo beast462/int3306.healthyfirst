@@ -185,6 +185,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
                   <FacilityItem
                     key={`facility#${facility.id}`}
                     facility={facility}
+                    onClick={switchSegment}
                   />
                 ))}
             </TableBody>

@@ -13,6 +13,8 @@ import { notify } from '@/view/store/actions/app/notify';
 import { NotificationSeverity } from '@/view/common/types/Notification';
 import { HttpStatus } from '@nestjs/common/enums';
 import { ErrorCodes } from '@/common/constants/error-codes';
+import { useSWRConfig } from 'swr';
+import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
 
 const Root = styled.div`
   width: 100%;
@@ -29,7 +31,7 @@ const BtnContainer = styled(Flexbox)`
   padding: 1rem 2rem;
 `;
 
-const connector = connect((state: ApplicationState) => ({}), {
+const connector = connect(() => ({}), {
   notify,
 });
 
@@ -37,6 +39,8 @@ function RegistrationForm({
   switchSegment,
   notify,
 }: ISegmentProps & ConnectedProps<typeof connector>) {
+  const { mutate } = useSWRConfig();
+
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
@@ -48,8 +52,6 @@ function RegistrationForm({
       email: target.email.value,
       role: +target.roleId.value,
     };
-
-    console.log(newUser);
 
     const { statusCode, message, body, errorCode } = await fetch('/api/user', {
       method: 'POST',
@@ -65,10 +67,13 @@ function RegistrationForm({
       statusCode === HttpStatus.NOT_IMPLEMENTED
     ) {
       notify('Tạo tài khoản thành công', NotificationSeverity.SUCCESS);
+      mutate(swrHookKeys.USE_CREATED_ACCOUNTS);
 
       target.username.value = '';
       target.displayName.value = '';
       target.email.value = '';
+
+      return;
     } else {
       const errorMessages = [];
       switch (errorCode) {

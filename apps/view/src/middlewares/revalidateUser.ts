@@ -10,7 +10,7 @@ export const revalidateUser: Middleware =
     const { mutate } = useSWRConfig();
     const swr = useSwrNext(key, fetcher, config);
 
-    if (key === '/api/user/me')
+    if (key === swrHookKeys.USE_USER)
       // skip revalidation if request is for fetching current user
       return swr;
 

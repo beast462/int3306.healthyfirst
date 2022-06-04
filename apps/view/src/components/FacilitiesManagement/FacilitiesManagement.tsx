@@ -7,6 +7,7 @@ import { FoodBankRounded } from '@mui/icons-material';
 
 import { Navigations } from '../Navigations';
 import FacilitiesTable from './FacilitiesTable/FacilitiesTable';
+import FacilityDetails from './FacilityDetails/FacilityDetails';
 
 const Root = styled.div`
   width: 100%;
@@ -42,7 +43,7 @@ function FacilitiesManagement(): ReactElement {
         </Segment>
 
         <Segment>
-          dasdfjeghfuighrhgewruihgewigherighewriguhewighewughewighru
+          <FacilityDetails switchSegment={() => setViewingSegment(0)} />
         </Segment>
       </Content>
     </Root>

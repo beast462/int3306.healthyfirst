@@ -19,7 +19,7 @@ import {
 import { FacilityTypeEntity } from './facility-type.entity';
 import { LocationEntity } from './location.entity';
 
-export const TABLE_NAME = 'facility';
+export const TABLE_NAME = 'facilities';
 
 @Entity(TABLE_NAME)
 export class FacilityEntity {

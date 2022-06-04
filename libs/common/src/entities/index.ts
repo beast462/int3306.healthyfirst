@@ -1,8 +1,10 @@
 import { CertificateEntity } from './certificate.entity';
+import { CheckingActivityEntity } from './checking-activity';
 import { CheckingPlanEntity } from './checking-plan.entity';
 import { FacilityTypeEntity } from './facility-type.entity';
 import { FacilityEntity } from './facility.entity';
 import { FoodSafetyAuthorityBranchEntity } from './food-safety-authority-branch.entity';
+import { InspectionUnitEntity } from './inspection-unit';
 import { LocationEntity } from './location.entity';
 import { LogEntity } from './log.entity';
 import { PurposeEntity } from './purpose.entity';
@@ -12,6 +14,8 @@ import { UserEntity } from './user.entity';
 import { ViolationEntity } from './violation.entity';
 
 export const Entities = [
+  InspectionUnitEntity,
+  CheckingActivityEntity,
   PurposeEntity,
   ViolationEntity,
   CheckingPlanEntity,
@@ -27,6 +31,8 @@ export const Entities = [
 ];
 
 export {
+  InspectionUnitEntity,
+  CheckingActivityEntity,
   PurposeEntity,
   ViolationEntity,
   CheckingPlanEntity,

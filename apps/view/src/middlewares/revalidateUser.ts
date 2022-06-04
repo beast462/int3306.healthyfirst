@@ -1,7 +1,9 @@
+import { Middleware, SWRHook, useSWRConfig } from 'swr';
+
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { SerializableError } from '@/common/models/serializable-error';
-import { Middleware, SWRHook, useSWRConfig } from 'swr';
-import { key as useUserKey } from '../hooks/useUser';
+
+import { swrHookKeys } from '../common/constants/swrHookKeys';
 
 export const revalidateUser: Middleware =
   (useSwrNext: SWRHook) => (key, fetcher, config) => {
@@ -24,7 +26,7 @@ export const revalidateUser: Middleware =
       return swr;
 
     // revalidate if auth token is missing
-    mutate(useUserKey);
+    mutate(swrHookKeys.USE_USER);
 
     return swr;
   };

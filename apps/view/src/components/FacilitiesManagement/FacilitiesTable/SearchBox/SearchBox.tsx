@@ -19,7 +19,7 @@ interface IProps {
 
 const Root = styled.div`
   display: flex;
-  margin: 1rem 1rem 0rem 1rem;
+  margin-top: 1rem;
 `;
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -60,8 +60,6 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
   const inputRef = useRef<HTMLInputElement>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openOptMenu = Boolean(anchorEl);
-
-  console.log(searchOpt);
 
   const handleChangeValue: ChangeEventHandler<HTMLInputElement> = debounce(
     (event) => {
@@ -112,6 +110,7 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
                 value={opt.id}
                 selected={searchOpt === opt.id}
                 onClick={() => setSearchOpt(opt.id)}
+                key={`searchOpt#${opt.id}`}
               >
                 {opt.description}
               </MenuItem>

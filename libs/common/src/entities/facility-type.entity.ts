@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { MAX_FACILITY_TYPE_NAME_LENGTH } from '../entity-constraints/facility-type.entity-constraints';
+import { MAX_FACILITY_TYPE_NAME_LENGTH } from '../entity-constraints/facility-type.entity-constraint';
 
 export const TABLE_NAME = 'facility_types';
 

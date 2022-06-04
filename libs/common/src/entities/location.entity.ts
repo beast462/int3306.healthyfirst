@@ -7,7 +7,7 @@ export class LocationEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
 
-  @Column('int', { name: 'code' })
+  @Column('int', { name: 'code', unique: true })
   code!: number;
 
   @Column('varchar', { name: 'name', length: 30 })

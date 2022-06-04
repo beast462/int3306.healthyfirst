@@ -18,11 +18,13 @@ import {
 } from 'typeorm';
 
 import {
-  MAX_DISPLAY_NAME_LENGTH,
   MAX_EMAIL_LENGTH,
+  MIN_EMAIL_LENGTH,
+} from '../entity-constraints/common.entity-constraint';
+import {
+  MAX_DISPLAY_NAME_LENGTH,
   MAX_USERNAME_LENGTH,
   MIN_DISPLAY_NAME_LENGTH,
-  MIN_EMAIL_LENGTH,
   MIN_USERNAME_LENGTH,
   PASSWORD_HASH_BITS,
 } from '../entity-constraints/user.entity-constraint';

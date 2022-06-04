@@ -7,6 +7,3 @@ export const MAX_USERNAME_LENGTH = 32;
 
 export const MIN_DISPLAY_NAME_LENGTH = 8;
 export const MAX_DISPLAY_NAME_LENGTH = 64;
-
-export const MIN_EMAIL_LENGTH = 8;
-export const MAX_EMAIL_LENGTH = 64;

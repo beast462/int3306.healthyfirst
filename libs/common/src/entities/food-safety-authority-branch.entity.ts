@@ -8,10 +8,12 @@ import {
 } from 'typeorm';
 
 import {
-  MAX_ADDRESS_LENGTH,
   MAX_EMAIL_LENGTH,
-  MAX_FAX_LENGTH,
   MAX_PHONE_LENGTH,
+} from '../entity-constraints/common.entity-constraint';
+import {
+  MAX_ADDRESS_LENGTH,
+  MAX_FAX_LENGTH,
   MAX_WEBSITE_LENGTH,
 } from '../entity-constraints/food-safety-authority-branch.entity-constraint';
 import { LocationEntity } from './location.entity';

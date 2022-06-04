@@ -19,7 +19,7 @@ interface IProps {
 
 const Root = styled.div`
   display: flex;
-  margin: 1rem 1rem 0rem 1rem;
+  margin-top: 1rem;
 `;
 
 const useStyles = makeStyles((theme: Theme) => ({

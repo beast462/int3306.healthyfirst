@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { SortOrders } from '@/common/types/sort-orders';
 
@@ -6,15 +6,12 @@ import styled from '@emotion/styled';
 import {
   Button,
   Paper,
-  Select,
   Table,
   TableBody,
-  TableContainer,
   TableHead,
   TablePagination,
   TableRow,
   TableSortLabel,
-  TextField,
   Theme,
   Toolbar,
   Typography,
@@ -30,8 +27,6 @@ import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { AddBusinessRounded } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
-import { debounce } from 'lodash';
-import { bySeconds } from '@/common/helpers/timespan';
 
 const Root = styled.div`
   width: 100%;
@@ -58,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     '& > div.actionBar': {
       display: 'flex',
-      minWidth: '500px',
       marginTop: '1rem',
     },
     [theme.breakpoints.down('lg')]: {
@@ -138,6 +132,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
             <SearchBox findFacilities={findFacilities} />
 
             <Button
+              sx={{ maxWidth: '160px' }}
               variant="contained"
               size="small"
               startIcon={<AddBusinessRounded />}

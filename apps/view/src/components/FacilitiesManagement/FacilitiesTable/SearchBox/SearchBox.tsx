@@ -61,8 +61,6 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openOptMenu = Boolean(anchorEl);
 
-  console.log(searchOpt);
-
   const handleChangeValue: ChangeEventHandler<HTMLInputElement> = debounce(
     (event) => {
       const newVal = event.target.value;
@@ -112,6 +110,7 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
                 value={opt.id}
                 selected={searchOpt === opt.id}
                 onClick={() => setSearchOpt(opt.id)}
+                key={`searchOpt#${opt.id}`}
               >
                 {opt.description}
               </MenuItem>

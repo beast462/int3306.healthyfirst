@@ -4,15 +4,20 @@ export const TABLE_NAME = 'locations';
 
 @Entity(TABLE_NAME)
 export class LocationEntity {
-  @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int', unsigned: true })
   id!: number;
 
-  @Column('int', { name: 'code', unique: true })
+  @Column('int', {
+    nullable: false,
+    name: 'code',
+    unique: true,
+    unsigned: true,
+  })
   code!: number;
 
-  @Column('varchar', { name: 'name', length: 30 })
+  @Column('varchar', { nullable: false, name: 'name', length: 30 })
   name!: string;
 
-  @Column('varchar', { name: 'type', length: 30 })
+  @Column('varchar', { nullable: false, name: 'type', length: 30 })
   type!: string;
 }

@@ -22,43 +22,43 @@ export const TABLE_NAME = 'logs';
 
 @Entity(TABLE_NAME)
 export class LogEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id', unsigned: true })
   id!: number;
 
   @Column('enum', {
+    nullable: false,
     name: 'type',
     enum: LogTypes,
     default: LogTypes.LOG,
-    nullable: false,
   })
   type!: number;
 
-  @Column('varchar', { name: 'scope', length: 20, nullable: false })
+  @Column('varchar', { nullable: false, name: 'scope', length: 20 })
   scope!: string;
 
-  @Column('varchar', { name: 'message', length: 64, nullable: false })
+  @Column('varchar', { nullable: false, name: 'message', length: 64 })
   message!: string;
 
-  @Column('text', { name: 'stack' })
+  @Column('text', { nullable: false, name: 'stack' })
   stack!: string;
 
-  @Column('text', { name: 'detail' })
+  @Column('text', { nullable: false, name: 'detail' })
   detail!: string;
 
   @Column('timestamp', {
-    name: 'created_at',
     nullable: false,
+    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt!: Date;
 
   @Column('varchar', {
-    name: 'fingerprint',
     nullable: false,
+    name: 'fingerprint',
     length: 128,
   })
   fingerprint!: string;
 
-  @Column('varchar', { name: 'source', length: 20, nullable: false })
+  @Column('varchar', { nullable: false, name: 'source', length: 20 })
   source!: string;
 }

@@ -22,10 +22,14 @@ export const TABLE_NAME = 'fsa_branches';
 
 @Entity(TABLE_NAME)
 export class FoodSafetyAuthorityBranchEntity {
-  @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int', unsigned: true })
   id!: number;
 
-  @Column('int', { name: 'responsible_location_code' })
+  @Column('int', {
+    nullable: false,
+    name: 'responsible_location_code',
+    unsigned: true,
+  })
   responsibleLocationCode!: number;
 
   @ManyToOne(() => LocationEntity, (location) => location.code, {
@@ -40,19 +44,35 @@ export class FoodSafetyAuthorityBranchEntity {
   })
   responsibleLocation!: LocationEntity;
 
-  @Column('varchar', { name: 'address', length: MAX_ADDRESS_LENGTH })
+  @Column('varchar', {
+    nullable: false,
+    name: 'address',
+    length: MAX_ADDRESS_LENGTH,
+  })
   address!: string;
 
-  @Column('varchar', { name: 'email', length: MAX_EMAIL_LENGTH })
+  @Column('varchar', {
+    nullable: false,
+    name: 'email',
+    length: MAX_EMAIL_LENGTH,
+  })
   email!: string;
 
   @IsPhoneNumber('VN')
-  @Column('varchar', { name: 'phone', length: MAX_PHONE_LENGTH })
+  @Column('varchar', {
+    nullable: false,
+    name: 'phone',
+    length: MAX_PHONE_LENGTH,
+  })
   phone!: string;
 
-  @Column('varchar', { name: 'website', length: MAX_WEBSITE_LENGTH })
+  @Column('varchar', {
+    nullable: false,
+    name: 'website',
+    length: MAX_WEBSITE_LENGTH,
+  })
   website!: string;
 
-  @Column('varchar', { name: 'fax', length: MAX_FAX_LENGTH })
+  @Column('varchar', { nullable: false, name: 'fax', length: MAX_FAX_LENGTH })
   fax!: string;
 }

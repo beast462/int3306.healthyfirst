@@ -20,6 +20,14 @@ export class FacilityService {
     });
   }
 
+  public async getFacilityByFacilityLocationCode(
+    facilityLocationCode: number,
+  ): Promise<FacilityEntity> {
+    return this.facilityRepository.findOne({
+      where: { facilityLocationCode: facilityLocationCode },
+    });
+  }
+
   public async modifyFacility(
     modifiedFacility: Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>,
   ): Promise<Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>> {

@@ -1,6 +1,7 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { CreateFacilityBodyDTO } from '@/common/dto/facility/create-facility.body.dto';
-import { GetFacilityParamDTO } from '@/common/dto/facility/get-facility.param.dto';
+import { GetFacilityIdParamDTO } from '@/common/dto/facility/get-facility-id.param.dto';
+import { GetFacilityLocationCodeParamDTO } from '@/common/dto/facility/get-facility-location-code.param.dto';
 import { ModifyFacilityBodyDTO } from '@/common/dto/facility/modify-facility.body.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { FacilityEntity } from '@/common/entities';
@@ -33,9 +34,9 @@ export class FacilityController {
     };
   }
 
-  @Get(':id')
+  @Get('id/:id')
   public async getFacilityById(
-    @Param() { id }: GetFacilityParamDTO,
+    @Param() { id }: GetFacilityIdParamDTO,
   ): Promise<ResponseDTO<FacilityEntity>> {
     const facility = await this.facilityService.getFacilityById(id);
 
@@ -49,9 +50,28 @@ export class FacilityController {
     };
   }
 
+  @Get('code/:facilityLocationCode')
+  public async getFacilityByFacilityLocationCode(
+    @Param() { facilityLocationCode }: GetFacilityLocationCodeParamDTO,
+  ): Promise<ResponseDTO<FacilityEntity>> {
+    const facility =
+      await this.facilityService.getFacilityByFacilityLocationCode(
+        facilityLocationCode,
+      );
+
+    if (!facility) throw new NotFoundException('Facility not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: facility,
+    };
+  }
+
   @Put(':id')
   public async modifyFacility(
-    @Param() { id }: GetFacilityParamDTO,
+    @Param() { id }: GetFacilityIdParamDTO,
     @Body() modifiedFacility: ModifyFacilityBodyDTO,
   ): Promise<
     ResponseDTO<Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>>
@@ -90,7 +110,7 @@ export class FacilityController {
 
   @Delete(':id')
   public async deleteFacility(
-    @Param() { id }: GetFacilityParamDTO,
+    @Param() { id }: GetFacilityIdParamDTO,
   ): Promise<ResponseDTO<FacilityEntity>> {
     const facility = await this.facilityService.getFacilityById(id);
 

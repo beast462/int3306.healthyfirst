@@ -13,6 +13,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import { ReactElement } from 'react';
 import FacilityImages from './FacilityImages/FacilityImages';
+import FacilityInfo from './FacilityInfo/FacilityInfo';
 
 const Root = styled.div`
   width: 100%;
@@ -58,11 +59,14 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
             quay lại danh sách
           </Button>
 
-          <Typography variant="h6">Thông tin chi tiết</Typography>
+          {/* <Typography variant="h6">Thông tin chi tiết</Typography> */}
         </Toolbar>
         <Divider />
 
         <Grid container spacing={1} className={styles.details}>
+          <Grid item xs={6}>
+            <FacilityInfo />
+          </Grid>
           <Grid item xs={6}>
             <FacilityImages />
           </Grid>

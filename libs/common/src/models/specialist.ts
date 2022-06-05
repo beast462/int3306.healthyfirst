@@ -3,5 +3,5 @@ export type Specialist = {
   displayName: string;
   email: string;
   roleId: number;
-  locationCode: number;
+  responsibleLocationCode: number;
 };

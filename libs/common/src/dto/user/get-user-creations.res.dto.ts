@@ -1,6 +1,6 @@
-import { UserEntity } from '@/common/entities';
+import { Specialist } from '@/common/models/specialist';
 
 export class GetUserCreationsResDTO {
   total: number;
-  creations: UserEntity[];
+  specialists: Specialist[];
 }

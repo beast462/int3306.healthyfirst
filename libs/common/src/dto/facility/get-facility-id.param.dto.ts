@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsDefined, IsInt, Min } from 'class-validator';
 
-export class GetFacilityParamDTO {
+export class GetFacilityIdParamDTO {
   @Min(1)
   @IsInt()
   @Type(() => Number)

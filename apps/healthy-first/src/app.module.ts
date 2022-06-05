@@ -14,6 +14,7 @@ import { PingController } from './ping/ping.controller';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './view/view.module';
+import { CertificateModule } from './certificate/certificate.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ViewModule } from './view/view.module';
     FoodSafetyAuthorityBranchModule,
     LocationModule,
     SeederModule,
+    CertificateModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

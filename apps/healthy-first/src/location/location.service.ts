@@ -11,8 +11,30 @@ export class LocationService {
   ) {}
 
   public async getAllLocations(): Promise<LocationEntity[]> {
+    return this.locationRepository.find();
+  }
+
+  public async getAllProvinces(): Promise<LocationEntity[]> {
     return this.locationRepository.find({
       where: { code: Raw((alias) => `${alias} > 0x1 and ${alias} < 0x10000`) },
+    });
+  }
+
+  public async getAllDistricts(): Promise<LocationEntity[]> {
+    return this.locationRepository.find({
+      where: {
+        code: Raw((alias) => `${alias} >= 0x10000 and ${alias} < 0x1000000`),
+      },
+    });
+  }
+
+  public async getAllWards(): Promise<LocationEntity[]> {
+    return this.locationRepository.find({
+      where: {
+        code: Raw(
+          (alias) => `${alias} >= 0x1000000 and ${alias} < 0x100000000`,
+        ),
+      },
     });
   }
 

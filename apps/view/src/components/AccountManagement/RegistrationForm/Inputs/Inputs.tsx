@@ -13,6 +13,8 @@ import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import RolesSelector from './RolesSelector/RolesSelector';
+import LocationSelector from './LocationSelector/LocationSelector';
+import { useState } from 'react';
 
 const validators = {
   username: Joi.alternatives(
@@ -81,6 +83,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Inputs() {
   const classes = useStyles();
+  const [roleId, setRoleId] = useState<number>(0);
 
   return (
     <>
@@ -114,7 +117,13 @@ function Inputs() {
           name="email"
         />
 
-        <RolesSelector className={classes.roleSelector} />
+        <RolesSelector
+          className={classes.roleSelector}
+          onRoleSelected={(roleId) => setRoleId(roleId)}
+        />
+      </Row>
+      <Row>
+        <LocationSelector selectedRoleId={roleId} />
       </Row>
     </>
   );

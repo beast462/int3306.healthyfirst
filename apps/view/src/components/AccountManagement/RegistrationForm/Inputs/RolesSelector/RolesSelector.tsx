@@ -4,9 +4,10 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 interface IProps {
   className: string;
+  onRoleSelected: (roleId: number) => void;
 }
 
-function RolesSelector({ className }: IProps) {
+function RolesSelector({ className, onRoleSelected }: IProps) {
   const { roles } = useRoles();
   const { user } = useUser();
 
@@ -23,6 +24,7 @@ function RolesSelector({ className }: IProps) {
               key={`role#${role.id}`}
               disabled={disabled}
               value={role.id}
+              onClick={() => onRoleSelected(role.id)}
             >
               {role.description}
               {disabled && ' (Không đủ quyền tạo)'}

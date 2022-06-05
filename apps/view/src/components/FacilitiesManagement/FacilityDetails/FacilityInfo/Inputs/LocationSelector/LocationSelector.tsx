@@ -79,11 +79,11 @@ function LocationSelector({ className }: IProps): ReactElement {
     useState<Location>(DEFAULT_DISTRICT);
   const [selectedWard, setSelectedWard] = useState<Location>(DEFAULT_WARD);
 
-  const provinces = useProvinces().provinces;
-  const districts = useDistricts().districts.filter(
+  const provinces = useProvinces().provinces ?? [];
+  const districts = (useDistricts().districts ?? []).filter(
     (district) => (district.code & 0xffff) === selectedProvince.code,
   );
-  const wards = useWards().wards.filter(
+  const wards = (useWards().wards ?? []).filter(
     (ward) => (ward.code & 0xffffff) === selectedDistrict.code,
   );
 

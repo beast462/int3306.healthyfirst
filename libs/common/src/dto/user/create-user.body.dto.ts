@@ -32,4 +32,7 @@ export class CreateUserBodyDTO {
   @Min(1)
   @IsNumber()
   role!: number;
+
+  @IsNumber()
+  responsibleLocationCode!: number;
 }

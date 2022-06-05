@@ -28,7 +28,7 @@ function stringifyLocation(locationCode: number) {
   )} ${district?.name}, ${capitalize(province.type)} ${province?.name}`;
 }
 
-function AccountItem({ specialist }: IProps) {
+function SpecialistItem({ specialist }: IProps) {
   const { roles } = useRoles();
 
   return (
@@ -37,9 +37,11 @@ function AccountItem({ specialist }: IProps) {
       <NowrapCell>{specialist.displayName}</NowrapCell>
       <NowrapCell>{specialist.email}</NowrapCell>
       <NowrapCell>{roles[specialist.roleId].description}</NowrapCell>
-      <NowrapCell>{stringifyLocation(specialist.locationCode)}</NowrapCell>
+      <NowrapCell>
+        {stringifyLocation(specialist.responsibleLocationCode)}
+      </NowrapCell>
     </TableRow>
   );
 }
 
-export default AccountItem;
+export default SpecialistItem;

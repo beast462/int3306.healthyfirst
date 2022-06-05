@@ -14,6 +14,7 @@ import { HttpStatus } from '@nestjs/common/enums';
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { useSWRConfig } from 'swr';
 import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
+import { max } from 'lodash';
 
 const Root = styled.div`
   width: 100%;
@@ -50,7 +51,13 @@ function RegistrationForm({
       displayName: target.displayName.value,
       email: target.email.value,
       role: +target.roleId.value,
+      responsibleLocationCode: Math.max(
+        +target.provinceCode.value,
+        +target.districtCode.value,
+      ),
     };
+
+    console.log(newUser);
 
     const { statusCode, errorCode } = await fetch('/api/user', {
       method: 'POST',
@@ -60,6 +67,8 @@ function RegistrationForm({
       },
       body: JSON.stringify(newUser),
     }).then((res) => res.json());
+
+    console.log(errorCode);
 
     if (
       statusCode === HttpStatus.CREATED ||
@@ -94,6 +103,7 @@ function RegistrationForm({
 
         default:
           errorMessages.push('Lỗi không xác định');
+          errorMessages.push('Vui lòng điền các trường');
       }
 
       notify(

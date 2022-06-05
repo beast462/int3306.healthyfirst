@@ -2,7 +2,7 @@ import { ResponsibleAreaEntity, UserEntity } from '@/common/entities';
 import { Specialist } from '@/common/models/specialist';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Raw, Repository } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 
 @Injectable()
 export class ResponsibleAreaService {

@@ -27,12 +27,14 @@ import {
 
 import { RoleService } from '../role/role.service';
 import { CreateUserErrors, UserService } from './user.service';
+import { ResponsibleAreaService } from '../responsible-area/responsible-area.service';
 
 @Controller('/api/user')
 export class UserController {
   public constructor(
     private readonly userService: UserService,
     private readonly roleService: RoleService,
+    private readonly responsibleAreaService: ResponsibleAreaService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -75,7 +77,13 @@ export class UserController {
   public async createUser(
     @CurrentUser() user: UserEntity,
     @Body()
-    { username, displayName, email, role: roleId }: CreateUserBodyDTO,
+    {
+      username,
+      displayName,
+      email,
+      role: roleId,
+      responsibleLocationCode,
+    }: CreateUserBodyDTO,
   ): Promise<ResponseDTO<UserEntity>> {
     const role = await this.roleService.getRoleById(roleId);
 
@@ -92,13 +100,20 @@ export class UserController {
       user.id,
     );
 
-    if (createUserResult instanceof UserEntity)
+    if (createUserResult instanceof UserEntity) {
+      const createResponsibleForUser =
+        await this.responsibleAreaService.createResponsibleArea({
+          userId: createUserResult.id,
+          responsibleLocationCode: responsibleLocationCode,
+        });
+
       return new ResponseDTO(
         HttpStatus.CREATED,
         [],
         ErrorCodes.SUCCESS,
         createUserResult,
       );
+    }
 
     switch (createUserResult) {
       case CreateUserErrors.USERNAME_EXISTS:

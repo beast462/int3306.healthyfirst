@@ -8,5 +8,6 @@ import { ResponsibleAreaService } from './responsible-area.service';
   imports: [TypeOrmModule.forFeature([ResponsibleAreaEntity, UserEntity])],
   controllers: [ResponsibleAreaController],
   providers: [ResponsibleAreaService],
+  exports: [ResponsibleAreaService],
 })
 export class ResponsibleAreaModule {}

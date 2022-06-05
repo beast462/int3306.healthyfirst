@@ -1,4 +1,9 @@
-import { RoleEntity, UserEntity } from '@/common/entities';
+import { ResponsibleAreaModule } from './../responsible-area/responsible-area.module';
+import {
+  RoleEntity,
+  UserEntity,
+  ResponsibleAreaEntity,
+} from '@/common/entities';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,10 +17,11 @@ import { UserService } from './user.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, RoleEntity]),
+    TypeOrmModule.forFeature([UserEntity, RoleEntity, ResponsibleAreaEntity]),
     ConfigModule,
     MailModule,
     RoleModule,
+    ResponsibleAreaModule,
   ],
   providers: [UserService, UserUtilsService],
   controllers: [UserUtilsController, UserController],

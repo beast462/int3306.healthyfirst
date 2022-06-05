@@ -25,7 +25,7 @@ interface IProps {
 
 async function fetchManagedSpecialists(
   this: Dispatch<any>,
-): Promise<PublicUser[]> {
+): Promise<Specialist[]> {
   const { statusCode, body, message, errorCode }: ResponseDTO<Specialist[]> =
     await fetch(`/api/responsible-area/users/${}`).then((res) => res.json());
 

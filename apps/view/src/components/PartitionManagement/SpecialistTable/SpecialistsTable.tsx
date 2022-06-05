@@ -22,6 +22,7 @@ import {
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import SpecialistItem from './SpecialistItem/SpecialistItem';
 import { Specialist } from '@/common/models/specialist';
+import { useManagedSpecialists } from '@/view/hooks/useManagedSpecialists';
 
 const Root = styled.div`
   width: 100%;
@@ -61,7 +62,7 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
     page: 0,
     rowsPerPage: 5,
   } as { page: number; rowsPerPage: number });
-  const { data } = useManagedSpecialist({
+  const { data } = useManagedSpecialists({
     limit: pagination.rowsPerPage,
     offset: pagination.rowsPerPage * pagination.page,
     order: sort.order,

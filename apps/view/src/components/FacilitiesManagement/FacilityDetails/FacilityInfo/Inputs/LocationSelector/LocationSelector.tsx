@@ -1,12 +1,13 @@
 import { LocationEntity } from '@/common/entities';
 import { useLocations } from '@/view/hooks/useLocations';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { ReactElement, useState } from 'react';
-
-interface ILocation {
-  id: number;
-  name: string;
-}
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material';
+import { ReactElement, useEffect, useState } from 'react';
 
 type Location = Partial<Omit<LocationEntity, 'id' | 'type'>>;
 
@@ -49,21 +50,26 @@ function LocationSelector({ className }: IProps): ReactElement {
         <Select
           label="Tỉnh"
           name="provinceCode"
-          onChange={(event) => {
-            setSelectedProvince(event.target.value as Location);
-          }}
-          value={selectedProvince}
+          value={selectedProvince.code}
+          sx={{ textTransform: 'capitalize' }}
         >
           {(provinces ?? []).map((province: Location) => {
             return (
-              <MenuItem key={`province#${province.code}`} value={province.code}>
-                {province.name}
+              <MenuItem
+                key={`province#${province.code}`}
+                value={province.code}
+                onClick={() => {
+                  setSelectedProvince(province);
+                }}
+                sx={{ textTransform: 'capitalize' }}
+              >
+                {province.name.toLowerCase()}
               </MenuItem>
             );
           })}
         </Select>
       </FormControl>
-
+      {/* 
       <FormControl size="small" fullWidth>
         <InputLabel>Quận / Huyện / Thành phố</InputLabel>
         <Select
@@ -76,8 +82,12 @@ function LocationSelector({ className }: IProps): ReactElement {
         >
           {(districts ?? []).map((district: Location) => {
             return (
-              <MenuItem key={`district#${district.code}`} value={district.code}>
-                {district.name}
+              <MenuItem
+                key={`district#${district.code}`}
+                value={district.code}
+                sx={{ textTransform: 'capitalize' }}
+              >
+                {district.name.toLowerCase()}
               </MenuItem>
             );
           })}
@@ -97,12 +107,12 @@ function LocationSelector({ className }: IProps): ReactElement {
           {(wards ?? []).map((ward: Location) => {
             return (
               <MenuItem key={`ward#${ward.code}`} value={ward.code}>
-                {ward.name}
+                {ward.name.toLowerCase()}
               </MenuItem>
             );
           })}
         </Select>
-      </FormControl>
+      </FormControl> */}
     </div>
   );
 }

@@ -83,11 +83,9 @@ function RegistrationForm({
 
       return;
     } else if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
-      notify(
-        'Tạo tài khoản không thành công',
-        NotificationSeverity.ERROR,
+      notify('Tạo tài khoản không thành công', NotificationSeverity.ERROR, [
         'Người dùng đã tồn tại',
-      );
+      ]);
     } else {
       const errorMessages = [];
       switch (errorCode) {

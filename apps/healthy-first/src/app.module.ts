@@ -11,10 +11,6 @@ import { PingController } from './ping/ping.controller';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './view/view.module';
-
-import { RoleModule } from './role/role.module';
-import { FoodSafetyAuthorityBranchModule } from './food-safety-authority-branch/food-safety-authority-branch.module';
-import { FacilityModule } from './facility/facility.module';
 import { LocationModule } from './location/location.module';
 
 
@@ -28,12 +24,8 @@ import { LocationModule } from './location/location.module';
     MailModule,
     DbLoggerModule,
     RoleModule,
-    FoodSafetyAuthorityBranchModule,
-    FacilityModule,
     LocationModule,
-
     SeederModule,
-
   ],
   controllers: [PingController],
   providers: [ConfigService],

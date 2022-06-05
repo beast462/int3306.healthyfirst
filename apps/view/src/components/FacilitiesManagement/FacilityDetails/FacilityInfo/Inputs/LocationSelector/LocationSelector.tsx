@@ -52,6 +52,7 @@ function LocationSelector({ className }: IProps): ReactElement {
           onChange={(event) => {
             setSelectedProvince(event.target.value as Location);
           }}
+          value={selectedProvince}
         >
           {(provinces ?? []).map((province: Location) => {
             return (
@@ -65,7 +66,14 @@ function LocationSelector({ className }: IProps): ReactElement {
 
       <FormControl size="small" fullWidth>
         <InputLabel>Quận / Huyện / Thành phố</InputLabel>
-        <Select label="Quận / Huyện / Thành phố" name="districtCode">
+        <Select
+          label="Quận / Huyện / Thành phố"
+          name="districtCode"
+          onChange={(event) => {
+            setSelectedDistrict(event.target.value as Location);
+          }}
+          value={selectedDistrict}
+        >
           {(districts ?? []).map((district: Location) => {
             return (
               <MenuItem key={`district#${district.code}`} value={district.code}>
@@ -78,7 +86,14 @@ function LocationSelector({ className }: IProps): ReactElement {
 
       <FormControl size="small" fullWidth>
         <InputLabel>Phường / Xã</InputLabel>
-        <Select label="Phường / Xã" name="wardCode">
+        <Select
+          label="Phường / Xã"
+          name="wardCode"
+          onChange={(event) => {
+            setSelectedWard(event.target.value as Location);
+          }}
+          value={selectedWard}
+        >
           {(wards ?? []).map((ward: Location) => {
             return (
               <MenuItem key={`ward#${ward.code}`} value={ward.code}>

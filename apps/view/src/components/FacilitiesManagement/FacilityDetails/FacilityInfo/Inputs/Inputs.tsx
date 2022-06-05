@@ -1,6 +1,6 @@
 import CustomValidatedInput from '@/view/common/components/CustomValidatedInput';
 import Flexbox from '@/view/common/components/Flexbox';
-import { CancelRounded, Edit, EditRounded, SaveRounded } from '@mui/icons-material';
+import { CancelRounded, EditRounded, SaveRounded } from '@mui/icons-material';
 import { Button, Divider, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import * as Joi from 'joi';

@@ -14,6 +14,7 @@ import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 import { Specialist } from '@/common/models/specialist';
+import { GetManagedSpecialistsResDTO } from '@/common/dto/specialists/get-managed-specialists-res.dto';
 
 interface IProps {
   limit: number;
@@ -42,9 +43,9 @@ async function fetchManagedSpecialists(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useCreatedAccounts({ limit, offset, order, orderBy }: IProps) {
+export function useManagedSpecialists({ limit, offset, order, orderBy }: IProps) {
   const dispatch = useDispatch();
-  const { specialists, error } = useSWR<GetUserCreationsResDTO, Error>(
+  const { data, error } = useSWR<GetManagedSpecialistsResDTO, Error>(
     swrHookKeys.USE_MANAGED_SPECIALISTS,
     fetchManagedSpecialists.bind(dispatch),
   );
@@ -54,8 +55,8 @@ export function useCreatedAccounts({ limit, offset, order, orderBy }: IProps) {
     (error instanceof Error || SerializableError.isSerializableError(error));
 
   return {
-    specialists,
-    isLoading: !error && !specialists,
+    data,
+    isLoading: !error && !data,
     error: isError ? error : null,
   };
 }

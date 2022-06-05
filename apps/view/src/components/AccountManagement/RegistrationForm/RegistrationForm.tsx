@@ -52,7 +52,7 @@ function RegistrationForm({
       role: +target.roleId.value,
     };
 
-    const { statusCode, message, body, errorCode } = await fetch('/api/user', {
+    const { statusCode, errorCode } = await fetch('/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

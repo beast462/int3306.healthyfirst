@@ -1,3 +1,5 @@
+import { LocationEntity } from '@/common/entities';
+import { useLocations } from '@/view/hooks/useLocations';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { ReactElement, useState } from 'react';
 
@@ -6,33 +8,39 @@ interface ILocation {
   name: string;
 }
 
+type Location = Partial<Omit<LocationEntity, 'id' | 'type'>>;
+
+const DEFAUTLT_COUNTRY_CODE = 1;
+
 const DEFAULT_PROVINCE = {
-  id: 257,
+  code: 257,
   name: 'Hà Nội',
 };
 
 const DEFAULT_DISTRICT = {
-  id: 65793,
+  code: 65793,
   name: 'Quận Ba Đình',
-}
+};
 
 const DEFAULT_WARD = {
-  id: 167837953,
+  code: 167837953,
   name: 'Phường Đội Cấn',
-}
+};
 
 interface IProps {
   className?: string;
 }
 
 function LocationSelector({ className }: IProps): ReactElement {
-  const [selectedProvince, setSelectedProvince] = useState(DEFAULT_PROVINCE);
-  const [selectedDistrict, setSelectedDistrict] = useState(DEFAULT_DISTRICT);
-  const [selectedWard, setSelectedWard] = useState(DEFAULT_WARD);
+  const [selectedProvince, setSelectedProvince] =
+    useState<Location>(DEFAULT_PROVINCE);
+  const [selectedDistrict, setSelectedDistrict] =
+    useState<Location>(DEFAULT_DISTRICT);
+  const [selectedWard, setSelectedWard] = useState<Location>(DEFAULT_WARD);
 
-  const { provinces } = useProvinces();
-  const { districts } = useDistricts(selectedProvince.id);
-  const { wards } = useWards(selectedDistrict.id);
+  const provinces = useLocations(DEFAUTLT_COUNTRY_CODE).locations;
+  const districts = useLocations(selectedProvince.code).locations;
+  const wards = useLocations(selectedDistrict.code).locations;
 
   return (
     <div>
@@ -40,14 +48,14 @@ function LocationSelector({ className }: IProps): ReactElement {
         <InputLabel>Tỉnh</InputLabel>
         <Select
           label="Tỉnh"
-          name="provinceId"
+          name="provinceCode"
           onChange={(event) => {
-            setSelectedProvince(event.target.value as ILocation);
+            setSelectedProvince(event.target.value as Location);
           }}
         >
-          {(provinces ?? []).map((province) => {
+          {(provinces ?? []).map((province: Location) => {
             return (
-              <MenuItem key={`province#${province.id}`} value={province}>
+              <MenuItem key={`province#${province.code}`} value={province.code}>
                 {province.name}
               </MenuItem>
             );
@@ -57,10 +65,10 @@ function LocationSelector({ className }: IProps): ReactElement {
 
       <FormControl size="small" fullWidth>
         <InputLabel>Quận / Huyện / Thành phố</InputLabel>
-        <Select label="Quận / Huyện / Thành phố" name="districtId">
-          {(districts ?? []).map((district) => {
+        <Select label="Quận / Huyện / Thành phố" name="districtCode">
+          {(districts ?? []).map((district: Location) => {
             return (
-              <MenuItem key={`district#${district.id}`} value={district.id}>
+              <MenuItem key={`district#${district.code}`} value={district.code}>
                 {district.name}
               </MenuItem>
             );
@@ -70,10 +78,10 @@ function LocationSelector({ className }: IProps): ReactElement {
 
       <FormControl size="small" fullWidth>
         <InputLabel>Phường / Xã</InputLabel>
-        <Select label="Phường / Xã" name="districtId">
-          {(wards ?? []).map((ward) => {
+        <Select label="Phường / Xã" name="wardCode">
+          {(wards ?? []).map((ward: Location) => {
             return (
-              <MenuItem key={`ward#${ward.id}`} value={ward.id}>
+              <MenuItem key={`ward#${ward.code}`} value={ward.code}>
                 {ward.name}
               </MenuItem>
             );

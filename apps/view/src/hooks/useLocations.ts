@@ -12,15 +12,18 @@ import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 
-async function fetchProvinces(this: Dispatch<any>): Promise<LocationEntity[]> {
+async function fetchProvinces(
+  this: Dispatch<any>,
+  locationCode: number,
+): Promise<LocationEntity[]> {
   const {
     statusCode,
     message,
     body,
     errorCode,
-  }: ResponseDTO<LocationEntity[]> = await fetch('/api/location').then((res) =>
-    res.json(),
-  );
+  }: ResponseDTO<LocationEntity[]> = await fetch(
+    `/api/location/${locationCode}/children`,
+  ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -36,11 +39,11 @@ async function fetchProvinces(this: Dispatch<any>): Promise<LocationEntity[]> {
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useProvinces() {
+export function useLocations(locationCode: number) {
   const dispatch = useDispatch();
-  const { data: provinces, error } = useSWR<LocationEntity[], Error>(
-    swrHookKeys.USE_PROVINCES,
-    fetchProvinces.bind(dispatch),
+  const { data: locations, error } = useSWR<LocationEntity[], Error>(
+    swrHookKeys.USE_LOCATIONS,
+    fetchProvinces.bind(dispatch, locationCode),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
@@ -52,8 +55,8 @@ export function useProvinces() {
     (error instanceof Error || SerializableError.isSerializableError(error));
 
   return {
-    provinces,
-    isLoading: !error && !provinces,
+    locations,
+    isLoading: !error && !locations,
     error: isError ? error : null,
   };
 }

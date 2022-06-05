@@ -7,7 +7,6 @@ import { Button, Divider, Paper, Toolbar, Typography } from '@mui/material';
 import { ISegmentProps } from '../AccountManagement';
 import Inputs from './Inputs/Inputs';
 import Flexbox from '@/view/common/components/Flexbox';
-import { ApplicationState } from '@/view/store';
 import { connect, ConnectedProps } from 'react-redux';
 import { notify } from '@/view/store/actions/app/notify';
 import { NotificationSeverity } from '@/view/common/types/Notification';

@@ -196,7 +196,7 @@
   },
   {
     "code": 9473,
-    "name": "KHÁNH HÒA",
+    "name": "KHÁNH HOÀ",
     "type": "TỈNH"
   },
   {
@@ -371,7 +371,7 @@
   },
   {
     "code": 68353,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "THÀNH PHỐ"
   },
   {
@@ -616,7 +616,7 @@
   },
   {
     "code": 77825,
-    "name": "BIÊN HÒA",
+    "name": "BIÊN HOÀ",
     "type": "THÀNH PHỐ"
   },
   {
@@ -1031,7 +1031,7 @@
   },
   {
     "code": 1900801,
-    "name": "ỨNG HÒA",
+    "name": "ỨNG HOÀ",
     "type": "HUYỆN"
   },
   {
@@ -1116,7 +1116,7 @@
   },
   {
     "code": 459521,
-    "name": "QUẢNG HÒA",
+    "name": "QUẢNG HOÀ",
     "type": "HUYỆN"
   },
   {
@@ -1601,7 +1601,7 @@
   },
   {
     "code": 659201,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "HUYỆN"
   },
   {
@@ -2331,7 +2331,7 @@
   },
   {
     "code": 466945,
-    "name": "HÒA VANG",
+    "name": "HOÀ VANG",
     "type": "HUYỆN"
   },
   {
@@ -2521,7 +2521,7 @@
   },
   {
     "code": 336897,
-    "name": "SƠN HÒA",
+    "name": "SƠN HOÀ",
     "type": "HUYỆN"
   },
   {
@@ -3121,7 +3121,7 @@
   },
   {
     "code": 602881,
-    "name": "ĐỨC HÒA",
+    "name": "ĐỨC HOÀ",
     "type": "HUYỆN"
   },
   {
@@ -3731,12 +3731,12 @@
   },
   {
     "code": 599041,
-    "name": "ĐÔNG HÒA",
+    "name": "ĐÔNG HOÀ",
     "type": "THỊ XÃ"
   },
   {
     "code": 337153,
-    "name": "NINH HÒA",
+    "name": "NINH HOÀ",
     "type": "THỊ XÃ"
   },
   {
@@ -3771,7 +3771,7 @@
   },
   {
     "code": 404993,
-    "name": "HÒA THÀNH",
+    "name": "HOÀ THÀNH",
     "type": "THỊ XÃ"
   },
   {
@@ -5121,7 +5121,7 @@
   },
   {
     "code": 33622785,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -5681,7 +5681,7 @@
   },
   {
     "code": 101453313,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -5981,7 +5981,7 @@
   },
   {
     "code": 184619521,
-    "name": "HÒA LONG",
+    "name": "HOÀ LONG",
     "type": "PHƯỜNG"
   },
   {
@@ -6696,7 +6696,7 @@
   },
   {
     "code": 100996353,
-    "name": "NHÂN HÒA",
+    "name": "NHÂN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -6831,7 +6831,7 @@
   },
   {
     "code": 33691393,
-    "name": "HÒA MẠC",
+    "name": "HOÀ MẠC",
     "type": "PHƯỜNG"
   },
   {
@@ -6971,7 +6971,7 @@
   },
   {
     "code": 352393217,
-    "name": "LỘC HÒA",
+    "name": "LỘC HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -7286,7 +7286,7 @@
   },
   {
     "code": 18553345,
-    "name": "HẢI HÒA",
+    "name": "HẢI HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -7461,7 +7461,7 @@
   },
   {
     "code": 67246849,
-    "name": "NGHI HÒA",
+    "name": "NGHI HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -7791,7 +7791,7 @@
   },
   {
     "code": 83959553,
-    "name": "THUẬN HÒA",
+    "name": "THUẬN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -7851,7 +7851,7 @@
   },
   {
     "code": 285286145,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -7966,27 +7966,27 @@
   },
   {
     "code": 16850945,
-    "name": "HÒA HIỆP BẮC",
+    "name": "HOÀ HIỆP BẮC",
     "type": "PHƯỜNG"
   },
   {
     "code": 33628161,
-    "name": "HÒA HIỆP NAM",
+    "name": "HOÀ HIỆP NAM",
     "type": "PHƯỜNG"
   },
   {
     "code": 50405377,
-    "name": "HÒA KHÁNH BẮC",
+    "name": "HOÀ KHÁNH BẮC",
     "type": "PHƯỜNG"
   },
   {
     "code": 67182593,
-    "name": "HÒA KHÁNH NAM",
+    "name": "HOÀ KHÁNH NAM",
     "type": "PHƯỜNG"
   },
   {
     "code": 83959809,
-    "name": "HÒA MINH",
+    "name": "HOÀ MINH",
     "type": "PHƯỜNG"
   },
   {
@@ -8036,7 +8036,7 @@
   },
   {
     "code": 167911425,
-    "name": "HÒA KHÊ",
+    "name": "HOÀ KHÊ",
     "type": "PHƯỜNG"
   },
   {
@@ -8071,12 +8071,12 @@
   },
   {
     "code": 117645313,
-    "name": "HÒA THUẬN TÂY",
+    "name": "HOÀ THUẬN TÂY",
     "type": "PHƯỜNG"
   },
   {
     "code": 134422529,
-    "name": "HÒA THUẬN ĐÔNG",
+    "name": "HOÀ THUẬN ĐÔNG",
     "type": "PHƯỜNG"
   },
   {
@@ -8096,12 +8096,12 @@
   },
   {
     "code": 201531393,
-    "name": "HÒA CƯỜNG BẮC",
+    "name": "HOÀ CƯỜNG BẮC",
     "type": "PHƯỜNG"
   },
   {
     "code": 218308609,
-    "name": "HÒA CƯỜNG NAM",
+    "name": "HOÀ CƯỜNG NAM",
     "type": "PHƯỜNG"
   },
   {
@@ -8166,27 +8166,27 @@
   },
   {
     "code": 33955841,
-    "name": "HÒA PHÁT",
+    "name": "HOÀ PHÁT",
     "type": "PHƯỜNG"
   },
   {
     "code": 50733057,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "PHƯỜNG"
   },
   {
     "code": 67510273,
-    "name": "HÒA THỌ TÂY",
+    "name": "HOÀ THỌ TÂY",
     "type": "PHƯỜNG"
   },
   {
     "code": 84287489,
-    "name": "HÒA THỌ ĐÔNG",
+    "name": "HOÀ THỌ ĐÔNG",
     "type": "PHƯỜNG"
   },
   {
     "code": 101064705,
-    "name": "HÒA XUÂN",
+    "name": "HOÀ XUÂN",
     "type": "PHƯỜNG"
   },
   {
@@ -8196,7 +8196,7 @@
   },
   {
     "code": 33628417,
-    "name": "PHƯỚC HÒA",
+    "name": "PHƯỚC HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -8206,7 +8206,7 @@
   },
   {
     "code": 67182849,
-    "name": "HÒA HƯƠNG",
+    "name": "HOÀ HƯƠNG",
     "type": "PHƯỜNG"
   },
   {
@@ -8391,7 +8391,7 @@
   },
   {
     "code": 185278977,
-    "name": "PHỔ HÒA",
+    "name": "PHỔ HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -8641,7 +8641,7 @@
   },
   {
     "code": 34153473,
-    "name": "HÒA HIỆP BẮC",
+    "name": "HOÀ HIỆP BẮC",
     "type": "PHƯỜNG"
   },
   {
@@ -8656,17 +8656,17 @@
   },
   {
     "code": 101262337,
-    "name": "HÒA XUÂN TÂY",
+    "name": "HOÀ XUÂN TÂY",
     "type": "PHƯỜNG"
   },
   {
     "code": 118039553,
-    "name": "HÒA HIỆP NAM",
+    "name": "HOÀ HIỆP NAM",
     "type": "PHƯỜNG"
   },
   {
     "code": 16852225,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -8741,7 +8741,7 @@
   },
   {
     "code": 268510465,
-    "name": "PHƯỚC HÒA",
+    "name": "PHƯỚC HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9166,7 +9166,7 @@
   },
   {
     "code": 33761537,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "PHƯỜNG"
   },
   {
@@ -9186,7 +9186,7 @@
   },
   {
     "code": 33630721,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9556,7 +9556,7 @@
   },
   {
     "code": 151596545,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9576,7 +9576,7 @@
   },
   {
     "code": 67186433,
-    "name": "PHÚ HÒA",
+    "name": "PHÚ HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9636,17 +9636,17 @@
   },
   {
     "code": 33828609,
-    "name": "CHÁNH PHÚ HÒA",
+    "name": "CHÁNH PHÚ HOÀ",
     "type": "PHƯỜNG"
   },
   {
     "code": 84160257,
-    "name": "THỚI HÒA",
+    "name": "THỚI HOÀ",
     "type": "PHƯỜNG"
   },
   {
     "code": 100937473,
-    "name": "HÒA LỢI",
+    "name": "HOÀ LỢI",
     "type": "PHƯỜNG"
   },
   {
@@ -9701,7 +9701,7 @@
   },
   {
     "code": 201731841,
-    "name": "THÁI HÒA",
+    "name": "THÁI HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9731,7 +9731,7 @@
   },
   {
     "code": 101134081,
-    "name": "ĐÔNG HÒA",
+    "name": "ĐÔNG HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9776,7 +9776,7 @@
   },
   {
     "code": 151531265,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9806,7 +9806,7 @@
   },
   {
     "code": 83963905,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9856,12 +9856,12 @@
   },
   {
     "code": 251736065,
-    "name": "TAM HÒA",
+    "name": "TAM HOÀ",
     "type": "PHƯỜNG"
   },
   {
     "code": 268513281,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "PHƯỜNG"
   },
   {
@@ -9886,7 +9886,7 @@
   },
   {
     "code": 352399361,
-    "name": "BỬU HÒA",
+    "name": "BỬU HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9906,7 +9906,7 @@
   },
   {
     "code": 419508225,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -9916,7 +9916,7 @@
   },
   {
     "code": 453062657,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -10516,7 +10516,7 @@
   },
   {
     "code": 101069313,
-    "name": "PHÚ THỌ HÒA",
+    "name": "PHÚ THỌ HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -10531,7 +10531,7 @@
   },
   {
     "code": 151400961,
-    "name": "HÒA THẠNH",
+    "name": "HOÀ THẠNH",
     "type": "PHƯỜNG"
   },
   {
@@ -10541,7 +10541,7 @@
   },
   {
     "code": 184955393,
-    "name": "TÂN THỚI HÒA",
+    "name": "TÂN THỚI HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -11276,7 +11276,7 @@
   },
   {
     "code": 17838593,
-    "name": "BÌNH HƯNG HÒA",
+    "name": "BÌNH HƯNG HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -11681,7 +11681,7 @@
   },
   {
     "code": 151074561,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -11856,7 +11856,7 @@
   },
   {
     "code": 184629505,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -11941,7 +11941,7 @@
   },
   {
     "code": 117520897,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -12006,7 +12006,7 @@
   },
   {
     "code": 33635073,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -12061,7 +12061,7 @@
   },
   {
     "code": 33700609,
-    "name": "THỚI HÒA",
+    "name": "THỚI HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -12121,7 +12121,7 @@
   },
   {
     "code": 117652225,
-    "name": "LONG HÒA",
+    "name": "LONG HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -12346,7 +12346,7 @@
   },
   {
     "code": 51002625,
-    "name": "KHÁNH HÒA",
+    "name": "KHÁNH HOÀ",
     "type": "PHƯỜNG"
   },
   {
@@ -12646,7 +12646,7 @@
   },
   {
     "code": 168035073,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "THỊ TRẤN"
   },
   {
@@ -13301,7 +13301,7 @@
   },
   {
     "code": 17043713,
-    "name": "HỢP HÒA",
+    "name": "HỢP HOÀ",
     "type": "THỊ TRẤN"
   },
   {
@@ -14501,7 +14501,7 @@
   },
   {
     "code": 17180929,
-    "name": "PHÚ HÒA",
+    "name": "PHÚ HOÀ",
     "type": "THỊ TRẤN"
   },
   {
@@ -14931,12 +14931,12 @@
   },
   {
     "code": 34157313,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "THỊ TRẤN"
   },
   {
     "code": 50934529,
-    "name": "ĐỨC HÒA",
+    "name": "ĐỨC HOÀ",
     "type": "THỊ TRẤN"
   },
   {
@@ -14996,7 +14996,7 @@
   },
   {
     "code": 17445889,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "THỊ TRẤN"
   },
   {
@@ -15471,7 +15471,7 @@
   },
   {
     "code": 17251841,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "THỊ TRẤN"
   },
   {
@@ -16091,7 +16091,7 @@
   },
   {
     "code": 185794817,
-    "name": "THÁI HÒA",
+    "name": "THÁI HOÀ",
     "type": "XÃ"
   },
   {
@@ -16181,7 +16181,7 @@
   },
   {
     "code": 487784705,
-    "name": "VÂN HÒA",
+    "name": "VÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -16261,7 +16261,7 @@
   },
   {
     "code": 252969217,
-    "name": "PHÚC HÒA",
+    "name": "PHÚC HOÀ",
     "type": "XÃ"
   },
   {
@@ -16526,7 +16526,7 @@
   },
   {
     "code": 236388609,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -16551,12 +16551,12 @@
   },
   {
     "code": 320274689,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
     "code": 337051905,
-    "name": "HÒA THẠCH",
+    "name": "HOÀ THẠCH",
     "type": "XÃ"
   },
   {
@@ -16706,7 +16706,7 @@
   },
   {
     "code": 152633601,
-    "name": "NGỌC HÒA",
+    "name": "NGỌC HOÀ",
     "type": "XÃ"
   },
   {
@@ -16721,7 +16721,7 @@
   },
   {
     "code": 202965249,
-    "name": "TRUNG HÒA",
+    "name": "TRUNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -16816,7 +16816,7 @@
   },
   {
     "code": 521732353,
-    "name": "HÒA CHÍNH",
+    "name": "HOÀ CHÍNH",
     "type": "XÃ"
   },
   {
@@ -16831,7 +16831,7 @@
   },
   {
     "code": 52035841,
-    "name": "BÍCH HÒA",
+    "name": "BÍCH HOÀ",
     "type": "XÃ"
   },
   {
@@ -16901,7 +16901,7 @@
   },
   {
     "code": 286916865,
-    "name": "DÂN HÒA",
+    "name": "DÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -16946,7 +16946,7 @@
   },
   {
     "code": 102433025,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -17266,12 +17266,12 @@
   },
   {
     "code": 287113473,
-    "name": "HÒA LÂM",
+    "name": "HOÀ LÂM",
     "type": "XÃ"
   },
   {
     "code": 303890689,
-    "name": "HÒA XÁ",
+    "name": "HOÀ XÁ",
     "type": "XÃ"
   },
   {
@@ -17286,12 +17286,12 @@
   },
   {
     "code": 354222337,
-    "name": "HÒA NAM",
+    "name": "HOÀ NAM",
     "type": "XÃ"
   },
   {
     "code": 370999553,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
@@ -18046,7 +18046,7 @@
   },
   {
     "code": 403177985,
-    "name": "NẬM KHÒA",
+    "name": "NẬM KHOÀ",
     "type": "XÃ"
   },
   {
@@ -19661,7 +19661,7 @@
   },
   {
     "code": 201590017,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
@@ -19681,7 +19681,7 @@
   },
   {
     "code": 268698881,
-    "name": "TRUNG HÒA",
+    "name": "TRUNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -19691,7 +19691,7 @@
   },
   {
     "code": 302253313,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
@@ -19796,7 +19796,7 @@
   },
   {
     "code": 268764417,
-    "name": "THÁI HÒA",
+    "name": "THÁI HOÀ",
     "type": "XÃ"
   },
   {
@@ -20011,7 +20011,7 @@
   },
   {
     "code": 252118273,
-    "name": "HỢP HÒA",
+    "name": "HỢP HOÀ",
     "type": "XÃ"
   },
   {
@@ -23116,7 +23116,7 @@
   },
   {
     "code": 101059073,
-    "name": "HÒA CUÔNG",
+    "name": "HOÀ CUÔNG",
     "type": "XÃ"
   },
   {
@@ -23471,7 +23471,7 @@
   },
   {
     "code": 184617729,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -23551,7 +23551,7 @@
   },
   {
     "code": 201460481,
-    "name": "YÊN HÒA",
+    "name": "YÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -23586,7 +23586,7 @@
   },
   {
     "code": 50531073,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -23701,7 +23701,7 @@
   },
   {
     "code": 268700417,
-    "name": "MI HÒA",
+    "name": "MI HOÀ",
     "type": "XÃ"
   },
   {
@@ -23771,7 +23771,7 @@
   },
   {
     "code": 84282113,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "XÃ"
   },
   {
@@ -23906,7 +23906,7 @@
   },
   {
     "code": 34081537,
-    "name": "QUÝ HÒA",
+    "name": "QUÝ HOÀ",
     "type": "XÃ"
   },
   {
@@ -24366,7 +24366,7 @@
   },
   {
     "code": 84216833,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -24416,7 +24416,7 @@
   },
   {
     "code": 251988993,
-    "name": "NAM HÒA",
+    "name": "NAM HOÀ",
     "type": "XÃ"
   },
   {
@@ -24736,7 +24736,7 @@
   },
   {
     "code": 151587841,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -24931,7 +24931,7 @@
   },
   {
     "code": 67308801,
-    "name": "QUÝ HÒA",
+    "name": "QUÝ HOÀ",
     "type": "XÃ"
   },
   {
@@ -24946,7 +24946,7 @@
   },
   {
     "code": 117640449,
-    "name": "THIỆN HÒA",
+    "name": "THIỆN HOÀ",
     "type": "XÃ"
   },
   {
@@ -24976,7 +24976,7 @@
   },
   {
     "code": 218303745,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -24986,7 +24986,7 @@
   },
   {
     "code": 251858177,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -25056,7 +25056,7 @@
   },
   {
     "code": 201592065,
-    "name": "THÀNH HÒA",
+    "name": "THÀNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -25091,7 +25091,7 @@
   },
   {
     "code": 67439873,
-    "name": "THANH LÒA",
+    "name": "THANH LOÀ",
     "type": "XÃ"
   },
   {
@@ -25141,7 +25141,7 @@
   },
   {
     "code": 235212033,
-    "name": "HÒA CƯ",
+    "name": "HOÀ CƯ",
     "type": "XÃ"
   },
   {
@@ -25196,7 +25196,7 @@
   },
   {
     "code": 67505409,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -25336,7 +25336,7 @@
   },
   {
     "code": 268897537,
-    "name": "NHẤT HÒA",
+    "name": "NHẤT HOÀ",
     "type": "XÃ"
   },
   {
@@ -25366,7 +25366,7 @@
   },
   {
     "code": 84413697,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -25416,7 +25416,7 @@
   },
   {
     "code": 252185857,
-    "name": "HÒA LẠC",
+    "name": "HOÀ LẠC",
     "type": "XÃ"
   },
   {
@@ -25436,7 +25436,7 @@
   },
   {
     "code": 319294721,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -25456,12 +25456,12 @@
   },
   {
     "code": 386403585,
-    "name": "MINH HÒA",
+    "name": "MINH HOÀ",
     "type": "XÃ"
   },
   {
     "code": 403180801,
-    "name": "HÒA THẮNG",
+    "name": "HOÀ THẮNG",
     "type": "XÃ"
   },
   {
@@ -25531,7 +25531,7 @@
   },
   {
     "code": 269028609,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -25721,7 +25721,7 @@
   },
   {
     "code": 436276737,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -25806,7 +25806,7 @@
   },
   {
     "code": 235081217,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -26146,7 +26146,7 @@
   },
   {
     "code": 84676097,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "XÃ"
   },
   {
@@ -26166,7 +26166,7 @@
   },
   {
     "code": 269225473,
-    "name": "LIÊN HÒA",
+    "name": "LIÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -26336,7 +26336,7 @@
   },
   {
     "code": 134418177,
-    "name": "PHÚC HÒA",
+    "name": "PHÚC HOÀ",
     "type": "XÃ"
   },
   {
@@ -26406,7 +26406,7 @@
   },
   {
     "code": 33820417,
-    "name": "NGHĨA HÒA",
+    "name": "NGHĨA HOÀ",
     "type": "XÃ"
   },
   {
@@ -27031,7 +27031,7 @@
   },
   {
     "code": 151654145,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -27616,7 +27616,7 @@
   },
   {
     "code": 252121089,
-    "name": "MINH HÒA",
+    "name": "MINH HOÀ",
     "type": "XÃ"
   },
   {
@@ -28136,7 +28136,7 @@
   },
   {
     "code": 100864257,
-    "name": "THÁI HÒA",
+    "name": "THÁI HOÀ",
     "type": "XÃ"
   },
   {
@@ -28146,7 +28146,7 @@
   },
   {
     "code": 151195905,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -28156,7 +28156,7 @@
   },
   {
     "code": 184750337,
-    "name": "LIÊN HÒA",
+    "name": "LIÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -28231,7 +28231,7 @@
   },
   {
     "code": 117707009,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "XÃ"
   },
   {
@@ -28641,12 +28641,12 @@
   },
   {
     "code": 100798977,
-    "name": "THỤY HÒA",
+    "name": "THỤY HOÀ",
     "type": "XÃ"
   },
   {
     "code": 117576193,
-    "name": "HÒA TIẾN",
+    "name": "HOÀ TIẾN",
     "type": "XÃ"
   },
   {
@@ -28696,7 +28696,7 @@
   },
   {
     "code": 67310081,
-    "name": "NHÂN HÒA",
+    "name": "NHÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -29011,7 +29011,7 @@
   },
   {
     "code": 67637761,
-    "name": "PHÚ HÒA",
+    "name": "PHÚ HOÀ",
     "type": "XÃ"
   },
   {
@@ -29171,7 +29171,7 @@
   },
   {
     "code": 201528065,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -29231,7 +29231,7 @@
   },
   {
     "code": 184816385,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "XÃ"
   },
   {
@@ -29251,7 +29251,7 @@
   },
   {
     "code": 386142977,
-    "name": "MINH HÒA",
+    "name": "MINH HOÀ",
     "type": "XÃ"
   },
   {
@@ -29261,7 +29261,7 @@
   },
   {
     "code": 50664193,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -29331,7 +29331,7 @@
   },
   {
     "code": 285545217,
-    "name": "LIÊN HÒA",
+    "name": "LIÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -29576,7 +29576,7 @@
   },
   {
     "code": 252187393,
-    "name": "THÁI HÒA",
+    "name": "THÁI HOÀ",
     "type": "XÃ"
   },
   {
@@ -29811,7 +29811,7 @@
   },
   {
     "code": 134943489,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -30861,12 +30861,12 @@
   },
   {
     "code": 201594113,
-    "name": "TRUNG HÒA",
+    "name": "TRUNG HOÀ",
     "type": "XÃ"
   },
   {
     "code": 218371329,
-    "name": "YÊN HÒA",
+    "name": "YÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -30901,7 +30901,7 @@
   },
   {
     "code": 84219137,
-    "name": "HÒA PHONG",
+    "name": "HOÀ PHONG",
     "type": "XÃ"
   },
   {
@@ -31101,7 +31101,7 @@
   },
   {
     "code": 302454017,
-    "name": "VIỆT HÒA",
+    "name": "VIỆT HOÀ",
     "type": "XÃ"
   },
   {
@@ -31346,7 +31346,7 @@
   },
   {
     "code": 218764545,
-    "name": "NGUYÊN HÒA",
+    "name": "NGUYÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -31356,7 +31356,7 @@
   },
   {
     "code": 167843329,
-    "name": "ĐÔNG HÒA",
+    "name": "ĐÔNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -31586,7 +31586,7 @@
   },
   {
     "code": 67311105,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -31601,7 +31601,7 @@
   },
   {
     "code": 117642753,
-    "name": "HÒA TIẾN",
+    "name": "HOÀ TIẾN",
     "type": "XÃ"
   },
   {
@@ -31626,7 +31626,7 @@
   },
   {
     "code": 218306049,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -31681,7 +31681,7 @@
   },
   {
     "code": 402855425,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -31726,12 +31726,12 @@
   },
   {
     "code": 553850369,
-    "name": "CHÍ HÒA",
+    "name": "CHÍ HOÀ",
     "type": "XÃ"
   },
   {
     "code": 570627585,
-    "name": "MINH HÒA",
+    "name": "MINH HOÀ",
     "type": "XÃ"
   },
   {
@@ -32046,7 +32046,7 @@
   },
   {
     "code": 436540929,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
@@ -32331,7 +32331,7 @@
   },
   {
     "code": 285677057,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -32366,7 +32366,7 @@
   },
   {
     "code": 403117569,
-    "name": "VŨ HÒA",
+    "name": "VŨ HOÀ",
     "type": "XÃ"
   },
   {
@@ -32426,12 +32426,12 @@
   },
   {
     "code": 67638785,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
     "code": 84416001,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "XÃ"
   },
   {
@@ -32451,7 +32451,7 @@
   },
   {
     "code": 151524865,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -32516,7 +32516,7 @@
   },
   {
     "code": 369628673,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -32971,7 +32971,7 @@
   },
   {
     "code": 352720641,
-    "name": "HÒA HẬU",
+    "name": "HOÀ HẬU",
     "type": "XÃ"
   },
   {
@@ -33071,7 +33071,7 @@
   },
   {
     "code": 134420481,
-    "name": "CỘNG HÒA",
+    "name": "CỘNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -33656,7 +33656,7 @@
   },
   {
     "code": 336074753,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -33686,7 +33686,7 @@
   },
   {
     "code": 134813697,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -33911,7 +33911,7 @@
   },
   {
     "code": 571086849,
-    "name": "HẢI HÒA",
+    "name": "HẢI HOÀ",
     "type": "XÃ"
   },
   {
@@ -34011,7 +34011,7 @@
   },
   {
     "code": 251861249,
-    "name": "THƯỢNG HÒA",
+    "name": "THƯỢNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -34076,7 +34076,7 @@
   },
   {
     "code": 33822977,
-    "name": "GIA HÒA",
+    "name": "GIA HOÀ",
     "type": "XÃ"
   },
   {
@@ -34196,7 +34196,7 @@
   },
   {
     "code": 100997377,
-    "name": "NINH HÒA",
+    "name": "NINH HOÀ",
     "type": "XÃ"
   },
   {
@@ -34236,7 +34236,7 @@
   },
   {
     "code": 67508481,
-    "name": "KHÁNH HÒA",
+    "name": "KHÁNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -34331,7 +34331,7 @@
   },
   {
     "code": 101128449,
-    "name": "ÂN HÒA",
+    "name": "ÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -34346,7 +34346,7 @@
   },
   {
     "code": 151460097,
-    "name": "NHƯ HÒA",
+    "name": "NHƯ HOÀ",
     "type": "XÃ"
   },
   {
@@ -34456,7 +34456,7 @@
   },
   {
     "code": 117971201,
-    "name": "YÊN HÒA",
+    "name": "YÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -35276,7 +35276,7 @@
   },
   {
     "code": 135076353,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -35366,7 +35366,7 @@
   },
   {
     "code": 269359617,
-    "name": "ĐỊNH HÒA",
+    "name": "ĐỊNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -35446,7 +35446,7 @@
   },
   {
     "code": 135207425,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -35696,7 +35696,7 @@
   },
   {
     "code": 269556225,
-    "name": "THÁI HÒA",
+    "name": "THÁI HOÀ",
     "type": "XÃ"
   },
   {
@@ -35866,7 +35866,7 @@
   },
   {
     "code": 303176193,
-    "name": "THIỆU HÒA",
+    "name": "THIỆU HOÀ",
     "type": "XÃ"
   },
   {
@@ -36166,7 +36166,7 @@
   },
   {
     "code": 303307265,
-    "name": "HÒA LỘC",
+    "name": "HOÀ LỘC",
     "type": "XÃ"
   },
   {
@@ -36316,7 +36316,7 @@
   },
   {
     "code": 51780097,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -36361,7 +36361,7 @@
   },
   {
     "code": 202775041,
-    "name": "THANH HÒA",
+    "name": "THANH HOÀ",
     "type": "XÃ"
   },
   {
@@ -36511,7 +36511,7 @@
   },
   {
     "code": 236460545,
-    "name": "VẠN HÒA",
+    "name": "VẠN HOÀ",
     "type": "XÃ"
   },
   {
@@ -36601,7 +36601,7 @@
   },
   {
     "code": 68753921,
-    "name": "ĐÔNG HÒA",
+    "name": "ĐÔNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -36706,7 +36706,7 @@
   },
   {
     "code": 203037185,
-    "name": "QUẢNG HÒA",
+    "name": "QUẢNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -36871,7 +36871,7 @@
   },
   {
     "code": 318839553,
-    "name": "HƯNG HÒA",
+    "name": "HƯNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -37176,7 +37176,7 @@
   },
   {
     "code": 151460609,
-    "name": "YÊN HÒA",
+    "name": "YÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -37556,7 +37556,7 @@
   },
   {
     "code": 453647105,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "XÃ"
   },
   {
@@ -38276,7 +38276,7 @@
   },
   {
     "code": 202382081,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -38406,7 +38406,7 @@
   },
   {
     "code": 101784321,
-    "name": "THANH HÒA",
+    "name": "THANH HOÀ",
     "type": "XÃ"
   },
   {
@@ -38751,7 +38751,7 @@
   },
   {
     "code": 169024257,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -38971,7 +38971,7 @@
   },
   {
     "code": 151198721,
-    "name": "AN HÒA THỊNH",
+    "name": "AN HOÀ THỊNH",
     "type": "XÃ"
   },
   {
@@ -39101,7 +39101,7 @@
   },
   {
     "code": 184818689,
-    "name": "HÒA LẠC",
+    "name": "HOÀ LẠC",
     "type": "XÃ"
   },
   {
@@ -39346,7 +39346,7 @@
   },
   {
     "code": 84417537,
-    "name": "HÒA HẢI",
+    "name": "HOÀ HẢI",
     "type": "XÃ"
   },
   {
@@ -39536,7 +39536,7 @@
   },
   {
     "code": 50994177,
-    "name": "YÊN HÒA",
+    "name": "YÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -40191,7 +40191,7 @@
   },
   {
     "code": 386211073,
-    "name": "HÒA TRẠCH",
+    "name": "HOÀ TRẠCH",
     "type": "XÃ"
   },
   {
@@ -40451,7 +40451,7 @@
   },
   {
     "code": 252189953,
-    "name": "QUẢNG HÒA",
+    "name": "QUẢNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -40501,7 +40501,7 @@
   },
   {
     "code": 167976449,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -40841,7 +40841,7 @@
   },
   {
     "code": 151526913,
-    "name": "TRIỆU HÒA",
+    "name": "TRIỆU HOÀ",
     "type": "XÃ"
   },
   {
@@ -41021,7 +41021,7 @@
   },
   {
     "code": 100802305,
-    "name": "ĐIỀN HÒA",
+    "name": "ĐIỀN HOÀ",
     "type": "XÃ"
   },
   {
@@ -41041,7 +41041,7 @@
   },
   {
     "code": 167911169,
-    "name": "PHONG HÒA",
+    "name": "PHONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -41211,7 +41211,7 @@
   },
   {
     "code": 168107777,
-    "name": "DƯƠNG HÒA",
+    "name": "DƯƠNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -41386,7 +41386,7 @@
   },
   {
     "code": 268967681,
-    "name": "LỘC HÒA",
+    "name": "LỘC HOÀ",
     "type": "XÃ"
   },
   {
@@ -41441,57 +41441,57 @@
   },
   {
     "code": 17244161,
-    "name": "HÒA BẮC",
+    "name": "HOÀ BẮC",
     "type": "XÃ"
   },
   {
     "code": 34021377,
-    "name": "HÒA LIÊN",
+    "name": "HOÀ LIÊN",
     "type": "XÃ"
   },
   {
     "code": 50798593,
-    "name": "HÒA NINH",
+    "name": "HOÀ NINH",
     "type": "XÃ"
   },
   {
     "code": 67575809,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
     "code": 84353025,
-    "name": "HÒA NHƠN",
+    "name": "HOÀ NHƠN",
     "type": "XÃ"
   },
   {
     "code": 101130241,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
     "code": 117907457,
-    "name": "HÒA PHONG",
+    "name": "HOÀ PHONG",
     "type": "XÃ"
   },
   {
     "code": 134684673,
-    "name": "HÒA CHÂU",
+    "name": "HOÀ CHÂU",
     "type": "XÃ"
   },
   {
     "code": 151461889,
-    "name": "HÒA TIẾN",
+    "name": "HOÀ TIẾN",
     "type": "XÃ"
   },
   {
     "code": 168239105,
-    "name": "HÒA PHƯỚC",
+    "name": "HOÀ PHƯỚC",
     "type": "XÃ"
   },
   {
     "code": 185016321,
-    "name": "HÒA KHƯƠNG",
+    "name": "HOÀ KHƯƠNG",
     "type": "XÃ"
   },
   {
@@ -41716,7 +41716,7 @@
   },
   {
     "code": 302326017,
-    "name": "ĐẠI HÒA",
+    "name": "ĐẠI HOÀ",
     "type": "XÃ"
   },
   {
@@ -41726,7 +41726,7 @@
   },
   {
     "code": 50733313,
-    "name": "ĐIỆN HÒA",
+    "name": "ĐIỆN HOÀ",
     "type": "XÃ"
   },
   {
@@ -41801,7 +41801,7 @@
   },
   {
     "code": 84353281,
-    "name": "DUY HÒA",
+    "name": "DUY HOÀ",
     "type": "XÃ"
   },
   {
@@ -42016,7 +42016,7 @@
   },
   {
     "code": 17506561,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "XÃ"
   },
   {
@@ -42386,7 +42386,7 @@
   },
   {
     "code": 152051969,
-    "name": "TAM HÒA",
+    "name": "TAM HOÀ",
     "type": "XÃ"
   },
   {
@@ -42521,7 +42521,7 @@
   },
   {
     "code": 201400833,
-    "name": "TỊNH HÒA",
+    "name": "TỊNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -42636,7 +42636,7 @@
   },
   {
     "code": 218243585,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -42841,7 +42841,7 @@
   },
   {
     "code": 134554113,
-    "name": "NGHĨA HÒA",
+    "name": "NGHĨA HOÀ",
     "type": "XÃ"
   },
   {
@@ -43101,7 +43101,7 @@
   },
   {
     "code": 151659009,
-    "name": "ĐỨC HÒA",
+    "name": "ĐỨC HOÀ",
     "type": "XÃ"
   },
   {
@@ -43306,7 +43306,7 @@
   },
   {
     "code": 134357761,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "XÃ"
   },
   {
@@ -43466,7 +43466,7 @@
   },
   {
     "code": 201663233,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "XÃ"
   },
   {
@@ -43526,7 +43526,7 @@
   },
   {
     "code": 101065473,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -43576,7 +43576,7 @@
   },
   {
     "code": 134685441,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -43761,7 +43761,7 @@
   },
   {
     "code": 101327617,
-    "name": "PHƯỚC HÒA",
+    "name": "PHƯỚC HOÀ",
     "type": "XÃ"
   },
   {
@@ -43826,12 +43826,12 @@
   },
   {
     "code": 118170369,
-    "name": "CANH HÒA",
+    "name": "CANH HOÀ",
     "type": "XÃ"
   },
   {
     "code": 201401345,
-    "name": "HÒA KIẾN",
+    "name": "HOÀ KIẾN",
     "type": "XÃ"
   },
   {
@@ -43991,7 +43991,7 @@
   },
   {
     "code": 184820737,
-    "name": "AN HÒA HẢI",
+    "name": "AN HOÀ HẢI",
     "type": "XÃ"
   },
   {
@@ -44141,107 +44141,107 @@
   },
   {
     "code": 50799617,
-    "name": "HÒA BÌNH 1",
+    "name": "HOÀ BÌNH 1",
     "type": "XÃ"
   },
   {
     "code": 84354049,
-    "name": "HÒA PHONG",
+    "name": "HOÀ PHONG",
     "type": "XÃ"
   },
   {
     "code": 101131265,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
     "code": 117908481,
-    "name": "HÒA TÂN TÂY",
+    "name": "HOÀ TÂN TÂY",
     "type": "XÃ"
   },
   {
     "code": 134685697,
-    "name": "HÒA ĐỒNG",
+    "name": "HOÀ ĐỒNG",
     "type": "XÃ"
   },
   {
     "code": 151462913,
-    "name": "HÒA MỸ ĐÔNG",
+    "name": "HOÀ MỸ ĐÔNG",
     "type": "XÃ"
   },
   {
     "code": 168240129,
-    "name": "HÒA MỸ TÂY",
+    "name": "HOÀ MỸ TÂY",
     "type": "XÃ"
   },
   {
     "code": 185017345,
-    "name": "HÒA THỊNH",
+    "name": "HOÀ THỊNH",
     "type": "XÃ"
   },
   {
     "code": 17310721,
-    "name": "HÒA QUANG BẮC",
+    "name": "HOÀ QUANG BẮC",
     "type": "XÃ"
   },
   {
     "code": 34087937,
-    "name": "HÒA QUANG NAM",
+    "name": "HOÀ QUANG NAM",
     "type": "XÃ"
   },
   {
     "code": 50865153,
-    "name": "HÒA HỘI",
+    "name": "HOÀ HỘI",
     "type": "XÃ"
   },
   {
     "code": 67642369,
-    "name": "HÒA TRỊ",
+    "name": "HOÀ TRỊ",
     "type": "XÃ"
   },
   {
     "code": 84419585,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
     "code": 101196801,
-    "name": "HÒA ĐỊNH ĐÔNG",
+    "name": "HOÀ ĐỊNH ĐÔNG",
     "type": "XÃ"
   },
   {
     "code": 134751233,
-    "name": "HÒA ĐỊNH TÂY",
+    "name": "HOÀ ĐỊNH TÂY",
     "type": "XÃ"
   },
   {
     "code": 151528449,
-    "name": "HÒA THẮNG",
+    "name": "HOÀ THẮNG",
     "type": "XÃ"
   },
   {
     "code": 17376257,
-    "name": "HÒA THÀNH",
+    "name": "HOÀ THÀNH",
     "type": "XÃ"
   },
   {
     "code": 84485121,
-    "name": "HÒA TÂN ĐÔNG",
+    "name": "HOÀ TÂN ĐÔNG",
     "type": "XÃ"
   },
   {
     "code": 134816769,
-    "name": "HÒA XUÂN ĐÔNG",
+    "name": "HOÀ XUÂN ĐÔNG",
     "type": "XÃ"
   },
   {
     "code": 151593985,
-    "name": "HÒA TÂM",
+    "name": "HOÀ TÂM",
     "type": "XÃ"
   },
   {
     "code": 168371201,
-    "name": "HÒA XUÂN NAM",
+    "name": "HOÀ XUÂN NAM",
     "type": "XÃ"
   },
   {
@@ -44321,7 +44321,7 @@
   },
   {
     "code": 33760513,
-    "name": "CAM HÒA",
+    "name": "CAM HOÀ",
     "type": "XÃ"
   },
   {
@@ -44656,7 +44656,7 @@
   },
   {
     "code": 201794817,
-    "name": "DIÊN HÒA",
+    "name": "DIÊN HOÀ",
     "type": "XÃ"
   },
   {
@@ -44746,7 +44746,7 @@
   },
   {
     "code": 33695233,
-    "name": "PHƯỚC HÒA",
+    "name": "PHƯỚC HOÀ",
     "type": "XÃ"
   },
   {
@@ -44806,7 +44806,7 @@
   },
   {
     "code": 100869633,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -45041,7 +45041,7 @@
   },
   {
     "code": 151201537,
-    "name": "HÒA MINH",
+    "name": "HOÀ MINH",
     "type": "XÃ"
   },
   {
@@ -45096,7 +45096,7 @@
   },
   {
     "code": 184821505,
-    "name": "PHAN HÒA",
+    "name": "PHAN HOÀ",
     "type": "XÃ"
   },
   {
@@ -45126,7 +45126,7 @@
   },
   {
     "code": 285484801,
-    "name": "HÒA THẮNG",
+    "name": "HOÀ THẮNG",
     "type": "XÃ"
   },
   {
@@ -45146,7 +45146,7 @@
   },
   {
     "code": 84223745,
-    "name": "THUẬN HÒA",
+    "name": "THUẬN HOÀ",
     "type": "XÃ"
   },
   {
@@ -45486,7 +45486,7 @@
   },
   {
     "code": 352397313,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
@@ -46121,7 +46121,7 @@
   },
   {
     "code": 151398657,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
@@ -46141,7 +46141,7 @@
   },
   {
     "code": 218507521,
-    "name": "NGHĨA HÒA",
+    "name": "NGHĨA HOÀ",
     "type": "XÃ"
   },
   {
@@ -46771,7 +46771,7 @@
   },
   {
     "code": 234957313,
-    "name": "HÒA THUẬN",
+    "name": "HOÀ THUẬN",
     "type": "XÃ"
   },
   {
@@ -46786,7 +46786,7 @@
   },
   {
     "code": 285288961,
-    "name": "HÒA THẮNG",
+    "name": "HOÀ THẮNG",
     "type": "XÃ"
   },
   {
@@ -46796,17 +46796,17 @@
   },
   {
     "code": 318843393,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
     "code": 335620609,
-    "name": "HÒA KHÁNH",
+    "name": "HOÀ KHÁNH",
     "type": "XÃ"
   },
   {
     "code": 352397825,
-    "name": "HÒA XUÂN",
+    "name": "HOÀ XUÂN",
     "type": "XÃ"
   },
   {
@@ -47276,22 +47276,22 @@
   },
   {
     "code": 67840513,
-    "name": "HÒA THÀNH",
+    "name": "HOÀ THÀNH",
     "type": "XÃ"
   },
   {
     "code": 84617729,
-    "name": "HÒA TÂN",
+    "name": "HOÀ TÂN",
     "type": "XÃ"
   },
   {
     "code": 101394945,
-    "name": "HÒA PHONG",
+    "name": "HOÀ PHONG",
     "type": "XÃ"
   },
   {
     "code": 118172161,
-    "name": "HÒA LỄ",
+    "name": "HOÀ LỄ",
     "type": "XÃ"
   },
   {
@@ -47316,7 +47316,7 @@
   },
   {
     "code": 202058241,
-    "name": "HÒA SƠN",
+    "name": "HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -47361,7 +47361,7 @@
   },
   {
     "code": 135014913,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
@@ -47371,7 +47371,7 @@
   },
   {
     "code": 168569345,
-    "name": "HÒA ĐÔNG",
+    "name": "HOÀ ĐÔNG",
     "type": "XÃ"
   },
   {
@@ -47381,7 +47381,7 @@
   },
   {
     "code": 202123777,
-    "name": "HÒA TIẾN",
+    "name": "HOÀ TIẾN",
     "type": "XÃ"
   },
   {
@@ -47431,7 +47431,7 @@
   },
   {
     "code": 118303233,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -47526,7 +47526,7 @@
   },
   {
     "code": 135211521,
-    "name": "HÒA HIỆP",
+    "name": "HOÀ HIỆP",
     "type": "XÃ"
   },
   {
@@ -47716,7 +47716,7 @@
   },
   {
     "code": 50735873,
-    "name": "ĐẮK HÒA",
+    "name": "ĐẮK HOÀ",
     "type": "XÃ"
   },
   {
@@ -48161,7 +48161,7 @@
   },
   {
     "code": 168307713,
-    "name": "ĐINH TRANG HÒA",
+    "name": "ĐINH TRANG HOÀ",
     "type": "XÃ"
   },
   {
@@ -48181,22 +48181,22 @@
   },
   {
     "code": 235416577,
-    "name": "HÒA NINH",
+    "name": "HOÀ NINH",
     "type": "XÃ"
   },
   {
     "code": 252193793,
-    "name": "HÒA TRUNG",
+    "name": "HOÀ TRUNG",
     "type": "XÃ"
   },
   {
     "code": 268971009,
-    "name": "HÒA NAM",
+    "name": "HOÀ NAM",
     "type": "XÃ"
   },
   {
     "code": 285748225,
-    "name": "HÒA BẮC",
+    "name": "HOÀ BẮC",
     "type": "XÃ"
   },
   {
@@ -48456,7 +48456,7 @@
   },
   {
     "code": 33893633,
-    "name": "LỘC HÒA",
+    "name": "LỘC HOÀ",
     "type": "XÃ"
   },
   {
@@ -48546,7 +48546,7 @@
   },
   {
     "code": 84290817,
-    "name": "THANH HÒA",
+    "name": "THANH HOÀ",
     "type": "XÃ"
   },
   {
@@ -48651,7 +48651,7 @@
   },
   {
     "code": 134753537,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -48876,7 +48876,7 @@
   },
   {
     "code": 117583361,
-    "name": "HÒA HIỆP",
+    "name": "HOÀ HIỆP",
     "type": "XÃ"
   },
   {
@@ -48911,7 +48911,7 @@
   },
   {
     "code": 84094465,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -49031,7 +49031,7 @@
   },
   {
     "code": 134557185,
-    "name": "HÒA THẠNH",
+    "name": "HOÀ THẠNH",
     "type": "XÃ"
   },
   {
@@ -49041,7 +49041,7 @@
   },
   {
     "code": 168111617,
-    "name": "HÒA HỘI",
+    "name": "HOÀ HỘI",
     "type": "XÃ"
   },
   {
@@ -49071,7 +49071,7 @@
   },
   {
     "code": 67513857,
-    "name": "TRƯỜNG HÒA",
+    "name": "TRƯỜNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -49211,7 +49211,7 @@
   },
   {
     "code": 100806401,
-    "name": "HƯNG HÒA",
+    "name": "HƯNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -49546,7 +49546,7 @@
   },
   {
     "code": 168046593,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -49581,7 +49581,7 @@
   },
   {
     "code": 101003265,
-    "name": "PHÚ HÒA",
+    "name": "PHÚ HOÀ",
     "type": "XÃ"
   },
   {
@@ -49901,7 +49901,7 @@
   },
   {
     "code": 118108161,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -50126,22 +50126,22 @@
   },
   {
     "code": 134492417,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
     "code": 151269633,
-    "name": "HÒA HƯNG",
+    "name": "HOÀ HƯNG",
     "type": "XÃ"
   },
   {
     "code": 168046849,
-    "name": "HÒA HIỆP",
+    "name": "HOÀ HIỆP",
     "type": "XÃ"
   },
   {
     "code": 184824065,
-    "name": "HÒA HỘI",
+    "name": "HOÀ HỘI",
     "type": "XÃ"
   },
   {
@@ -50266,7 +50266,7 @@
   },
   {
     "code": 135410177,
-    "name": "PHÚ HÒA ĐÔNG",
+    "name": "PHÚ HOÀ ĐÔNG",
     "type": "XÃ"
   },
   {
@@ -50311,7 +50311,7 @@
   },
   {
     "code": 286405121,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
@@ -50516,7 +50516,7 @@
   },
   {
     "code": 102117889,
-    "name": "LONG HÒA",
+    "name": "LONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -50676,7 +50676,7 @@
   },
   {
     "code": 17117953,
-    "name": "BÌNH HÒA TÂY",
+    "name": "BÌNH HOÀ TÂY",
     "type": "XÃ"
   },
   {
@@ -50686,12 +50686,12 @@
   },
   {
     "code": 50672385,
-    "name": "BÌNH HÒA TRUNG",
+    "name": "BÌNH HOÀ TRUNG",
     "type": "XÃ"
   },
   {
     "code": 67449601,
-    "name": "BÌNH HÒA ĐÔNG",
+    "name": "BÌNH HOÀ ĐÔNG",
     "type": "XÃ"
   },
   {
@@ -50706,7 +50706,7 @@
   },
   {
     "code": 33960705,
-    "name": "BẮC HÒA",
+    "name": "BẮC HOÀ",
     "type": "XÃ"
   },
   {
@@ -50716,7 +50716,7 @@
   },
   {
     "code": 67515137,
-    "name": "NHƠN HÒA LẬP",
+    "name": "NHƠN HOÀ LẬP",
     "type": "XÃ"
   },
   {
@@ -50761,7 +50761,7 @@
   },
   {
     "code": 218510081,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -50786,7 +50786,7 @@
   },
   {
     "code": 101135105,
-    "name": "THUẬN NGHĨA HÒA",
+    "name": "THUẬN NGHĨA HOÀ",
     "type": "XÃ"
   },
   {
@@ -50846,17 +50846,17 @@
   },
   {
     "code": 134755073,
-    "name": "BÌNH HÒA BẮC",
+    "name": "BÌNH HOÀ BẮC",
     "type": "XÃ"
   },
   {
     "code": 151532289,
-    "name": "BÌNH HÒA HƯNG",
+    "name": "BÌNH HOÀ HƯNG",
     "type": "XÃ"
   },
   {
     "code": 168309505,
-    "name": "BÌNH HÒA NAM",
+    "name": "BÌNH HOÀ NAM",
     "type": "XÃ"
   },
   {
@@ -50886,7 +50886,7 @@
   },
   {
     "code": 134820609,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "XÃ"
   },
   {
@@ -50911,17 +50911,17 @@
   },
   {
     "code": 218706689,
-    "name": "ĐỨC HÒA THƯỢNG",
+    "name": "ĐỨC HOÀ THƯỢNG",
     "type": "XÃ"
   },
   {
     "code": 235483905,
-    "name": "HÒA KHÁNH TÂY",
+    "name": "HOÀ KHÁNH TÂY",
     "type": "XÃ"
   },
   {
     "code": 252261121,
-    "name": "HÒA KHÁNH ĐÔNG",
+    "name": "HOÀ KHÁNH ĐÔNG",
     "type": "XÃ"
   },
   {
@@ -50931,17 +50931,17 @@
   },
   {
     "code": 285815553,
-    "name": "HÒA KHÁNH NAM",
+    "name": "HOÀ KHÁNH NAM",
     "type": "XÃ"
   },
   {
     "code": 302592769,
-    "name": "ĐỨC HÒA ĐÔNG",
+    "name": "ĐỨC HOÀ ĐÔNG",
     "type": "XÃ"
   },
   {
     "code": 319369985,
-    "name": "ĐỨC HÒA HẠ",
+    "name": "ĐỨC HOÀ HẠ",
     "type": "XÃ"
   },
   {
@@ -50961,17 +50961,17 @@
   },
   {
     "code": 67777281,
-    "name": "THẠNH HÒA",
+    "name": "THẠNH HOÀ",
     "type": "XÃ"
   },
   {
     "code": 84554497,
-    "name": "LƯƠNG HÒA",
+    "name": "LƯƠNG HOÀ",
     "type": "XÃ"
   },
   {
     "code": 101331713,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -51141,7 +51141,7 @@
   },
   {
     "code": 101528321,
-    "name": "LONG HÒA",
+    "name": "LONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -51276,7 +51276,7 @@
   },
   {
     "code": 51327745,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
@@ -51376,7 +51376,7 @@
   },
   {
     "code": 151139329,
-    "name": "LONG HÒA",
+    "name": "LONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -51431,7 +51431,7 @@
   },
   {
     "code": 235090945,
-    "name": "THANH HÒA",
+    "name": "THANH HOÀ",
     "type": "XÃ"
   },
   {
@@ -51446,7 +51446,7 @@
   },
   {
     "code": 33829889,
-    "name": "TÂN HÒA ĐÔNG",
+    "name": "TÂN HOÀ ĐÔNG",
     "type": "XÃ"
   },
   {
@@ -51471,7 +51471,7 @@
   },
   {
     "code": 117715969,
-    "name": "TÂN HÒA THÀNH",
+    "name": "TÂN HOÀ THÀNH",
     "type": "XÃ"
   },
   {
@@ -51486,7 +51486,7 @@
   },
   {
     "code": 168047617,
-    "name": "TÂN HÒA TÂY",
+    "name": "TÂN HOÀ TÂY",
     "type": "XÃ"
   },
   {
@@ -51561,7 +51561,7 @@
   },
   {
     "code": 235222017,
-    "name": "HÒA KHÁNH",
+    "name": "HOÀ KHÁNH",
     "type": "XÃ"
   },
   {
@@ -51581,7 +51581,7 @@
   },
   {
     "code": 302330881,
-    "name": "ĐÔNG HÒA HIỆP",
+    "name": "ĐÔNG HOÀ HIỆP",
     "type": "XÃ"
   },
   {
@@ -51616,7 +51616,7 @@
   },
   {
     "code": 419771393,
-    "name": "HÒA HƯNG",
+    "name": "HOÀ HƯNG",
     "type": "XÃ"
   },
   {
@@ -51746,7 +51746,7 @@
   },
   {
     "code": 185021441,
-    "name": "ĐÔNG HÒA",
+    "name": "ĐÔNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -51811,12 +51811,12 @@
   },
   {
     "code": 34092033,
-    "name": "TRUNG HÒA",
+    "name": "TRUNG HOÀ",
     "type": "XÃ"
   },
   {
     "code": 50869249,
-    "name": "HÒA TỊNH",
+    "name": "HOÀ TỊNH",
     "type": "XÃ"
   },
   {
@@ -51836,7 +51836,7 @@
   },
   {
     "code": 117978113,
-    "name": "LƯƠNG HÒA LẠC",
+    "name": "LƯƠNG HOÀ LẠC",
     "type": "XÃ"
   },
   {
@@ -51891,7 +51891,7 @@
   },
   {
     "code": 302527489,
-    "name": "HÒA ĐỊNH",
+    "name": "HOÀ ĐỊNH",
     "type": "XÃ"
   },
   {
@@ -52106,7 +52106,7 @@
   },
   {
     "code": 134362369,
-    "name": "PHÚ AN HÒA",
+    "name": "PHÚ AN HOÀ",
     "type": "XÃ"
   },
   {
@@ -52171,7 +52171,7 @@
   },
   {
     "code": 352466177,
-    "name": "SƠN HÒA",
+    "name": "SƠN HOÀ",
     "type": "XÃ"
   },
   {
@@ -52191,7 +52191,7 @@
   },
   {
     "code": 84096257,
-    "name": "HÒA NGHĨA",
+    "name": "HOÀ NGHĨA",
     "type": "XÃ"
   },
   {
@@ -52216,7 +52216,7 @@
   },
   {
     "code": 167982337,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -52311,12 +52311,12 @@
   },
   {
     "code": 67450113,
-    "name": "CHÂU HÒA",
+    "name": "CHÂU HOÀ",
     "type": "XÃ"
   },
   {
     "code": 84227329,
-    "name": "LƯƠNG HÒA",
+    "name": "LƯƠNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -52411,7 +52411,7 @@
   },
   {
     "code": 67515649,
-    "name": "LONG HÒA",
+    "name": "LONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -52476,7 +52476,7 @@
   },
   {
     "code": 285619457,
-    "name": "ĐẠI HÒA LỘC",
+    "name": "ĐẠI HOÀ LỘC",
     "type": "XÃ"
   },
   {
@@ -52501,7 +52501,7 @@
   },
   {
     "code": 50803969,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "XÃ"
   },
   {
@@ -52576,7 +52576,7 @@
   },
   {
     "code": 302462209,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -52596,7 +52596,7 @@
   },
   {
     "code": 369571073,
-    "name": "AN HÒA TÂY",
+    "name": "AN HOÀ TÂY",
     "type": "XÃ"
   },
   {
@@ -52641,7 +52641,7 @@
   },
   {
     "code": 151532801,
-    "name": "HÒA LỢI",
+    "name": "HOÀ LỢI",
     "type": "XÃ"
   },
   {
@@ -52731,7 +52731,7 @@
   },
   {
     "code": 151598337,
-    "name": "HÒA LỘC",
+    "name": "HOÀ LỘC",
     "type": "XÃ"
   },
   {
@@ -52826,7 +52826,7 @@
   },
   {
     "code": 33764865,
-    "name": "HÒA ÂN",
+    "name": "HOÀ ÂN",
     "type": "XÃ"
   },
   {
@@ -52866,7 +52866,7 @@
   },
   {
     "code": 167982593,
-    "name": "THÔNG HÒA",
+    "name": "THÔNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -52896,7 +52896,7 @@
   },
   {
     "code": 117716481,
-    "name": "HÙNG HÒA",
+    "name": "HÙNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -52916,7 +52916,7 @@
   },
   {
     "code": 184825345,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -52941,7 +52941,7 @@
   },
   {
     "code": 101004801,
-    "name": "LƯƠNG HÒA",
+    "name": "LƯƠNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -52956,12 +52956,12 @@
   },
   {
     "code": 151336449,
-    "name": "HÒA THUẬN",
+    "name": "HOÀ THUẬN",
     "type": "XÃ"
   },
   {
     "code": 168113665,
-    "name": "HÒA LỢI",
+    "name": "HOÀ LỢI",
     "type": "XÃ"
   },
   {
@@ -52976,12 +52976,12 @@
   },
   {
     "code": 218445313,
-    "name": "HÒA MINH",
+    "name": "HOÀ MINH",
     "type": "XÃ"
   },
   {
     "code": 235222529,
-    "name": "LONG HÒA",
+    "name": "LONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -52996,7 +52996,7 @@
   },
   {
     "code": 84293121,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "XÃ"
   },
   {
@@ -53006,17 +53006,17 @@
   },
   {
     "code": 117847553,
-    "name": "KIM HÒA",
+    "name": "KIM HOÀ",
     "type": "XÃ"
   },
   {
     "code": 134624769,
-    "name": "HIỆP HÒA",
+    "name": "HIỆP HOÀ",
     "type": "XÃ"
   },
   {
     "code": 151401985,
-    "name": "THUẬN HÒA",
+    "name": "THUẬN HOÀ",
     "type": "XÃ"
   },
   {
@@ -53046,7 +53046,7 @@
   },
   {
     "code": 252065281,
-    "name": "THẠNH HÒA SƠN",
+    "name": "THẠNH HOÀ SƠN",
     "type": "XÃ"
   },
   {
@@ -53171,7 +53171,7 @@
   },
   {
     "code": 101266945,
-    "name": "TRƯỜNG LONG HÒA",
+    "name": "TRƯỜNG LONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -53186,12 +53186,12 @@
   },
   {
     "code": 50476801,
-    "name": "BÌNH HÒA PHƯỚC",
+    "name": "BÌNH HOÀ PHƯỚC",
     "type": "XÃ"
   },
   {
     "code": 67254017,
-    "name": "HÒA NINH",
+    "name": "HOÀ NINH",
     "type": "XÃ"
   },
   {
@@ -53226,7 +53226,7 @@
   },
   {
     "code": 184694529,
-    "name": "LỘC HÒA",
+    "name": "LỘC HOÀ",
     "type": "XÃ"
   },
   {
@@ -53246,7 +53246,7 @@
   },
   {
     "code": 251803393,
-    "name": "HÒA PHÚ",
+    "name": "HOÀ PHÚ",
     "type": "XÃ"
   },
   {
@@ -53276,7 +53276,7 @@
   },
   {
     "code": 100873985,
-    "name": "HÒA TỊNH",
+    "name": "HOÀ TỊNH",
     "type": "XÃ"
   },
   {
@@ -53416,7 +53416,7 @@
   },
   {
     "code": 84227841,
-    "name": "HÒA THẠNH",
+    "name": "HOÀ THẠNH",
     "type": "XÃ"
   },
   {
@@ -53436,7 +53436,7 @@
   },
   {
     "code": 151336705,
-    "name": "HÒA HIỆP",
+    "name": "HOÀ HIỆP",
     "type": "XÃ"
   },
   {
@@ -53496,7 +53496,7 @@
   },
   {
     "code": 117847809,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "XÃ"
   },
   {
@@ -53516,12 +53516,12 @@
   },
   {
     "code": 67581697,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
     "code": 84358913,
-    "name": "THỚI HÒA",
+    "name": "THỚI HOÀ",
     "type": "XÃ"
   },
   {
@@ -53636,7 +53636,7 @@
   },
   {
     "code": 218183681,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
@@ -53786,7 +53786,7 @@
   },
   {
     "code": 117848065,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "XÃ"
   },
   {
@@ -53836,7 +53836,7 @@
   },
   {
     "code": 101136385,
-    "name": "MỸ HÒA",
+    "name": "MỸ HOÀ",
     "type": "XÃ"
   },
   {
@@ -53966,7 +53966,7 @@
   },
   {
     "code": 50935809,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -54086,7 +54086,7 @@
   },
   {
     "code": 51066881,
-    "name": "HÒA THÀNH",
+    "name": "HOÀ THÀNH",
     "type": "XÃ"
   },
   {
@@ -54101,7 +54101,7 @@
   },
   {
     "code": 101398529,
-    "name": "HÒA LONG",
+    "name": "HOÀ LONG",
     "type": "XÃ"
   },
   {
@@ -54121,17 +54121,17 @@
   },
   {
     "code": 168507393,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
     "code": 185284609,
-    "name": "ĐỊNH HÒA",
+    "name": "ĐỊNH HOÀ",
     "type": "XÃ"
   },
   {
     "code": 202061825,
-    "name": "PHONG HÒA",
+    "name": "PHONG HOÀ",
     "type": "XÃ"
   },
   {
@@ -54186,7 +54186,7 @@
   },
   {
     "code": 202127361,
-    "name": "HÒA TÂN",
+    "name": "HOÀ TÂN",
     "type": "XÃ"
   },
   {
@@ -54281,7 +54281,7 @@
   },
   {
     "code": 100940033,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -54386,7 +54386,7 @@
   },
   {
     "code": 285554945,
-    "name": "TÂN HÒA",
+    "name": "TÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -54396,7 +54396,7 @@
   },
   {
     "code": 33962241,
-    "name": "KHÁNH HÒA",
+    "name": "KHÁNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -54566,7 +54566,7 @@
   },
   {
     "code": 34158849,
-    "name": "AN HÒA",
+    "name": "AN HOÀ",
     "type": "XÃ"
   },
   {
@@ -54586,7 +54586,7 @@
   },
   {
     "code": 118044929,
-    "name": "BÌNH HÒA",
+    "name": "BÌNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -54596,7 +54596,7 @@
   },
   {
     "code": 151599361,
-    "name": "HÒA BÌNH THẠNH",
+    "name": "HOÀ BÌNH THẠNH",
     "type": "XÃ"
   },
   {
@@ -54691,12 +54691,12 @@
   },
   {
     "code": 285882625,
-    "name": "HÒA BÌNH",
+    "name": "HOÀ BÌNH",
     "type": "XÃ"
   },
   {
     "code": 302659841,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
@@ -54791,12 +54791,12 @@
   },
   {
     "code": 50543105,
-    "name": "HÒA ĐIỀN",
+    "name": "HOÀ ĐIỀN",
     "type": "XÃ"
   },
   {
     "code": 67320321,
-    "name": "DƯƠNG HÒA",
+    "name": "DƯƠNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -54951,7 +54951,7 @@
   },
   {
     "code": 101071361,
-    "name": "VĨNH HÒA HIỆP",
+    "name": "VĨNH HOÀ HIỆP",
     "type": "XÃ"
   },
   {
@@ -54961,7 +54961,7 @@
   },
   {
     "code": 134625793,
-    "name": "MINH HÒA",
+    "name": "MINH HOÀ",
     "type": "XÃ"
   },
   {
@@ -54991,7 +54991,7 @@
   },
   {
     "code": 84359681,
-    "name": "THẠNH HÒA",
+    "name": "THẠNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -55026,7 +55026,7 @@
   },
   {
     "code": 201800193,
-    "name": "HÒA HƯNG",
+    "name": "HOÀ HƯNG",
     "type": "XÃ"
   },
   {
@@ -55056,7 +55056,7 @@
   },
   {
     "code": 302463489,
-    "name": "HÒA THUẬN",
+    "name": "HOÀ THUẬN",
     "type": "XÃ"
   },
   {
@@ -55066,12 +55066,12 @@
   },
   {
     "code": 34093569,
-    "name": "VĨNH HÒA HƯNG BẮC",
+    "name": "VĨNH HOÀ HƯNG BẮC",
     "type": "XÃ"
   },
   {
     "code": 50870785,
-    "name": "ĐỊNH HÒA",
+    "name": "ĐỊNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -55091,7 +55091,7 @@
   },
   {
     "code": 117979649,
-    "name": "VĨNH HÒA HƯNG NAM",
+    "name": "VĨNH HOÀ HƯNG NAM",
     "type": "XÃ"
   },
   {
@@ -55161,7 +55161,7 @@
   },
   {
     "code": 51001857,
-    "name": "ĐÔNG HÒA",
+    "name": "ĐÔNG HOÀ",
     "type": "XÃ"
   },
   {
@@ -55311,7 +55311,7 @@
   },
   {
     "code": 68041217,
-    "name": "VĨNH HÒA",
+    "name": "VĨNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -55336,7 +55336,7 @@
   },
   {
     "code": 51329537,
-    "name": "TÂN KHÁNH HÒA",
+    "name": "TÂN KHÁNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -55631,7 +55631,7 @@
   },
   {
     "code": 84229121,
-    "name": "THẠNH HÒA",
+    "name": "THẠNH HOÀ",
     "type": "XÃ"
   },
   {
@@ -55646,12 +55646,12 @@
   },
   {
     "code": 134560769,
-    "name": "HÒA MỸ",
+    "name": "HOÀ MỸ",
     "type": "XÃ"
   },
   {
     "code": 151337985,
-    "name": "HÒA AN",
+    "name": "HOÀ AN",
     "type": "XÃ"
   },
   {
@@ -55731,7 +55731,7 @@
   },
   {
     "code": 34028545,
-    "name": "THUẬN HÒA",
+    "name": "THUẬN HOÀ",
     "type": "XÃ"
   },
   {
@@ -55796,7 +55796,7 @@
   },
   {
     "code": 67255553,
-    "name": "THUẬN HÒA",
+    "name": "THUẬN HOÀ",
     "type": "XÃ"
   },
   {
@@ -55821,7 +55821,7 @@
   },
   {
     "code": 50543873,
-    "name": "XUÂN HÒA",
+    "name": "XUÂN HOÀ",
     "type": "XÃ"
   },
   {
@@ -56021,12 +56021,12 @@
   },
   {
     "code": 117914881,
-    "name": "HÒA TÚ 1",
+    "name": "HOÀ TÚ 1",
     "type": "XÃ"
   },
   {
     "code": 134692097,
-    "name": "GIA HÒA 1",
+    "name": "GIA HOÀ 1",
     "type": "XÃ"
   },
   {
@@ -56036,12 +56036,12 @@
   },
   {
     "code": 168246529,
-    "name": "GIA HÒA 2",
+    "name": "GIA HOÀ 2",
     "type": "XÃ"
   },
   {
     "code": 185023745,
-    "name": "HÒA TÚ II",
+    "name": "HOÀ TÚ II",
     "type": "XÃ"
   },
   {
@@ -56111,7 +56111,7 @@
   },
   {
     "code": 34225409,
-    "name": "HÒA ĐÔNG",
+    "name": "HOÀ ĐÔNG",
     "type": "XÃ"
   },
   {
@@ -56126,7 +56126,7 @@
   },
   {
     "code": 101334273,
-    "name": "LẠC HÒA",
+    "name": "LẠC HOÀ",
     "type": "XÃ"
   },
   {
@@ -56136,7 +56136,7 @@
   },
   {
     "code": 168443137,
-    "name": "LAI HÒA",
+    "name": "LAI HOÀ",
     "type": "XÃ"
   },
   {
@@ -56211,7 +56211,7 @@
   },
   {
     "code": 67255809,
-    "name": "NINH HÒA",
+    "name": "NINH HOÀ",
     "type": "XÃ"
   },
   {
@@ -56456,17 +56456,17 @@
   },
   {
     "code": 268517121,
-    "name": "HÒA THÀNH",
+    "name": "HOÀ THÀNH",
     "type": "XÃ"
   },
   {
     "code": 285294337,
-    "name": "HÒA TÂN",
+    "name": "HOÀ TÂN",
     "type": "XÃ"
   },
   {
     "code": 33701633,
-    "name": "KHÁNH HÒA",
+    "name": "KHÁNH HOÀ",
     "type": "XÃ"
   },
   {

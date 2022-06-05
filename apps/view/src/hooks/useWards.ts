@@ -42,7 +42,7 @@ export function useWards() {
     swrHookKeys.USE_WARDS,
     fetchWards.bind(dispatch),
     {
-      revalidateIfStale: false,
+      revalidateIfStale: true,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     },

@@ -1,5 +1,8 @@
 import { LocationEntity } from '@/common/entities';
+import { useDistricts } from '@/view/hooks/useDistricts';
 import { useLocations } from '@/view/hooks/useLocations';
+import { useProvinces } from '@/view/hooks/useProvinces';
+import { useWards } from '@/view/hooks/useWards';
 import {
   FormControl,
   InputLabel,
@@ -10,8 +13,6 @@ import {
 import { ReactElement, useEffect, useState } from 'react';
 
 type Location = Partial<Omit<LocationEntity, 'id' | 'type'>>;
-
-const DEFAUTLT_COUNTRY_CODE = 1;
 
 const DEFAULT_PROVINCE = {
   code: 257,
@@ -39,9 +40,13 @@ function LocationSelector({ className }: IProps): ReactElement {
     useState<Location>(DEFAULT_DISTRICT);
   const [selectedWard, setSelectedWard] = useState<Location>(DEFAULT_WARD);
 
-  const provinces = useLocations(DEFAUTLT_COUNTRY_CODE).locations;
-  const districts = useLocations(selectedProvince.code).locations;
-  const wards = useLocations(selectedDistrict.code).locations;
+  const provinces = useProvinces().provinces;
+  const districts = useDistricts().districts.filter(
+    (district) => (district.code & 0xffff) === selectedProvince.code,
+  );
+  const wards = useWards().wards.filter(
+    (ward) => (ward.code & 0xffffff) === selectedDistrict.code,
+  );
 
   return (
     <div>
@@ -69,22 +74,23 @@ function LocationSelector({ className }: IProps): ReactElement {
           })}
         </Select>
       </FormControl>
-      {/* 
+
       <FormControl size="small" fullWidth>
         <InputLabel>Quận / Huyện / Thành phố</InputLabel>
         <Select
           label="Quận / Huyện / Thành phố"
           name="districtCode"
-          onChange={(event) => {
-            setSelectedDistrict(event.target.value as Location);
-          }}
-          value={selectedDistrict}
+          value={selectedDistrict.code}
+          sx={{ textTransform: 'capitalize' }}
         >
           {(districts ?? []).map((district: Location) => {
             return (
               <MenuItem
                 key={`district#${district.code}`}
                 value={district.code}
+                onClick={() => {
+                  setSelectedDistrict(district);
+                }}
                 sx={{ textTransform: 'capitalize' }}
               >
                 {district.name.toLowerCase()}
@@ -99,20 +105,25 @@ function LocationSelector({ className }: IProps): ReactElement {
         <Select
           label="Phường / Xã"
           name="wardCode"
-          onChange={(event) => {
-            setSelectedWard(event.target.value as Location);
-          }}
-          value={selectedWard}
+          value={selectedWard.code}
+          sx={{ textTransform: 'capitalize' }}
         >
           {(wards ?? []).map((ward: Location) => {
             return (
-              <MenuItem key={`ward#${ward.code}`} value={ward.code}>
+              <MenuItem
+                key={`ward#${ward.code}`}
+                value={ward.code}
+                onClick={() => {
+                  setSelectedWard(ward);
+                }}
+                sx={{ textTransform: 'capitalize' }}
+              >
                 {ward.name.toLowerCase()}
               </MenuItem>
             );
           })}
         </Select>
-      </FormControl> */}
+      </FormControl>
     </div>
   );
 }

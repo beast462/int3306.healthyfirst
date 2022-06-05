@@ -19,7 +19,7 @@ async function fetchDistricts(this: Dispatch<any>): Promise<LocationEntity[]> {
     body,
     errorCode,
   }: ResponseDTO<LocationEntity[]> = await fetch(
-    `/api/location/districts`,
+    '/api/location/districts',
   ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
@@ -42,7 +42,7 @@ export function useDistricts() {
     swrHookKeys.USE_DISTRICTS,
     fetchDistricts.bind(dispatch),
     {
-      revalidateIfStale: false,
+      revalidateIfStale: true,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     },

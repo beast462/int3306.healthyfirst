@@ -19,7 +19,7 @@ async function fetchProvinces(this: Dispatch<any>): Promise<LocationEntity[]> {
     body,
     errorCode,
   }: ResponseDTO<LocationEntity[]> = await fetch(
-    `/api/location/provinces`,
+    '/api/location/provinces',
   ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
@@ -42,7 +42,7 @@ export function useProvinces() {
     swrHookKeys.USE_PROVINCES,
     fetchProvinces.bind(dispatch),
     {
-      revalidateIfStale: false,
+      revalidateIfStale: true,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     },

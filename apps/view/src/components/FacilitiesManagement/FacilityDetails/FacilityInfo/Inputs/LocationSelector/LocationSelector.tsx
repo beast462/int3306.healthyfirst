@@ -22,7 +22,7 @@ const DEFAULT_WARD = {
 }
 
 interface IProps {
-  className: string;
+  className?: string;
 }
 
 function LocationSelector({ className }: IProps): ReactElement {

@@ -4,6 +4,7 @@ import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import * as Joi from 'joi';
 import { ReactElement } from 'react';
+import LocationSelector from './LocationSelector/LocationSelector';
 
 const validator = {
   facilityName: Joi.alternatives(
@@ -67,6 +68,10 @@ function Inputs(): ReactElement {
           name="address"
         />
       </div>
+
+      <Flexbox>
+        <LocationSelector />
+      </Flexbox>
     </>
   );
 }

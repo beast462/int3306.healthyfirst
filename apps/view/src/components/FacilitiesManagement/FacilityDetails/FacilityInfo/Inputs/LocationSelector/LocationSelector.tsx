@@ -8,8 +8,10 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Theme,
   Typography,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { ReactElement, useEffect, useState } from 'react';
 
 type Location = Partial<Omit<LocationEntity, 'id' | 'type'>>;
@@ -33,7 +35,44 @@ interface IProps {
   className?: string;
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  province: {
+    margin: 0,
+    width: '200px',
+    minWidth: 'fit-content',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      display: 'block',
+      margin: '1rem 0',
+    },
+  },
+
+  district: {
+    margin: '0 1rem',
+    width: '200px',
+    minWidth: 'fit-content',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      display: 'block',
+      margin: '1rem 0',
+    },
+  },
+
+  ward: {
+    margin: 0,
+    width: '200px',
+    minWidth: 'fit-content',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      display: 'block',
+      margin: '1rem 0',
+    },
+  },
+}));
+
 function LocationSelector({ className }: IProps): ReactElement {
+  const styles = useStyles();
+
   const [selectedProvince, setSelectedProvince] =
     useState<Location>(DEFAULT_PROVINCE);
   const [selectedDistrict, setSelectedDistrict] =
@@ -49,8 +88,8 @@ function LocationSelector({ className }: IProps): ReactElement {
   );
 
   return (
-    <div>
-      <FormControl size="small" fullWidth>
+    <>
+      <FormControl size="medium" className={styles.province}>
         <InputLabel>Tỉnh</InputLabel>
         <Select
           label="Tỉnh"
@@ -65,6 +104,8 @@ function LocationSelector({ className }: IProps): ReactElement {
                 value={province.code}
                 onClick={() => {
                   setSelectedProvince(province);
+                  setSelectedDistrict({ code: -1, name: '' });
+                  setSelectedWard({ code: -1, name: '' });
                 }}
                 sx={{ textTransform: 'capitalize' }}
               >
@@ -75,7 +116,7 @@ function LocationSelector({ className }: IProps): ReactElement {
         </Select>
       </FormControl>
 
-      <FormControl size="small" fullWidth>
+      <FormControl size="medium" className={styles.district}>
         <InputLabel>Quận / Huyện / Thành phố</InputLabel>
         <Select
           label="Quận / Huyện / Thành phố"
@@ -90,6 +131,7 @@ function LocationSelector({ className }: IProps): ReactElement {
                 value={district.code}
                 onClick={() => {
                   setSelectedDistrict(district);
+                  setSelectedWard({ code: -1, name: '' });
                 }}
                 sx={{ textTransform: 'capitalize' }}
               >
@@ -100,12 +142,13 @@ function LocationSelector({ className }: IProps): ReactElement {
         </Select>
       </FormControl>
 
-      <FormControl size="small" fullWidth>
+      <FormControl size="medium" className={styles.ward}>
         <InputLabel>Phường / Xã</InputLabel>
         <Select
           label="Phường / Xã"
           name="wardCode"
           value={selectedWard.code}
+          disabled={selectedDistrict.code === -1}
           sx={{ textTransform: 'capitalize' }}
         >
           {(wards ?? []).map((ward: Location) => {
@@ -124,7 +167,7 @@ function LocationSelector({ className }: IProps): ReactElement {
           })}
         </Select>
       </FormControl>
-    </div>
+    </>
   );
 }
 

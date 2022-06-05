@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import useSWR from 'swr';
 
 import { ErrorCodes } from '@/common/constants/error-codes';
+import { Constraints } from '@/common/dto/constraints.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
 import { PublicUser } from '@/common/models/public-user';
@@ -10,6 +11,7 @@ import { SerializableError } from '@/common/models/serializable-error';
 import { SortOrders } from '@/common/types/sort-orders';
 import { HttpStatus } from '@nestjs/common/enums';
 
+import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 
@@ -22,10 +24,12 @@ interface IProps {
 
 async function fetchCreatedAccounts(
   this: Dispatch<any>,
-  url,
+  { limit, offset, order, orderBy }: Constraints,
 ): Promise<PublicUser[]> {
   const { statusCode, body, message, errorCode }: ResponseDTO<PublicUser[]> =
-    await fetch(url).then((res) => res.json());
+    await fetch(
+      `/api/user/me/creation?limit=${limit}&offset=${offset}&order=${order}&orderBy=${orderBy}`,
+    ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -44,8 +48,8 @@ async function fetchCreatedAccounts(
 export function useCreatedAccounts({ limit, offset, order, orderBy }: IProps) {
   const dispatch = useDispatch();
   const { data, error } = useSWR<GetUserCreationsResDTO, Error>(
-    `/api/user/me/creation?limit=${limit}&offset=${offset}&order=${order}&orderBy=${orderBy}`,
-    fetchCreatedAccounts.bind(dispatch),
+    swrHookKeys.USE_CREATED_ACCOUNTS,
+    fetchCreatedAccounts.bind(dispatch, { limit, offset, order, orderBy }),
   );
 
   const isError =

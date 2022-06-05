@@ -8,12 +8,13 @@ import { RoleEntity } from '@/common/entities';
 import { SerializableError } from '@/common/models/serializable-error';
 import { HttpStatus } from '@nestjs/common/enums';
 
+import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 
-async function fetchRoles(this: Dispatch<any>, url): Promise<RoleEntity[]> {
+async function fetchRoles(this: Dispatch<any>): Promise<RoleEntity[]> {
   const { statusCode, message, body, errorCode }: ResponseDTO<RoleEntity[]> =
-    await fetch(url).then((res) => res.json());
+    await fetch('/api/role').then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -32,7 +33,7 @@ async function fetchRoles(this: Dispatch<any>, url): Promise<RoleEntity[]> {
 export function useRoles() {
   const dispatch = useDispatch();
   const { data: roles, error } = useSWR<RoleEntity[], Error>(
-    '/api/role',
+    swrHookKeys.USE_ROLES,
     fetchRoles.bind(dispatch),
     {
       revalidateOnFocus: false,

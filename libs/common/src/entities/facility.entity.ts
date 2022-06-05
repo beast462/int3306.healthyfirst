@@ -40,22 +40,22 @@ export class FacilityEntity {
   })
   ownerName!: string;
 
-  @Column('varchar', {
+  @Column('int', {
     nullable: false,
-    name: 'facility_type_name',
-    length: MAX_FACILITY_TYPE_NAME_LENGTH,
+    name: 'facility_type_id',
+    unsigned: true,
   })
-  facilityTypeName!: string;
+  facilityTypeId!: number;
 
-  @OneToOne(() => FacilityTypeEntity, (facilityType) => facilityType.name, {
+  @OneToOne(() => FacilityTypeEntity, (facilityType) => facilityType.id, {
     nullable: false,
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE',
     eager: false,
   })
   @JoinColumn({
-    name: 'facility_type_name',
-    referencedColumnName: 'name',
+    name: 'facility_type_id',
+    referencedColumnName: 'id',
   })
   facilityType!: FacilityTypeEntity;
 

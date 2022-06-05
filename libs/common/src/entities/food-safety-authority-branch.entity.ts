@@ -13,6 +13,7 @@ import {
   MAX_FAX_LENGTH,
   MAX_PHONE_LENGTH,
 } from '../entity-constraints/common.entity-constraint';
+import { MAX_NAME_LENGTH } from '../entity-constraints/food-safety-authority-branch.entity';
 import { LocationEntity } from './location.entity';
 
 export const TABLE_NAME = 'fsa_branches';
@@ -21,6 +22,13 @@ export const TABLE_NAME = 'fsa_branches';
 export class FoodSafetyAuthorityBranchEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int', unsigned: true })
   id!: number;
+
+  @Column('varchar', {
+    nullable: false,
+    name: 'name',
+    length: MAX_NAME_LENGTH,
+  })
+  name!: string;
 
   @Column('int', {
     nullable: false,

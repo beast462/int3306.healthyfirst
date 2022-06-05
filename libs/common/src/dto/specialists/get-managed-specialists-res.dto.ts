@@ -1,6 +1,6 @@
 import { UserEntity } from '@/common/entities';
 
-export class GetUserCreationsResDTO {
+export class GetManagedSpecialistsResDTO {
   total: number;
   creations: UserEntity[];
 }

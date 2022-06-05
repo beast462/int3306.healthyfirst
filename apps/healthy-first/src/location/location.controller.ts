@@ -1,4 +1,5 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
+import { GetLocationByCodeParamDTO } from '@/common/dto/location/get-location-by-code.param.dto';
 import { GetLocationParamDTO } from '@/common/dto/location/get-location.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { LocationEntity } from '@/common/entities';
@@ -26,19 +27,34 @@ export class LocationController {
     };
   }
 
-  @Get(':id')
-  public async getLocationById(
-    @Param() { id }: GetLocationParamDTO,
+  @Get(':code')
+  public async getLocationByCode(
+    @Param() { code }: GetLocationByCodeParamDTO,
   ): Promise<ResponseDTO<LocationEntity>> {
-    const location = await this.locationService.getLocationById(id);
+    const location = await this.locationService.getLocationByCode(code);
 
     if (!location) throw new NotFoundException('Location not found');
 
     return {
       statusCode: HttpStatus.OK,
-      message: ['Successfully fetched location'],
+      message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: location,
+    };
+  }
+
+  @Get(':code/children')
+  public async getChildrenByCode(
+    @Param() { code }: GetLocationByCodeParamDTO,
+  ): Promise<ResponseDTO<LocationEntity[]>> {
+    const locations = await this.locationService.getLocationAndChildrenByCode(
+      code,
+    );
+    return {
+      statusCode: HttpStatus.OK,
+      message: ['Successfully fetched all locations'],
+      errorCode: ErrorCodes.SUCCESS,
+      body: locations,
     };
   }
 }

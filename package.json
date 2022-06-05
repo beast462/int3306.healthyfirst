@@ -146,7 +146,8 @@
     ],
     "moduleNameMapper": {
       "^@/common(|/.*)$": "<rootDir>/libs/common/src/$1",
-      "^@/db-logger(|/.*)$": "<rootDir>/libs/db-logger/src/$1"
+      "^@/db-logger(|/.*)$": "<rootDir>/libs/db-logger/src/$1",
+      "^@/seeder(|/.*)$": "<rootDir>/libs/seeder/src/$1"
     }
   }
 }

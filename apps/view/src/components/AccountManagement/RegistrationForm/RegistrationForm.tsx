@@ -68,8 +68,6 @@ function RegistrationForm({
       body: JSON.stringify(newUser),
     }).then((res) => res.json());
 
-    console.log(errorCode);
-
     if (
       statusCode === HttpStatus.CREATED ||
       statusCode === HttpStatus.NOT_IMPLEMENTED
@@ -80,8 +78,16 @@ function RegistrationForm({
       target.username.value = '';
       target.displayName.value = '';
       target.email.value = '';
+      target.province.value = 257;
+      target.district.value = -1;
 
       return;
+    } else if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
+      notify(
+        'Tạo tài khoản không thành công',
+        NotificationSeverity.ERROR,
+        'Người dùng đã tồn tại',
+      );
     } else {
       const errorMessages = [];
       switch (errorCode) {

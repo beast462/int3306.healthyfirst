@@ -15,6 +15,7 @@ import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './view/view.module';
 import { CertificateModule } from './certificate/certificate.module';
+import { ResponsibleAreaModule } from './responsible-area/responsible-area.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { CertificateModule } from './certificate/certificate.module';
     LocationModule,
     SeederModule,
     CertificateModule,
+    ResponsibleAreaModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

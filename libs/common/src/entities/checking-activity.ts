@@ -56,20 +56,20 @@ export class CheckingActivityEntity {
   @JoinColumn({ name: 'inspector_id', referencedColumnName: 'id' })
   inspector!: UserEntity;
 
-  @Column('varchar', {
+  @Column('int', {
     nullable: false,
     name: 'inspection_activity',
-    length: MAX_PURPOSE_NAME_LENGTH,
+    unsigned: true,
   })
-  inspectionActivity!: string;
+  inspectionActivity!: number;
 
-  @OneToOne(() => PurposeEntity, (purpose) => purpose.name, {
+  @OneToOne(() => PurposeEntity, (purpose) => purpose.id, {
     nullable: false,
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE',
     eager: false,
   })
-  @JoinColumn({ name: 'inspection_activity', referencedColumnName: 'name' })
+  @JoinColumn({ name: 'inspection_activity', referencedColumnName: 'id' })
   inspectionActivityName!: PurposeEntity;
 
   @Column('boolean', { nullable: false, name: 'passed' })

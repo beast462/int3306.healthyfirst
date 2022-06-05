@@ -1,6 +1,5 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { GetLocationByCodeParamDTO } from '@/common/dto/location/get-location-by-code.param.dto';
-import { GetLocationParamDTO } from '@/common/dto/location/get-location.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { LocationEntity } from '@/common/entities';
 import {

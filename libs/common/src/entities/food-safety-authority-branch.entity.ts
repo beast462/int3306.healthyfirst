@@ -27,6 +27,25 @@ export class FoodSafetyAuthorityBranchEntity {
 
   @Column('int', {
     nullable: false,
+    name: 'location_code',
+    unsigned: true,
+  })
+  locationCode!: number;
+
+  @ManyToOne(() => LocationEntity, (location) => location.code, {
+    nullable: false,
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE',
+    eager: false,
+  })
+  @JoinColumn({
+    name: 'location_code',
+    referencedColumnName: 'code',
+  })
+  location!: LocationEntity;
+
+  @Column('int', {
+    nullable: false,
     name: 'responsible_location_code',
     unsigned: true,
   })

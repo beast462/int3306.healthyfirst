@@ -1,6 +1,5 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { GetLocationByCodeParamDTO } from '@/common/dto/location/get-location-by-code.param.dto';
-import { GetLocationParamDTO } from '@/common/dto/location/get-location.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { LocationEntity } from '@/common/entities';
 import {
@@ -21,7 +20,40 @@ export class LocationController {
     const locations = await this.locationService.getAllLocations();
     return {
       statusCode: HttpStatus.OK,
-      message: ['Successfully fetched all locations'],
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: locations,
+    };
+  }
+
+  @Get('provinces')
+  public async getAllProvinces(): Promise<ResponseDTO<LocationEntity[]>> {
+    const locations = await this.locationService.getAllProvinces();
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: locations,
+    };
+  }
+
+  @Get('districts')
+  public async getAllDistricts(): Promise<ResponseDTO<LocationEntity[]>> {
+    const locations = await this.locationService.getAllDistricts();
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: locations,
+    };
+  }
+
+  @Get('wards')
+  public async getAllWards(): Promise<ResponseDTO<LocationEntity[]>> {
+    const locations = await this.locationService.getAllWards();
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: locations,
     };
@@ -52,7 +84,7 @@ export class LocationController {
     );
     return {
       statusCode: HttpStatus.OK,
-      message: ['Successfully fetched all locations'],
+      message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: locations,
     };

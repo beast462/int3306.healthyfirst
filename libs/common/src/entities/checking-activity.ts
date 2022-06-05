@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import { CheckingPlanEntity } from './checking-plan.entity';
 import { UserEntity } from './user.entity';
-import { MAX_PURPOSE_NAME_LENGTH } from '../entity-constraints/purpose.entity-constraint';
 import { PurposeEntity } from './purpose.entity';
 
 export const TABLE_NAME = 'checking_activity';

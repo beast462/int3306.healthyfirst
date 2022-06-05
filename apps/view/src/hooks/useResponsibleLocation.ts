@@ -23,7 +23,7 @@ async function fetchResponsibleLocation(
     body,
     errorCode,
   }: ResponseDTO<ResponsibleAreaEntity> = await fetch(
-    `/api/responsible-area/userId/${userId}`,
+    `/api/responsible-area/users/${userId}`,
   ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
@@ -43,15 +43,13 @@ async function fetchResponsibleLocation(
 export function useResponsibleLocation() {
   const dispatch = useDispatch();
   const { user } = useUser();
-  const { data: responsibleLocationCode, error } = useSWR<
-    ResponsibleAreaEntity,
-    Error
-  >(
+  const { data, error } = useSWR<ResponsibleAreaEntity, Error>(
     swrHookKeys.USE_RESPONSIBLE_LOCATION,
     fetchResponsibleLocation.bind(dispatch, user.id),
     {
       revalidateOnFocus: false,
-      revalidateOnMount: true,
+      revalidateOnMount: false,
+      revalidateIfStale: true,
     },
   );
 
@@ -60,8 +58,8 @@ export function useResponsibleLocation() {
     (error instanceof Error || SerializableError.isSerializableError(error));
 
   return {
-    responsibleLocationCode,
-    isLoading: !error && !responsibleLocationCode,
+    data,
+    isLoading: !error && !data,
     error: isError ? error : null,
   };
 }

@@ -15,6 +15,7 @@ import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 import { Specialist } from '@/common/models/specialist';
 import { GetManagedSpecialistsResDTO } from '@/common/dto/specialists/get-managed-specialists-res.dto';
+import { useResponsibleLocation } from './useResponsibleLocation';
 
 interface IProps {
   limit: number;
@@ -25,9 +26,12 @@ interface IProps {
 
 async function fetchManagedSpecialists(
   this: Dispatch<any>,
+  locationCode: number,
 ): Promise<Specialist[]> {
   const { statusCode, body, message, errorCode }: ResponseDTO<Specialist[]> =
-    await fetch(`/api/responsible-area/users/${}`).then((res) => res.json());
+    await fetch(`/api/responsible-area/users/${locationCode}`).then((res) =>
+      res.json(),
+    );
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -43,11 +47,12 @@ async function fetchManagedSpecialists(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useManagedSpecialists({ limit, offset, order, orderBy }: IProps) {
+export function useManagedSpecialists() {
   const dispatch = useDispatch();
+  const { responsibleLocationCode } = useResponsibleLocation().data;
   const { data, error } = useSWR<GetManagedSpecialistsResDTO, Error>(
     swrHookKeys.USE_MANAGED_SPECIALISTS,
-    fetchManagedSpecialists.bind(dispatch),
+    fetchManagedSpecialists.bind(dispatch, responsibleLocationCode),
   );
 
   const isError =

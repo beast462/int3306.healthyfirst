@@ -8,7 +8,7 @@ import { Navigations } from '../../Navigations';
 const Root = styled.div`
   flex: 1;
   height: 100%;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.5rem;
   overflow: hidden;
   background-color: #f4f4f4;
 `;

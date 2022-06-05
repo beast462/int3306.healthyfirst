@@ -31,7 +31,7 @@ import SearchBox from './SearchBox/SearchBox';
 const Root = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
 `;
 
 const Container = styled(Paper)`

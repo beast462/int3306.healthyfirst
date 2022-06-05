@@ -25,6 +25,8 @@ import { ViewModule } from './view/view.module';
     MailModule,
     DbLoggerModule,
     RoleModule,
+    FacilityModule,
+    FoodSafetyAuthorityBranchModule,
     LocationModule,
     SeederModule,
   ],

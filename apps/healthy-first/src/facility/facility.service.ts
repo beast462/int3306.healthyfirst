@@ -20,6 +20,17 @@ export class FacilityService {
     });
   }
 
+  public async modifyFacility(
+    modifiedFacility: Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>,
+  ): Promise<Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>> {
+    await this.facilityRepository.update(
+      { id: modifiedFacility.id },
+      modifiedFacility,
+    );
+
+    return modifiedFacility;
+  }
+
   public async createFacility(
     newFacility: Omit<
       FacilityEntity,

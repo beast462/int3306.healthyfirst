@@ -1,6 +1,7 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { CreateFacilityBodyDTO } from '@/common/dto/facility/create-facility.body.dto';
-import { GetFacilityParamDTO } from '@/common/dto/facility/get-facility.dto';
+import { GetFacilityParamDTO } from '@/common/dto/facility/get-facility.param.dto';
+import { ModifyFacilityBodyDTO } from '@/common/dto/facility/modify-facility.body.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { FacilityEntity } from '@/common/entities';
 import {
@@ -45,6 +46,28 @@ export class FacilityController {
       message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: facility,
+    };
+  }
+
+  @Put(':id')
+  public async modifyFacility(
+    @Param() { id }: GetFacilityParamDTO,
+    @Body() modifiedFacility: ModifyFacilityBodyDTO,
+  ): Promise<
+    ResponseDTO<Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>>
+  > {
+    const facility = await this.facilityService.getFacilityById(id);
+
+    if (!facility) throw new NotFoundException('Facility not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: await this.facilityService.modifyFacility({
+        ...facility,
+        ...modifiedFacility,
+      }),
     };
   }
 

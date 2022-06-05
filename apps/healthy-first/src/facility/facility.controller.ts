@@ -1,18 +1,24 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
-import { GetFacilityParamDTO } from '@/common/dto/facility/get-facility.dto';
+import { CreateFacilityBodyDTO } from '@/common/dto/facility/create-facility.body.dto';
+import { GetFacilityParamDTO } from '@/common/dto/facility/get-facility.param.dto';
+import { ModifyFacilityBodyDTO } from '@/common/dto/facility/modify-facility.body.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
 import { FacilityEntity } from '@/common/entities';
 import {
+  Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
+  NotAcceptableException,
   NotFoundException,
   Param,
+  Post,
+  Put,
 } from '@nestjs/common';
 import { FacilityService } from './facility.service';
 
-@Controller('api/facility')
+@Controller('api/facilities')
 export class FacilityController {
   constructor(private readonly facilityService: FacilityService) {}
 
@@ -21,7 +27,7 @@ export class FacilityController {
     const facilities = await this.facilityService.getAllFacilities();
     return {
       statusCode: HttpStatus.OK,
-      message: ['Successfully fetched all Facilities'],
+      message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: facilities,
     };
@@ -37,10 +43,49 @@ export class FacilityController {
 
     return {
       statusCode: HttpStatus.OK,
-      message: ['Successfully fetched Facility'],
+      message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: facility,
     };
+  }
+
+  @Put(':id')
+  public async modifyFacility(
+    @Param() { id }: GetFacilityParamDTO,
+    @Body() modifiedFacility: ModifyFacilityBodyDTO,
+  ): Promise<
+    ResponseDTO<Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>>
+  > {
+    const facility = await this.facilityService.getFacilityById(id);
+
+    if (!facility) throw new NotFoundException('Facility not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: await this.facilityService.modifyFacility({
+        ...facility,
+        ...modifiedFacility,
+      }),
+    };
+  }
+
+  @Post()
+  public async createFacility(
+    @Body() newFacility: CreateFacilityBodyDTO,
+  ): Promise<ResponseDTO<FacilityEntity>> {
+    try {
+      const facility = await this.facilityService.createFacility(newFacility);
+      return {
+        statusCode: HttpStatus.CREATED,
+        message: [],
+        errorCode: ErrorCodes.SUCCESS,
+        body: facility,
+      };
+    } catch (error) {
+      throw new NotAcceptableException(error.message);
+    }
   }
 
   @Delete(':id')
@@ -53,7 +98,7 @@ export class FacilityController {
 
     return {
       statusCode: HttpStatus.OK,
-      message: ['Successfully deleted Facility'],
+      message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: await this.facilityService.deleteFacility(facility),
     };

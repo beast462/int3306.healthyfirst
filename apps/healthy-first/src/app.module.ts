@@ -6,6 +6,8 @@ import { ConfigService } from '@nestjs/config';
 import { AuthGuardModule } from './auth-guard/auth-guard.module';
 import configModule, { ConfigKeys } from './base/config.module';
 import typeOrmModule from './base/type-orm.module';
+import { FacilityModule } from './facility/facility.module';
+import { FoodSafetyAuthorityBranchModule } from './food-safety-authority-branch/food-safety-authority-branch.module';
 import { LocationModule } from './location/location.module';
 import { MailModule } from './mail/mail.module';
 import { PingController } from './ping/ping.controller';
@@ -23,6 +25,8 @@ import { ViewModule } from './view/view.module';
     MailModule,
     DbLoggerModule,
     RoleModule,
+    FacilityModule,
+    FoodSafetyAuthorityBranchModule,
     LocationModule,
     SeederModule,
   ],

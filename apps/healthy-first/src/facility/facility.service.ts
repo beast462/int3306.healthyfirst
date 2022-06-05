@@ -20,6 +20,27 @@ export class FacilityService {
     });
   }
 
+  public async modifyFacility(
+    modifiedFacility: Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>,
+  ): Promise<Omit<FacilityEntity, 'facilityType' | 'facilityLocation'>> {
+    await this.facilityRepository.update(
+      { id: modifiedFacility.id },
+      modifiedFacility,
+    );
+
+    return modifiedFacility;
+  }
+
+  public async createFacility(
+    newFacility: Omit<
+      FacilityEntity,
+      'id' | 'facilityType' | 'facilityLocation'
+    >,
+  ): Promise<FacilityEntity> {
+    return (await this.facilityRepository.insert(newFacility))
+      .generatedMaps[0] as FacilityEntity;
+  }
+
   public async deleteFacility(
     removedFacility: FacilityEntity,
   ): Promise<FacilityEntity> {

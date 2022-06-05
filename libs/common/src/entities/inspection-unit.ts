@@ -1,14 +1,13 @@
 import { IsPhoneNumber } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 import {
   MAX_ADDRESS_LENGTH,
   MAX_EMAIL_LENGTH,
-  MAX_PHONE_LENGTH,
-} from '../entity-constraints/common.entity-constraint';
-import {
   MAX_FAX_LENGTH,
+  MAX_PHONE_LENGTH,
   MAX_WEBSITE_LENGTH,
-} from '../entity-constraints/food-safety-authority-branch.entity-constraint';
+} from '../entity-constraints/common.entity-constraint';
 
 export const TABLE_NAME = 'inspection_unit';
 

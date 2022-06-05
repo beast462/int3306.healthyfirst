@@ -11,7 +11,6 @@ import {
   MAX_ADDRESS_LENGTH,
   MAX_PHONE_LENGTH,
 } from '../entity-constraints/common.entity-constraint';
-import { MAX_FACILITY_TYPE_NAME_LENGTH } from '../entity-constraints/facility-type.entity-constraint';
 import {
   MAX_FACILITY_NAME_LENGTH,
   MAX_OWNER_NAME_LENGTH,

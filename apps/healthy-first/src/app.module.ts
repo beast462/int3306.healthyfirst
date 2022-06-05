@@ -1,4 +1,5 @@
 import { DbLoggerModule, DbLoggerService } from '@/db-logger';
+import { SeederModule } from '@/seeder';
 import { Logger, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -7,9 +8,9 @@ import configModule, { ConfigKeys } from './base/config.module';
 import typeOrmModule from './base/type-orm.module';
 import { MailModule } from './mail/mail.module';
 import { PingController } from './ping/ping.controller';
+import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './view/view.module';
-import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RoleModule } from './role/role.module';
     MailModule,
     DbLoggerModule,
     RoleModule,
+    SeederModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

@@ -6,12 +6,16 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 @Catch()
 export class ErrorLoggingFilter implements ExceptionFilter {
-  public constructor(private readonly dbLoggerService: DbLoggerService) {}
+  private readonly logger: Logger;
+  public constructor(private readonly dbLoggerService: DbLoggerService) {
+    this.logger = new Logger('ErrorLoggingFilter');
+  }
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const context = host.switchToHttp();
@@ -19,6 +23,8 @@ export class ErrorLoggingFilter implements ExceptionFilter {
     const response = context.getResponse<Response>();
 
     if (!(exception instanceof HttpException)) {
+      this.logger.error('Unexpected error', (exception as Error).stack);
+
       this.dbLoggerService.fatal(
         'Unhandled exception',
         (exception as Error).message,

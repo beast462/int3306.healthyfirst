@@ -37,6 +37,12 @@
       ],
       "@/db-logger/*": [
         "libs/db-logger/src/*"
+      ],
+      "@/seeder": [
+        "libs/seeder/src"
+      ],
+      "@/seeder/*": [
+        "libs/seeder/src/*"
       ]
     }
   }

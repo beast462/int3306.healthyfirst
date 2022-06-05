@@ -26,6 +26,8 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
           >
             quay lại danh sách
           </Button>
+
+          <Typography variant="h6">Thông tin chi tiết</Typography>
         </Toolbar>
       </Container>
     </Root>

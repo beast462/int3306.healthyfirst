@@ -5,11 +5,11 @@ import { PublicUser } from '@/common/models/public-user';
 import { SerializableError } from '@/common/models/serializable-error';
 import { HttpStatus } from '@nestjs/common/enums';
 
-export const key = '/api/user/me';
+import { swrHookKeys } from '../common/constants/swrHookKeys';
 
-async function fetchUser(url): Promise<PublicUser> {
+async function fetchUser(): Promise<PublicUser> {
   const { statusCode, body, errorCode }: ResponseDTO<PublicUser> = await fetch(
-    url,
+    '/api/user/me',
   ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
@@ -18,9 +18,13 @@ async function fetchUser(url): Promise<PublicUser> {
 }
 
 export function useUser() {
-  const { data, error } = useSWR<PublicUser, Error>(key, fetchUser, {
-    revalidateOnFocus: false,
-  });
+  const { data, error } = useSWR<PublicUser, Error>(
+    swrHookKeys.USE_USER,
+    fetchUser,
+    {
+      revalidateOnFocus: false,
+    },
+  );
 
   const isError =
     error &&

@@ -28,7 +28,7 @@ const Segment = styled.div`
   overflow: hidden;
 `;
 
-function PartitionManagement(): ReactElement {
+function LocationManagement(): ReactElement {
   const [viewingSegment, setViewingSegment] = useState(0);
 
   return (
@@ -46,10 +46,10 @@ function PartitionManagement(): ReactElement {
   );
 }
 
-export default PartitionManagement;
+export default LocationManagement;
 
-Navigations.getInstance().registerNavigation('/partition-management', {
+Navigations.getInstance().registerNavigation('/location-management', {
   icon: <LocationOn />,
   label: 'Phân vùng quản lý',
   childOf: null,
-})(PartitionManagement);
+})(LocationManagement);

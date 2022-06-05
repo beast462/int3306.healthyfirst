@@ -1,1 +1,1 @@
-export * from './PartionManagement';
+export * from './LocationManagement';

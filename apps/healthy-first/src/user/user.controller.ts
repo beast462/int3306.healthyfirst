@@ -92,21 +92,21 @@ export class UserController {
     if (role.level <= user.role.level)
       createError(ForbiddenException, ErrorCodes.USER_CREATION_RESTRICTED);
 
-    const createUserResult = await this.userService.createUser(
+    const createUserResult = (await this.userService.createUser(
       username,
       displayName,
       email,
       role,
       user.id,
-    );
+    )) as UserEntity;
+
+    const createResponsibleForUser =
+      await this.responsibleAreaService.createResponsibleArea({
+        userId: createUserResult.id,
+        responsibleLocationCode: responsibleLocationCode,
+      });
 
     if (createUserResult instanceof UserEntity) {
-      const createResponsibleForUser =
-        await this.responsibleAreaService.createResponsibleArea({
-          userId: createUserResult.id,
-          responsibleLocationCode: responsibleLocationCode,
-        });
-
       return new ResponseDTO(
         HttpStatus.CREATED,
         [],

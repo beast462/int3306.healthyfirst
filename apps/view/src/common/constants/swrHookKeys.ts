@@ -3,4 +3,7 @@ export const swrHookKeys = {
   USE_ROLES: 'useRoles',
   USE_CREATED_ACCOUNTS: 'useCreatedAccounts',
   USE_LOCATIONS: 'useLocations',
+  USE_PROVINCES: 'useProvinces',
+  USE_DISTRICTS: 'useDistricts',
+  USE_WARDS: 'useWards',
 };

@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   imageList: {
     width: '100%',
     height: '100%',
+    overflowY: 'auto',
   },
 }));
 
@@ -14,9 +15,12 @@ function FacilityImages(): ReactElement {
   const [imgs, setImgs] = useState(itemData);
 
   return (
-    <ImageList className={styles.imageList} cols={2} rowHeight={164}>
+    <ImageList className={styles.imageList} cols={1}>
       {imgs.map((item) => (
-        <ImageListItem key={item.img}>
+        <ImageListItem
+          key={item.img}
+          sx={{ width: '100%', height: 'fit-content' }}
+        >
           <img src={`${item.img}`} alt={item.title} loading="lazy" />
         </ImageListItem>
       ))}

@@ -15,8 +15,6 @@ const Root = styled.div`
 function FacilityInfo({ facilityId }: IProps): ReactElement {
   return (
     <Root>
-      <Typography variant="h6">Thông tin chi tiết</Typography>
-      <Divider />
       <form>
         <Inputs />
       </form>

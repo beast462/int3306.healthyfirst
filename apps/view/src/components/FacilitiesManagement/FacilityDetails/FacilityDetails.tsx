@@ -1,3 +1,4 @@
+import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import styled from '@emotion/styled';
 import { ArrowLeft } from '@mui/icons-material';
@@ -19,6 +20,7 @@ const Root = styled.div`
   width: 100%;
   height: 100%;
   padding: 0.5rem 0.5rem;
+  box-sizing: border-box;
 `;
 
 const Container = styled(Paper)`
@@ -26,12 +28,13 @@ const Container = styled(Paper)`
   height: 100%;
 `;
 
-const useStyles = makeStyles((theme: Theme) => ({
-  details: {
-    width: '100%',
-    margin: '0 auto',
-  },
-}));
+const DetailsContainer = styled(CustomScrollbar)`
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0 1rem;
+`;
+
+const useStyles = makeStyles((theme: Theme) => ({}));
 
 function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
   const styles = useStyles();
@@ -59,18 +62,16 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
             quay lại danh sách
           </Button>
 
-          {/* <Typography variant="h6">Thông tin chi tiết</Typography> */}
+          <Typography variant="h6">Thông tin chi tiết</Typography>
         </Toolbar>
-        <Divider />
 
-        <Grid container spacing={1} className={styles.details}>
-          <Grid item xs={6}>
-            <FacilityInfo />
+        <DetailsContainer>
+          <Grid container spacing={2}>
+            <Grid item md={12} lg={7}>
+              <FacilityInfo />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <FacilityImages />
-          </Grid>
-        </Grid>
+        </DetailsContainer>
       </Container>
     </Root>
   );

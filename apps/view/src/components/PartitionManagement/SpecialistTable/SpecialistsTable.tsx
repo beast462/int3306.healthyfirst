@@ -21,6 +21,7 @@ import {
 
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import SpecialistItem from './SpecialistItem/SpecialistItem';
+import { Specialist } from '@/common/models/specialist';
 
 const Root = styled.div`
   width: 100%;
@@ -60,7 +61,7 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
     page: 0,
     rowsPerPage: 5,
   } as { page: number; rowsPerPage: number });
-  const { data } = useCreatedAccounts({
+  const { data } = useManagedSpecialist({
     limit: pagination.rowsPerPage,
     offset: pagination.rowsPerPage * pagination.page,
     order: sort.order,
@@ -113,10 +114,10 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
             </TableHead>
 
             <TableBody>
-              {specialists?.map((account) => (
+              {specialists?.map((specialist: Specialist) => (
                 <SpecialistItem
-                  key={`specialist#${account.id}`}
-                  account={account}
+                  key={`specialist#${specialist.id}`}
+                  specialist={specialist}
                 />
               ))}
             </TableBody>

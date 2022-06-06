@@ -2,7 +2,7 @@ import '../Overview';
 import '../Login';
 import '../FacilitiesManagement';
 import '../AccountManagement';
-import '../PartitionManagement';
+import '../LocationManagement';
 
 import { ReactElement } from 'react';
 

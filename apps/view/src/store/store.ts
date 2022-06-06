@@ -3,24 +3,18 @@ import thunk from 'redux-thunk';
 import { ActionTypes } from './ActionTypes';
 import { reduce as appReduce, initialState as appIS } from './reducers/app';
 import {
-  reduce as accountsTableReduce,
-  initialState as accountsTableIS,
-} from './reducers/accountsTable';
-import {
-  reduce as accountsDataReduce,
-  initialState as accountsDataIS,
-} from './reducers/accountsData';
+  reduce as locationManagerReduce,
+  initialState as locationManagerIS,
+} from './reducers/locationManager';
 
 const store = configureStore({
   reducer: {
     app: appReduce,
-    accountsTable: accountsTableReduce,
-    accountsData: accountsDataReduce,
+    locationManager: locationManagerReduce,
   },
   preloadedState: {
     app: appIS,
-    accountsTable: accountsTableIS,
-    accountsData: accountsDataIS,
+    locationManager: locationManagerIS,
   },
   middleware(getDefaultMiddleware) {
     return [

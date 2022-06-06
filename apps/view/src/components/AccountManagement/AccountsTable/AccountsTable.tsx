@@ -21,6 +21,7 @@ import {
 
 import { ISegmentProps } from '../AccountManagement';
 import AccountItem from './AccountItem/AccountItem';
+import { useUser } from '@/view/hooks/useUser';
 
 const Root = styled.div`
   width: 100%;
@@ -75,6 +76,8 @@ function AccountsTable({ switchSegment }: ISegmentProps) {
     orderBy: sort.column as keyof PublicUser,
   });
 
+  const { user } = useUser();
+
   const creations = data?.creations ?? [];
   const total = data?.total ?? 0;
 
@@ -89,6 +92,7 @@ function AccountsTable({ switchSegment }: ISegmentProps) {
             size="small"
             startIcon={<Add />}
             onClick={switchSegment}
+            disabled={user.roleId === 3}
           >
             tạo tài khoản
           </Button>

@@ -2,18 +2,9 @@ import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import styled from '@emotion/styled';
 import { ArrowLeft } from '@mui/icons-material';
-import {
-  Button,
-  Divider,
-  Grid,
-  Paper,
-  Theme,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Button, Grid, Paper, Theme, Toolbar, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ReactElement } from 'react';
-import FacilityImages from './FacilityImages/FacilityImages';
 import FacilityInfo from './FacilityInfo/FacilityInfo';
 
 const Root = styled.div`
@@ -57,7 +48,7 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
           <Button
             size="small"
             startIcon={<ArrowLeft />}
-            onClick={switchSegment}
+            onClick={() => switchSegment(0)}
           >
             quay lại danh sách
           </Button>

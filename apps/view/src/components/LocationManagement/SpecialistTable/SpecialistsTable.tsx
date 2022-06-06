@@ -1,13 +1,9 @@
 import { useState } from 'react';
 
-import { PublicUser } from '@/common/models/public-user';
 import { SortOrders } from '@/common/types/sort-orders';
 import NowrapCell from '@/view/common/components/NowrapCell';
-import { useCreatedAccounts } from '@/view/hooks/useCreatedAccounts';
 import styled from '@emotion/styled';
-import { Add } from '@mui/icons-material';
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -23,25 +19,34 @@ import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import SpecialistItem from './SpecialistItem/SpecialistItem';
 import { Specialist } from '@/common/models/specialist';
 import { useManagedSpecialists } from '@/view/hooks/useManagedSpecialists';
+import CustomScrollbar from '@/view/common/components/CustomScrollbar';
+import { getComparator } from '@/view/common/funcs/getComparator';
+import { connect, ConnectedProps } from 'react-redux';
+import { setModifiedSpecialist } from '@/view/store/actions/locationManager/setModifiedSpecialist';
 
 const Root = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
 `;
 
 const Container = styled(Paper)`
   width: 100%;
 `;
 
-const TableContainer = styled.div`
+const CTableContainer = styled(CustomScrollbar)`
+  max-height: calc(100vh - 14rem);
   width: 100%;
   overflow-x: auto;
+
+  &::-webkit-scrollbar-track {
+    margin-top: 3.75rem;
+  }
 `;
 
-const fields = ['id', 'displayName', 'email', 'roleId', 'managedArea'];
+const fields = ['userId', 'displayName', 'email', 'roleId', 'managedArea'];
 const labels = {
-  id: 'ID',
+  userId: 'ID',
   displayName: 'Họ và tên',
   email: 'Email',
   roleId: 'Vai trò',
@@ -53,15 +58,21 @@ const switchSort: Record<SortOrders, SortOrders> = {
   desc: 'asc',
 };
 
-function SpecialistsTable({ switchSegment }: ISegmentProps) {
+const connector = connect(() => ({}), { setModifiedSpecialist });
+
+function SpecialistsTable({
+  switchSegment,
+  setModifiedSpecialist,
+}: ISegmentProps & ConnectedProps<typeof connector>) {
   const [sort, setSort] = useState({
     order: 'asc',
-    column: 'id',
+    column: 'userId',
   } as { order: SortOrders; column: string });
   const [pagination, setPagination] = useState({
     page: 0,
     rowsPerPage: 5,
   } as { page: number; rowsPerPage: number });
+
   const { data } = useManagedSpecialists();
 
   console.log(data);
@@ -74,18 +85,9 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
       <Container>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography variant="h6">Danh sách chuyên viên</Typography>
-
-          <Button
-            variant="contained"
-            size="small"
-            startIcon={<Add />}
-            onClick={switchSegment}
-          >
-            tạo tài khoản
-          </Button>
         </Toolbar>
 
-        <TableContainer>
+        <CTableContainer>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -112,15 +114,32 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
             </TableHead>
 
             <TableBody>
-              {specialists?.map((specialist: Specialist) => (
-                <SpecialistItem
-                  key={`specialist#${specialist.id}`}
-                  specialist={specialist}
-                />
-              ))}
+              {specialists
+                ?.sort(getComparator(sort.order, sort.column))
+                .slice(
+                  pagination.rowsPerPage * pagination.page,
+                  pagination.rowsPerPage * pagination.page +
+                    pagination.rowsPerPage,
+                )
+                .map((specialist: Specialist) => (
+                  <SpecialistItem
+                    key={`specialist#${specialist.userId}`}
+                    specialist={specialist}
+                    onClick={() => {
+                      const { userId, roleId, responsibleLocationCode } =
+                        specialist;
+                      setModifiedSpecialist({
+                        userId: userId,
+                        roleId: roleId,
+                        responsibleLocationCode: responsibleLocationCode,
+                      });
+                      switchSegment();
+                    }}
+                  />
+                ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </CTableContainer>
 
         <TablePagination
           component="div"
@@ -145,4 +164,4 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
   );
 }
 
-export default SpecialistsTable;
+export default connector(SpecialistsTable);

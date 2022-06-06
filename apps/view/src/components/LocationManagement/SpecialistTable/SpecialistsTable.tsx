@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { SortOrders } from '@/common/types/sort-orders';
 import NowrapCell from '@/view/common/components/NowrapCell';
@@ -23,7 +23,6 @@ import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { getComparator } from '@/view/common/funcs/getComparator';
 import { connect, ConnectedProps } from 'react-redux';
 import { setModifiedSpecialist } from '@/view/store/actions/locationManager/setModifiedSpecialist';
-import { useResponsibleLocation } from '@/view/hooks/useResponsibleLocation';
 
 const Root = styled.div`
   width: 100%;
@@ -74,8 +73,7 @@ function SpecialistsTable({
     rowsPerPage: 5,
   } as { page: number; rowsPerPage: number });
 
-  const { responsibleLocationCode } = useResponsibleLocation().data;
-  const { data } = useManagedSpecialists(responsibleLocationCode);
+  const { data } = useManagedSpecialists();
 
   console.log(data);
 

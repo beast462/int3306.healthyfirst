@@ -13,10 +13,10 @@ import { makeStyles } from '@mui/styles';
 
 interface IProps {
   selectedRoleId: number;
-  disabled: boolean;
-  userId: number;
-  province: Location;
-  district: Location;
+  disabled?: boolean;
+  userId?: number;
+  province?: Location;
+  district?: Location;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({

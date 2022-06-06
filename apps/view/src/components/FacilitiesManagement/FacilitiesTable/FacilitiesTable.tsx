@@ -72,21 +72,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fields = [
-  'id',
-  'name',
-  'ownerName',
-  'address',
-  'phone',
-  'facilityTypeId',
-];
+const fields = ['id', 'name', 'ownerName', 'address', 'facilityTypeId'];
 
 const labels = {
   id: 'ID',
   name: 'Tên cơ sở',
   ownerName: 'Chủ sở hữu',
   address: 'Địa chỉ',
-  phone: 'Điện thoại',
   facilityTypeId: 'Loại hình kinh doanh',
 };
 
@@ -107,21 +99,23 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
     rowsPerPage: 10,
   } as { page: number; rowsPerPage: number });
 
+  const [search, setSearch] = useState({ val: '', opt: 'id' });
+
   let facilities = useFacilities().facilities ?? [];
+  if (search.val !== '') {
+    facilities = facilities.filter((facility) => {
+      if (search.opt === 'id') {
+        return facility[search.opt] === +search.val;
+      } else {
+        return facility[search.opt].toString().match(search.val) !== null;
+      }
+    });
+  }
+
+  console.log(facilities);
 
   const findFacilities = (searchOpt: string, searchVal: string) => {
-    console.log(searchOpt, searchVal);
-    if (searchVal !== '') {
-      console.log(mockFacilities[0][searchOpt].toString());
-
-      facilities = facilities.filter((facility) => {
-        if (searchOpt === 'id') {
-          return facility[searchOpt] === +searchVal;
-        } else {
-          return facility[searchOpt].toString().match(searchVal) !== null;
-        }
-      });
-    }
+    setSearch({ opt: searchOpt, val: searchVal });
   };
 
   return (

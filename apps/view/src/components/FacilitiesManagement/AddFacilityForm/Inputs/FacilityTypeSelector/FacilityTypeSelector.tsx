@@ -8,8 +8,6 @@ interface IProps {
 function FacilityTypeSelector({ className }: IProps) {
   const { facilityTypes } = useFacilityTypes();
 
-  console.log(facilityTypes);
-
   return (
     <FormControl className={className} size="small" fullWidth>
       <InputLabel>Loại hình kinh doanh</InputLabel>

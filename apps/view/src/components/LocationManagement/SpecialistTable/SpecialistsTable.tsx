@@ -74,9 +74,6 @@ function SpecialistsTable({
   } as { page: number; rowsPerPage: number });
 
   const { data } = useManagedSpecialists();
-
-  console.log(data);
-
   const specialists = data ?? [];
   const total = specialists.length;
 

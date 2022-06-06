@@ -17,7 +17,7 @@ function RolesSelector({ className, onRoleSelected }: IProps) {
 
       <Select label="Vai trò" name="roleId" defaultValue={1}>
         {(roles ?? []).map((role) => {
-          const disabled = user.role.level >= role.level;
+          const disabled = user?.role.level >= role.level;
 
           return (
             <MenuItem

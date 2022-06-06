@@ -20,7 +20,6 @@ import {
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import NowrapCell from '@/view/common/components/NowrapCell';
 
-import { facilities as mockFacilities } from '../../../../test/mock-data/facilities/facilities';
 import FacilityItem from './FacilityItem/FacilityItem';
 
 import CustomScrollbar from '@/view/common/components/CustomScrollbar';
@@ -119,8 +118,6 @@ function FacilitiesTable({
     });
   }
 
-  console.log(facilities);
-
   const findFacilities = (searchOpt: string, searchVal: string) => {
     setSearch({ opt: searchOpt, val: searchVal });
   };
@@ -191,7 +188,6 @@ function FacilitiesTable({
                     onClick={() => {
                       switchSegment(1);
                       setFacilityDetail(facility);
-                      console.log(facility);
                     }}
                   />
                 ))}

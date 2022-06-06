@@ -51,7 +51,7 @@ function LocationSelector({
 }: IProps): ReactElement {
   const styles = useStyles();
   const { user } = useUser();
-  const { responsibleLocationCode } = useResponsibleLocation().data;
+  const { responsibleLocationCode } = useResponsibleLocation().data ?? 0;
   const currentUserProvince = (useProvinces().provinces ?? []).find(
     (p) => p.code === responsibleLocationCode,
   );
@@ -66,7 +66,7 @@ function LocationSelector({
   }, [selectedRoleId === 3]);
 
   useEffect(() => {
-    setSelectedProvince(user.roleId !== 2 ? province : currentUserProvince);
+    setSelectedProvince(user?.roleId !== 2 ? province : currentUserProvince);
     setSelectedDistrict(
       selectedRoleId === 3 ? district : { code: -1, name: '' },
     );
@@ -89,7 +89,7 @@ function LocationSelector({
           disabled={
             selectedRoleId === 0 ||
             disabled ||
-            (user.roleId === 2 && userId === 0)
+            (user?.roleId === 2 && userId === 0)
           }
         >
           {(provinces ?? []).map((province: Location) => {

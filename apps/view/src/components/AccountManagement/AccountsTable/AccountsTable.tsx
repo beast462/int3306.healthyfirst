@@ -92,7 +92,7 @@ function AccountsTable({ switchSegment }: ISegmentProps) {
             size="small"
             startIcon={<Add />}
             onClick={switchSegment}
-            disabled={user.roleId === 3}
+            disabled={user?.roleId === 3}
           >
             tạo tài khoản
           </Button>

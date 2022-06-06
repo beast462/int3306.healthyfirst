@@ -109,7 +109,7 @@ function Inputs({
           label="Chủ cơ sở"
           name="ownerName"
           value={ownerName}
-          onChange={(event) => editMode && setName(event.target.value)}
+          onChange={(event) => editMode && setOwnerName(event.target.value)}
         />
       </div>
 
@@ -121,7 +121,7 @@ function Inputs({
           label="Điện thoại"
           name="phone"
           value={phone}
-          onChange={(event) => editMode && setName(event.target.value)}
+          onChange={(event) => editMode && setPhone(event.target.value)}
         />
 
         <FacilityTypeSelector
@@ -140,7 +140,7 @@ function Inputs({
           label="Địa chỉ"
           name="address"
           value={address}
-          onChange={(event) => editMode && setName(event.target.value)}
+          onChange={(event) => editMode && setAddress(event.target.value)}
         />
       </div>
 

@@ -68,10 +68,10 @@ function ModifyRLForm({
   const styles = useStyles();
   const [editMode, setEditMode] = useState(false);
 
-  const province = useProvinces().provinces.find(
+  const province = (useProvinces().provinces ?? []).find(
     (p) => p.code === (responsibleLocation & 0xffff),
   );
-  const district = useDistricts().districts.find(
+  const district = (useDistricts().districts ?? []).find(
     (d) => d.code === (responsibleLocation & 0xffffff),
   );
 

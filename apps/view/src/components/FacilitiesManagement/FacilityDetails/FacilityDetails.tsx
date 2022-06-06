@@ -1,10 +1,11 @@
 import CustomScrollbar from '@/view/common/components/CustomScrollbar';
+import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import styled from '@emotion/styled';
 import { ArrowLeft } from '@mui/icons-material';
-import { Button, Grid, Paper, Theme, Toolbar, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Button, Grid, Paper, Toolbar, Typography } from '@mui/material';
 import { ReactElement } from 'react';
+import { useSWRConfig } from 'swr';
 import FacilityInfo from './FacilityInfo/FacilityInfo';
 
 const Root = styled.div`
@@ -26,21 +27,8 @@ const DetailsContainer = styled(CustomScrollbar)`
   overflow-y: auto;
 `;
 
-const useStyles = makeStyles((theme: Theme) => ({}));
-
 function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
-  const styles = useStyles();
-  // This is a mock data for testing UI
-  const facilityDetails = {
-    id: '1',
-    facilityName: 'Phở 10 Lý Quốc Sư',
-    ownerName: 'Phạm Ngọc Lân',
-    phone: '0562470562',
-    address: '10 Phố Lý Quốc Sư, Hàng Trống, Hoàn Kiếm, Hà Nội',
-    facilityType: 'Cơ sở kinh doanh dịch vụ ăn uống',
-    certificateCode: 'Số hiệu 3123',
-    certificateStatus: 'Còn hiệu lực đến ngày 01/01/2023',
-  };
+  const { mutate } = useSWRConfig();
 
   return (
     <Root>
@@ -49,7 +37,10 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
           <Button
             size="small"
             startIcon={<ArrowLeft />}
-            onClick={() => switchSegment(0)}
+            onClick={() => {
+              switchSegment(0);
+              mutate(swrHookKeys.USE_FACILITIES);
+            }}
           >
             quay lại danh sách
           </Button>

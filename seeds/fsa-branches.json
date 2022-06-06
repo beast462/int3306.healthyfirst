@@ -1,569 +1,572 @@
-[
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ NỘI",
-    "responsibleLocationCode": 257,
-    "locationCode": 50659585,
-    "address": "Số 35 Trần Bình",
-    "email": "hanoi@vfa.gov.vn",
-    "phone": "02432595832",
-    "fax": "02432595832"
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ GIANG",
-    "responsibleLocationCode": 513,
-    "locationCode": 67174913,
-    "address": "Tổ 10",
-    "email": "",
-    "phone": "02193886282",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM CAO BẰNG",
-    "responsibleLocationCode": 769,
-    "locationCode": 1,
-    "address": "",
-    "email": "chicucantoanvstp@caobang.gov.vn",
-    "phone": "02063954345",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẮC KẠN",
-    "responsibleLocationCode": 1025,
-    "locationCode": 1,
-    "address": "Tổ 7",
-    "email": "chicucatvstpbk@gmail.com",
-    "phone": "02813811340",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TUYÊN QUANG",
-    "responsibleLocationCode": 1281,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LÀO CAI",
-    "responsibleLocationCode": 1537,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐIỆN BIÊN",
-    "responsibleLocationCode": 1793,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LAI CHÂU",
-    "responsibleLocationCode": 2049,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM SƠN LA",
-    "responsibleLocationCode": 2305,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM YÊN BÁI",
-    "responsibleLocationCode": 2561,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HOÀ BÌNH",
-    "responsibleLocationCode": 2817,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THÁI NGUYÊN",
-    "responsibleLocationCode": 3073,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LẠNG SƠN",
-    "responsibleLocationCode": 3329,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG NINH",
-    "responsibleLocationCode": 3585,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẮC GIANG",
-    "responsibleLocationCode": 3841,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM PHÚ THỌ",
-    "responsibleLocationCode": 4097,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM VĨNH PHÚC",
-    "responsibleLocationCode": 4353,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẮC NINH",
-    "responsibleLocationCode": 4609,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HẢI DƯƠNG",
-    "responsibleLocationCode": 4865,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HẢI PHÒNG",
-    "responsibleLocationCode": 5121,
-    "locationCode": 100733953,
-    "address": "Số 21 Minh Khai",
-    "email": "chicuctphp@gmail.com",
-    "phone": "0313821584",
-    "fax": "0313821486"
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HƯNG YÊN",
-    "responsibleLocationCode": 5377,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THÁI BÌNH",
-    "responsibleLocationCode": 5633,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ NAM",
-    "responsibleLocationCode": 5889,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NAM ĐỊNH",
-    "responsibleLocationCode": 6145,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NINH BÌNH",
-    "responsibleLocationCode": 6401,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THANH HÓA",
-    "responsibleLocationCode": 6657,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NGHỆ AN",
-    "responsibleLocationCode": 6913,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ TĨNH",
-    "responsibleLocationCode": 7169,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG BÌNH",
-    "responsibleLocationCode": 7425,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG TRỊ",
-    "responsibleLocationCode": 7681,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THỪA THIÊN HUẾ",
-    "responsibleLocationCode": 7937,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐÀ NẴNG",
-    "responsibleLocationCode": 8193,
-    "locationCode": 67313665,
-    "address": "Số 89 Ngô Gia Tự",
-    "email": "antoanvesinhthucpham@danang.gov.vn",
-    "phone": "02363816838",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG NAM",
-    "responsibleLocationCode": 8449,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG NGÃI",
-    "responsibleLocationCode": 8705,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH ĐỊNH",
-    "responsibleLocationCode": 8961,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM PHÚ YÊN",
-    "responsibleLocationCode": 9217,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM KHÁNH HÒA",
-    "responsibleLocationCode": 9473,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NINH THUẬN",
-    "responsibleLocationCode": 9729,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH THUẬN",
-    "responsibleLocationCode": 9985,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM KON TUM",
-    "responsibleLocationCode": 10241,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM GIA LAI",
-    "responsibleLocationCode": 10497,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐẮK LẮK",
-    "responsibleLocationCode": 10753,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐẮK NÔNG",
-    "responsibleLocationCode": 11009,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LÂM ĐỒNG",
-    "responsibleLocationCode": 11265,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH PHƯỚC",
-    "responsibleLocationCode": 11521,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TÂY NINH",
-    "responsibleLocationCode": 11777,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH DƯƠNG",
-    "responsibleLocationCode": 12033,
-    "locationCode": 50409217,
-    "address": "211 Yersin",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐỒNG NAI",
-    "responsibleLocationCode": 12289,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÀ RỊA - VŨNG TÀU",
-    "responsibleLocationCode": 12545,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "BAN QUẢN LÝ AN TOÀN VỆ SINH THỰC PHẨM THÀNH PHỐ HỒ CHÍ MINH",
-    "responsibleLocationCode": 12801,
-    "locationCode": 67187201,
-    "address": "59 Nguyễn Thị Minh Khai",
-    "email": "bqlattp@tphcm.gov.vn",
-    "phone": "02836016401",
-    "fax": "02839307033"
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LONG AN",
-    "responsibleLocationCode": 13057,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TIỀN GIANG",
-    "responsibleLocationCode": 13313,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẾN TRE",
-    "responsibleLocationCode": 13569,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TRÀ VINH",
-    "responsibleLocationCode": 13825,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM VĨNH LONG",
-    "responsibleLocationCode": 14081,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐỒNG THÁP",
-    "responsibleLocationCode": 14337,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM AN GIANG",
-    "responsibleLocationCode": 14593,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM KIÊN GIANG",
-    "responsibleLocationCode": 14849,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM CẦN THƠ",
-    "responsibleLocationCode": 15105,
-    "locationCode": 33635073,
-    "address": "317/10 Nguyễn Văn Cừ",
-    "email": "ccatvstp@ytct.gov.vn",
-    "phone": "07103894000",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HẬU GIANG",
-    "responsibleLocationCode": 15361,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM SÓC TRĂNG",
-    "responsibleLocationCode": 15617,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẠC LIÊU",
-    "responsibleLocationCode": 15873,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  },
-  {
-    "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM CÀ MAU",
-    "responsibleLocationCode": 16129,
-    "locationCode": 1,
-    "address": "",
-    "email": "",
-    "phone": "",
-    "fax": ""
-  }
-]
+{
+  "table": "fsa_branches",
+  "data": [
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ NỘI",
+      "responsibleLocationCode": 257,
+      "locationCode": 50659585,
+      "address": "Số 35 Trần Bình",
+      "email": "hanoi@vfa.gov.vn",
+      "phone": "02432595832",
+      "fax": "02432595832"
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ GIANG",
+      "responsibleLocationCode": 513,
+      "locationCode": 67174913,
+      "address": "Tổ 10",
+      "email": "",
+      "phone": "02193886282",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM CAO BẰNG",
+      "responsibleLocationCode": 769,
+      "locationCode": 50397953,
+      "address": "Số 17 Hoàng Như",
+      "email": "chicucantoanvstp@caobang.gov.vn",
+      "phone": "02063954345",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẮC KẠN",
+      "responsibleLocationCode": 1025,
+      "locationCode": 16843777,
+      "address": "Tổ 7",
+      "email": "backan.atvstp@gmail.com",
+      "phone": "02813811340",
+      "fax": "02813811342"
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TUYÊN QUANG",
+      "responsibleLocationCode": 1281,
+      "locationCode": 50398465,
+      "address": "Tổ 7",
+      "email": "cctpls@gmail.com",
+      "phone": "0273818982",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LÀO CAI",
+      "responsibleLocationCode": 1537,
+      "locationCode": 50398721,
+      "address": "Số 151 Hoàng Liên",
+      "email": "thucphamlaocai@gmail.com",
+      "phone": "0203823798",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐIỆN BIÊN",
+      "responsibleLocationCode": 1793,
+      "locationCode": 83953409,
+      "address": "Tổ 26",
+      "email": "",
+      "phone": "02303835216",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LAI CHÂU",
+      "responsibleLocationCode": 2049,
+      "locationCode": 33622017,
+      "address": "9FPF+V8J",
+      "email": "chicucvsattp@gmail.com.vn",
+      "phone": "02313601338",
+      "fax": "02313793343"
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM SƠN LA",
+      "responsibleLocationCode": 2305,
+      "locationCode": 16845057,
+      "address": "48 Lò Văn Giá",
+      "email": "attpsonla@gmail.com",
+      "phone": "0223753704",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM YÊN BÁI",
+      "responsibleLocationCode": 2561,
+      "locationCode": 33622529,
+      "address": "484 Yên Ninh",
+      "email": "chicucatvstp.syt@yenbai.gov.vn",
+      "phone": "0293818069",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HOÀ BÌNH",
+      "responsibleLocationCode": 2817,
+      "locationCode": 50400001,
+      "address": "Tổ 14",
+      "email": "huanbxh@yahoo.com.vn",
+      "phone": "02186283665",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THÁI NGUYÊN",
+      "responsibleLocationCode": 3073,
+      "locationCode": 83954689,
+      "address": "Số 9 Đội Cấn",
+      "email": "attpthainguyen@yahoo.com.vn",
+      "phone": "02803656615",
+      "fax": "02803656866"
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LẠNG SƠN",
+      "responsibleLocationCode": 3329,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG NINH",
+      "responsibleLocationCode": 3585,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẮC GIANG",
+      "responsibleLocationCode": 3841,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM PHÚ THỌ",
+      "responsibleLocationCode": 4097,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM VĨNH PHÚC",
+      "responsibleLocationCode": 4353,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẮC NINH",
+      "responsibleLocationCode": 4609,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HẢI DƯƠNG",
+      "responsibleLocationCode": 4865,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HẢI PHÒNG",
+      "responsibleLocationCode": 5121,
+      "locationCode": 100733953,
+      "address": "Số 21 Minh Khai",
+      "email": "chicuctphp@gmail.com",
+      "phone": "0313821584",
+      "fax": "0313821486"
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HƯNG YÊN",
+      "responsibleLocationCode": 5377,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THÁI BÌNH",
+      "responsibleLocationCode": 5633,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ NAM",
+      "responsibleLocationCode": 5889,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NAM ĐỊNH",
+      "responsibleLocationCode": 6145,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NINH BÌNH",
+      "responsibleLocationCode": 6401,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THANH HÓA",
+      "responsibleLocationCode": 6657,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NGHỆ AN",
+      "responsibleLocationCode": 6913,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HÀ TĨNH",
+      "responsibleLocationCode": 7169,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG BÌNH",
+      "responsibleLocationCode": 7425,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG TRỊ",
+      "responsibleLocationCode": 7681,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM THỪA THIÊN HUẾ",
+      "responsibleLocationCode": 7937,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐÀ NẴNG",
+      "responsibleLocationCode": 8193,
+      "locationCode": 67313665,
+      "address": "Số 89 Ngô Gia Tự",
+      "email": "antoanvesinhthucpham@danang.gov.vn",
+      "phone": "02363816838",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG NAM",
+      "responsibleLocationCode": 8449,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM QUẢNG NGÃI",
+      "responsibleLocationCode": 8705,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH ĐỊNH",
+      "responsibleLocationCode": 8961,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM PHÚ YÊN",
+      "responsibleLocationCode": 9217,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM KHÁNH HÒA",
+      "responsibleLocationCode": 9473,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM NINH THUẬN",
+      "responsibleLocationCode": 9729,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH THUẬN",
+      "responsibleLocationCode": 9985,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM KON TUM",
+      "responsibleLocationCode": 10241,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM GIA LAI",
+      "responsibleLocationCode": 10497,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐẮK LẮK",
+      "responsibleLocationCode": 10753,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐẮK NÔNG",
+      "responsibleLocationCode": 11009,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LÂM ĐỒNG",
+      "responsibleLocationCode": 11265,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH PHƯỚC",
+      "responsibleLocationCode": 11521,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TÂY NINH",
+      "responsibleLocationCode": 11777,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÌNH DƯƠNG",
+      "responsibleLocationCode": 12033,
+      "locationCode": 50409217,
+      "address": "211 Yersin",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐỒNG NAI",
+      "responsibleLocationCode": 12289,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BÀ RỊA - VŨNG TÀU",
+      "responsibleLocationCode": 12545,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "BAN QUẢN LÝ AN TOÀN VỆ SINH THỰC PHẨM THÀNH PHỐ HỒ CHÍ MINH",
+      "responsibleLocationCode": 12801,
+      "locationCode": 67187201,
+      "address": "59 Nguyễn Thị Minh Khai",
+      "email": "bqlattp@tphcm.gov.vn",
+      "phone": "02836016401",
+      "fax": "02839307033"
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM LONG AN",
+      "responsibleLocationCode": 13057,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TIỀN GIANG",
+      "responsibleLocationCode": 13313,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẾN TRE",
+      "responsibleLocationCode": 13569,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM TRÀ VINH",
+      "responsibleLocationCode": 13825,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM VĨNH LONG",
+      "responsibleLocationCode": 14081,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM ĐỒNG THÁP",
+      "responsibleLocationCode": 14337,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM AN GIANG",
+      "responsibleLocationCode": 14593,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM KIÊN GIANG",
+      "responsibleLocationCode": 14849,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM CẦN THƠ",
+      "responsibleLocationCode": 15105,
+      "locationCode": 33635073,
+      "address": "317/10 Nguyễn Văn Cừ",
+      "email": "ccatvstp@ytct.gov.vn",
+      "phone": "07103894000",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM HẬU GIANG",
+      "responsibleLocationCode": 15361,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM SÓC TRĂNG",
+      "responsibleLocationCode": 15617,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM BẠC LIÊU",
+      "responsibleLocationCode": 15873,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    },
+    {
+      "name": "CHI CỤC AN TOÀN VỆ SINH THỰC PHẨM CÀ MAU",
+      "responsibleLocationCode": 16129,
+      "locationCode": 1,
+      "address": "",
+      "email": "",
+      "phone": "",
+      "fax": ""
+    }
+  ]
+}

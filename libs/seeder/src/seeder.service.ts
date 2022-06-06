@@ -1,14 +1,10 @@
 import { join, resolve } from 'path';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 
-import {
-  FoodSafetyAuthorityBranchEntity,
-  LocationEntity,
-  SeedingEntity,
-} from '@/common/entities';
+import { SeedingEntity } from '@/common/entities';
 import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { readFileSync } from 'fs';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { readdirSync, readFileSync } from 'fs';
 
 @Injectable()
 export class SeederService {
@@ -19,70 +15,51 @@ export class SeederService {
   public constructor(
     @InjectRepository(SeedingEntity)
     private readonly seedingRepository: Repository<SeedingEntity>,
-    @InjectRepository(LocationEntity)
-    private readonly locationRepository: Repository<LocationEntity>,
-    @InjectRepository(FoodSafetyAuthorityBranchEntity)
-    private readonly fsaBranchRepository: Repository<FoodSafetyAuthorityBranchEntity>,
+    @InjectConnection()
+    private readonly connection: Connection,
   ) {
     this.logger = new Logger('SeederService');
 
-    this.seedLocations();
-    this.seedFSABranches();
+    this.seed();
   }
 
-  private async seedLocations(): Promise<void> {
-    const seeded =
-      (await this.seedingRepository.count({ name: 'locations' })) !== 0;
+  private async seed(): Promise<void> {
+    const seeds = readdirSync(SeederService.SEEDS_LOCATION);
 
-    if (seeded) return;
+    const meta = this.connection.entityMetadatas;
 
-    this.logger.log('Location table was not seeded, seeding locations...');
+    for (const seed of seeds) {
+      const { table, data } = JSON.parse(
+        readFileSync(join(SeederService.SEEDS_LOCATION, seed), 'utf8'),
+      );
 
-    const locations = JSON.parse(
-      readFileSync(
-        join(SeederService.SEEDS_LOCATION, 'locations.json'),
-        'utf8',
-      ),
-    );
+      const entityMeta = meta.find((metadata) => metadata.tableName === table);
 
-    await this.locationRepository
-      .createQueryBuilder()
-      .insert()
-      .into(LocationEntity)
-      .values(locations)
-      .orIgnore(true)
-      .execute();
+      if (!entityMeta) {
+        this.logger.warn(`Seeding ${table} failed: no table found`);
+        continue;
+      }
 
-    await this.seedingRepository.insert({ name: 'locations' });
+      const seeded =
+        (await this.seedingRepository.count({ name: table })) !== 0;
 
-    this.logger.log('Location table seeded');
-  }
+      if (seeded) continue;
 
-  private async seedFSABranches(): Promise<void> {
-    const seeded =
-      (await this.seedingRepository.count({ name: 'fsa-branches' })) !== 0;
+      this.logger.log(`${table} table was not seeded, seeding ${table}...`);
 
-    if (seeded) return;
+      const repository = this.connection.getRepository(entityMeta.name);
 
-    this.logger.log('FSABranch table was not seeded, seeding FSABranches...');
+      await this.seedingRepository
+        .createQueryBuilder()
+        .insert()
+        .into(table)
+        .values(data.map((record) => repository.create(record)))
+        .orIgnore(true)
+        .execute();
 
-    const fsaBranches = JSON.parse(
-      readFileSync(
-        join(SeederService.SEEDS_LOCATION, 'fsa-branches.json'),
-        'utf8',
-      ),
-    );
+      await this.seedingRepository.insert({ name: table });
 
-    await this.fsaBranchRepository
-      .createQueryBuilder()
-      .insert()
-      .into(FoodSafetyAuthorityBranchEntity)
-      .values(fsaBranches)
-      .orIgnore(true)
-      .execute();
-
-    await this.seedingRepository.insert({ name: 'fsa-branches' });
-
-    this.logger.log('FSABranch table seeded');
+      this.logger.log(`${table} table seeded`);
+    }
   }
 }

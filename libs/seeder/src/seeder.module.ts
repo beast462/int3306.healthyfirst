@@ -1,21 +1,11 @@
-import {
-  FoodSafetyAuthorityBranchEntity,
-  LocationEntity,
-  SeedingEntity,
-} from '@/common/entities';
+import { SeedingEntity } from '@/common/entities';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { SeederService } from './seeder.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      SeedingEntity,
-      LocationEntity,
-      FoodSafetyAuthorityBranchEntity,
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([SeedingEntity])],
   providers: [SeederService],
   exports: [SeederService],
 })

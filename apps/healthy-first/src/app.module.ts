@@ -16,6 +16,7 @@ import { UserModule } from './user/user.module';
 import { ViewModule } from './view/view.module';
 import { CertificateModule } from './certificate/certificate.module';
 import { ResponsibleAreaModule } from './responsible-area/responsible-area.module';
+import { FacilityTypeModule } from './facility-type/facility-type.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ResponsibleAreaModule } from './responsible-area/responsible-area.modul
     SeederModule,
     CertificateModule,
     ResponsibleAreaModule,
+    FacilityTypeModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

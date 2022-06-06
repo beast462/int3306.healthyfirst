@@ -66,6 +66,21 @@ export class ResponsibleAreaService {
     return specialists;
   }
 
+  public async modifyResponsibleArea(
+    modifiedResponsibleArea: Omit<
+      ResponsibleAreaEntity,
+      'id' | 'user' | 'responsibleLocation'
+    >,
+  ): Promise<
+    Omit<ResponsibleAreaEntity, 'id' | 'user' | 'responsibleLocation'>
+  > {
+    await this.responsibleAreaRepository.update(
+      { userId: modifiedResponsibleArea.userId },
+      modifiedResponsibleArea,
+    );
+    return modifiedResponsibleArea;
+  }
+
   public async createResponsibleArea(
     newResponsibleArea: Omit<
       ResponsibleAreaEntity,

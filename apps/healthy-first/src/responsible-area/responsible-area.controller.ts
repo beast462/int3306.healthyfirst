@@ -15,6 +15,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ResponsibleAreaService } from './responsible-area.service';
 
@@ -93,6 +94,32 @@ export class ResponsibleAreaController {
       message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: await this.responsibleAreaService.getSpecialist(responsibleArea),
+    };
+  }
+
+  @Put('userid/:userId')
+  public async updateResponsibleAreaByUserId(
+    @Param() { userId }: GetResponsibleAreaUserIdParamDTO,
+    @Body() modifiedResponsibleArea: CreateResponsibleAreaBodyDTO,
+  ): Promise<
+    ResponseDTO<
+      Omit<ResponsibleAreaEntity, 'id' | 'user' | 'responsibleLocation'>
+    >
+  > {
+    const responsibleArea =
+      await this.responsibleAreaService.getResponsibleAreaByUserId(userId);
+
+    if (!responsibleArea)
+      throw new NotFoundException('Responsible area not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: await this.responsibleAreaService.modifyResponsibleArea({
+        ...responsibleArea,
+        ...modifiedResponsibleArea,
+      }),
     };
   }
 

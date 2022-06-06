@@ -1,15 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-  IsBoolean,
-  IsDate,
-  IsDateString,
-  IsInt,
-  IsISO8601,
-  IsNumber,
-  IsPositive,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsDate, IsInt, IsPositive, IsString, Min } from 'class-validator';
 
 export class CreateCertificateBodyDTO {
   @Min(1)
@@ -23,7 +13,6 @@ export class CreateCertificateBodyDTO {
   revoked!: number;
 
   @IsDate()
-  //@IsISO8601({ strict: true })
   issuedDate!: Date;
 
   @Min(1)
@@ -33,7 +22,6 @@ export class CreateCertificateBodyDTO {
   issueId!: number;
 
   @IsDate()
-  //@IsDateString({ strict: true })
   expiredDate!: Date;
 
   @IsString()

@@ -103,6 +103,25 @@ export class FacilityController {
     };
   }
 
+  @Get('code/:locationCode/children/details')
+  public async getFacilityAndChildrenWithDetailByLocationCode(
+    @Param() { locationCode }: GetFacilityLocationByCodeParamDTO,
+  ): Promise<any> {
+    const facility =
+      await this.facilityService.getFacilityAndChildrenByLocationCode(
+        locationCode,
+      );
+
+    if (!facility) throw new NotFoundException('Facility not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: await this.facilityService.getAllFacilitiesWithDetails(facility),
+    };
+  }
+
   @Put(':id')
   public async modifyFacility(
     @Param() { id }: GetFacilityIdParamDTO,

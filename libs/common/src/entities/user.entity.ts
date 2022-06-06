@@ -9,6 +9,7 @@ import {
   Length,
   Min,
 } from 'class-validator';
+import { createHash } from 'crypto';
 import {
   Column,
   Entity,
@@ -16,6 +17,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { v4 } from 'uuid';
 
 import {
   MAX_EMAIL_LENGTH,
@@ -86,7 +88,7 @@ export class UserEntity {
     name: 'secret',
     length: PASSWORD_HASH_BITS / 4,
   })
-  secret!: string;
+  secret: string = createHash('sha256').update(v4()).digest('hex');
 
   @Min(1)
   @IsInt()

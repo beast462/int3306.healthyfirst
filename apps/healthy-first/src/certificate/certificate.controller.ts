@@ -2,9 +2,10 @@ import { ErrorCodes } from '@/common/constants/error-codes';
 import { CreateCertificateBodyDTO } from '@/common/dto/certificate/create-certificate-body.dto';
 import { GetCertificateFacilityIdParamDTO } from '@/common/dto/certificate/get-certificate-facility-id.param.dto';
 import { GetCertificateIdParamDTO } from '@/common/dto/certificate/get-certificate-id.param.dto';
+import { GetQualifiedQueryDTO } from '@/common/dto/certificate/get-qualified-query.dto';
 import { ModifyCertificateBodyDTO } from '@/common/dto/certificate/modify-certificate-body.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { CertificateEntity } from '@/common/entities';
+import { CertificateEntity, FacilityEntity } from '@/common/entities';
 import {
   Body,
   Controller,
@@ -16,6 +17,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CertificateService } from './certificate.service';
 
@@ -84,6 +86,34 @@ export class CertificateController {
       message: [],
       errorCode: ErrorCodes.SUCCESS,
       body: certificate,
+    };
+  }
+
+  @Get('qualified')
+  public async getQualifiedFacility(
+    @Query() { date }: GetQualifiedQueryDTO,
+  ): Promise<ResponseDTO<any>> {
+    const facilities = await this.certificateService.getQualifiedFacility(date);
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: facilities,
+    };
+  }
+
+  @Get('unqualified')
+  public async getUnqualifiedFacility(
+    @Query() { date }: GetQualifiedQueryDTO,
+  ): Promise<ResponseDTO<any>> {
+    const facilities = await this.certificateService.getUnqualifiedFacility(
+      date,
+    );
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: facilities,
     };
   }
 

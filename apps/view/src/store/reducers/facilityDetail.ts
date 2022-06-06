@@ -1,9 +1,9 @@
-import { FacilityEntity } from '@/common/entities';
+import { Facility } from '@/view/common/types/Facility';
 import { AnyAction } from '@reduxjs/toolkit';
 import { ActionTypes } from '../ActionTypes';
 
 export type FacilityDetails = {
-  facility: FacilityEntity;
+  facility: Facility;
   editMode: boolean;
 };
 

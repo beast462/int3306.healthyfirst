@@ -1,11 +1,14 @@
 import Flexbox from '@/view/common/components/Flexbox';
+import { NotificationSeverity } from '@/view/common/types/Notification';
 import { ApplicationState } from '@/view/store';
+import { notify } from '@/view/store/actions/app/notify';
 import { changeEditMode } from '@/view/store/actions/facilityDetail/changeEditMode';
 import styled from '@emotion/styled';
 import { EditRounded, CancelRounded, SaveRounded } from '@mui/icons-material';
-import { Button, Divider, Typography } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ReactElement, SyntheticEvent, useEffect, useState } from 'react';
+import { HttpStatus } from '@nestjs/common/enums';
+import { ReactElement, SyntheticEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Inputs from './Inputs/Inputs';
 
@@ -33,13 +36,14 @@ const connector = connect(
     facility: state.facilityDetail.facility,
     editMode: state.facilityDetail.editMode,
   }),
-  { changeEditMode },
+  { changeEditMode, notify },
 );
 
 function FacilityInfo({
   facility,
   editMode,
   changeEditMode,
+  notify,
 }: ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
 
@@ -47,6 +51,27 @@ function FacilityInfo({
     event.preventDefault();
 
     const target = event.target as HTMLFormElement;
+
+    if (+target.provinceCode.value === -1) {
+      notify('Thêm không thành công', NotificationSeverity.ERROR, [
+        'Vui lòng chọn tỉnh/thành phố',
+      ]);
+      return;
+    }
+
+    if (+target.districtCode.value === -1) {
+      notify('Thêm không thành công', NotificationSeverity.ERROR, [
+        'Vui lòng chọn quận/huyện',
+      ]);
+      return;
+    }
+
+    if (+target.wardCode.value === -1) {
+      notify('Thêm không thành công', NotificationSeverity.ERROR, [
+        'Vui lòng chọn phường/xã',
+      ]);
+      return;
+    }
 
     const updatedFacility = {
       id: facility.id,
@@ -59,8 +84,27 @@ function FacilityInfo({
         +target.districtCode.value,
         +target.wardCode.value,
       ),
-      facitlityTypeId: +target.facilityType.value,
+      facilityTypeId: +target.facilityType.value,
     };
+
+    const { statusCode, message } = await fetch(
+      `/api/facilities/${facility.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(updatedFacility),
+      },
+    ).then((res) => res.json());
+
+    if (statusCode === HttpStatus.OK) {
+      notify('Lưu thành công', NotificationSeverity.SUCCESS);
+      changeEditMode(false);
+    } else {
+      notify('Lưu không thành công', NotificationSeverity.ERROR, message);
+    }
   };
 
   return (

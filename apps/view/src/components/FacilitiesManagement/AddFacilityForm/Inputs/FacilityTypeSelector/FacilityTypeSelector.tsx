@@ -18,8 +18,10 @@ function FacilityTypeSelector({
   const { facilityTypes } = useFacilityTypes();
   const [facilityType, setFacilityType] = useState(facilityTypes[0]);
 
+  console.log(facilityType, facilityTypes);
+
   useEffect(() => {
-    setFacilityType(facilityTypes[initType - 1]);
+    if (initType > 0) setFacilityType(facilityTypes[initType - 1]);
   }, [initType]);
 
   return (

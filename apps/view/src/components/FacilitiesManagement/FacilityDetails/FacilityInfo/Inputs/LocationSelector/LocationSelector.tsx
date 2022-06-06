@@ -116,6 +116,7 @@ function LocationSelector({
           name="provinceCode"
           value={selectedProvince.code}
           sx={{ textTransform: 'capitalize' }}
+          required
         >
           {(provinces ?? []).map((province: Location) => {
             return (
@@ -145,6 +146,7 @@ function LocationSelector({
           name="districtCode"
           value={selectedDistrict.code}
           sx={{ textTransform: 'capitalize' }}
+          required
         >
           {(districts ?? []).map((district: Location) => {
             return (
@@ -174,6 +176,7 @@ function LocationSelector({
           value={selectedWard.code}
           disabled={selectedDistrict.code === -1}
           sx={{ textTransform: 'capitalize' }}
+          required
         >
           {(wards ?? []).map((ward: Location) => {
             return (

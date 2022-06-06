@@ -86,9 +86,6 @@ function Inputs({
     setPhone(facility.phone);
   }, [facility]);
 
-  console.log(facility);
-  console.log(name);
-
   return (
     <>
       <div>

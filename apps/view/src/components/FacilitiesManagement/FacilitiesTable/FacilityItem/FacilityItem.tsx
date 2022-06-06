@@ -2,11 +2,11 @@ import { ReactElement } from 'react';
 
 import NowrapCell from '@/view/common/components/NowrapCell';
 import { TableRow } from '@mui/material';
-import { FacilityEntity } from '@/common/entities/facility.entity';
 import { useFacilityTypes } from '@/view/hooks/useFacilityTypes';
+import { Facility } from '@/view/common/types/Facility';
 
 interface IProps {
-  facility: FacilityEntity;
+  facility: Facility;
   onClick: () => void;
 }
 

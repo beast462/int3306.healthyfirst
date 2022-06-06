@@ -1,9 +1,9 @@
-import { FacilityEntity } from '@/common/entities';
+import { Facility } from '@/view/common/types/Facility';
 import { ActionTypes } from '../../ActionTypes';
 import { Action, AppThunkAction } from './../../store';
 
 export function setFacilityDetail(
-  detail: FacilityEntity,
+  detail: Facility,
 ): AppThunkAction<Action<object>, unknown> {
   return (dispatch) => {
     dispatch({

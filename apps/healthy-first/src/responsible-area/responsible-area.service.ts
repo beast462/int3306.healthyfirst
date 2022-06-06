@@ -48,13 +48,18 @@ export class ResponsibleAreaService {
           id: responsibleArea.userId,
         },
       });
+      const responsibleCode = await this.responsibleAreaRepository.find({
+        where: {
+          userId: responsibleArea.userId,
+        },
+      });
       const specialistWithResponsibleArea = {
         id: responsibleArea.id,
         userId: specialist[0].id,
         displayName: specialist[0].displayName,
         email: specialist[0].email,
         roleId: specialist[0].roleId,
-        responsibleLocationCode: responsibleAreas.length,
+        responsibleLocationCode: responsibleCode[0].responsibleLocationCode,
       };
       specialists.push(specialistWithResponsibleArea);
     }

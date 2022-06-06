@@ -4,10 +4,7 @@ import useSWR from 'swr';
 
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
-import { PublicUser } from '@/common/models/public-user';
 import { SerializableError } from '@/common/models/serializable-error';
-import { SortOrders } from '@/common/types/sort-orders';
 import { HttpStatus } from '@nestjs/common/enums';
 
 import { swrHookKeys } from '../common/constants/swrHookKeys';
@@ -16,13 +13,6 @@ import { notify } from '../store/actions/app/notify';
 import { Specialist } from '@/common/models/specialist';
 import { GetManagedSpecialistsResDTO } from '@/common/dto/specialists/get-managed-specialists-res.dto';
 import { useResponsibleLocation } from './useResponsibleLocation';
-
-interface IProps {
-  limit: number;
-  offset: number;
-  order: SortOrders;
-  orderBy: keyof PublicUser;
-}
 
 async function fetchManagedSpecialists(
   this: Dispatch<any>,
@@ -50,7 +40,7 @@ async function fetchManagedSpecialists(
 export function useManagedSpecialists() {
   const dispatch = useDispatch();
   const { responsibleLocationCode } = useResponsibleLocation().data;
-  const { data, error } = useSWR<GetManagedSpecialistsResDTO, Error>(
+  const { data, error } = useSWR<Specialist[], Error>(
     swrHookKeys.USE_MANAGED_SPECIALISTS,
     fetchManagedSpecialists.bind(dispatch, responsibleLocationCode),
   );

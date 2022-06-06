@@ -64,8 +64,10 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
   } as { page: number; rowsPerPage: number });
   const { data } = useManagedSpecialists();
 
-  const specialists = data?.specialists ?? [];
-  const total = data?.total ?? 0;
+  console.log(data);
+
+  const specialists = data ?? [];
+  const total = specialists.length;
 
   return (
     <Root>

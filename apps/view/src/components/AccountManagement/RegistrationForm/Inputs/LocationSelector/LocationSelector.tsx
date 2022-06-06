@@ -52,7 +52,7 @@ function LocationSelector({
   const styles = useStyles();
   const { user } = useUser();
   const { responsibleLocationCode } = useResponsibleLocation().data;
-  const currentUserProvince = useProvinces().provinces.find(
+  const currentUserProvince = (useProvinces().provinces ?? []).find(
     (p) => p.code === responsibleLocationCode,
   );
 
@@ -72,7 +72,7 @@ function LocationSelector({
     );
   }, [userId]);
 
-  const provinces = useProvinces().provinces;
+  const provinces = useProvinces().provinces ?? [];
   const districts = (useDistricts().districts ?? []).filter(
     (district) => (district.code & 0xffff) === selectedProvince.code,
   );

@@ -79,13 +79,13 @@ function LocationSelector({
     useState<Location>(DEFAULT_DISTRICT);
   const [selectedWard, setSelectedWard] = useState<Location>(DEFAULT_WARD);
 
-  const province = useProvinces().provinces.find(
+  const province = (useProvinces().provinces ?? []).find(
     (p) => p.code === (location & 0xffff),
   );
-  const district = useDistricts().districts.find(
+  const district = (useDistricts().districts ?? []).find(
     (d) => d.code === (location & 0xffffff),
   );
-  const ward = useWards().wards.find((w) => w.code === location);
+  const ward = (useWards().wards ?? []).find((w) => w.code === location);
 
   useEffect(() => {
     if (province) {

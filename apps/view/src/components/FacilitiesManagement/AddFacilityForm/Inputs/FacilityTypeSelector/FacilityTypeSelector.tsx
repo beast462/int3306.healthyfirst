@@ -16,13 +16,12 @@ function FacilityTypeSelector({
   initType = 1,
 }: IProps) {
   const { facilityTypes } = useFacilityTypes();
-  const [facilityType, setFacilityType] = useState(facilityTypes[0]);
-
-  console.log(facilityType, facilityTypes);
+  const [facilityType, setFacilityType] = useState(null);
 
   useEffect(() => {
-    if (initType > 0) setFacilityType(facilityTypes[initType - 1]);
-  }, [initType]);
+    if (initType > 0 && facilityTypes.length !== 0)
+      setFacilityType(facilityTypes[initType - 1]);
+  }, [initType, facilityTypes]);
 
   return (
     <FormControl className={className} size={size} fullWidth>
@@ -32,7 +31,7 @@ function FacilityTypeSelector({
         label="Loại hình kinh doanh"
         name="facilityType"
         defaultValue={1}
-        value={facilityType.id}
+        value={facilityType?.id ?? 0}
       >
         {(facilityTypes ?? []).map((type) => {
           return (

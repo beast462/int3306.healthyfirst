@@ -25,12 +25,15 @@ export class FacilityService {
         where: { facilityId: facility.id },
       });
       let expiredDate: Date = null;
+      let revoked: number = null;
       if (certificate) {
         expiredDate = certificate.expiredDate;
+        revoked = certificate.revoked;
       }
       const facilityWithDetails = {
         ...facility,
         expiredDate: expiredDate,
+        revoked: revoked,
       };
       facilityDetails.push(facilityWithDetails);
     }

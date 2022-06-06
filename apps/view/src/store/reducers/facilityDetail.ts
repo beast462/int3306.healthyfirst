@@ -4,6 +4,7 @@ import { ActionTypes } from '../ActionTypes';
 
 export type FacilityDetails = {
   facility: FacilityEntity;
+  editMode: boolean;
 };
 
 export const initialState: FacilityDetails = {
@@ -16,6 +17,7 @@ export const initialState: FacilityDetails = {
     facilityLocationCode: 0,
     facilityTypeId: 0,
   },
+  editMode: false,
 };
 
 export function reduce(
@@ -24,7 +26,7 @@ export function reduce(
 ): FacilityDetails {
   switch (action.type) {
     case ActionTypes.FACILITY_DETAIL__SET_FACILITY:
-      return action.payload;
+      return { ...state, facility: action.payload };
 
     default:
       return state;

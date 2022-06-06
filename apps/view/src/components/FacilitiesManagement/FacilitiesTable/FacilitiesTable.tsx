@@ -29,6 +29,8 @@ import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
 import { getComparator } from '@/view/common/funcs/getComparator';
 import { useFacilities } from '@/view/hooks/useFacilities';
+import { setFacilityDetail } from '@/view/store/actions/facilityDetail/setFacilityDetail';
+import { connect, ConnectedProps } from 'react-redux';
 
 const Root = styled.div`
   width: 100%;
@@ -87,7 +89,12 @@ const switchSort: Record<SortOrders, SortOrders> = {
   desc: 'asc',
 };
 
-function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
+const connector = connect(() => ({}), { setFacilityDetail });
+
+function FacilitiesTable({
+  switchSegment,
+  setFacilityDetail,
+}: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
   const [sort, setSort] = useState({
     order: 'asc',
@@ -181,7 +188,11 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
                   <FacilityItem
                     key={`facility#${facility.id}`}
                     facility={facility}
-                    onClick={() => switchSegment(1)}
+                    onClick={() => {
+                      switchSegment(1);
+                      setFacilityDetail(facility);
+                      console.log(facility);
+                    }}
                   />
                 ))}
             </TableBody>
@@ -211,4 +222,4 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
   );
 }
 
-export default FacilitiesTable;
+export default connector(FacilitiesTable);

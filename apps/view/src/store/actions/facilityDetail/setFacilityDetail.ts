@@ -1,9 +1,9 @@
-import { FacilityDetails } from '../../reducers/facilityDetail';
+import { FacilityEntity } from '@/common/entities';
 import { ActionTypes } from '../../ActionTypes';
 import { Action, AppThunkAction } from './../../store';
 
 export function setFacilityDetail(
-  detail: FacilityDetails,
+  detail: FacilityEntity,
 ): AppThunkAction<Action<object>, unknown> {
   return (dispatch) => {
     dispatch({

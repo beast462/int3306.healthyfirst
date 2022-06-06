@@ -33,44 +33,40 @@ const DEFAULT_WARD = {
 
 interface IProps {
   className?: string;
+  location?: number;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   province: {
-    margin: 0,
-    width: '200px',
-    minWidth: 'fit-content',
+    flex: 1,
     [theme.breakpoints.down('md')]: {
       width: '100%',
-      display: 'block',
-      margin: '1rem 0',
+      flex: 'unset',
     },
   },
 
   district: {
-    margin: '0 1rem',
-    width: '200px',
-    minWidth: 'fit-content',
+    width: '33%',
+    marginLeft: '1rem',
     [theme.breakpoints.down('md')]: {
       width: '100%',
-      display: 'block',
-      margin: '1rem 0',
+      marginLeft: 0,
+      marginTop: theme.spacing(3),
     },
   },
 
   ward: {
-    margin: 0,
-    width: '200px',
-    minWidth: 'fit-content',
+    width: '33%',
+    marginLeft: '1rem',
     [theme.breakpoints.down('md')]: {
       width: '100%',
-      display: 'block',
-      margin: '1rem 0',
+      marginLeft: 0,
+      marginTop: theme.spacing(3),
     },
   },
 }));
 
-function LocationSelector({ className }: IProps): ReactElement {
+function LocationSelector({ location = 0 }: IProps): ReactElement {
   const styles = useStyles();
 
   const [selectedProvince, setSelectedProvince] =
@@ -78,6 +74,26 @@ function LocationSelector({ className }: IProps): ReactElement {
   const [selectedDistrict, setSelectedDistrict] =
     useState<Location>(DEFAULT_DISTRICT);
   const [selectedWard, setSelectedWard] = useState<Location>(DEFAULT_WARD);
+
+  const province = useProvinces().provinces.find(
+    (p) => p.code === (location & 0xffff),
+  );
+  const district = useDistricts().districts.find(
+    (d) => d.code === (location & 0xffffff),
+  );
+  const ward = useWards().wards.find((w) => w.code === location);
+
+  useEffect(() => {
+    if (province) {
+      setSelectedProvince(province);
+    }
+    if (district) {
+      setSelectedDistrict(district);
+    }
+    if (ward) {
+      setSelectedWard(ward);
+    }
+  }, [location]);
 
   const provinces = useProvinces().provinces ?? [];
   const districts = (useDistricts().districts ?? []).filter(

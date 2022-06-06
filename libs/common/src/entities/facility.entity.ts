@@ -4,7 +4,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
@@ -46,7 +45,7 @@ export class FacilityEntity {
   })
   facilityTypeId!: number;
 
-  @OneToOne(() => FacilityTypeEntity, (facilityType) => facilityType.id, {
+  @ManyToOne(() => FacilityTypeEntity, (facilityType) => facilityType.id, {
     nullable: false,
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE',

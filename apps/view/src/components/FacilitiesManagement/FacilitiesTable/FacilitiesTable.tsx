@@ -73,7 +73,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fields = ['id', 'name', 'ownerName', 'address', 'facilityTypeId'];
+const fields = [
+  'id',
+  'name',
+  'ownerName',
+  'address',
+  'facilityTypeId',
+  'expiredDate',
+];
 
 const labels = {
   id: 'ID',
@@ -81,6 +88,7 @@ const labels = {
   ownerName: 'Chủ sở hữu',
   address: 'Địa chỉ',
   facilityTypeId: 'Loại hình kinh doanh',
+  expiredDate: 'Giấy chứng nhận',
 };
 
 const switchSort: Record<SortOrders, SortOrders> = {
@@ -140,7 +148,7 @@ function FacilitiesTable({
               size="small"
               startIcon={<AddBusinessRounded />}
               className={styles.addBtn}
-              onClick={() => switchSegment(2)}
+              onClick={() => switchSegment(0)}
             >
               thêm cơ sở
             </Button>
@@ -186,7 +194,7 @@ function FacilitiesTable({
                     key={`facility#${facility.id}`}
                     facility={facility}
                     onClick={() => {
-                      switchSegment(1);
+                      switchSegment(2);
                       setFacilityDetail(facility);
                     }}
                   />

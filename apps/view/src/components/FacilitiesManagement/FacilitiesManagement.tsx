@@ -9,6 +9,7 @@ import { Navigations } from '../Navigations';
 import FacilitiesTable from './FacilitiesTable/FacilitiesTable';
 import FacilityDetails from './FacilityDetails/FacilityDetails';
 import AddFacilityForm from './AddFacilityForm/AddFacilityForm';
+import CertificateManagement from './CertificateManagement/CertificateManagement';
 
 const Root = styled.div`
   width: 100%;
@@ -17,36 +18,50 @@ const Root = styled.div`
 `;
 
 const Content = styled(Flexbox)`
-  width: 300%;
+  width: 400%;
   height: 100%;
   overflow: hidden;
   transition: margin 0.2s ease-out;
 
-  &.next {
+  &.first {
     margin-left: -100%;
   }
 
   &.third {
     margin-left: -200%;
   }
+
+  &.fourth {
+    margin-left: -300%;
+  }
 `;
 
 const Segment = styled.div`
   height: 100%;
-  width: calc(100% / 3);
+  width: calc(100% / 4);
   overflow: hidden;
 `;
 
 function FacilitiesManagement(): ReactElement {
-  const [viewingSegment, setViewingSegment] = useState(0);
+  const [viewingSegment, setViewingSegment] = useState(1);
 
   return (
     <Root>
       <Content
         className={
-          viewingSegment === 0 ? '' : viewingSegment === 1 ? 'next' : 'third'
+          viewingSegment === 0
+            ? ''
+            : viewingSegment === 1
+            ? 'first'
+            : viewingSegment === 2
+            ? 'third'
+            : 'fourth'
         }
       >
+        <Segment>
+          <AddFacilityForm switchSegment={() => setViewingSegment(1)} />
+        </Segment>
+
         <Segment>
           <FacilitiesTable
             switchSegment={(segId) => setViewingSegment(segId)}
@@ -54,11 +69,13 @@ function FacilitiesManagement(): ReactElement {
         </Segment>
 
         <Segment>
-          <FacilityDetails switchSegment={() => setViewingSegment(0)} />
+          <FacilityDetails
+            switchSegment={(segId) => setViewingSegment(segId)}
+          />
         </Segment>
 
         <Segment>
-          <AddFacilityForm switchSegment={() => setViewingSegment(0)} />
+          <CertificateManagement switchSegment={() => setViewingSegment(2)} />
         </Segment>
       </Content>
     </Root>

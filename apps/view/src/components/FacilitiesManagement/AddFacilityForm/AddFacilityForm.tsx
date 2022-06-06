@@ -4,7 +4,7 @@ import { Button, Divider, Paper, Toolbar, Typography } from '@mui/material';
 import { ISegmentProps } from '../../AccountManagement';
 import { connect, ConnectedProps } from 'react-redux';
 import { notify } from '@/view/store/actions/app/notify';
-import { ArrowLeft } from '@mui/icons-material';
+import { ArrowRight } from '@mui/icons-material';
 import Inputs from './Inputs/Inputs';
 import Flexbox from '@/view/common/components/Flexbox';
 import { NotificationSeverity } from '@/view/common/types/Notification';
@@ -98,9 +98,11 @@ function AddFacilityForm({
     <Root>
       <Container>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Typography variant="h6">Thêm cơ sở mới</Typography>
+
           <Button
             size="small"
-            startIcon={<ArrowLeft />}
+            endIcon={<ArrowRight />}
             onClick={() => {
               switchSegment();
               mutate(swrHookKeys.USE_FACILITIES);
@@ -108,8 +110,6 @@ function AddFacilityForm({
           >
             quay lại danh sách
           </Button>
-
-          <Typography variant="h6">Thêm cơ sở mới</Typography>
         </Toolbar>
 
         <form onSubmit={handleSubmit}>

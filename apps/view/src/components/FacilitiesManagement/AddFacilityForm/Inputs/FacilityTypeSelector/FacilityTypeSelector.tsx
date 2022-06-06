@@ -19,7 +19,7 @@ function FacilityTypeSelector({
   const [facilityType, setFacilityType] = useState(null);
 
   useEffect(() => {
-    if (initType > 0 && facilityType && facilityTypes.length !== 0)
+    if (initType > 0 && facilityTypes && facilityTypes.length !== 0)
       setFacilityType(facilityTypes[initType - 1]);
   }, [initType]);
 
@@ -31,7 +31,7 @@ function FacilityTypeSelector({
         label="Loại hình kinh doanh"
         name="facilityType"
         defaultValue={1}
-        value={facilityType?.id ?? 0}
+        value={facilityType?.id ?? 1}
       >
         {(facilityTypes ?? []).map((type) => {
           return (

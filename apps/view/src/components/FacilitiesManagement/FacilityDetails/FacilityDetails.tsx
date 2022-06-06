@@ -2,8 +2,15 @@ import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import styled from '@emotion/styled';
-import { ArrowLeft } from '@mui/icons-material';
-import { Button, Grid, Paper, Toolbar, Typography } from '@mui/material';
+import { ArrowLeft, ArrowRight } from '@mui/icons-material';
+import {
+  Button,
+  Divider,
+  Grid,
+  Paper,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { ReactElement } from 'react';
 import { useSWRConfig } from 'swr';
 import FacilityInfo from './FacilityInfo/FacilityInfo';
@@ -38,7 +45,7 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
             size="small"
             startIcon={<ArrowLeft />}
             onClick={() => {
-              switchSegment(0);
+              switchSegment(1);
               mutate(swrHookKeys.USE_FACILITIES);
             }}
           >
@@ -46,8 +53,19 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
           </Button>
 
           <Typography variant="h6">Thông tin chi tiết</Typography>
+
+          <Button
+            size="small"
+            endIcon={<ArrowRight />}
+            onClick={() => {
+              switchSegment(3);
+            }}
+          >
+            xem giấy chứng nhận
+          </Button>
         </Toolbar>
 
+        <Divider />
         <DetailsContainer>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12} lg={7}>

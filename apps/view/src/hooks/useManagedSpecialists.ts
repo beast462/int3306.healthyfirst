@@ -40,11 +40,6 @@ export function useManagedSpecialists(responsibleLocationCode: number) {
   const { data, error } = useSWR<Specialist[], Error>(
     swrHookKeys.USE_MANAGED_SPECIALISTS,
     fetchManagedSpecialists.bind(dispatch, responsibleLocationCode),
-    {
-      revalidateIfStale: true,
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
-    },
   );
 
   const isError =

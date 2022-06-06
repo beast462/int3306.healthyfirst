@@ -1,0 +1,20 @@
+{
+  "table": "roles",
+  "data": [
+    {
+      "name": "admin",
+      "level": 0,
+      "description": "Administrator"
+    },
+    {
+      "name": "manager",
+      "level": 1,
+      "description": "Quản lý chi cục"
+    },
+    {
+      "name": "specialist",
+      "level": 2,
+      "description": "Chuyên viên chi cục"
+    }
+  ]
+}

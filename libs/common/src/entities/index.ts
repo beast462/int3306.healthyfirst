@@ -12,43 +12,46 @@ import { LogEntity } from './log.entity';
 import { PurposeEntity } from './purpose.entity';
 import { ResponsibleAreaEntity } from './responsible-area.entity';
 import { RoleEntity } from './role.entity';
+import { SeedingEntity } from './seeding.entity';
 import { UserEntity } from './user.entity';
 import { ViolationEntity } from './violation.entity';
 
 export const Entities = [
+  CertificateEntity,
+  CheckingActivityEntity,
+  CheckingPlanEntity,
+  FacilityTypeEntity,
+  FacilityEntity,
+  FoodSafetyAuthorityBranchEntity,
   FoodSampleCriteriaEntity,
   FoodSampleEntity,
   InspectionUnitEntity,
-  CheckingActivityEntity,
-  PurposeEntity,
-  ViolationEntity,
-  CheckingPlanEntity,
-  CertificateEntity,
-  FacilityEntity,
-  FacilityTypeEntity,
-  ResponsibleAreaEntity,
-  FoodSafetyAuthorityBranchEntity,
   LocationEntity,
   LogEntity,
+  PurposeEntity,
+  ResponsibleAreaEntity,
   RoleEntity,
+  SeedingEntity,
   UserEntity,
+  ViolationEntity,
 ];
 
 export {
+  CertificateEntity,
+  CheckingActivityEntity,
+  CheckingPlanEntity,
+  FacilityTypeEntity,
+  FacilityEntity,
+  FoodSafetyAuthorityBranchEntity,
   FoodSampleCriteriaEntity,
   FoodSampleEntity,
   InspectionUnitEntity,
-  CheckingActivityEntity,
-  PurposeEntity,
-  ViolationEntity,
-  CheckingPlanEntity,
-  CertificateEntity,
-  FacilityEntity,
-  FacilityTypeEntity,
-  ResponsibleAreaEntity,
-  FoodSafetyAuthorityBranchEntity,
   LocationEntity,
   LogEntity,
+  PurposeEntity,
+  ResponsibleAreaEntity,
   RoleEntity,
+  SeedingEntity,
   UserEntity,
+  ViolationEntity,
 };

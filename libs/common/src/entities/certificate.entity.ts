@@ -31,8 +31,8 @@ export class CertificateEntity {
   @JoinColumn({ name: 'facility_id', referencedColumnName: 'id' })
   facility!: FacilityEntity;
 
-  @Column('boolean', { nullable: false, name: 'revoked' })
-  revoked!: boolean;
+  @Column('tinyint', { nullable: false, name: 'revoked' })
+  revoked!: number;
 
   @Column('date', { nullable: false, name: 'issued_date' })
   issuedDate!: Date;

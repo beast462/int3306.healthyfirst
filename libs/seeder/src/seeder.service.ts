@@ -1,10 +1,10 @@
 import { join, resolve } from 'path';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 
-import { LocationEntity } from '@/common/entities';
+import { SeedingEntity } from '@/common/entities';
 import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { readFileSync } from 'fs';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { readdirSync, readFileSync } from 'fs';
 
 @Injectable()
 export class SeederService {
@@ -13,28 +13,53 @@ export class SeederService {
   private readonly logger: Logger;
 
   public constructor(
-    @InjectRepository(LocationEntity)
-    private readonly locationRepository: Repository<LocationEntity>,
+    @InjectRepository(SeedingEntity)
+    private readonly seedingRepository: Repository<SeedingEntity>,
+    @InjectConnection()
+    private readonly connection: Connection,
   ) {
     this.logger = new Logger('SeederService');
 
-    this.seedLocations();
+    this.seed();
   }
 
-  private async seedLocations(): Promise<void> {
-    const count = await this.locationRepository.count();
+  private async seed(): Promise<void> {
+    const seeds = readdirSync(SeederService.SEEDS_LOCATION);
 
-    if (count !== 0) return;
+    const meta = this.connection.entityMetadatas;
 
-    this.logger.log('No locations found, seeding locations...');
+    for (const seed of seeds) {
+      const { table, data } = JSON.parse(
+        readFileSync(join(SeederService.SEEDS_LOCATION, seed), 'utf8'),
+      );
 
-    const locations = JSON.parse(
-      readFileSync(
-        join(SeederService.SEEDS_LOCATION, 'locations.json'),
-        'utf8',
-      ),
-    );
+      const entityMeta = meta.find((metadata) => metadata.tableName === table);
 
-    this.locationRepository.save(locations);
+      if (!entityMeta) {
+        this.logger.warn(`Seeding ${table} failed: no table found`);
+        continue;
+      }
+
+      const seeded =
+        (await this.seedingRepository.count({ name: table })) !== 0;
+
+      if (seeded) continue;
+
+      this.logger.log(`${table} table was not seeded, seeding ${table}...`);
+
+      const repository = this.connection.getRepository(entityMeta.name);
+
+      await this.seedingRepository
+        .createQueryBuilder()
+        .insert()
+        .into(table)
+        .values(data.map((record) => repository.create(record)))
+        .orIgnore(true)
+        .execute();
+
+      await this.seedingRepository.insert({ name: table });
+
+      this.logger.log(`${table} table seeded`);
+    }
   }
 }

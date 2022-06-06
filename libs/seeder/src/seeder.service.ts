@@ -45,7 +45,15 @@ export class SeederService {
       ),
     );
 
-    await this.locationRepository.save(locations);
+    await this.locationRepository
+      .createQueryBuilder()
+      .insert()
+      .into(LocationEntity)
+      .values(locations)
+      .orIgnore(true)
+      .execute();
+
+    await this.seedingRepository.insert({ name: 'locations' });
 
     this.logger.log('Location table seeded');
   }
@@ -65,7 +73,15 @@ export class SeederService {
       ),
     );
 
-    await this.fsaBranchRepository.save(fsaBranches);
+    await this.fsaBranchRepository
+      .createQueryBuilder()
+      .insert()
+      .into(FoodSafetyAuthorityBranchEntity)
+      .values(fsaBranches)
+      .orIgnore(true)
+      .execute();
+
+    await this.seedingRepository.insert({ name: 'fsa-branches' });
 
     this.logger.log('FSABranch table seeded');
   }

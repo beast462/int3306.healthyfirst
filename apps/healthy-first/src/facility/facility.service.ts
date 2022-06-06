@@ -1,7 +1,7 @@
 import { FacilityEntity } from '@/common/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 
 @Injectable()
 export class FacilityService {
@@ -25,6 +25,19 @@ export class FacilityService {
   ): Promise<FacilityEntity> {
     return this.facilityRepository.findOne({
       where: { facilityLocationCode: facilityLocationCode },
+    });
+  }
+
+  public async getFacilityAndChildrenByLocationCode(
+    locationCode: number,
+  ): Promise<FacilityEntity[]> {
+    return this.facilityRepository.find({
+      where: {
+        facilityLocationCode: Raw(
+          (alias) =>
+            `if (${locationCode} = 0x1, ${alias} > 0x1 and ${alias} < 0x100000000 and ${alias} & 0xf = ${locationCode}, if (${locationCode} > 0x1 and ${locationCode} < 0x10000, ${alias} >= 0x10000 and ${alias} < 0x100000000 and ${alias} & 0xffff = ${locationCode}, if (${locationCode} >= 0x10000 and ${locationCode} < 0x1000000, ${alias} >= 0x1000000 and ${alias} < 0x100000000 and ${alias} & 0xffffff = ${locationCode}, ${alias} < 1 )))`,
+        ),
+      },
     });
   }
 

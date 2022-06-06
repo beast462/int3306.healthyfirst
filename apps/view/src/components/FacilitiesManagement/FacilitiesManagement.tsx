@@ -23,7 +23,7 @@ const Content = styled(Flexbox)`
   overflow: hidden;
   transition: margin 0.2s ease-out;
 
-  &.next {
+  &.first {
     margin-left: -100%;
   }
 
@@ -43,7 +43,7 @@ const Segment = styled.div`
 `;
 
 function FacilitiesManagement(): ReactElement {
-  const [viewingSegment, setViewingSegment] = useState(0);
+  const [viewingSegment, setViewingSegment] = useState(1);
 
   return (
     <Root>
@@ -52,12 +52,16 @@ function FacilitiesManagement(): ReactElement {
           viewingSegment === 0
             ? ''
             : viewingSegment === 1
-            ? 'next'
+            ? 'first'
             : viewingSegment === 2
             ? 'third'
             : 'fourth'
         }
       >
+        <Segment>
+          <AddFacilityForm switchSegment={() => setViewingSegment(1)} />
+        </Segment>
+
         <Segment>
           <FacilitiesTable
             switchSegment={(segId) => setViewingSegment(segId)}
@@ -71,11 +75,7 @@ function FacilitiesManagement(): ReactElement {
         </Segment>
 
         <Segment>
-          <AddFacilityForm switchSegment={() => setViewingSegment(0)} />
-        </Segment>
-
-        <Segment>
-          <CertificateManagement switchSegment={() => setViewingSegment(1)} />
+          <CertificateManagement switchSegment={() => setViewingSegment(2)} />
         </Segment>
       </Content>
     </Root>

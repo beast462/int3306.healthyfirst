@@ -148,7 +148,7 @@ function FacilitiesTable({
               size="small"
               startIcon={<AddBusinessRounded />}
               className={styles.addBtn}
-              onClick={() => switchSegment(2)}
+              onClick={() => switchSegment(0)}
             >
               thêm cơ sở
             </Button>
@@ -194,7 +194,7 @@ function FacilitiesTable({
                     key={`facility#${facility.id}`}
                     facility={facility}
                     onClick={() => {
-                      switchSegment(1);
+                      switchSegment(2);
                       setFacilityDetail(facility);
                     }}
                   />

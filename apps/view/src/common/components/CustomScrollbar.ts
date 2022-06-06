@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export default styled.div`
   &::-webkit-scrollbar {
     width: 4px;
-    height: 4px;
+    height: 8px;
   }
 
   &::-webkit-scrollbar-track {

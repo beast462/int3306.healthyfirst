@@ -1,42 +1,39 @@
-import styled from '@emotion/styled';
-import { ReactElement } from 'react';
-
 import '../Overview';
 import '../Login';
+import '../FacilitiesManagement';
+import '../AccountManagement';
+import '../LocationManagement';
+
+import { ReactElement } from 'react';
+
+import Flexbox from '@/view/common/components/Flexbox';
+import styled from '@emotion/styled';
+
 import Contents from './Contents/Contents';
 import Header from './Header/Header';
 import Menu from './Menu/Menu';
 
-const Root = styled.div`
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  flex-direction: column;
-  -ms-flex-direction: column;
+const Root = styled(Flexbox)`
+  flex-direction: row;
+  -ms-flex-direction: row;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 `;
 
-const Body = styled.div`
+const Body = styled(Flexbox)`
   flex: 1;
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  flex-direction: row;
-  -ms-flex-direction: row;
-  width: 100vw;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  overflow: hidden;
 `;
 
 function Dashboard(): ReactElement {
   return (
     <Root>
-      <Header />
-
+      <Menu />
       <Body>
-        <Menu />
+        <Header />
         <Contents />
       </Body>
     </Root>

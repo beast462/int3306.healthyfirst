@@ -1,0 +1,67 @@
+@startuml Features
+
+:User: --> Roles
+
+package Roles {
+    actor Specialist as role_sp
+    actor Manager as role_mng
+    actor Admin as role_adm
+}
+
+package UserController {
+    usecase "Login @ /api/user/login" as uc_login
+    usecase "Get account @ /api/user/(:userId|me)" as uc_getProfile
+    usecase "Update account @ /api/user/(:userId|me)" as uc_updateProfile
+    usecase "Get accounts @ /api/user" as uc_getAccounts
+    usecase "Disable account @ /api/user/(:userId|me)" as uc_disableAccount
+}
+
+package FacilityController {
+    usecase "Create facility @ /api/facility" as fc_createFacility
+    usecase "Get facilities @ /api/facility" as fc_getFacilities
+    usecase "Update facility @ /api/facility/:facilityId" as fc_updateFacility
+    usecase "Disable facility @ /api/facility/:facilityId" as fc_disableFacility
+}
+
+package CertificateController {
+    usecase "Get certificates @ /api/certificate" as cc_getCertificates
+    usecase "Create certificate @ /api/certificate" as cc_createCertificate
+    usecase "Revoke certificate @ /api/certificate/:certificateId" as cc_revokeCertificate
+}
+
+package InspectationModule {
+    package PlanController {
+        usecase "Create plan @ /api/plan" as pc_createPlan
+    }
+
+    package ActivityController {
+        usecase "Create activity @ /api/activity" as ac_createActivity
+    }
+
+    package ResultController {
+        usecase "Create result @ /api/result" as rc_createResult
+        usecase "Get result @ /api/result" as rc_getResult
+    }
+}
+
+:User: --> uc_login
+:User: --> uc_getProfile
+:User: --> uc_updateProfile
+role_adm --> uc_getAccounts : Get everyone's\naccounts
+role_mng --> uc_getAccounts : Get specialists'\naccounts
+role_mng --> fc_createFacility
+role_mng --> fc_getFacilities
+role_mng --> fc_updateFacility
+role_mng --> fc_disableFacility
+role_sp --> fc_getFacilities
+role_sp --> ac_createActivity
+role_sp --> cc_createCertificate
+role_sp --> cc_revokeCertificate
+role_sp --> rc_createResult
+
+:User: --> rc_getResult
+
+:FacilityOwner: --> cc_getCertificates
+:FacilityOwner: --> rc_getResult
+
+@enduml

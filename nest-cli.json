@@ -5,8 +5,9 @@
   "monorepo": true,
   "root": "apps/healthy-first",
   "compilerOptions": {
+    "tsConfigPath": "apps/healthy-first/tsconfig.app.json",
     "webpack": true,
-    "tsConfigPath": "apps/healthy-first/tsconfig.app.json"
+    "webpackConfigPath": "apps/healthy-first/webpack.config.js"
   },
   "projects": {
     "healthy-first": {
@@ -15,7 +16,9 @@
       "entryFile": "main",
       "sourceRoot": "apps/healthy-first/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/healthy-first/tsconfig.app.json"
+        "tsConfigPath": "apps/healthy-first/tsconfig.app.json",
+        "webpack": true,
+        "webpackConfigPath": "apps/healthy-first/webpack.config.js"
       }
     },
     "view": {
@@ -36,6 +39,24 @@
       "sourceRoot": "libs/common/src",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "db-logger": {
+      "type": "library",
+      "root": "libs/db-logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/db-logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/db-logger/tsconfig.lib.json"
+      }
+    },
+    "seeder": {
+      "type": "library",
+      "root": "libs/seeder",
+      "entryFile": "index",
+      "sourceRoot": "libs/seeder/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/seeder/tsconfig.lib.json"
       }
     }
   }

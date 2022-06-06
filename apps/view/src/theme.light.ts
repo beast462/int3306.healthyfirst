@@ -5,7 +5,8 @@ import { breakpoints } from './constants/breakpoints';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: lightBlue[500],
+      main: '#5048e5',
+      dark: '#3832A0',
       contrastText: '#ffffff',
     },
   },

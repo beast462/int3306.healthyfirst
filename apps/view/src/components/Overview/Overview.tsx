@@ -4,15 +4,11 @@ import { ReactElement } from 'react';
 import { Navigations } from '../Navigations';
 
 function Overview(): ReactElement {
-  return <>abcdef</>;
+  return <>abcdeffwfhwrhfwihgwhrwughiuwrhgwhgui</>;
 }
 
 Navigations.getInstance().registerNavigation('/overview', {
-  avatar: (
-    <Avatar>
-      <Info />
-    </Avatar>
-  ),
+  icon: <Info />,
   label: 'Overview',
   childOf: null,
 })(Overview);

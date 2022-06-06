@@ -1,27 +1,27 @@
+import clsx from 'clsx';
+import { ReactElement, useEffect, useMemo } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import { useBreakpoints } from '@/view/hooks/useBreakpoints';
+import { ApplicationState } from '@/view/store';
+import { hideMenu } from '@/view/store/actions/app/hideMenu';
+import { showMenu } from '@/view/store/actions/app/showMenu';
 import {
   Drawer,
   List,
-  ListItemAvatar,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Theme,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ApplicationState } from '@/view/store';
-import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
-import clsx from 'clsx';
-import { ReactElement, useMemo } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { useBreakpoints } from '@/view/hooks/useBreakpoints';
+
 import { Navigations } from '../../Navigations';
 
 export const menuFullWidth = 260;
 
-/**
- * Menu will be full screen on < $menuFullWidth
- * Menu will be floating on $menuFullWidth - md
- * Menu will be a part of body on > md
- */
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     [theme.breakpoints.down('md')]: {
@@ -37,6 +37,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     position: 'relative',
     height: '100%',
+    backgroundColor: '#111827',
+    color: '#fff',
     [theme.breakpoints.up(menuFullWidth)]: {
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -57,6 +59,25 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: '100%',
     },
   },
+  listItem: {
+    color: '#D1D5DB',
+    display: 'flex',
+    borderRadius: '10px',
+    margin: '5px 1rem',
+    '&:hover': {
+      backgroundColor: '#ffffff14',
+    },
+    '& div': {
+      minWidth: 'fit-content',
+      width: 'fit-content',
+      padding: '0 5px',
+    },
+
+    '&.Mui-selected': {
+      color: '#10B981',
+      backgroundColor: '#ffffff14',
+    },
+  },
 }));
 
 const connector = connect(
@@ -64,13 +85,15 @@ const connector = connect(
     show: state.app.showMenu,
   }),
   {
-    hideMenu: _hideMenu,
+    showMenu,
+    hideMenu,
   },
 );
 
 function Menu({
   show,
   hideMenu,
+  showMenu,
 }: ConnectedProps<typeof connector>): ReactElement {
   const classes = useStyles();
   const checker = useBreakpoints();
@@ -79,6 +102,13 @@ function Menu({
 
     return allMenu.filter((nav) => nav[1].tabProps);
   }, []);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (checker.up('md')) {
+      showMenu();
+    }
+  }, [checker.up('md')]);
 
   return (
     <Drawer
@@ -91,8 +121,16 @@ function Menu({
     >
       <List>
         {navigations.map((nav) => (
-          <ListItemButton key={`nav.menu@${nav[0]}`}>
-            <ListItemAvatar>{nav[1].tabProps.avatar}</ListItemAvatar>
+          <ListItemButton
+            key={`nav.menu@${nav[0]}`}
+            component={Link}
+            to={`${nav[0]}`}
+            selected={location.pathname === nav[0]}
+            className={classes.listItem}
+          >
+            <ListItemIcon sx={{ color: 'inherit' }}>
+              {nav[1].tabProps.icon}
+            </ListItemIcon>
             <ListItemText
               primary={nav[1].tabProps.label}
               secondary={nav[1].tabProps.caption}

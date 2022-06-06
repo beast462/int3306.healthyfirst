@@ -1,123 +1,164 @@
-import { CookieEntries } from '@/common/constants/cookie-entries';
-import { Environments } from '@/common/constants/environments';
-import { Cookies } from '@/common/decorators/cookies';
+import { ErrorCodes } from '@/common/constants/error-codes';
 import { CurrentUser } from '@/common/decorators/current-user';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { GetQuestionQueryDTO } from '@/common/dto/user/get-question.query.dto';
-import { GetQuestionResDto } from '@/common/dto/user/get-question.res.dto';
+import { CreateUserBodyDTO } from '@/common/dto/user/create-user.body.dto';
+import { GetUserCreationsParamDTO } from '@/common/dto/user/get-user-creations.param.dto';
+import { GetUserCreationsQueryDTO } from '@/common/dto/user/get-user-creations.query.dto';
+import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
 import { GetUserParamDTO } from '@/common/dto/user/get-user.param.dto';
-import { LoginBodyDTO } from '@/common/dto/user/login.body.dto';
+import { GetUsersQueryDTO } from '@/common/dto/user/get-users.query.dto';
 import { UserEntity } from '@/common/entities';
-import { byHours } from '@/common/helpers/timespan';
-import { PublicUser } from '@/common/models/public-user';
+import { createError } from '@/common/helpers/create-error';
 import {
   BadRequestException,
   Body,
+  ClassSerializerInterceptor,
   Controller,
+  ForbiddenException,
   Get,
-  GoneException,
   HttpStatus,
-  NotAcceptableException,
   NotFoundException,
+  NotImplementedException,
   Param,
   Post,
   Query,
-  Res,
-  UnauthorizedException,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
-import { ConfigKeys } from '../base/config.module';
-import { AnswerValidationErrors, UserService } from './user.service';
+
+import { RoleService } from '../role/role.service';
+import { CreateUserErrors, UserService } from './user.service';
+import { ResponsibleAreaService } from '../responsible-area/responsible-area.service';
 
 @Controller('/api/user')
 export class UserController {
   public constructor(
     private readonly userService: UserService,
-    private readonly configService: ConfigService,
+    private readonly roleService: RoleService,
+    private readonly responsibleAreaService: ResponsibleAreaService,
   ) {}
 
-  @Get('/login')
-  public async getQuestion(
-    @Cookies(CookieEntries.REQUEST_ID) rid: string,
-    @Query() { username }: GetQuestionQueryDTO,
-  ): Promise<ResponseDTO<GetQuestionResDto>> {
-    const user = await this.userService.getUserByUsername(username);
-
-    if (!user) throw new NotFoundException('Username not found');
-
-    const { question } = await this.userService.generateChallenge(rid, user);
-
-    return new ResponseDTO(HttpStatus.OK, [], {
-      question,
-      displayName: user.displayName,
-      role: user.role.name,
-    });
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('')
+  public async getUsers(
+    @Query() conditions: GetUsersQueryDTO,
+  ): Promise<ResponseDTO<UserEntity[]>> {
+    return new ResponseDTO(
+      HttpStatus.OK,
+      [],
+      ErrorCodes.SUCCESS,
+      [],
+      // await this.userService.getUsers(conditions),
+    );
   }
 
-  @Post('/login')
-  public async login(
-    @Cookies(CookieEntries.REQUEST_ID) rid: string,
-    @Res({ passthrough: true }) res: Response,
-    @Body() { answer }: LoginBodyDTO,
-  ): Promise<ResponseDTO<void>> {
-    const validation = this.userService.validateAnswer(rid, answer);
-
-    if (typeof validation === 'string') {
-      res.cookie(CookieEntries.AUTH_TOKEN, validation, {
-        httpOnly: true,
-        signed:
-          this.configService.get<Environments>(ConfigKeys.ENVIRONMENT) ===
-          Environments.PRODUCTION,
-        expires: new Date(Date.now() + byHours(5)),
-        sameSite: 'strict',
-      });
-
-      return new ResponseDTO(HttpStatus.OK, []);
-    }
-
-    switch (validation) {
-      case AnswerValidationErrors.NOT_FOUND:
-        throw new NotFoundException('Challenge not found');
-
-      case AnswerValidationErrors.EXPIRED:
-        throw new GoneException('Challenge expired');
-
-      case AnswerValidationErrors.INVALID:
-        throw new NotAcceptableException('Invalid or wrong answer');
-    }
-  }
-
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:userId')
   public async getUser(
     @Param() { userId: _userId }: GetUserParamDTO,
     @CurrentUser() user: UserEntity,
-  ): Promise<ResponseDTO<PublicUser>> {
-    if (!user)
-      throw new UnauthorizedException(
-        'This action requires authenticated access',
-      );
-
+  ): Promise<ResponseDTO<UserEntity>> {
     if (_userId === 'me')
-      return new ResponseDTO(
-        HttpStatus.OK,
-        [],
-        this.userService.reduceUser(user),
-      );
+      return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, user);
 
     if (_userId.match(/\D/))
-      throw new BadRequestException([
-        'userId can be either',
-        '"me" or a number',
-        '"me" is a shortcut for the current user',
-      ]);
+      createError(BadRequestException, ErrorCodes.USERID_INVALID);
 
-    const userId = parseInt(_userId, 10);
+    const userId = Number(_userId);
 
     return new ResponseDTO(
       HttpStatus.OK,
       [],
-      this.userService.reduceUser(await this.userService.getUserById(userId)),
+      ErrorCodes.SUCCESS,
+      await this.userService.getUserById(userId),
     );
+  }
+
+  @Post()
+  public async createUser(
+    @CurrentUser() user: UserEntity,
+    @Body()
+    {
+      username,
+      displayName,
+      email,
+      role: roleId,
+      responsibleLocationCode,
+    }: CreateUserBodyDTO,
+  ): Promise<ResponseDTO<UserEntity>> {
+    const role = await this.roleService.getRoleById(roleId);
+
+    if (!role) createError(NotFoundException, ErrorCodes.ROLE_DOES_NOT_EXIST);
+
+    if (role.level <= user.role.level)
+      createError(ForbiddenException, ErrorCodes.USER_CREATION_RESTRICTED);
+
+    const createUserResult = (await this.userService.createUser(
+      username,
+      displayName,
+      email,
+      role,
+      user.id,
+    )) as UserEntity;
+
+    const createResponsibleForUser =
+      await this.responsibleAreaService.createResponsibleArea({
+        userId: createUserResult.id,
+        responsibleLocationCode: responsibleLocationCode,
+      });
+
+    if (createUserResult instanceof UserEntity) {
+      return new ResponseDTO(
+        HttpStatus.CREATED,
+        [],
+        ErrorCodes.SUCCESS,
+        createUserResult,
+      );
+    }
+
+    switch (createUserResult) {
+      case CreateUserErrors.USERNAME_EXISTS:
+        createError(BadRequestException, ErrorCodes.USERNAME_ALREADY_EXISTS);
+
+      case CreateUserErrors.EMAIL_EXISTS:
+        createError(BadRequestException, ErrorCodes.EMAIL_ALREADY_EXISTS);
+
+      case CreateUserErrors.BOTH:
+        createError(
+          BadRequestException,
+          ErrorCodes.USERNAME_AND_EMAIL_ALREADY_EXIST,
+        );
+
+      default:
+        createError(NotImplementedException, ErrorCodes.UNKNOWN_ERROR);
+    }
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/:userId/creation')
+  public async getUserCreations(
+    @CurrentUser() currentUser: UserEntity,
+    @Param() { userId: _userId }: GetUserCreationsParamDTO,
+    @Query()
+    { limit, offset, order, orderBy }: GetUserCreationsQueryDTO,
+  ): Promise<ResponseDTO<GetUserCreationsResDTO>> {
+    let userId: number;
+
+    if (_userId === 'me') userId = currentUser.id;
+    else if (_userId.match(/\D/))
+      createError(BadRequestException, ErrorCodes.USERID_INVALID);
+    else userId = Number(_userId);
+    const total = await this.userService.getCreationsCount(userId);
+    const creations = await this.userService.getCreations(
+      userId,
+      limit ?? Number.MAX_SAFE_INTEGER,
+      offset ?? 0,
+      order ?? 'asc',
+      orderBy ?? 'id',
+    );
+
+    return new ResponseDTO(HttpStatus.OK, [], ErrorCodes.SUCCESS, {
+      total,
+      creations,
+    });
   }
 }

@@ -1,28 +1,20 @@
-import { ApplicationState } from '@/view/store';
-import { hideMenu as _hideMenu } from '@/view/store/actions/app/hideMenu';
-import { showMenu as _showMenu } from '@/view/store/actions/app/showMenu';
-import styled from '@emotion/styled';
-import { ArrowLeftRounded, ArrowRightRounded, Menu } from '@mui/icons-material';
-import {
-  Avatar,
-  IconButton,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Theme,
-  Toolbar,
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import clsx from 'clsx';
 import { ReactElement } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-const Container = styled.div`
+import Flexbox from '@/view/common/components/Flexbox';
+import { useBreakpoints } from '@/view/hooks/useBreakpoints';
+import { ApplicationState } from '@/view/store';
+import { hideMenu } from '@/view/store/actions/app/hideMenu';
+import { showMenu } from '@/view/store/actions/app/showMenu';
+import styled from '@emotion/styled';
+import { Menu } from '@mui/icons-material';
+import { IconButton, Theme, Toolbar } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+import UserMenu from './UserMenu/UserMenu';
+
+const Container = styled(Flexbox)`
   width: 100%;
-  display: flex;
-  display: flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -30,11 +22,14 @@ const Container = styled.div`
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: '100vw',
+    width: 'calc(100%vw - 260px)',
+    [theme.breakpoints.down('md')]: {
+      width: '100%vw',
+    },
     zIndex: theme.zIndex.appBar,
-    backgroundColor: theme.palette.primary.main,
+    boxShadow: '0px 2px 5px rgba(0 0 0 / 30%)',
     '&, & *': {
-      color: theme.palette.primary.contrastText,
+      color: 'black',
     },
   },
   toolbar: {
@@ -55,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '1.5rem',
     height: '1.5rem',
     overflow: 'hidden',
+    color: 'black',
     '& > .MuiIcon-ArrowRightRounded,.MuiIcon-ArrowLeftRounded': {
       display: 'none',
       fontSize: '3rem',
@@ -65,70 +61,42 @@ const useStyles = makeStyles((theme: Theme) => ({
       '& > .MuiIcon-Menu': {
         display: 'none',
       },
-      '& > .MuiIcon-ArrowRightRounded.show': {
-        display: 'block',
-      },
-      '& > .MuiIcon-ArrowLeftRounded.show': {
-        display: 'block',
-      },
     },
   },
 }));
 
 const connector = connect(
   (state: ApplicationState) => ({
-    user: state.app.user,
     menuShown: state.app.showMenu,
   }),
   {
-    hideMenu: _hideMenu,
-    showMenu: _showMenu,
+    hideMenu,
+    showMenu,
   },
 );
 
 function Header({
-  user,
   menuShown,
   hideMenu,
   showMenu,
 }: ConnectedProps<typeof connector>): ReactElement {
   const classes = useStyles();
+  const checker = useBreakpoints();
 
   return (
     <div className={classes.root}>
       <Toolbar variant="dense" className={classes.toolbar}>
         <Container>
-          <IconButton onClick={menuShown ? hideMenu : showMenu}>
+          <IconButton
+            disabled={checker.up('md')}
+            onClick={menuShown ? hideMenu : showMenu}
+          >
             <div className={classes.menuBtn}>
               <Menu className={'MuiIcon-Menu'} />
-              <ArrowRightRounded
-                className={clsx(
-                  'MuiIcon-ArrowRightRounded',
-                  menuShown ? '' : 'show',
-                )}
-              />
-              <ArrowLeftRounded
-                className={clsx(
-                  'MuiIcon-ArrowLeftRounded',
-                  menuShown ? 'show' : '',
-                )}
-              />
             </div>
           </IconButton>
 
-          <div>
-            <ListItemButton dense>
-              <ListItemAvatar className={classes.avt}>
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-              </ListItemAvatar>
-
-              <ListItemText
-                className={classes.avtText}
-                primary={user?.displayName ?? ''}
-                secondary={user?.role?.name ?? ''}
-              />
-            </ListItemButton>
-          </div>
+          <UserMenu />
         </Container>
       </Toolbar>
     </div>

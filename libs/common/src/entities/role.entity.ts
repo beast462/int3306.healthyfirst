@@ -4,15 +4,15 @@ export const TABLE_NAME = 'roles';
 
 @Entity(TABLE_NAME)
 export class RoleEntity {
-  @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int', unsigned: true })
   id!: number;
 
-  @Column({ name: 'name', type: 'varchar', length: 20 })
+  @Column('varchar', { nullable: false, name: 'name', length: 20 })
   name!: string;
 
-  @Column({ name: 'level', type: 'int' })
+  @Column('int', { nullable: false, name: 'level' })
   level!: number;
 
-  @Column({ name: 'description', type: 'text' })
+  @Column('text', { nullable: false, name: 'description' })
   description!: string;
 }

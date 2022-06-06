@@ -1,6 +1,5 @@
 import { LocationEntity } from '@/common/entities';
 import { useDistricts } from '@/view/hooks/useDistricts';
-import { useLocations } from '@/view/hooks/useLocations';
 import { useProvinces } from '@/view/hooks/useProvinces';
 import { useWards } from '@/view/hooks/useWards';
 import {
@@ -9,10 +8,9 @@ import {
   MenuItem,
   Select,
   Theme,
-  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 type Location = Partial<Omit<LocationEntity, 'id' | 'type'>>;
 
@@ -30,10 +28,6 @@ const DEFAULT_WARD = {
   code: 167837953,
   name: 'Phường Đội Cấn',
 };
-
-interface IProps {
-  className?: string;
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   province: {
@@ -63,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function ThreeLocationSelector({ className }: IProps): ReactElement {
+function ThreeLocationSelector(): ReactElement {
   const styles = useStyles();
 
   const [selectedProvince, setSelectedProvince] =

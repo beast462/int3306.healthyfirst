@@ -73,7 +73,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fields = ['id', 'name', 'ownerName', 'address', 'facilityTypeId'];
+const fields = [
+  'id',
+  'name',
+  'ownerName',
+  'address',
+  'facilityTypeId',
+  'expiredDate',
+];
 
 const labels = {
   id: 'ID',
@@ -81,6 +88,7 @@ const labels = {
   ownerName: 'Chủ sở hữu',
   address: 'Địa chỉ',
   facilityTypeId: 'Loại hình kinh doanh',
+  expiredDate: 'Giấy chứng nhận',
 };
 
 const switchSort: Record<SortOrders, SortOrders> = {

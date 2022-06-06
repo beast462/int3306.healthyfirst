@@ -3,10 +3,10 @@ import { ReactElement } from 'react';
 import NowrapCell from '@/view/common/components/NowrapCell';
 import { TableRow } from '@mui/material';
 import { useFacilityTypes } from '@/view/hooks/useFacilityTypes';
-import { Facility } from '@/view/common/types/Facility';
+import { FacilityDetails } from '@/view/common/types/Facility';
 
 interface IProps {
-  facility: Facility;
+  facility: FacilityDetails;
   onClick: () => void;
 }
 
@@ -23,6 +23,11 @@ function FacilityItem({ facility, onClick }: IProps): ReactElement {
         {facilityTypes
           ? facilityTypes[facility.facilityTypeId - 1].name
           : 'Đang tải'}
+      </NowrapCell>
+      <NowrapCell>
+        {facility.expiredDate
+          ? new Date(facility.expiredDate).toLocaleDateString()
+          : 'Chưa cấp'}
       </NowrapCell>
     </TableRow>
   );

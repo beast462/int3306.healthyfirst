@@ -1,5 +1,4 @@
 import * as Joi from 'joi';
-import { useState } from 'react';
 
 import {
   MAX_FACILITY_NAME_LENGTH,

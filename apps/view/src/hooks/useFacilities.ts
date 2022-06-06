@@ -11,19 +11,23 @@ import { HttpStatus } from '@nestjs/common/enums';
 import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
-import { Facility } from '../common/types/Facility';
+import { FacilityDetails } from '../common/types/Facility';
 
 async function fetchFacilities(
   this: Dispatch<any>,
   locationCode: number,
-): Promise<Facility[]> {
+): Promise<FacilityDetails[]> {
   if (typeof locationCode !== 'number')
     throw new SerializableError(new Error(ErrorCodes.UNKNOWN_ERROR.toString()));
 
-  const { statusCode, message, body, errorCode }: ResponseDTO<Facility[]> =
-    await fetch(`/api/facilities/code/${locationCode}/children`).then((res) =>
-      res.json(),
-    );
+  const {
+    statusCode,
+    message,
+    body,
+    errorCode,
+  }: ResponseDTO<FacilityDetails[]> = await fetch(
+    `/api/facilities/code/${locationCode}/children/details`,
+  ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -42,7 +46,7 @@ async function fetchFacilities(
 export function useFacilities() {
   const dispatch = useDispatch();
   const { data: responsibleLocation } = useResponsibleLocation();
-  const { data: facilities, error } = useSWR<Facility[], Error>(
+  const { data: facilities, error } = useSWR<FacilityDetails[], Error>(
     swrHookKeys.USE_FACILITIES,
     fetchFacilities.bind(
       dispatch,

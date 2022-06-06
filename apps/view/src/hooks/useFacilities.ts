@@ -17,6 +17,9 @@ async function fetchFacilities(
   this: Dispatch<any>,
   locationCode: number,
 ): Promise<Facility[]> {
+  if (typeof locationCode !== 'number')
+    throw new SerializableError(new Error(ErrorCodes.UNKNOWN_ERROR.toString()));
+
   const { statusCode, message, body, errorCode }: ResponseDTO<Facility[]> =
     await fetch(`/api/facilities/code/${locationCode}/children`).then((res) =>
       res.json(),
@@ -38,10 +41,13 @@ async function fetchFacilities(
 
 export function useFacilities() {
   const dispatch = useDispatch();
-  const { responsibleLocationCode } = useResponsibleLocation().data;
+  const { data: responsibleLocation } = useResponsibleLocation();
   const { data: facilities, error } = useSWR<Facility[], Error>(
     swrHookKeys.USE_FACILITIES,
-    fetchFacilities.bind(dispatch, responsibleLocationCode),
+    fetchFacilities.bind(
+      dispatch,
+      responsibleLocation?.responsibleLocationCode,
+    ),
   );
 
   const isError =

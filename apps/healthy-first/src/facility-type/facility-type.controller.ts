@@ -4,7 +4,7 @@ import { FacilityTypeEntity } from '@/common/entities';
 import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { FacilityTypeService } from './facility-type.service';
 
-@Controller('facility-type')
+@Controller('api/facility-type')
 export class FacilityTypeController {
   constructor(private readonly facilityTypeService: FacilityTypeService) {}
 

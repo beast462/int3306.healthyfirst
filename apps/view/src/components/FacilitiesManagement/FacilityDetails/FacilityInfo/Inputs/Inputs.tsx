@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import * as Joi from 'joi';
 import { ReactElement, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import FacilityTypeSelector from '../../../AddFacilityForm/Inputs/FacilityTypeSelector/FacilityTypeSelector';
 import LocationSelector from './LocationSelector/LocationSelector';
 
 const validator = {
@@ -23,6 +24,32 @@ const useStyles = makeStyles((theme: Theme) => ({
       [theme.breakpoints.down('md')]: {
         display: 'block',
       },
+    },
+  },
+
+  flexCtn: {
+    display: 'flex',
+    margin: '1rem 0rem',
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+    },
+  },
+
+  phone: {
+    width: '50%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+  },
+
+  facilityTypeSelector: {
+    flex: 1,
+    marginLeft: '1rem',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      flex: 'unsets',
+      marginLeft: 0,
+      marginTop: '2rem',
     },
   },
 
@@ -89,9 +116,9 @@ function Inputs({
         />
       </div>
 
-      <div>
+      <Flexbox className={styles.flexCtn}>
         <TextField
-          className={styles.row}
+          className={styles.phone}
           size="medium"
           variant="outlined"
           label="Điện thoại"
@@ -99,7 +126,14 @@ function Inputs({
           value={phone}
           onChange={(event) => editMode && setName(event.target.value)}
         />
-      </div>
+
+        <FacilityTypeSelector
+          className={styles.facilityTypeSelector}
+          size="medium"
+          editMode={editMode}
+          initType={facility.facilityTypeId}
+        />
+      </Flexbox>
 
       <div>
         <TextField

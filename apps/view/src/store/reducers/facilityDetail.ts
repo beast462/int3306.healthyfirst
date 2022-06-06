@@ -15,7 +15,7 @@ export const initialState: FacilityDetails = {
     phone: '',
     address: '',
     facilityLocationCode: 0,
-    facilityTypeId: 0,
+    facilityTypeId: 1,
   },
   editMode: false,
 };

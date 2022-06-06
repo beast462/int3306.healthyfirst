@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { EditRounded, CancelRounded, SaveRounded } from '@mui/icons-material';
 import { Button, Divider, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, SyntheticEvent, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Inputs from './Inputs/Inputs';
 
@@ -43,9 +43,29 @@ function FacilityInfo({
 }: ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
 
+  const handleSubmit = async (event: SyntheticEvent) => {
+    event.preventDefault();
+
+    const target = event.target as HTMLFormElement;
+
+    const updatedFacility = {
+      id: facility.id,
+      name: target.facilityName.value,
+      address: target.address.value,
+      ownerName: target.ownerName.value,
+      phone: target.phone.value,
+      facilityLocationCode: Math.max(
+        +target.provinceCode.value,
+        +target.districtCode.value,
+        +target.wardCode.value,
+      ),
+      facitlityTypeId: +target.facilityType.value,
+    };
+  };
+
   return (
     <Root>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Inputs />
         <Divider />
 

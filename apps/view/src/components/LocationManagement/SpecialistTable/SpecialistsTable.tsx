@@ -1,9 +1,7 @@
 import { useState } from 'react';
 
-import { PublicUser } from '@/common/models/public-user';
 import { SortOrders } from '@/common/types/sort-orders';
 import NowrapCell from '@/view/common/components/NowrapCell';
-import { useCreatedAccounts } from '@/view/hooks/useCreatedAccounts';
 import styled from '@emotion/styled';
 import { Add } from '@mui/icons-material';
 import {

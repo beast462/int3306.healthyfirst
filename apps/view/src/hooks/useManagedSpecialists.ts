@@ -11,7 +11,6 @@ import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 import { Specialist } from '@/common/models/specialist';
-import { GetManagedSpecialistsResDTO } from '@/common/dto/specialists/get-managed-specialists-res.dto';
 import { useResponsibleLocation } from './useResponsibleLocation';
 
 async function fetchManagedSpecialists(

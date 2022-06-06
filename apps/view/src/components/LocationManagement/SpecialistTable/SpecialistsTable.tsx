@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { SortOrders } from '@/common/types/sort-orders';
 import NowrapCell from '@/view/common/components/NowrapCell';
 import styled from '@emotion/styled';
-import { Add } from '@mui/icons-material';
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -79,15 +77,6 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
       <Container>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography variant="h6">Danh sách chuyên viên</Typography>
-
-          <Button
-            variant="contained"
-            size="small"
-            startIcon={<Add />}
-            onClick={switchSegment}
-          >
-            tạo tài khoản
-          </Button>
         </Toolbar>
 
         <CTableContainer>
@@ -128,6 +117,7 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
                   <SpecialistItem
                     key={`specialist#${specialist.userId}`}
                     specialist={specialist}
+                    onClick={switchSegment}
                   />
                 ))}
             </TableBody>

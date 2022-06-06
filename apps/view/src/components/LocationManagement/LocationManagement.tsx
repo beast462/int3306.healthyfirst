@@ -5,6 +5,7 @@ import { Navigations } from '../Navigations';
 import styled from '@emotion/styled';
 import Flexbox from '@/view/common/components/Flexbox';
 import SpecialistsTable from './SpecialistTable/SpecialistsTable';
+import ModifyRLForm from './ModifyRLForm/ModifyRLForm';
 
 const Root = styled.div`
   width: 100%;
@@ -40,7 +41,7 @@ function LocationManagement(): ReactElement {
         </Segment>
 
         <Segment>
-          {/* <RegistrationForm switchSegment={() => setViewingSegment(0)} /> */}
+          <ModifyRLForm switchSegment={() => setViewingSegment(0)} />
         </Segment>
       </Content>
     </Root>

@@ -4,27 +4,25 @@ import useSWR from 'swr';
 
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { ResponsibleAreaEntity } from '@/common/entities';
+import { FacilityTypeEntity } from '@/common/entities';
 import { SerializableError } from '@/common/models/serializable-error';
 import { HttpStatus } from '@nestjs/common/enums';
 
 import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
-import { useUser } from './useUser';
 
-async function fetchResponsibleLocation(
+async function fetchFacilityTypes(
   this: Dispatch<any>,
-  userId: number,
-): Promise<ResponsibleAreaEntity> {
+): Promise<FacilityTypeEntity[]> {
   const {
     statusCode,
     message,
     body,
     errorCode,
-  }: ResponseDTO<ResponsibleAreaEntity> = await fetch(
-    `/api/responsible-area/userid/${userId}`,
-  ).then((res) => res.json());
+  }: ResponseDTO<FacilityTypeEntity[]> = await fetch('/api/facility-type').then(
+    (res) => res.json(),
+  );
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -40,16 +38,15 @@ async function fetchResponsibleLocation(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useResponsibleLocation() {
+export function useFacilityTypes() {
   const dispatch = useDispatch();
-  const { user } = useUser();
-  const { data, error } = useSWR<ResponsibleAreaEntity, Error>(
-    swrHookKeys.USE_RESPONSIBLE_LOCATION,
-    fetchResponsibleLocation.bind(dispatch, user.id),
+  const { data: facilityTypes, error } = useSWR<FacilityTypeEntity[], Error>(
+    swrHookKeys.USE_FACILITY_TYPES,
+    fetchFacilityTypes.bind(dispatch),
     {
       revalidateIfStale: true,
-      revalidateOnFocus: true,
-      revalidateOnMount: true,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     },
   );
 
@@ -57,11 +54,9 @@ export function useResponsibleLocation() {
     error &&
     (error instanceof Error || SerializableError.isSerializableError(error));
 
-  console.log(data);
-
   return {
-    data,
-    isLoading: !error && !data,
+    facilityTypes,
+    isLoading: !error && !facilityTypes,
     error: isError ? error : null,
   };
 }

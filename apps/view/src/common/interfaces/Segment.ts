@@ -1,3 +1,3 @@
 export interface ISegmentProps {
-  switchSegment: () => void;
+  switchSegment: (segId?: number) => void;
 }

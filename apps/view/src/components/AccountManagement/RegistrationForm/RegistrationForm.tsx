@@ -78,8 +78,8 @@ function RegistrationForm({
       target.username.value = '';
       target.displayName.value = '';
       target.email.value = '';
-      target.province.value = 257;
-      target.district.value = -1;
+      target.provinceCode.value = 257;
+      target.districtCode.value = -1;
 
       return;
     } else if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {

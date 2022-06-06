@@ -8,6 +8,7 @@ import { TableRow } from '@mui/material';
 
 interface IProps {
   specialist: Specialist;
+  onClick: () => void;
 }
 
 function capitalize(str: string | undefined) {
@@ -37,11 +38,11 @@ function stringifyLocation(locationCode: number) {
   return res;
 }
 
-function SpecialistItem({ specialist }: IProps) {
+function SpecialistItem({ specialist, onClick }: IProps) {
   const { roles } = useRoles();
 
   return (
-    <TableRow>
+    <TableRow onClick={onClick} hover sx={{ cursor: 'pointer' }}>
       <NowrapCell>{specialist.userId}</NowrapCell>
       <NowrapCell>{specialist.displayName}</NowrapCell>
       <NowrapCell>{specialist.email}</NowrapCell>

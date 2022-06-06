@@ -10,20 +10,16 @@ import { useProvinces } from '@/view/hooks/useProvinces';
 import { useDistricts } from '@/view/hooks/useDistricts';
 import { Location } from '@/view/common/types/Location';
 import { makeStyles } from '@mui/styles';
+import { useUser } from '@/view/hooks/useUser';
+import { useResponsibleLocation } from '@/view/hooks/useResponsibleLocation';
 
 interface IProps {
   selectedRoleId: number;
+  disabled?: boolean;
+  userId?: number;
+  province?: Location;
+  district?: Location;
 }
-
-const DEFAULT_PROVINCE = {
-  code: 257,
-  name: 'Hà Nội',
-};
-
-const DEFAULT_DISTRICT = {
-  code: 65793,
-  name: 'Quận Ba Đình',
-};
 
 const useStyles = makeStyles((theme: Theme) => ({
   province: {
@@ -46,18 +42,35 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function LocationSelector({ selectedRoleId }: IProps): ReactElement {
+function LocationSelector({
+  selectedRoleId,
+  disabled = false,
+  userId = 0,
+  province = { code: 257, name: 'Hà Nội' },
+  district = { code: 65793, name: 'Quận Ba Đình' },
+}: IProps): ReactElement {
   const styles = useStyles();
+  const { user } = useUser();
+  const { responsibleLocationCode } = useResponsibleLocation().data;
+  const currentUserProvince = useProvinces().provinces.find(
+    (p) => p.code === responsibleLocationCode,
+  );
 
-  const [selectedProvince, setSelectedProvince] =
-    useState<Location>(DEFAULT_PROVINCE);
+  const [selectedProvince, setSelectedProvince] = useState<Location>(province);
   const [selectedDistrict, setSelectedDistrict] = useState<Location>(
-    selectedRoleId === 3 ? DEFAULT_DISTRICT : { code: -1, name: '' },
+    selectedRoleId === 3 ? district : { code: -1, name: '' },
   );
 
   useEffect(() => {
     setSelectedDistrict({ code: -1, name: '' });
   }, [selectedRoleId === 3]);
+
+  useEffect(() => {
+    setSelectedProvince(user.roleId !== 2 ? province : currentUserProvince);
+    setSelectedDistrict(
+      selectedRoleId === 3 ? district : { code: -1, name: '' },
+    );
+  }, [userId]);
 
   const provinces = useProvinces().provinces;
   const districts = (useDistricts().districts ?? []).filter(
@@ -66,14 +79,18 @@ function LocationSelector({ selectedRoleId }: IProps): ReactElement {
 
   return (
     <>
-      <FormControl size="small" className={styles.province}>
+      <FormControl size="small" className={styles.province} disabled={disabled}>
         <InputLabel>Tỉnh</InputLabel>
         <Select
           label="Tỉnh"
           name="provinceCode"
           value={selectedProvince.code}
           sx={{ textTransform: 'capitalize' }}
-          disabled={selectedRoleId === 0}
+          disabled={
+            selectedRoleId === 0 ||
+            disabled ||
+            (user.roleId === 2 && userId === 0)
+          }
         >
           {(provinces ?? []).map((province: Location) => {
             return (
@@ -100,7 +117,7 @@ function LocationSelector({ selectedRoleId }: IProps): ReactElement {
           name="districtCode"
           value={selectedDistrict.code}
           sx={{ textTransform: 'capitalize' }}
-          disabled={selectedRoleId <= 2}
+          disabled={selectedRoleId <= 2 || disabled}
         >
           {(districts ?? []).map((district: Location) => {
             return (

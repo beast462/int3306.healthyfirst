@@ -8,6 +8,7 @@ import { FoodBankRounded } from '@mui/icons-material';
 import { Navigations } from '../Navigations';
 import FacilitiesTable from './FacilitiesTable/FacilitiesTable';
 import FacilityDetails from './FacilityDetails/FacilityDetails';
+import AddFacilityForm from './AddFacilityForm/AddFacilityForm';
 
 const Root = styled.div`
   width: 100%;
@@ -16,7 +17,7 @@ const Root = styled.div`
 `;
 
 const Content = styled(Flexbox)`
-  width: 200%;
+  width: 300%;
   height: 100%;
   overflow: hidden;
   transition: margin 0.2s ease-out;
@@ -24,26 +25,42 @@ const Content = styled(Flexbox)`
   &.next {
     margin-left: -100%;
   }
+
+  &.third {
+    margin-left: -200%;
+  }
 `;
 
 const Segment = styled.div`
   height: 100%;
-  width: 50%;
+  width: calc(100% / 3);
   overflow: hidden;
 `;
 
 function FacilitiesManagement(): ReactElement {
   const [viewingSegment, setViewingSegment] = useState(0);
 
+  console.log(viewingSegment);
+
   return (
     <Root>
-      <Content className={viewingSegment === 0 ? '' : 'next'}>
+      <Content
+        className={
+          viewingSegment === 0 ? '' : viewingSegment === 1 ? 'next' : 'third'
+        }
+      >
         <Segment>
-          <FacilitiesTable switchSegment={() => setViewingSegment(1)} />
+          <FacilitiesTable
+            switchSegment={(segId) => setViewingSegment(segId)}
+          />
         </Segment>
 
         <Segment>
           <FacilityDetails switchSegment={() => setViewingSegment(0)} />
+        </Segment>
+
+        <Segment>
+          <AddFacilityForm switchSegment={() => setViewingSegment(0)} />
         </Segment>
       </Content>
     </Root>

@@ -27,6 +27,7 @@ import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { AddBusinessRounded } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
+import { getComparator } from '@/view/common/funcs/getComparator';
 
 const Root = styled.div`
   width: 100%;
@@ -137,6 +138,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
               size="small"
               startIcon={<AddBusinessRounded />}
               className={styles.addBtn}
+              onClick={() => switchSegment(2)}
             >
               thêm cơ sở
             </Button>
@@ -171,6 +173,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
 
             <TableBody>
               {facilities
+                .sort(getComparator(sort.order, sort.column))
                 .slice(
                   pagination.rowsPerPage * pagination.page,
                   pagination.rowsPerPage * pagination.page +
@@ -180,7 +183,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
                   <FacilityItem
                     key={`facility#${facility.id}`}
                     facility={facility}
-                    onClick={switchSegment}
+                    onClick={() => switchSegment(1)}
                   />
                 ))}
             </TableBody>

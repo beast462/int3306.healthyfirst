@@ -62,15 +62,12 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
     page: 0,
     rowsPerPage: 5,
   } as { page: number; rowsPerPage: number });
-  const { data } = useManagedSpecialists({
-    limit: pagination.rowsPerPage,
-    offset: pagination.rowsPerPage * pagination.page,
-    order: sort.order,
-    orderBy: sort.column as keyof PublicUser,
-  });
+  const { data } = useManagedSpecialists();
 
-  const specialists = data?.specialists ?? [];
-  const total = data?.total ?? 0;
+  console.log(data);
+
+  const specialists = data ?? [];
+  const total = specialists.length;
 
   return (
     <Root>

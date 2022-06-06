@@ -7,4 +7,5 @@ export const swrHookKeys = {
   USE_DISTRICTS: 'useDistricts',
   USE_WARDS: 'useWards',
   USE_MANAGED_SPECIALISTS: 'useManagedSpecialists',
+  USE_RESPONSIBLE_LOCATION: 'useResponsibleLocation',
 };

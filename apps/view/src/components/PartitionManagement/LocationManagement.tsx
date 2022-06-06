@@ -4,6 +4,7 @@ import { LocationOn } from '@mui/icons-material';
 import { Navigations } from '../Navigations';
 import styled from '@emotion/styled';
 import Flexbox from '@/view/common/components/Flexbox';
+import SpecialistsTable from './SpecialistTable/SpecialistsTable';
 
 const Root = styled.div`
   width: 100%;
@@ -35,7 +36,7 @@ function LocationManagement(): ReactElement {
     <Root>
       <Content className={viewingSegment === 0 ? '' : 'next'}>
         <Segment>
-          {/* <AccountsTable switchSegment={() => setViewingSegment(1)} /> */}
+          <SpecialistsTable switchSegment={() => setViewingSegment(1)} />
         </Segment>
 
         <Segment>

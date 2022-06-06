@@ -4,10 +4,7 @@ import useSWR from 'swr';
 
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { GetUserCreationsResDTO } from '@/common/dto/user/get-user-creations.res.dto';
-import { PublicUser } from '@/common/models/public-user';
 import { SerializableError } from '@/common/models/serializable-error';
-import { SortOrders } from '@/common/types/sort-orders';
 import { HttpStatus } from '@nestjs/common/enums';
 
 import { swrHookKeys } from '../common/constants/swrHookKeys';
@@ -15,19 +12,16 @@ import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 import { Specialist } from '@/common/models/specialist';
 import { GetManagedSpecialistsResDTO } from '@/common/dto/specialists/get-managed-specialists-res.dto';
-
-interface IProps {
-  limit: number;
-  offset: number;
-  order: SortOrders;
-  orderBy: keyof PublicUser;
-}
+import { useResponsibleLocation } from './useResponsibleLocation';
 
 async function fetchManagedSpecialists(
   this: Dispatch<any>,
+  locationCode: number,
 ): Promise<Specialist[]> {
   const { statusCode, body, message, errorCode }: ResponseDTO<Specialist[]> =
-    await fetch(`/api/responsible-area/users/${}`).then((res) => res.json());
+    await fetch(`/api/responsible-area/users/${locationCode}`).then((res) =>
+      res.json(),
+    );
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -43,11 +37,12 @@ async function fetchManagedSpecialists(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useManagedSpecialists({ limit, offset, order, orderBy }: IProps) {
+export function useManagedSpecialists() {
   const dispatch = useDispatch();
-  const { data, error } = useSWR<GetManagedSpecialistsResDTO, Error>(
+  const { responsibleLocationCode } = useResponsibleLocation().data;
+  const { data, error } = useSWR<Specialist[], Error>(
     swrHookKeys.USE_MANAGED_SPECIALISTS,
-    fetchManagedSpecialists.bind(dispatch),
+    fetchManagedSpecialists.bind(dispatch, responsibleLocationCode),
   );
 
   const isError =

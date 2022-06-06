@@ -4,25 +4,26 @@ import useSWR from 'swr';
 
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { ResponseDTO } from '@/common/dto/response.dto';
-import { LocationEntity } from '@/common/entities';
+import { ResponsibleAreaEntity } from '@/common/entities';
 import { SerializableError } from '@/common/models/serializable-error';
 import { HttpStatus } from '@nestjs/common/enums';
 
 import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
+import { useUser } from './useUser';
 
-async function fetchProvinces(
+async function fetchResponsibleLocation(
   this: Dispatch<any>,
-  locationCode: number,
-): Promise<LocationEntity[]> {
+  userId: number,
+): Promise<ResponsibleAreaEntity> {
   const {
     statusCode,
     message,
     body,
     errorCode,
-  }: ResponseDTO<LocationEntity[]> = await fetch(
-    `/api/location/${locationCode}/children`,
+  }: ResponseDTO<ResponsibleAreaEntity> = await fetch(
+    `/api/responsible-area/users/${userId}`,
   ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
@@ -39,14 +40,16 @@ async function fetchProvinces(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useLocations(locationCode: number) {
+export function useResponsibleLocation() {
   const dispatch = useDispatch();
-  const { data: locations, error } = useSWR<LocationEntity[], Error>(
-    swrHookKeys.USE_LOCATIONS,
-    fetchProvinces.bind(dispatch, locationCode),
+  const { user } = useUser();
+  const { data, error } = useSWR<ResponsibleAreaEntity, Error>(
+    swrHookKeys.USE_RESPONSIBLE_LOCATION,
+    fetchResponsibleLocation.bind(dispatch, user.id),
     {
       revalidateOnFocus: false,
-      revalidateOnMount: true,
+      revalidateOnMount: false,
+      revalidateIfStale: true,
     },
   );
 
@@ -55,8 +58,8 @@ export function useLocations(locationCode: number) {
     (error instanceof Error || SerializableError.isSerializableError(error));
 
   return {
-    locations,
-    isLoading: !error && !locations,
+    data,
+    isLoading: !error && !data,
     error: isError ? error : null,
   };
 }

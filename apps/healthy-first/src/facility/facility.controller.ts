@@ -35,6 +35,20 @@ export class FacilityController {
     };
   }
 
+  @Get('details')
+  public async getAllFacilitiesWithDetails(): Promise<ResponseDTO<any>> {
+    const facilities = await this.facilityService.getAllFacilities();
+
+    if (!facilities) throw new NotFoundException('Facilities not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: await this.facilityService.getAllFacilitiesWithDetails(facilities),
+    };
+  }
+
   @Get('id/:id')
   public async getFacilityById(
     @Param() { id }: GetFacilityIdParamDTO,

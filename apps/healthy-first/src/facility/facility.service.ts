@@ -1,4 +1,4 @@
-import { FacilityEntity } from '@/common/entities';
+import { CertificateEntity, FacilityEntity } from '@/common/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Raw, Repository } from 'typeorm';
@@ -8,10 +8,33 @@ export class FacilityService {
   constructor(
     @InjectRepository(FacilityEntity)
     private readonly facilityRepository: Repository<FacilityEntity>,
+    @InjectRepository(CertificateEntity)
+    private readonly certificateRepository: Repository<CertificateEntity>,
   ) {}
 
   public async getAllFacilities(): Promise<FacilityEntity[]> {
     return this.facilityRepository.find();
+  }
+
+  public async getAllFacilitiesWithDetails(
+    facilities: FacilityEntity[],
+  ): Promise<any> {
+    const facilityDetails = [];
+    for (const facility of facilities) {
+      const certificate = await this.certificateRepository.findOne({
+        where: { facilityId: facility.id },
+      });
+      let expiredDate: Date = null;
+      if (certificate) {
+        expiredDate = certificate.expiredDate;
+      }
+      const facilityWithDetails = {
+        ...facility,
+        expiredDate: expiredDate,
+      };
+      facilityDetails.push(facilityWithDetails);
+    }
+    return facilityDetails;
   }
 
   public async getFacilityById(id: number): Promise<FacilityEntity> {

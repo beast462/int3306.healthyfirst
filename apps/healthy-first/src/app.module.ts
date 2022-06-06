@@ -17,6 +17,7 @@ import { ViewModule } from './view/view.module';
 import { CertificateModule } from './certificate/certificate.module';
 import { ResponsibleAreaModule } from './responsible-area/responsible-area.module';
 import { FacilityTypeModule } from './facility-type/facility-type.module';
+import { CheckingPlanModule } from './checking-plan/checking-plan.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { FacilityTypeModule } from './facility-type/facility-type.module';
     CertificateModule,
     ResponsibleAreaModule,
     FacilityTypeModule,
+    CheckingPlanModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

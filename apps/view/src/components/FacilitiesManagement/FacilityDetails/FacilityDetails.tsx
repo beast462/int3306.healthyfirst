@@ -23,6 +23,7 @@ const DetailsContainer = styled(CustomScrollbar)`
   box-sizing: border-box;
   height: 100%;
   margin: 0 1rem;
+  overflow-y: auto;
 `;
 
 const useStyles = makeStyles((theme: Theme) => ({}));
@@ -58,7 +59,7 @@ function FacilityDetails({ switchSegment }: ISegmentProps): ReactElement {
 
         <DetailsContainer>
           <Grid container spacing={2}>
-            <Grid item md={12} lg={7}>
+            <Grid item xs={12} sm={12} md={12} lg={7}>
               <FacilityInfo />
             </Grid>
           </Grid>

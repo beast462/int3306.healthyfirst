@@ -45,10 +45,12 @@ export function useFacilityTypes() {
     fetchFacilityTypes.bind(dispatch),
     {
       revalidateIfStale: true,
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       revalidateOnReconnect: false,
     },
   );
+
+  console.log(facilityTypes);
 
   const isError =
     error &&

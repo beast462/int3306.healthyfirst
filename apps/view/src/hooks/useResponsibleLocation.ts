@@ -57,8 +57,6 @@ export function useResponsibleLocation() {
     error &&
     (error instanceof Error || SerializableError.isSerializableError(error));
 
-  console.log(data);
-
   return {
     data,
     isLoading: !error && !data,

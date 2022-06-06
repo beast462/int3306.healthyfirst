@@ -14,7 +14,6 @@ import { HttpStatus } from '@nestjs/common/enums';
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { useSWRConfig } from 'swr';
 import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
-import { max } from 'lodash';
 
 const Root = styled.div`
   width: 100%;

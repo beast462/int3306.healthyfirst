@@ -136,7 +136,10 @@ function Inputs() {
           name="address"
         />
 
-        <FacilityTypeSelector className={classes.facilityTypeSelector} />
+        <FacilityTypeSelector
+          className={classes.facilityTypeSelector}
+          editMode={true}
+        />
       </Row>
 
       <Row>

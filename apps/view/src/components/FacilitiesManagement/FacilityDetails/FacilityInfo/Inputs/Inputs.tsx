@@ -1,10 +1,11 @@
-import CustomValidatedInput from '@/view/common/components/CustomValidatedInput';
 import Flexbox from '@/view/common/components/Flexbox';
-import { CancelRounded, EditRounded, SaveRounded } from '@mui/icons-material';
-import { Button, Divider, Theme } from '@mui/material';
+import { ApplicationState } from '@/view/store';
+import { TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import * as Joi from 'joi';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import FacilityTypeSelector from '../../../AddFacilityForm/Inputs/FacilityTypeSelector/FacilityTypeSelector';
 import LocationSelector from './LocationSelector/LocationSelector';
 
 const validator = {
@@ -26,6 +27,32 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 
+  flexCtn: {
+    display: 'flex',
+    margin: '1rem 0rem',
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+    },
+  },
+
+  phone: {
+    width: '50%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+  },
+
+  facilityTypeSelector: {
+    flex: 1,
+    marginLeft: '1rem',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      flex: 'unsets',
+      marginLeft: 0,
+      marginTop: '2rem',
+    },
+  },
+
   btnGroup: {
     flexDirection: 'row-reverse',
     '& button': {
@@ -34,88 +61,97 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function Inputs(): ReactElement {
+const connector = connect(
+  (state: ApplicationState) => ({
+    facility: state.facilityDetail.facility,
+    editMode: state.facilityDetail.editMode,
+  }),
+  {},
+);
+
+function Inputs({
+  facility,
+  editMode,
+}: ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
-  const [editMode, setEditMode] = useState(false);
+  const [name, setName] = useState(facility.name);
+  const [ownerName, setOwnerName] = useState(facility.ownerName);
+  const [address, setAddress] = useState(facility.address);
+  const [phone, setPhone] = useState(facility.phone);
+
+  useEffect(() => {
+    setName(facility.name);
+    setOwnerName(facility.ownerName);
+    setAddress(facility.address);
+    setPhone(facility.phone);
+  }, [facility]);
 
   return (
     <>
       <div>
-        <CustomValidatedInput
+        <TextField
           required
           className={styles.row}
-          validator={validator.facilityName}
           size="medium"
           variant="outlined"
           label="Tên cơ sở"
           name="facilityName"
+          value={name}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
       <div>
-        <CustomValidatedInput
+        <TextField
           className={styles.row}
-          validator={validator.facilityName}
           size="medium"
           variant="outlined"
           label="Chủ cơ sở"
           name="ownerName"
+          value={ownerName}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
-      <div>
-        <CustomValidatedInput
-          className={styles.row}
-          validator={validator.facilityName}
+      <Flexbox className={styles.flexCtn}>
+        <TextField
+          className={styles.phone}
           size="medium"
           variant="outlined"
           label="Điện thoại"
           name="phone"
+          value={phone}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
-      </div>
+
+        <FacilityTypeSelector
+          className={styles.facilityTypeSelector}
+          size="medium"
+          editMode={editMode}
+          initType={facility.facilityTypeId}
+        />
+      </Flexbox>
 
       <div>
-        <CustomValidatedInput
+        <TextField
           className={styles.row}
-          validator={validator.facilityName}
           size="medium"
           variant="outlined"
           label="Địa chỉ"
           name="address"
+          value={address}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
       <Flexbox className={styles.row} id="locationSelector">
-        <LocationSelector />
-      </Flexbox>
-
-      <Divider />
-
-      <Flexbox className={styles.btnGroup}>
-        <Button
-          variant="contained"
-          sx={{ margin: '1rem 0', height: '40px' }}
-          startIcon={<EditRounded />}
-        >
-          Chỉnh sửa
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{ margin: '1rem 0.5rem 1rem 0', height: '40px' }}
-          startIcon={<CancelRounded />}
-        >
-          Huỷ
-        </Button>
-        <Button
-          variant="contained"
-          sx={{ margin: '1rem 0.5rem', height: '40px' }}
-          startIcon={<SaveRounded />}
-        >
-          Lưu
-        </Button>
+        <LocationSelector
+          location={facility.facilityLocationCode}
+          editMode={editMode}
+        />
       </Flexbox>
     </>
   );
 }
 
-export default Inputs;
+export default connector(Inputs);

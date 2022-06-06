@@ -28,6 +28,9 @@ import { AddBusinessRounded } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
 import { getComparator } from '@/view/common/funcs/getComparator';
+import { useFacilities } from '@/view/hooks/useFacilities';
+import { setFacilityDetail } from '@/view/store/actions/facilityDetail/setFacilityDetail';
+import { connect, ConnectedProps } from 'react-redux';
 
 const Root = styled.div`
   width: 100%;
@@ -71,14 +74,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fields = ['id', 'facilityName', 'ownerName', 'address', 'facilityType'];
+const fields = ['id', 'name', 'ownerName', 'address', 'facilityTypeId'];
 
 const labels = {
   id: 'ID',
-  facilityName: 'Tên cơ sở',
+  name: 'Tên cơ sở',
   ownerName: 'Chủ sở hữu',
   address: 'Địa chỉ',
-  facilityType: 'Loại hình kinh doanh',
+  facilityTypeId: 'Loại hình kinh doanh',
 };
 
 const switchSort: Record<SortOrders, SortOrders> = {
@@ -86,7 +89,12 @@ const switchSort: Record<SortOrders, SortOrders> = {
   desc: 'asc',
 };
 
-function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
+const connector = connect(() => ({}), { setFacilityDetail });
+
+function FacilitiesTable({
+  switchSegment,
+  setFacilityDetail,
+}: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
   const [sort, setSort] = useState({
     order: 'asc',
@@ -98,26 +106,23 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
     rowsPerPage: 10,
   } as { page: number; rowsPerPage: number });
 
-  const [facilities, setFacilities] = useState(mockFacilities);
-  const total = 100;
+  const [search, setSearch] = useState({ val: '', opt: 'id' });
+
+  let facilities = useFacilities().facilities ?? [];
+  if (search.val !== '') {
+    facilities = facilities.filter((facility) => {
+      if (search.opt === 'id') {
+        return facility[search.opt] === +search.val;
+      } else {
+        return facility[search.opt].toString().match(search.val) !== null;
+      }
+    });
+  }
+
+  console.log(facilities);
 
   const findFacilities = (searchOpt: string, searchVal: string) => {
-    console.log(searchOpt, searchVal);
-    if (searchVal === '') {
-      setFacilities(mockFacilities);
-    } else {
-      console.log(mockFacilities[0][searchOpt].toString());
-
-      const searchRes = mockFacilities.filter((facility) => {
-        if (searchOpt === 'id') {
-          return facility[searchOpt] === +searchVal;
-        } else {
-          return facility[searchOpt].toString().match(searchVal) !== null;
-        }
-      });
-
-      setFacilities(searchRes);
-    }
+    setSearch({ opt: searchOpt, val: searchVal });
   };
 
   return (
@@ -183,7 +188,11 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
                   <FacilityItem
                     key={`facility#${facility.id}`}
                     facility={facility}
-                    onClick={() => switchSegment(1)}
+                    onClick={() => {
+                      switchSegment(1);
+                      setFacilityDetail(facility);
+                      console.log(facility);
+                    }}
                   />
                 ))}
             </TableBody>
@@ -194,7 +203,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
           component="div"
           rowsPerPageOptions={[5, 10, 15]}
           rowsPerPage={pagination.rowsPerPage}
-          count={total}
+          count={facilities.length}
           page={pagination.page}
           labelRowsPerPage="Số dòng mỗi trang"
           labelDisplayedRows={({ from, to, count }) =>
@@ -213,4 +222,4 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
   );
 }
 
-export default FacilitiesTable;
+export default connector(FacilitiesTable);

@@ -6,15 +6,21 @@ import {
   reduce as locationManagerReduce,
   initialState as locationManagerIS,
 } from './reducers/locationManager';
+import {
+  reduce as facilityDetailReduce,
+  initialState as facilityDetailIS,
+} from './reducers/facilityDetail';
 
 const store = configureStore({
   reducer: {
     app: appReduce,
     locationManager: locationManagerReduce,
+    facilityDetail: facilityDetailReduce,
   },
   preloadedState: {
     app: appIS,
     locationManager: locationManagerIS,
+    facilityDetail: facilityDetailIS,
   },
   middleware(getDefaultMiddleware) {
     return [

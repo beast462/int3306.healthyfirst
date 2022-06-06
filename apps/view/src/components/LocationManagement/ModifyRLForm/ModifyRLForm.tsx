@@ -19,6 +19,8 @@ import { useDistricts } from '@/view/hooks/useDistricts';
 import { HttpStatus } from '@nestjs/common/enums';
 import { notify } from '@/view/store/actions/app/notify';
 import { NotificationSeverity } from '@/view/common/types/Notification';
+import { useSWRConfig } from 'swr';
+import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
 
 const Root = styled.div`
   width: 100%;
@@ -62,6 +64,7 @@ function ModifyRLForm({
   switchSegment,
   notify,
 }: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
+  const { mutate } = useSWRConfig();
   const styles = useStyles();
   const [editMode, setEditMode] = useState(false);
 
@@ -100,6 +103,7 @@ function ModifyRLForm({
     if (statusCode === HttpStatus.OK) {
       notify('Phân vùng thành công', NotificationSeverity.SUCCESS);
       setEditMode(false);
+      mutate(swrHookKeys.USE_MANAGED_SPECIALISTS);
     } else {
       notify('Phân vùng không thành công', NotificationSeverity.ERROR, [
         'Mất kết nối',

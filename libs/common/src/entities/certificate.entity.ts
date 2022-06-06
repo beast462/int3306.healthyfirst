@@ -38,6 +38,7 @@ export class CertificateEntity {
   issuedDate!: Date;
 
   @Column('int', {
+    unique: true,
     nullable: false,
     name: 'issue_id',
     unsigned: true,

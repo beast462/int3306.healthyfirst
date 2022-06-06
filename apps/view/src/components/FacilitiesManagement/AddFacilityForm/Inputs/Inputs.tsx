@@ -1,42 +1,43 @@
 import * as Joi from 'joi';
+import { useState } from 'react';
 
 import {
-  MAX_DISPLAY_NAME_LENGTH,
-  MAX_USERNAME_LENGTH,
-  MIN_DISPLAY_NAME_LENGTH,
-  MIN_USERNAME_LENGTH,
-} from '@/common/entity-constraints/user.entity-constraint';
+  MAX_FACILITY_NAME_LENGTH,
+  MAX_OWNER_NAME_LENGTH,
+} from '@/common/entity-constraints/facility.entitty-constraint';
+import {
+  MAX_ADDRESS_LENGTH,
+  MAX_PHONE_LENGTH,
+} from '@/common/entity-constraints/common.entity-constraint';
+
 import Flexbox from '@/view/common/components/Flexbox';
-import ValidatedInput from '@/view/common/components/ValidatedInput';
 import styled from '@emotion/styled';
 import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { useState } from 'react';
 import CustomValidatedInput from '@/view/common/components/CustomValidatedInput';
-import LocationSelector from '@/view/components/AccountManagement/RegistrationForm/Inputs/LocationSelector/LocationSelector';
 import FacilityTypeSelector from './FacilityTypeSelector/FacilityTypeSelector';
+import ThreeLocationSelector from './ThreeLocationSelector/ThreeLocationSelector';
 
 const validators = {
-  username: Joi.alternatives(
+  facilityName: Joi.alternatives(
+    Joi.string().max(MAX_FACILITY_NAME_LENGTH).required(),
+    Joi.string().valid('').required(),
+  ),
+  ownerName: Joi.alternatives(
+    Joi.string().max(MAX_OWNER_NAME_LENGTH).required(),
+    Joi.string().valid('').required(),
+  ),
+  phone: Joi.alternatives(
     Joi.string()
-      .token()
-      .min(MIN_USERNAME_LENGTH)
-      .max(MAX_USERNAME_LENGTH)
+      .min(10)
+      .max(MAX_PHONE_LENGTH)
+      .pattern(/^0[0-9]+$/)
       .required(),
     Joi.string().valid('').required(),
   ),
-  displayName: Joi.alternatives(
-    Joi.string()
-      .min(MIN_DISPLAY_NAME_LENGTH)
-      .max(MAX_DISPLAY_NAME_LENGTH)
-      .required(),
-    Joi.string().valid('').required(),
-  ),
-  email: Joi.alternatives(
-    Joi.string()
-      .email({ tlds: { allow: false } })
-      .required(),
+  address: Joi.alternatives(
+    Joi.string().max(MAX_ADDRESS_LENGTH).required(),
     Joi.string().valid('').required(),
   ),
 };
@@ -48,23 +49,32 @@ const Row = styled(Flexbox)`
 `;
 
 const useStyles = makeStyles((theme: Theme) => ({
-  username: {
-    width: '40%',
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-    },
-  },
-  displayName: {
+  facilityName: {
     flex: 1,
-    marginLeft: '1rem',
     [theme.breakpoints.down('md')]: {
       width: '100%',
       flex: 'unset',
+    },
+  },
+  ownerName: {
+    width: '33%',
+    marginLeft: '1rem',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
       marginTop: theme.spacing(3),
       marginLeft: 0,
     },
   },
-  email: {
+  phone: {
+    width: '33%',
+    marginLeft: '1rem',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      marginTop: theme.spacing(3),
+      marginLeft: 0,
+    },
+  },
+  address: {
     width: '60%',
     [theme.breakpoints.down('md')]: {
       width: '100%',
@@ -84,14 +94,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Inputs() {
   const classes = useStyles();
-  const [roleId, setRoleId] = useState<number>(0);
 
   return (
     <>
       <Row>
         <CustomValidatedInput
-          validator={validators.username}
-          className={classes.username}
+          validator={validators.facilityName}
+          className={classes.facilityName}
           size="small"
           variant="outlined"
           label="Tên cơ sở"
@@ -99,41 +108,39 @@ function Inputs() {
         />
 
         <CustomValidatedInput
-          validator={validators.displayName}
-          className={classes.displayName}
+          validator={validators.ownerName}
+          className={classes.ownerName}
           size="small"
           variant="outlined"
           label="Chủ cơ sở"
           name="ownerName"
         />
-      </Row>
 
-      <Row>
         <CustomValidatedInput
-          validator={validators.email}
-          className={classes.email}
+          validator={validators.phone}
+          className={classes.phone}
           size="small"
           variant="outlined"
           label="Điện thoại"
           name="phone"
+        />
+      </Row>
+
+      <Row>
+        <CustomValidatedInput
+          validator={validators.address}
+          className={classes.address}
+          size="small"
+          variant="outlined"
+          label="Địa chỉ"
+          name="address"
         />
 
         <FacilityTypeSelector className={classes.facilityTypeSelector} />
       </Row>
 
       <Row>
-        <CustomValidatedInput
-          validator={validators.email}
-          className={classes.email}
-          size="small"
-          variant="outlined"
-          label="Địa chỉ"
-          name="address"
-        />
-      </Row>
-
-      <Row>
-        <LocationSelector selectedRoleId={roleId} />
+        <ThreeLocationSelector />
       </Row>
     </>
   );

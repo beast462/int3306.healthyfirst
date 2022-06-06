@@ -10,6 +10,8 @@ import { useProvinces } from '@/view/hooks/useProvinces';
 import { useDistricts } from '@/view/hooks/useDistricts';
 import { Location } from '@/view/common/types/Location';
 import { makeStyles } from '@mui/styles';
+import { useUser } from '@/view/hooks/useUser';
+import { useResponsibleLocation } from '@/view/hooks/useResponsibleLocation';
 
 interface IProps {
   selectedRoleId: number;
@@ -48,6 +50,11 @@ function LocationSelector({
   district = { code: 65793, name: 'Quận Ba Đình' },
 }: IProps): ReactElement {
   const styles = useStyles();
+  const { user } = useUser();
+  const { responsibleLocationCode } = useResponsibleLocation().data;
+  const currentUserProvince = useProvinces().provinces.find(
+    (p) => p.code === responsibleLocationCode,
+  );
 
   const [selectedProvince, setSelectedProvince] = useState<Location>(province);
   const [selectedDistrict, setSelectedDistrict] = useState<Location>(
@@ -55,13 +62,15 @@ function LocationSelector({
   );
 
   useEffect(() => {
-    setSelectedProvince(province);
-    setSelectedDistrict(district);
-  }, [userId]);
-
-  useEffect(() => {
     setSelectedDistrict({ code: -1, name: '' });
   }, [selectedRoleId === 3]);
+
+  useEffect(() => {
+    setSelectedProvince(user.roleId !== 2 ? province : currentUserProvince);
+    setSelectedDistrict(
+      selectedRoleId === 3 ? district : { code: -1, name: '' },
+    );
+  }, [userId]);
 
   const provinces = useProvinces().provinces;
   const districts = (useDistricts().districts ?? []).filter(
@@ -77,7 +86,11 @@ function LocationSelector({
           name="provinceCode"
           value={selectedProvince.code}
           sx={{ textTransform: 'capitalize' }}
-          disabled={selectedRoleId === 0 || disabled}
+          disabled={
+            selectedRoleId === 0 ||
+            disabled ||
+            (user.roleId === 2 && userId === 0)
+          }
         >
           {(provinces ?? []).map((province: Location) => {
             return (

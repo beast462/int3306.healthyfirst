@@ -33,6 +33,33 @@ function AddFacilityForm({
     event.preventDefault();
 
     const target = event.target as HTMLFormElement;
+
+    const newFacility = {
+      name: target.facilityName.value,
+      ownerName: target.ownerName.value,
+      facilityTypeId: target.facilityType.value,
+      facilityLocationCode: Math.max(
+        target.provinceCode.value,
+        target.districtCode.value,
+        target.wardCode.value,
+      ),
+      address: target.address.value,
+      phone: target.phone.value,
+    };
+
+    const { statusCode, messages, body, errorCode } = await fetch(
+      '/api/facilities',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(newFacility),
+      },
+    ).then((res) => res.json());
+
+    console.log(statusCode, messages, body, errorCode);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, SyntheticEvent, useState } from 'react';
 
 import Flexbox from '@/view/common/components/Flexbox';
 import { ApplicationState } from '@/view/store';
@@ -16,6 +16,9 @@ import { ISegmentProps } from '../../AccountManagement';
 import LocationSelector from '../../AccountManagement/RegistrationForm/Inputs/LocationSelector/LocationSelector';
 import { useProvinces } from '@/view/hooks/useProvinces';
 import { useDistricts } from '@/view/hooks/useDistricts';
+import { HttpStatus } from '@nestjs/common/enums';
+import { notify } from '@/view/store/actions/app/notify';
+import { NotificationSeverity } from '@/view/common/types/Notification';
 
 const Root = styled.div`
   width: 100%;
@@ -40,7 +43,7 @@ const connector = connect(
     roleId: state.locationManager.roleId,
     responsibleLocation: state.locationManager.responsibleLocationCode,
   }),
-  {},
+  { notify },
 );
 
 const useStyles = makeStyles(() => ({
@@ -57,6 +60,7 @@ function ModifyRLForm({
   roleId,
   responsibleLocation,
   switchSegment,
+  notify,
 }: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
   const [editMode, setEditMode] = useState(false);
@@ -67,6 +71,41 @@ function ModifyRLForm({
   const district = useDistricts().districts.find(
     (d) => d.code === (responsibleLocation & 0xffffff),
   );
+
+  const handleSaveClick = async (event: SyntheticEvent) => {
+    event.preventDefault();
+
+    const target = event.target as HTMLFormElement;
+
+    const modifiedSpecialist = {
+      userId: userId,
+      responsibleLocationCode: Math.max(
+        target.provinceCode.value,
+        target.districtCode.value,
+      ),
+    };
+
+    const { statusCode } = await fetch(
+      `/api/responsible-area/userid/${userId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(modifiedSpecialist),
+      },
+    ).then((res) => res.json());
+
+    if (statusCode === HttpStatus.OK) {
+      notify('Phân vùng thành công', NotificationSeverity.SUCCESS);
+      setEditMode(false);
+    } else {
+      notify('Phân vùng không thành công', NotificationSeverity.ERROR, [
+        'Mất kết nối',
+      ]);
+    }
+  };
 
   return (
     <Root>
@@ -85,53 +124,56 @@ function ModifyRLForm({
 
           <Typography variant="h6">Phân vùng quản lý</Typography>
         </Toolbar>
-        <Row>
-          <LocationSelector
-            disabled={!editMode}
-            userId={userId}
-            selectedRoleId={roleId}
-            province={province}
-            district={district}
-          />
-        </Row>
-        <Divider />
-        <Flexbox className={styles.btnGroup}>
-          <Button
-            variant="contained"
-            sx={
-              editMode
-                ? { display: 'none' }
-                : { margin: '1rem 2rem 1rem 0', height: '40px' }
-            }
-            startIcon={<EditRounded />}
-            onClick={() => setEditMode(true)}
-          >
-            Chỉnh sửa
-          </Button>
-          <Button
-            variant="outlined"
-            sx={
-              !editMode
-                ? { display: 'none' }
-                : { margin: '1rem 2rem 1rem 0', height: '40px' }
-            }
-            startIcon={<CancelRounded />}
-            onClick={() => setEditMode(false)}
-          >
-            Huỷ
-          </Button>
-          <Button
-            variant="contained"
-            sx={
-              !editMode
-                ? { display: 'none' }
-                : { margin: '1rem 1rem 1rem 0', height: '40px' }
-            }
-            startIcon={<SaveRounded />}
-          >
-            Lưu
-          </Button>
-        </Flexbox>
+        <form onSubmit={handleSaveClick}>
+          <Row>
+            <LocationSelector
+              disabled={!editMode}
+              userId={userId}
+              selectedRoleId={roleId}
+              province={province}
+              district={district}
+            />
+          </Row>
+          <Divider />
+          <Flexbox className={styles.btnGroup}>
+            <Button
+              variant="contained"
+              sx={
+                editMode
+                  ? { display: 'none' }
+                  : { margin: '1rem 2rem 1rem 0', height: '40px' }
+              }
+              startIcon={<EditRounded />}
+              onClick={() => setEditMode(true)}
+            >
+              Chỉnh sửa
+            </Button>
+            <Button
+              variant="outlined"
+              sx={
+                !editMode
+                  ? { display: 'none' }
+                  : { margin: '1rem 2rem 1rem 0', height: '40px' }
+              }
+              startIcon={<CancelRounded />}
+              onClick={() => setEditMode(false)}
+            >
+              Huỷ
+            </Button>
+            <Button
+              variant="contained"
+              sx={
+                !editMode
+                  ? { display: 'none' }
+                  : { margin: '1rem 1rem 1rem 0', height: '40px' }
+              }
+              startIcon={<SaveRounded />}
+              type="submit"
+            >
+              Lưu
+            </Button>
+          </Flexbox>
+        </form>
       </Container>
     </Root>
   );

@@ -19,7 +19,11 @@ function FacilityItem({ facility, onClick }: IProps): ReactElement {
       <NowrapCell>{facility.name}</NowrapCell>
       <NowrapCell>{facility.ownerName}</NowrapCell>
       <NowrapCell>{facility.address}</NowrapCell>
-      <NowrapCell>{facilityTypes[facility.facilityTypeId - 1].name}</NowrapCell>
+      <NowrapCell>
+        {facilityTypes
+          ? facilityTypes[facility.facilityTypeId - 1].name
+          : 'Đang tải'}
+      </NowrapCell>
     </TableRow>
   );
 }

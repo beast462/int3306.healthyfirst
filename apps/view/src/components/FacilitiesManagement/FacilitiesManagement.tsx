@@ -40,8 +40,6 @@ const Segment = styled.div`
 function FacilitiesManagement(): ReactElement {
   const [viewingSegment, setViewingSegment] = useState(0);
 
-  console.log(viewingSegment);
-
   return (
     <Root>
       <Content

@@ -19,9 +19,9 @@ function FacilityTypeSelector({
   const [facilityType, setFacilityType] = useState(null);
 
   useEffect(() => {
-    if (initType > 0 && facilityTypes.length !== 0)
+    if (initType > 0 && facilityType && facilityTypes.length !== 0)
       setFacilityType(facilityTypes[initType - 1]);
-  }, [initType, facilityTypes]);
+  }, [initType]);
 
   return (
     <FormControl className={className} size={size} fullWidth>

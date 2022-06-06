@@ -9,6 +9,8 @@ import Inputs from './Inputs/Inputs';
 import Flexbox from '@/view/common/components/Flexbox';
 import { NotificationSeverity } from '@/view/common/types/Notification';
 import { HttpStatus } from '@nestjs/common/enums';
+import { useSWRConfig } from 'swr';
+import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
 
 const Root = styled.div`
   width: 100%;
@@ -31,6 +33,8 @@ function AddFacilityForm({
   switchSegment,
   notify,
 }: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
+  const { mutate } = useSWRConfig();
+
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
@@ -79,7 +83,7 @@ function AddFacilityForm({
       body: JSON.stringify(newFacility),
     }).then((res) => res.json());
 
-    if (statusCode === HttpStatus.OK) {
+    if (statusCode === HttpStatus.OK || statusCode === HttpStatus.CREATED) {
       notify('Thêm thành công', NotificationSeverity.SUCCESS);
       target.facilityName.value = '';
       target.ownerName.value = '';
@@ -97,7 +101,10 @@ function AddFacilityForm({
           <Button
             size="small"
             startIcon={<ArrowLeft />}
-            onClick={switchSegment}
+            onClick={() => {
+              switchSegment();
+              mutate(swrHookKeys.USE_FACILITIES);
+            }}
           >
             quay lại danh sách
           </Button>

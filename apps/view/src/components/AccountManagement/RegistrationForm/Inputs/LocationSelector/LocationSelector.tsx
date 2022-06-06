@@ -13,17 +13,11 @@ import { makeStyles } from '@mui/styles';
 
 interface IProps {
   selectedRoleId: number;
+  disabled: boolean;
+  userId: number;
+  province: Location;
+  district: Location;
 }
-
-const DEFAULT_PROVINCE = {
-  code: 257,
-  name: 'Hà Nội',
-};
-
-const DEFAULT_DISTRICT = {
-  code: 65793,
-  name: 'Quận Ba Đình',
-};
 
 const useStyles = makeStyles((theme: Theme) => ({
   province: {
@@ -46,14 +40,24 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function LocationSelector({ selectedRoleId }: IProps): ReactElement {
+function LocationSelector({
+  selectedRoleId,
+  disabled = false,
+  userId = 0,
+  province = { code: 257, name: 'Hà Nội' },
+  district = { code: 65793, name: 'Quận Ba Đình' },
+}: IProps): ReactElement {
   const styles = useStyles();
 
-  const [selectedProvince, setSelectedProvince] =
-    useState<Location>(DEFAULT_PROVINCE);
+  const [selectedProvince, setSelectedProvince] = useState<Location>(province);
   const [selectedDistrict, setSelectedDistrict] = useState<Location>(
-    selectedRoleId === 3 ? DEFAULT_DISTRICT : { code: -1, name: '' },
+    selectedRoleId === 3 ? district : { code: -1, name: '' },
   );
+
+  useEffect(() => {
+    setSelectedProvince(province);
+    setSelectedDistrict(district);
+  }, [userId]);
 
   useEffect(() => {
     setSelectedDistrict({ code: -1, name: '' });
@@ -66,14 +70,14 @@ function LocationSelector({ selectedRoleId }: IProps): ReactElement {
 
   return (
     <>
-      <FormControl size="small" className={styles.province}>
+      <FormControl size="small" className={styles.province} disabled={disabled}>
         <InputLabel>Tỉnh</InputLabel>
         <Select
           label="Tỉnh"
           name="provinceCode"
           value={selectedProvince.code}
           sx={{ textTransform: 'capitalize' }}
-          disabled={selectedRoleId === 0}
+          disabled={selectedRoleId === 0 || disabled}
         >
           {(provinces ?? []).map((province: Location) => {
             return (
@@ -100,7 +104,7 @@ function LocationSelector({ selectedRoleId }: IProps): ReactElement {
           name="districtCode"
           value={selectedDistrict.code}
           sx={{ textTransform: 'capitalize' }}
-          disabled={selectedRoleId <= 2}
+          disabled={selectedRoleId <= 2 || disabled}
         >
           {(districts ?? []).map((district: Location) => {
             return (

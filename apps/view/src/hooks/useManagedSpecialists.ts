@@ -11,7 +11,6 @@ import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
 import { Specialist } from '@/common/models/specialist';
-import { useResponsibleLocation } from './useResponsibleLocation';
 
 async function fetchManagedSpecialists(
   this: Dispatch<any>,
@@ -36,12 +35,16 @@ async function fetchManagedSpecialists(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useManagedSpecialists() {
+export function useManagedSpecialists(responsibleLocationCode: number) {
   const dispatch = useDispatch();
-  const { responsibleLocationCode } = useResponsibleLocation().data;
   const { data, error } = useSWR<Specialist[], Error>(
     swrHookKeys.USE_MANAGED_SPECIALISTS,
     fetchManagedSpecialists.bind(dispatch, responsibleLocationCode),
+    {
+      revalidateIfStale: true,
+      revalidateOnFocus: false,
+      revalidateOnMount: false,
+    },
   );
 
   const isError =

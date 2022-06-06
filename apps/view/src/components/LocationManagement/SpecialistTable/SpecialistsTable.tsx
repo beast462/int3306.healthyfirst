@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { SortOrders } from '@/common/types/sort-orders';
 import NowrapCell from '@/view/common/components/NowrapCell';
@@ -21,6 +21,9 @@ import { Specialist } from '@/common/models/specialist';
 import { useManagedSpecialists } from '@/view/hooks/useManagedSpecialists';
 import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { getComparator } from '@/view/common/funcs/getComparator';
+import { connect, ConnectedProps } from 'react-redux';
+import { setModifiedSpecialist } from '@/view/store/actions/locationManager/setModifiedSpecialist';
+import { useResponsibleLocation } from '@/view/hooks/useResponsibleLocation';
 
 const Root = styled.div`
   width: 100%;
@@ -56,7 +59,12 @@ const switchSort: Record<SortOrders, SortOrders> = {
   desc: 'asc',
 };
 
-function SpecialistsTable({ switchSegment }: ISegmentProps) {
+const connector = connect(() => ({}), { setModifiedSpecialist });
+
+function SpecialistsTable({
+  switchSegment,
+  setModifiedSpecialist,
+}: ISegmentProps & ConnectedProps<typeof connector>) {
   const [sort, setSort] = useState({
     order: 'asc',
     column: 'userId',
@@ -65,7 +73,9 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
     page: 0,
     rowsPerPage: 5,
   } as { page: number; rowsPerPage: number });
-  const { data } = useManagedSpecialists();
+
+  const { responsibleLocationCode } = useResponsibleLocation().data;
+  const { data } = useManagedSpecialists(responsibleLocationCode);
 
   console.log(data);
 
@@ -117,7 +127,16 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
                   <SpecialistItem
                     key={`specialist#${specialist.userId}`}
                     specialist={specialist}
-                    onClick={switchSegment}
+                    onClick={() => {
+                      const { userId, roleId, responsibleLocationCode } =
+                        specialist;
+                      setModifiedSpecialist({
+                        userId: userId,
+                        roleId: roleId,
+                        responsibleLocationCode: responsibleLocationCode,
+                      });
+                      switchSegment();
+                    }}
                   />
                 ))}
             </TableBody>
@@ -147,4 +166,4 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
   );
 }
 
-export default SpecialistsTable;
+export default connector(SpecialistsTable);

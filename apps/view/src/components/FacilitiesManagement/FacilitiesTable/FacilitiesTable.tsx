@@ -27,6 +27,8 @@ import CustomScrollbar from '@/view/common/components/CustomScrollbar';
 import { AddBusinessRounded } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
+import { getComparator } from '@/view/common/funcs/getComparator';
+import { orderBy } from 'lodash';
 
 const Root = styled.div`
   width: 100%;
@@ -171,6 +173,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
 
             <TableBody>
               {facilities
+                .sort(getComparator(sort.order, sort.column))
                 .slice(
                   pagination.rowsPerPage * pagination.page,
                   pagination.rowsPerPage * pagination.page +

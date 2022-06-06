@@ -23,25 +23,32 @@ import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import SpecialistItem from './SpecialistItem/SpecialistItem';
 import { Specialist } from '@/common/models/specialist';
 import { useManagedSpecialists } from '@/view/hooks/useManagedSpecialists';
+import CustomScrollbar from '@/view/common/components/CustomScrollbar';
+import { getComparator } from '@/view/common/funcs/getComparator';
 
 const Root = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
 `;
 
 const Container = styled(Paper)`
   width: 100%;
 `;
 
-const TableContainer = styled.div`
+const CTableContainer = styled(CustomScrollbar)`
+  max-height: calc(100vh - 14rem);
   width: 100%;
   overflow-x: auto;
+
+  &::-webkit-scrollbar-track {
+    margin-top: 3.75rem;
+  }
 `;
 
-const fields = ['id', 'displayName', 'email', 'roleId', 'managedArea'];
+const fields = ['userId', 'displayName', 'email', 'roleId', 'managedArea'];
 const labels = {
-  id: 'ID',
+  userId: 'ID',
   displayName: 'Họ và tên',
   email: 'Email',
   roleId: 'Vai trò',
@@ -56,7 +63,7 @@ const switchSort: Record<SortOrders, SortOrders> = {
 function SpecialistsTable({ switchSegment }: ISegmentProps) {
   const [sort, setSort] = useState({
     order: 'asc',
-    column: 'id',
+    column: 'userId',
   } as { order: SortOrders; column: string });
   const [pagination, setPagination] = useState({
     page: 0,
@@ -85,7 +92,7 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
           </Button>
         </Toolbar>
 
-        <TableContainer>
+        <CTableContainer>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -112,15 +119,22 @@ function SpecialistsTable({ switchSegment }: ISegmentProps) {
             </TableHead>
 
             <TableBody>
-              {specialists?.map((specialist: Specialist) => (
-                <SpecialistItem
-                  key={`specialist#${specialist.id}`}
-                  specialist={specialist}
-                />
-              ))}
+              {specialists
+                ?.sort(getComparator(sort.order, sort.column))
+                .slice(
+                  pagination.rowsPerPage * pagination.page,
+                  pagination.rowsPerPage * pagination.page +
+                    pagination.rowsPerPage,
+                )
+                .map((specialist: Specialist) => (
+                  <SpecialistItem
+                    key={`specialist#${specialist.userId}`}
+                    specialist={specialist}
+                  />
+                ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </CTableContainer>
 
         <TablePagination
           component="div"

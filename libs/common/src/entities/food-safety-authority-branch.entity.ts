@@ -52,6 +52,7 @@ export class FoodSafetyAuthorityBranchEntity {
   @Column('int', {
     nullable: false,
     name: 'responsible_location_code',
+    unique: true,
     unsigned: true,
   })
   responsibleLocationCode!: number;

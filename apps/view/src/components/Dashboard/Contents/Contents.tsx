@@ -1,16 +1,12 @@
-import { ReactElement, useMemo } from 'react';
-import { Navigate, Route, Routes } from 'react-router';
-
 import styled from '@emotion/styled';
-
+import { ReactElement, useMemo } from 'react';
+import { Route, Routes } from 'react-router';
 import { Navigations } from '../../Navigations';
 
 const Root = styled.div`
   flex: 1;
   height: 100%;
-  padding: 0.5rem 0.5rem;
-  overflow: hidden;
-  background-color: #f4f4f4;
+  padding: 0.5rem 0.75rem;
 `;
 
 function Contents(): ReactElement {
@@ -23,8 +19,6 @@ function Contents(): ReactElement {
   return (
     <Root>
       <Routes>
-        <Route path="/" element={<Navigate to={navigations[0][0]} />} />
-
         {navigations.map(([path, { element: Element }]) => (
           <Route
             key={`route.contents@${path}`}

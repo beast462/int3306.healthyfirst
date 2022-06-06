@@ -1,28 +1,30 @@
-import { createHash } from 'crypto';
-import { Repository } from 'typeorm';
-import { v4 } from 'uuid';
-
-import { RoleEntity, UserEntity } from '@/common/entities';
-import { randomRange } from '@/common/helpers/random-range';
+import { UserEntity } from '@/common/entities';
+import { generateAnswer } from '@/common/helpers/generate-answer';
+import { sign } from '@/common/helpers/jwt';
+import { randomString } from '@/common/helpers/random-string';
+import { byMinutes } from '@/common/helpers/timespan';
+import { LoginChallenge } from '@/common/models/login-challenge';
 import { PublicUser } from '@/common/models/public-user';
-import { SortOrders } from '@/common/types/sort-orders';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomBytes } from 'crypto';
+import { Repository } from 'typeorm';
+import { omit } from 'lodash';
 
-import { MailService } from '../mail/mail.service';
-
-export enum CreateUserErrors {
-  USERNAME_EXISTS = 0,
-  EMAIL_EXISTS = 1,
-  BOTH = 2,
+export enum AnswerValidationErrors {
+  NOT_FOUND = 0,
+  EXPIRED = 1,
+  INVALID = 2,
 }
 
 @Injectable()
 export class UserService {
+  private static readonly challengeCache: Map<string, LoginChallenge> =
+    new Map();
+
   public constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private readonly mailService: MailService,
   ) {}
 
   public async getUserById(id: number): Promise<UserEntity> {
@@ -39,86 +41,75 @@ export class UserService {
     });
   }
 
-  public hashPassword(password: string): string {
-    return createHash('sha256').update(password).digest('hex');
+  private deleteChallengeCache(requestId: string): void {
+    const cachedChallenge = UserService.challengeCache.get(requestId);
+
+    if (cachedChallenge) {
+      clearTimeout(cachedChallenge.removalTask);
+      UserService.challengeCache.delete(requestId);
+    }
   }
 
-  public async createUser(
-    username: string,
-    displayName: string,
-    email: string,
-    role: RoleEntity,
-    creatorId?: number,
-  ): Promise<CreateUserErrors | UserEntity> {
-    const existedUsers = await this.userRepository.find({
-      where: [{ username }, { email }],
-    });
+  public async generateChallenge(
+    requestId: string,
+    user: UserEntity,
+  ): Promise<LoginChallenge> {
+    const challenge: LoginChallenge = {
+      requestId,
+      question: '',
+      answer: '',
+      expires: new Date(Date.now() + byMinutes(5)),
+      presignedToken: await sign(
+        {
+          userId: user.id,
+          level: user.role.level,
+        },
+        user.secret,
+        { expiresIn: '1h' },
+      ),
+      removalTask: null,
+    };
 
-    if (existedUsers.length > 0) {
-      if (existedUsers.length === 2)
-        // username or email is unique so it's impossible to have both
-        return CreateUserErrors.BOTH;
+    challenge.removalTask = setTimeout(() => {
+      const cachedChallenge = UserService.challengeCache.get(requestId);
 
-      if (existedUsers[0].username === username)
-        return CreateUserErrors.USERNAME_EXISTS;
+      if (+cachedChallenge.expires < Date.now())
+        UserService.challengeCache.delete(requestId);
+    }, byMinutes(5));
 
-      return CreateUserErrors.EMAIL_EXISTS;
+    if (UserService.challengeCache.has(requestId))
+      this.deleteChallengeCache(requestId);
+
+    challenge.question = randomString(64, randomBytes(32).toString('utf-8'));
+    challenge.answer = generateAnswer(challenge.question, user.password);
+
+    UserService.challengeCache.set(requestId, challenge);
+
+    return { ...challenge };
+  }
+
+  public validateAnswer(
+    requestId: string,
+    answer: string,
+  ): AnswerValidationErrors | string {
+    const challenge = UserService.challengeCache.get(requestId);
+
+    if (!challenge) return AnswerValidationErrors.NOT_FOUND;
+
+    if (+challenge.expires < Date.now()) {
+      this.deleteChallengeCache(requestId);
+      return AnswerValidationErrors.EXPIRED;
     }
 
-    const plainPassword = randomRange(100000, 999999, true).toString();
+    if (challenge.answer === answer) {
+      this.deleteChallengeCache(requestId);
+      return challenge.presignedToken;
+    }
 
-    const user = this.userRepository.create({
-      username,
-      displayName,
-      email,
-      password: this.hashPassword(plainPassword),
-      secret: this.hashPassword(v4()),
-      role,
-      creatorId,
-    });
-
-    const result = (await this.userRepository.insert(user))
-      .generatedMaps[0] as UserEntity;
-
-    user.id = result.id;
-    user.createdAt = result.createdAt;
-
-    await this.mailService.sendMail(
-      email,
-      'Welcome to Healthyfirst',
-      'new-user',
-      {
-        name: displayName,
-        username,
-        password: plainPassword,
-        day: user.createdAt.toLocaleDateString('vi-VN'),
-      },
-    );
-
-    return result;
+    return AnswerValidationErrors.INVALID;
   }
 
-  public async getCreationsCount(creatorId: number): Promise<number> {
-    return await this.userRepository.count({
-      where: { creatorId },
-    });
-  }
-
-  public async getCreations(
-    creatorId: number,
-    limit: number,
-    offset: number,
-    order: SortOrders,
-    orderBy: keyof PublicUser,
-  ): Promise<UserEntity[]> {
-    return await this.userRepository.find({
-      where: { creatorId },
-      order: {
-        [orderBy]: order.toUpperCase(),
-      },
-      take: limit,
-      skip: offset,
-      relations: ['role'],
-    });
+  public reduceUser(user: UserEntity): PublicUser {
+    return omit(user, 'secret', 'password');
   }
 }

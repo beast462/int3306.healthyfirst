@@ -1,1 +1,0 @@
-export const MAX_ISSUED_BY_NAME_LENGTH = 30;

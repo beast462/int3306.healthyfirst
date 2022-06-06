@@ -2,8 +2,7 @@ import { ReactElement } from 'react';
 
 type Element = (props: unknown) => ReactElement;
 type TabProps = {
-  avatar?: ReactElement;
-  icon?: ReactElement;
+  avatar: ReactElement;
   label: string;
   caption?: string;
   childOf: string;

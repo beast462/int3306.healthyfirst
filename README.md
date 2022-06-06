@@ -33,7 +33,7 @@
 
 ## Development
 
-1. Start backend development server with `npm run start:dev`
+1. Start backend development server with `npm run start:server:dev`
 2. Bundle frontend sources:
-    - Start development server with `npm run start:view`
-    - Build optimized production code with `npm run build:view`
+    - Start development server with `npm run build:view:dev`
+    - Build optimized production code with `npm run build:view:prod`

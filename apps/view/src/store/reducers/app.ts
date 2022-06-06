@@ -1,8 +1,4 @@
 import { AnyAction } from 'redux';
-
-import { Notification } from '@/view/common/types/Notification';
-import { DialogContents } from '@/view/components/MasterDialog/DialogContents';
-
 import { breakpoints } from '../../constants/breakpoints';
 import { LSEntries } from '../../constants/LSEntries';
 import { ActionTypes } from '../ActionTypes';
@@ -11,10 +7,6 @@ type AppState = {
   /* dark = 1 | light = 0 */
   viewMode: number;
   showMenu: boolean;
-  showRegisForm: boolean;
-  dialogContent: DialogContents;
-  confirmCallback: (accepted: boolean) => void;
-  nextNotification: Notification;
 };
 
 function getDefaultViewMode(): number {
@@ -22,7 +14,7 @@ function getDefaultViewMode(): number {
   let result: number;
 
   if (!['1', '0'].includes(savedPref)) result = 0;
-  else result = ~~savedPref;
+  else result = -(-savedPref);
 
   localStorage.setItem(LSEntries.VIEW_MODE, result.toString());
 
@@ -32,12 +24,6 @@ function getDefaultViewMode(): number {
 export const initialState: AppState = {
   viewMode: getDefaultViewMode(),
   showMenu: window.innerWidth > breakpoints.values.md,
-  showRegisForm: false,
-  dialogContent: DialogContents.NONE,
-  confirmCallback() {
-    return;
-  },
-  nextNotification: null,
 };
 
 export function reduce(
@@ -47,18 +33,6 @@ export function reduce(
   switch (action.type) {
     case ActionTypes.APP__CHANGE_MENU_STATE:
       return { ...state, showMenu: action.payload };
-
-    case ActionTypes.APP__CHANGE_SHOW_REGIS_FORM_STATE:
-      return { ...state, showRegisForm: action.payload };
-
-    case ActionTypes.APP__OPEN_DIALOG:
-      return { ...state, dialogContent: action.payload };
-
-    case ActionTypes.APP__NOTIFY:
-      return {
-        ...state,
-        nextNotification: action.payload,
-      };
 
     default:
       return state;

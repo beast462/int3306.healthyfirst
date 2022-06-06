@@ -1,11 +1,8 @@
-export type LoginQuestionCheckBody = {
-  question: string;
-  exp: number;
-  userId: number;
-};
-
 export type LoginChallenge = {
+  requestId: string;
   question: string;
-  questionCheckBody: LoginQuestionCheckBody;
-  questionCheck: string;
+  answer: string;
+  expires: Date;
+  presignedToken: string;
+  removalTask: NodeJS.Timeout;
 };

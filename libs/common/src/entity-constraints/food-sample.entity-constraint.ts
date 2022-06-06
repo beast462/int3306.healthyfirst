@@ -1,3 +1,0 @@
-export const MAX_FOOD_SAMPLE_NAME_LENGTH = 30;
-
-export const MAX_EXAMINER_NAME_LENGTH = 30;

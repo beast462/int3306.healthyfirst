@@ -1,5 +1,4 @@
 import { generateAnswer } from '@/common/helpers/generate-answer';
-import Flexbox from '@/view/common/components/Flexbox';
 import styled from '@emotion/styled';
 import { VisibilityOffRounded, VisibilityRounded } from '@mui/icons-material';
 import {
@@ -24,7 +23,7 @@ import {
 } from 'react';
 import { Navigations } from '../Navigations';
 
-const Root = styled(Flexbox)`
+const Root = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -33,21 +32,33 @@ const Root = styled(Flexbox)`
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  display: flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   align-items: center;
   justify-content: center;
   z-index: 99999;
 `;
 
-const RightAligned = styled(Flexbox)`
+const RightAligned = styled.div`
   width: 100%;
+  display: flex;
+  display: flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   flex-direction: row;
   -ms-flex-direction: row;
   align-items: center;
   justify-content: flex-end;
 `;
 
-const JustifyBetween = styled(Flexbox)`
+const JustifyBetween = styled.div`
   width: 100%;
+  display: flex;
+  display: flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   flex-direction: row;
   -ms-flex-direction: row;
   align-items: center;
@@ -105,18 +116,14 @@ function Login(): ReactElement {
         username: { value: username },
       } = form;
 
-      const { statusCode, message, body, errorCode } = await fetch(
+      const { statusCode, message, body } = await fetch(
         `/api/user/login?username=${username}`,
       ).then((res) => res.json());
 
       if (statusCode !== HttpStatus.OK) {
-        if (errorCode === 257) {
-          setUsernameInputError('Tên đăng nhập của bạn không tồn tại');
-        } else {
-          setUsernameInputError(
-            typeof message === 'string' ? message : message.join(' '),
-          );
-        }
+        setUsernameInputError(
+          typeof message === 'string' ? message : message.join(' '),
+        );
         return;
       }
 
@@ -143,7 +150,7 @@ function Login(): ReactElement {
 
     const answer = generateAnswer(question, password, { hashPassword: true });
 
-    const { statusCode, message, errorCode } = await fetch('/api/user/login', {
+    const { statusCode, message } = await fetch('/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -152,13 +159,9 @@ function Login(): ReactElement {
     }).then((res) => res.json());
 
     if (statusCode !== HttpStatus.OK) {
-      if (errorCode === 263) {
-        setPasswordInputError('Mật khẩu không đúng. Hãy thử lại');
-      } else {
-        setPasswordInputError(
-          typeof message === 'string' ? message : message.join(' '),
-        );
-      }
+      setPasswordInputError(
+        typeof message === 'string' ? message : message.join(''),
+      );
       return;
     }
 

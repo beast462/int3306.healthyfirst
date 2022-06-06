@@ -1,30 +1,25 @@
-import useSWR from 'swr';
-
-import { ResponseDTO } from '@/common/dto/response.dto';
 import { PublicUser } from '@/common/models/public-user';
 import { SerializableError } from '@/common/models/serializable-error';
 import { HttpStatus } from '@nestjs/common/enums';
+import useSWR from 'swr';
 
-import { swrHookKeys } from '../common/constants/swrHookKeys';
+async function fetchUser(url): Promise<PublicUser> {
+  const { statusCode, message, body } = await fetch(url).then((res) =>
+    res.json(),
+  );
 
-async function fetchUser(): Promise<PublicUser> {
-  const { statusCode, body, errorCode }: ResponseDTO<PublicUser> = await fetch(
-    '/api/user/me',
-  ).then((res) => res.json());
+  if (statusCode !== HttpStatus.OK) {
+    const error = new SerializableError(new Error(message));
+    throw error;
+  }
 
-  if (statusCode === HttpStatus.OK) return body;
-
-  throw new SerializableError(new Error(errorCode.toString()));
+  return body;
 }
 
 export function useUser() {
-  const { data, error } = useSWR<PublicUser, Error>(
-    swrHookKeys.USE_USER,
-    fetchUser,
-    {
-      revalidateOnFocus: false,
-    },
-  );
+  const { data, error } = useSWR<PublicUser, Error>('/api/user/me', fetchUser, {
+    revalidateOnFocus: false,
+  });
 
   const isError =
     error &&

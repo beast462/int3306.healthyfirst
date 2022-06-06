@@ -16,12 +16,20 @@ function FacilityTypeSelector({
   initType = 1,
 }: IProps) {
   const { facilityTypes } = useFacilityTypes();
-  const [facilityType, setFacilityType] = useState(facilityTypes[0]);
+  const [facilityType, setFacilityType] = useState({
+    id: 1,
+    name: 'Sản xuất thực phẩm ăn uống',
+  });
 
   console.log(facilityType, facilityTypes);
 
   useEffect(() => {
-    if (initType > 0) setFacilityType(facilityTypes[initType - 1]);
+    if (initType > 0)
+      setFacilityType(
+        facilityTypes
+          ? facilityTypes[initType - 1]
+          : { id: 1, name: 'Sản xuất thực phẩm ăn uống' },
+      );
   }, [initType]);
 
   return (

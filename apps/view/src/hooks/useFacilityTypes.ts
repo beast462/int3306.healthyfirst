@@ -46,11 +46,9 @@ export function useFacilityTypes() {
     {
       revalidateIfStale: true,
       revalidateOnFocus: true,
-      revalidateOnReconnect: false,
+      revalidateOnReconnect: true,
     },
   );
-
-  console.log(facilityTypes);
 
   const isError =
     error &&

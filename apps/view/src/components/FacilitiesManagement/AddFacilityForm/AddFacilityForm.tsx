@@ -70,17 +70,14 @@ function AddFacilityForm({
       phone: target.phone.value,
     };
 
-    const { statusCode, message, body, errorCode } = await fetch(
-      '/api/facilities',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(newFacility),
+    const { statusCode, message } = await fetch('/api/facilities', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
-    ).then((res) => res.json());
+      body: JSON.stringify(newFacility),
+    }).then((res) => res.json());
 
     if (statusCode === HttpStatus.OK) {
       notify('Thêm thành công', NotificationSeverity.SUCCESS);

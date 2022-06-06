@@ -28,6 +28,7 @@ import { AddBusinessRounded } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import SearchBox from './SearchBox/SearchBox';
 import { getComparator } from '@/view/common/funcs/getComparator';
+import { useFacilities } from '@/view/hooks/useFacilities';
 
 const Root = styled.div`
   width: 100%;
@@ -71,14 +72,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fields = ['id', 'facilityName', 'ownerName', 'address', 'facilityType'];
+const fields = [
+  'id',
+  'name',
+  'ownerName',
+  'address',
+  'phone',
+  'facilityTypeId',
+];
 
 const labels = {
   id: 'ID',
-  facilityName: 'Tên cơ sở',
+  name: 'Tên cơ sở',
   ownerName: 'Chủ sở hữu',
   address: 'Địa chỉ',
-  facilityType: 'Loại hình kinh doanh',
+  phone: 'Điện thoại',
+  facilityTypeId: 'Loại hình kinh doanh',
 };
 
 const switchSort: Record<SortOrders, SortOrders> = {
@@ -98,25 +107,20 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
     rowsPerPage: 10,
   } as { page: number; rowsPerPage: number });
 
-  const [facilities, setFacilities] = useState(mockFacilities);
-  const total = 100;
+  let facilities = useFacilities().facilities ?? [];
 
   const findFacilities = (searchOpt: string, searchVal: string) => {
     console.log(searchOpt, searchVal);
-    if (searchVal === '') {
-      setFacilities(mockFacilities);
-    } else {
+    if (searchVal !== '') {
       console.log(mockFacilities[0][searchOpt].toString());
 
-      const searchRes = mockFacilities.filter((facility) => {
+      facilities = facilities.filter((facility) => {
         if (searchOpt === 'id') {
           return facility[searchOpt] === +searchVal;
         } else {
           return facility[searchOpt].toString().match(searchVal) !== null;
         }
       });
-
-      setFacilities(searchRes);
     }
   };
 
@@ -194,7 +198,7 @@ function FacilitiesTable({ switchSegment }: ISegmentProps): ReactElement {
           component="div"
           rowsPerPageOptions={[5, 10, 15]}
           rowsPerPage={pagination.rowsPerPage}
-          count={total}
+          count={facilities.length}
           page={pagination.page}
           labelRowsPerPage="Số dòng mỗi trang"
           labelDisplayedRows={({ from, to, count }) =>

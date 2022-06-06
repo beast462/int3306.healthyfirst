@@ -45,8 +45,8 @@ export function useFacilityTypes() {
     fetchFacilityTypes.bind(dispatch),
     {
       revalidateIfStale: true,
-      revalidateOnFocus: true,
-      revalidateOnReconnect: true,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     },
   );
 

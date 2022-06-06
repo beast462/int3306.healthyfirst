@@ -17,6 +17,9 @@ async function fetchResponsibleLocation(
   this: Dispatch<any>,
   userId: number,
 ): Promise<ResponsibleAreaEntity> {
+  if (typeof userId !== 'number')
+    throw new SerializableError(new Error(ErrorCodes.UNKNOWN_ERROR.toString()));
+
   const {
     statusCode,
     message,
@@ -45,7 +48,7 @@ export function useResponsibleLocation() {
   const { user } = useUser();
   const { data, error } = useSWR<ResponsibleAreaEntity, Error>(
     swrHookKeys.USE_RESPONSIBLE_LOCATION,
-    fetchResponsibleLocation.bind(dispatch, user.id),
+    fetchResponsibleLocation.bind(dispatch, user?.id),
     {
       revalidateIfStale: true,
       revalidateOnFocus: true,

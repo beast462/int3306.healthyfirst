@@ -12,10 +12,6 @@ import { ReactElement, SyntheticEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Inputs from './Inputs/Inputs';
 
-interface IProps {
-  facilityId?: number;
-}
-
 const Root = styled.div`
   width: 100%;
   height: fit-content;

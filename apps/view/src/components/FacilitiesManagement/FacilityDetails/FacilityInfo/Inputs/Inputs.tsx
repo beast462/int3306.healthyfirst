@@ -1,8 +1,6 @@
-import CustomValidatedInput from '@/view/common/components/CustomValidatedInput';
 import Flexbox from '@/view/common/components/Flexbox';
 import { ApplicationState } from '@/view/store';
-import { CancelRounded, EditRounded, SaveRounded } from '@mui/icons-material';
-import { Button, Divider, TextField, Theme } from '@mui/material';
+import { TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import * as Joi from 'joi';
 import { ReactElement, useEffect, useState } from 'react';
@@ -37,11 +35,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const connector = connect(
-  (state: ApplicationState) => ({ facility: state.facilityDetail.facility }),
+  (state: ApplicationState) => ({
+    facility: state.facilityDetail.facility,
+    editMode: state.facilityDetail.editMode,
+  }),
   {},
 );
 
-function Inputs({ facility }: ConnectedProps<typeof connector>): ReactElement {
+function Inputs({
+  facility,
+  editMode,
+}: ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
   const [name, setName] = useState(facility.name);
   const [ownerName, setOwnerName] = useState(facility.ownerName);
@@ -69,6 +73,7 @@ function Inputs({ facility }: ConnectedProps<typeof connector>): ReactElement {
           label="Tên cơ sở"
           name="facilityName"
           value={name}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
@@ -80,6 +85,7 @@ function Inputs({ facility }: ConnectedProps<typeof connector>): ReactElement {
           label="Chủ cơ sở"
           name="ownerName"
           value={ownerName}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
@@ -91,6 +97,7 @@ function Inputs({ facility }: ConnectedProps<typeof connector>): ReactElement {
           label="Điện thoại"
           name="phone"
           value={phone}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
@@ -102,12 +109,14 @@ function Inputs({ facility }: ConnectedProps<typeof connector>): ReactElement {
           label="Địa chỉ"
           name="address"
           value={address}
+          onChange={(event) => editMode && setName(event.target.value)}
         />
       </div>
 
       <Flexbox className={styles.row} id="locationSelector">
         <LocationSelector
           location={facility.facilityLocationCode}
+          editMode={editMode}
         />
       </Flexbox>
     </>

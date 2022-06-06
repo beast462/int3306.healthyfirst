@@ -34,6 +34,7 @@ const DEFAULT_WARD = {
 interface IProps {
   className?: string;
   location?: number;
+  editMode?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -66,7 +67,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function LocationSelector({ location = 0 }: IProps): ReactElement {
+function LocationSelector({
+  location = 0,
+  editMode = false,
+}: IProps): ReactElement {
   const styles = useStyles();
 
   const [selectedProvince, setSelectedProvince] =
@@ -119,9 +123,11 @@ function LocationSelector({ location = 0 }: IProps): ReactElement {
                 key={`province#${province.code}`}
                 value={province.code}
                 onClick={() => {
-                  setSelectedProvince(province);
-                  setSelectedDistrict({ code: -1, name: '' });
-                  setSelectedWard({ code: -1, name: '' });
+                  if (editMode) {
+                    setSelectedProvince(province);
+                    setSelectedDistrict({ code: -1, name: '' });
+                    setSelectedWard({ code: -1, name: '' });
+                  }
                 }}
                 sx={{ textTransform: 'capitalize' }}
               >
@@ -146,8 +152,10 @@ function LocationSelector({ location = 0 }: IProps): ReactElement {
                 key={`district#${district.code}`}
                 value={district.code}
                 onClick={() => {
-                  setSelectedDistrict(district);
-                  setSelectedWard({ code: -1, name: '' });
+                  if (editMode) {
+                    setSelectedDistrict(district);
+                    setSelectedWard({ code: -1, name: '' });
+                  }
                 }}
                 sx={{ textTransform: 'capitalize' }}
               >
@@ -172,9 +180,7 @@ function LocationSelector({ location = 0 }: IProps): ReactElement {
               <MenuItem
                 key={`ward#${ward.code}`}
                 value={ward.code}
-                onClick={() => {
-                  setSelectedWard(ward);
-                }}
+                onClick={() => editMode && setSelectedWard(ward)}
                 sx={{ textTransform: 'capitalize' }}
               >
                 {ward.name.toLowerCase()}

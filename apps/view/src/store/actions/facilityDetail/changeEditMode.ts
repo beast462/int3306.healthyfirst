@@ -1,7 +1,7 @@
 import { ActionTypes } from '../../ActionTypes';
 import { Action, AppThunkAction } from './../../store';
 
-export function setFacilityDetail(
+export function changeEditMode(
   state: boolean,
 ): AppThunkAction<Action<boolean>, unknown> {
   return (dispatch) => {

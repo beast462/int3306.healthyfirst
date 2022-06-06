@@ -1,5 +1,6 @@
 import Flexbox from '@/view/common/components/Flexbox';
 import { ApplicationState } from '@/view/store';
+import { changeEditMode } from '@/view/store/actions/facilityDetail/changeEditMode';
 import styled from '@emotion/styled';
 import { EditRounded, CancelRounded, SaveRounded } from '@mui/icons-material';
 import { Button, Divider, Typography } from '@mui/material';
@@ -32,14 +33,15 @@ const connector = connect(
     facility: state.facilityDetail.facility,
     editMode: state.facilityDetail.editMode,
   }),
-  {},
+  { changeEditMode },
 );
 
 function FacilityInfo({
   facility,
+  editMode,
+  changeEditMode,
 }: ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
-  const [editMode, setEditMode] = useState(false);
 
   return (
     <Root>
@@ -56,7 +58,7 @@ function FacilityInfo({
                 : { margin: '1rem 0rem 1rem 0', height: '40px' }
             }
             startIcon={<EditRounded />}
-            onClick={() => setEditMode(true)}
+            onClick={() => changeEditMode(true)}
           >
             Chỉnh sửa
           </Button>
@@ -68,7 +70,7 @@ function FacilityInfo({
                 : { margin: '1rem 0rem 1rem 0', height: '40px' }
             }
             startIcon={<CancelRounded />}
-            onClick={() => setEditMode(false)}
+            onClick={() => changeEditMode(false)}
           >
             Huỷ
           </Button>

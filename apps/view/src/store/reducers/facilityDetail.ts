@@ -28,6 +28,9 @@ export function reduce(
     case ActionTypes.FACILITY_DETAIL__SET_FACILITY:
       return { ...state, facility: action.payload };
 
+    case ActionTypes.FACILITY_DETAIL__CHANGE_EDIT_MODE:
+      return { ...state, editMode: action.payload };
+
     default:
       return state;
   }

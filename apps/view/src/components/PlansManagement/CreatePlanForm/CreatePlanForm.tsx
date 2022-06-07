@@ -3,7 +3,7 @@ import { ReactElement, SyntheticEvent } from 'react';
 import { swrHookKeys } from '@/view/common/constants/swrHookKeys';
 import { ISegmentProps } from '@/view/common/interfaces/Segment';
 import styled from '@emotion/styled';
-import { ArrowRight } from '@mui/icons-material';
+import { ArrowRight, MultipleStop } from '@mui/icons-material';
 import {
   Button,
   Divider,
@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { useSWRConfig } from 'swr';
 import { makeStyles } from '@mui/styles';
+import MultipleStepPlan from './MultiStepPlan/MultipleStepPlan';
 
 const Root = styled.div`
   width: 100%;
@@ -75,10 +76,11 @@ function CreatePlanForm({ switchSegment }: ISegmentProps): ReactElement {
               variant="contained"
               sx={{ height: '56px', marginLeft: '1rem' }}
             >
-              Tạo kế hoạch
+              Kiểm tra
             </Button>
           </form>
         </div>
+        <MultipleStepPlan />
       </Container>
     </Root>
   );

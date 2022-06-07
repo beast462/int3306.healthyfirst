@@ -3,28 +3,34 @@ import { ReactElement } from 'react';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface IProps {
   value: Date | null;
   setValue: (value: Date | null) => void;
+  minDate?: Date;
+  label?: string;
 }
 
-export default function DatePicker({
+export default function CDatePicker({
   value,
   setValue,
+  minDate = new Date(),
+  label,
   ...props
 }: IProps): ReactElement {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <MobileDatePicker
+      <DatePicker
         {...props}
-        minDate={new Date()}
+        label={label}
+        minDate={minDate}
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
         }}
-        renderInput={(params) => <TextField {...params} />}
+        inputFormat="dd/MM/yyyy"
+        renderInput={(params) => <TextField fullWidth {...params} />}
       />
     </LocalizationProvider>
   );

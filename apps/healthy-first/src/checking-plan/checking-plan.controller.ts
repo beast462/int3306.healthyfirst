@@ -16,11 +16,15 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { FacilityService } from '../facility/facility.service';
 import { CheckingPlanService } from './checking-plan.service';
 
 @Controller('api/checking-plan')
 export class CheckingPlanController {
-  constructor(private readonly checkingPlanService: CheckingPlanService) {}
+  constructor(
+    private readonly checkingPlanService: CheckingPlanService,
+    private readonly facilityService: FacilityService,
+  ) {}
 
   @Get()
   public async getAllCheckingPlans(): Promise<
@@ -55,6 +59,10 @@ export class CheckingPlanController {
   public async getCheckingPlanByFacilityId(
     @Param() { facilityId }: GetCheckingPlanFacilityIdParamDTO,
   ): Promise<ResponseDTO<CheckingPlanEntity[]>> {
+    const facility = await this.facilityService.getFacilityById(facilityId);
+
+    if (!facility) throw new NotFoundException('Facility not found');
+
     const checkingPlan =
       await this.checkingPlanService.getCheckingPlanByFacilityId(facilityId);
 

@@ -113,8 +113,13 @@ export class CertificateService {
   public async createCertificate(
     newCertificate: Omit<CertificateEntity, 'id' | 'facility'>,
   ): Promise<CertificateEntity> {
-    return (await this.certificateRepository.insert(newCertificate))
-      .generatedMaps[0] as CertificateEntity;
+    const certificate = (
+      await this.certificateRepository.insert(newCertificate)
+    ).generatedMaps[0] as CertificateEntity;
+
+    return await this.certificateRepository.findOne({
+      where: { id: certificate.id },
+    });
   }
 
   public async deleteCertificate(

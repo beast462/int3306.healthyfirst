@@ -11,7 +11,7 @@ import {
 } from '../entity-constraints/food-sample.entity-constraint';
 import { CheckingActivityEntity } from './checking-activity.entity';
 import { FacilityEntity } from './facility.entity';
-import { InspectionUnitEntity } from './inspection-unit';
+import { FoodSafetyAuthorityBranchEntity } from './food-safety-authority-branch.entity';
 
 export const TABLE_NAME = 'food_sample';
 
@@ -82,15 +82,19 @@ export class FoodSampleEntity {
   })
   inspectorId!: number;
 
-  @ManyToOne(() => InspectionUnitEntity, (inspector) => inspector.id, {
-    nullable: false,
-    onDelete: 'RESTRICT',
-    onUpdate: 'CASCADE',
-    eager: false,
-  })
+  @ManyToOne(
+    () => FoodSafetyAuthorityBranchEntity,
+    (fsaBranch) => fsaBranch.id,
+    {
+      nullable: false,
+      onDelete: 'RESTRICT',
+      onUpdate: 'CASCADE',
+      eager: false,
+    },
+  )
   @JoinColumn({ name: 'inspector_id', referencedColumnName: 'id' })
-  inspector!: InspectionUnitEntity;
+  inspector!: FoodSafetyAuthorityBranchEntity;
 
-  @Column('boolean', { nullable: false, name: 'passed' })
-  passed!: boolean;
+  @Column('tinyint', { nullable: false, name: 'passed', unsigned: true })
+  passed!: number;
 }

@@ -62,7 +62,7 @@ export class CheckingActivityEntity {
   })
   inspectionActivityId!: number;
 
-  @OneToOne(() => PurposeEntity, (purpose) => purpose.id, {
+  @ManyToOne(() => PurposeEntity, (purpose) => purpose.id, {
     nullable: false,
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE',

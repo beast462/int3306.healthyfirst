@@ -1,5 +1,4 @@
 import { Info } from '@mui/icons-material';
-import { Avatar } from '@mui/material';
 import { ReactElement } from 'react';
 import { Navigations } from '../Navigations';
 

@@ -10,4 +10,6 @@ export const swrHookKeys = {
   USE_RESPONSIBLE_LOCATION: 'useResponsibleLocation',
   USE_FACILITY_TYPES: 'useFacilityTypes',
   USE_FACILITIES: 'useFacilities',
+  USE_CHECKING_PLANS: 'useCheckingPlans',
+  USE_PURPOSES: 'usePurposes',
 };

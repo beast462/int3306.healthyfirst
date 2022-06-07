@@ -11,23 +11,19 @@ import { HttpStatus } from '@nestjs/common/enums';
 import { swrHookKeys } from '../common/constants/swrHookKeys';
 import { NotificationSeverity } from '../common/types/Notification';
 import { notify } from '../store/actions/app/notify';
-import { FacilityDetails } from '../common/types/Facility';
+import { Plan } from '../common/types/Plan';
 
-async function fetchFacilities(
+async function fetchPlans(
   this: Dispatch<any>,
   locationCode: number,
-): Promise<FacilityDetails[]> {
+): Promise<Plan[]> {
   if (typeof locationCode !== 'number')
     throw new SerializableError(new Error(ErrorCodes.UNKNOWN_ERROR.toString()));
 
-  const {
-    statusCode,
-    message,
-    body,
-    errorCode,
-  }: ResponseDTO<FacilityDetails[]> = await fetch(
-    `/api/facilities/code/${locationCode}/children/cert/details`,
-  ).then((res) => res.json());
+  const { statusCode, message, body, errorCode }: ResponseDTO<Plan[]> =
+    await fetch(
+      `/api/facilities/code/${locationCode}/children/plan/details`,
+    ).then((res) => res.json());
 
   if (statusCode === HttpStatus.OK) return body;
 
@@ -43,24 +39,23 @@ async function fetchFacilities(
   throw new SerializableError(new Error(errorCode.toString()));
 }
 
-export function useFacilities() {
+export function useCheckingPlans() {
   const dispatch = useDispatch();
   const { data: responsibleLocation } = useResponsibleLocation();
-  const { data: facilities, error } = useSWR<FacilityDetails[], Error>(
-    swrHookKeys.USE_FACILITIES,
-    fetchFacilities.bind(
-      dispatch,
-      responsibleLocation?.responsibleLocationCode,
-    ),
+  const { data: plans, error } = useSWR<Plan[], Error>(
+    swrHookKeys.USE_CHECKING_PLANS,
+    fetchPlans.bind(dispatch, responsibleLocation?.responsibleLocationCode),
   );
 
   const isError =
     error &&
     (error instanceof Error || SerializableError.isSerializableError(error));
 
+  console.log(plans);
+
   return {
-    facilities,
-    isLoading: !error && !facilities,
+    plans,
+    isLoading: !error && !plans,
     error: isError ? error : null,
   };
 }

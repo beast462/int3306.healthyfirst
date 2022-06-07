@@ -14,7 +14,7 @@ import { bySeconds } from '@/common/helpers/timespan';
 import { debounce } from 'lodash';
 
 interface IProps {
-  findFacilities: (searchOpt: string, searchVal: string) => void;
+  findPlans: (searchOpt: string, searchVal: string) => void;
 }
 
 const Root = styled.div`
@@ -22,7 +22,7 @@ const Root = styled.div`
   margin-top: 1rem;
 `;
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   searchBox: {
     flex: 2,
     margin: '0',
@@ -38,22 +38,28 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const searchOptions = [
-  { id: 0, val: 'id', label: 'ID', description: 'Tìm theo ID' },
+  { id: 0, val: 'planId', label: 'ID', description: 'Tìm theo ID' },
   {
     id: 1,
+    val: 'id',
+    label: 'ID cơ sở',
+    description: 'Tìm theo ID cơ sở',
+  },
+  {
+    id: 2,
     val: 'name',
     label: 'Tên cơ sở',
     description: 'Tìm theo tên cơ sở',
   },
   {
-    id: 2,
+    id: 3,
     val: 'ownerName',
     label: 'Chủ cơ sở',
     description: 'Tìm theo chủ cơ sở',
   },
 ];
 
-function SearchBox({ findFacilities }: IProps): ReactElement {
+function PlanSearchBox({ findPlans }: IProps): ReactElement {
   const styles = useStyles();
   const [searchOpt, setSearchOpt] = useState(0);
   const [value, setValue] = useState('');
@@ -65,7 +71,7 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
     (event) => {
       const newVal = event.target.value;
       setValue(newVal);
-      findFacilities(searchOptions[searchOpt].val, newVal);
+      findPlans(searchOptions[searchOpt].val, newVal);
     },
     bySeconds(0.5),
   );
@@ -111,7 +117,7 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
                 selected={searchOpt === opt.id}
                 onClick={() => {
                   setSearchOpt(opt.id);
-                  findFacilities(searchOptions[opt.id].val, value);
+                  findPlans(searchOptions[opt.id].val, value);
                 }}
                 key={`searchOpt#${opt.id}`}
               >
@@ -125,4 +131,4 @@ function SearchBox({ findFacilities }: IProps): ReactElement {
   );
 }
 
-export default SearchBox;
+export default PlanSearchBox;

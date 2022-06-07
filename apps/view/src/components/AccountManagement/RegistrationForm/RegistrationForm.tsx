@@ -56,8 +56,6 @@ function RegistrationForm({
       ),
     };
 
-    console.log(newUser);
-
     const { statusCode, errorCode } = await fetch('/api/user', {
       method: 'POST',
       headers: {

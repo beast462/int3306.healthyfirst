@@ -10,17 +10,23 @@ import {
   reduce as facilityDetailReduce,
   initialState as facilityDetailIS,
 } from './reducers/facilityDetail';
+import {
+  reduce as createPlanReduce,
+  initialState as createPlanIS,
+} from './reducers/createPlan';
 
 const store = configureStore({
   reducer: {
     app: appReduce,
     locationManager: locationManagerReduce,
     facilityDetail: facilityDetailReduce,
+    createPlan: createPlanReduce,
   },
   preloadedState: {
     app: appIS,
     locationManager: locationManagerIS,
     facilityDetail: facilityDetailIS,
+    createPlan: createPlanIS,
   },
   middleware(getDefaultMiddleware) {
     return [

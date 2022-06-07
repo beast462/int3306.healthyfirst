@@ -18,5 +18,6 @@ import { FacilityService } from './facility.service';
   ],
   controllers: [FacilityController],
   providers: [FacilityService],
+  exports: [FacilityService],
 })
 export class FacilityModule {}

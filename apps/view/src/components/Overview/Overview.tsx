@@ -36,7 +36,9 @@ function capitalize(str: string | undefined) {
 function Overview(): ReactElement {
   const { user } = useUser();
   const { roles } = useRoles();
-  const { responsibleLocationCode } = useResponsibleLocation().data ?? 0;
+  const { responsibleLocationCode } = useResponsibleLocation().data ?? {
+    responsibleLocation: 0,
+  };
 
   console.log(responsibleLocationCode);
   const currentUserProvince = (useProvinces().provinces ?? []).find(

@@ -1,1 +1,0 @@
-export const MAX_PURPOSE_NAME_LENGTH = 30;

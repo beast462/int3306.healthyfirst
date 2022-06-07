@@ -98,6 +98,26 @@ const switchSort: Record<SortOrders, SortOrders> = {
 
 const connector = connect(() => ({}), { setFacilityDetail });
 
+function getOrderOfFacility(date, revoke) {
+  let order = '';
+
+  const expiredDate = date ? new Date(date) : null;
+
+  if (expiredDate === null && revoke === null) {
+    order = 'not';
+  } else if (revoke === 1) {
+    order = 'revoked';
+  } else if (expiredDate) {
+    if (expiredDate < new Date()) {
+      order = 'expired';
+    } else {
+      order = 'valid';
+    }
+  }
+
+  return order;
+}
+
 function FacilitiesTable({
   switchSegment,
   setFacilityDetail,
@@ -114,8 +134,17 @@ function FacilitiesTable({
   } as { page: number; rowsPerPage: number });
 
   const [search, setSearch] = useState({ val: '', opt: 'id' });
+  const [filter, setFilter] = useState('all');
 
   let facilities = useFacilities().facilities ?? [];
+
+  if (filter !== 'all') {
+    facilities = facilities.filter(
+      (facility) =>
+        getOrderOfFacility(facility.expiredDate, facility.revoked) === filter,
+    );
+  }
+
   if (search.val !== '') {
     facilities = facilities.filter((facility) => {
       if (search.opt === 'id') {
@@ -130,6 +159,8 @@ function FacilitiesTable({
     setSearch({ opt: searchOpt, val: searchVal });
   };
 
+  const filterFacilities = (filter: string) => setFilter(filter);
+
   return (
     <Root>
       <Container>
@@ -140,7 +171,10 @@ function FacilitiesTable({
           <Typography variant="h6">Danh sách cơ sở</Typography>
 
           <div className="actionBar">
-            <SearchBox findFacilities={findFacilities} />
+            <SearchBox
+              findFacilities={findFacilities}
+              filterFacilities={filterFacilities}
+            />
 
             <Button
               sx={{ maxWidth: '160px' }}

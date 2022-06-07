@@ -147,7 +147,7 @@ function CertificateInfo({
   }, [facilityId]);
 
   const handleRevokeClick = () => {
-    fetch(`/api/certificate/id/${facilityId}`, {
+    fetch(`/api/certificate/id/${certificateInfo.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

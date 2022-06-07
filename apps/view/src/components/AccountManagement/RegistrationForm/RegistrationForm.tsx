@@ -56,7 +56,7 @@ function RegistrationForm({
       ),
     };
 
-    const { statusCode, errorCode } = await fetch('/api/user', {
+    const { statusCode, message, errorCode } = await fetch('/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -80,9 +80,11 @@ function RegistrationForm({
 
       return;
     } else if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
-      notify('Tạo tài khoản không thành công', NotificationSeverity.ERROR, [
-        'Người dùng đã tồn tại',
-      ]);
+      notify(
+        'Tạo tài khoản không thành công',
+        NotificationSeverity.ERROR,
+        message,
+      );
     } else {
       const errorMessages = [];
       switch (errorCode) {

@@ -12,7 +12,7 @@ interface IProps {
 
 function ValidatedInput({
   validator = Joi.any().required(),
-  validationLatency = bySeconds(0.5),
+  validationLatency = bySeconds(1.5),
   ...textFieldProps
 }: IProps & TextFieldProps) {
   const [value, setValue] = useState('');

@@ -60,7 +60,7 @@ export class CheckingActivityEntity {
     name: 'inspection_activity',
     unsigned: true,
   })
-  inspectionActivity!: number;
+  inspectionActivityId!: number;
 
   @OneToOne(() => PurposeEntity, (purpose) => purpose.id, {
     nullable: false,
@@ -69,8 +69,8 @@ export class CheckingActivityEntity {
     eager: false,
   })
   @JoinColumn({ name: 'inspection_activity', referencedColumnName: 'id' })
-  inspectionActivityName!: PurposeEntity;
+  inspectionActivity!: PurposeEntity;
 
-  @Column('boolean', { nullable: false, name: 'passed' })
-  passed!: boolean;
+  @Column('tinyint', { nullable: false, name: 'passed', unsigned: true })
+  passed!: number;
 }

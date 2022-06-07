@@ -19,6 +19,7 @@ import { ResponsibleAreaModule } from './responsible-area/responsible-area.modul
 import { FacilityTypeModule } from './facility-type/facility-type.module';
 import { CheckingPlanModule } from './checking-plan/checking-plan.module';
 import { PurposeModule } from './purpose/purpose.module';
+import { CheckingActivityModule } from './checking-activity/checking-activity.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { PurposeModule } from './purpose/purpose.module';
     FacilityTypeModule,
     CheckingPlanModule,
     PurposeModule,
+    CheckingActivityModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

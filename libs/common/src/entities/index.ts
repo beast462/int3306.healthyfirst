@@ -1,5 +1,5 @@
 import { CertificateEntity } from './certificate.entity';
-import { CheckingActivityEntity } from './checking-activity';
+import { CheckingActivityEntity } from './checking-activity.entity';
 import { CheckingPlanEntity } from './checking-plan.entity';
 import { FacilityTypeEntity } from './facility-type.entity';
 import { FacilityEntity } from './facility.entity';

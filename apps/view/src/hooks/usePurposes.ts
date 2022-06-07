@@ -33,8 +33,13 @@ async function fetchPurposes(this: Dispatch<any>): Promise<PurposeEntity[]> {
 export function usePurposes() {
   const dispatch = useDispatch();
   const { data: purposes, error } = useSWR<PurposeEntity[], Error>(
-    swrHookKeys.USE_FACILITIES,
+    swrHookKeys.USE_PURPOSES,
     fetchPurposes.bind(dispatch),
+    {
+      revalidateIfStale: true,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
   );
 
   const isError =

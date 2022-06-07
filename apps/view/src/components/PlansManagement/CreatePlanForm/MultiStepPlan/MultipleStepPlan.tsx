@@ -10,12 +10,10 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import React from 'react';
 import CheckingFacility from './CheckingFacility/CheckingFacility';
 import CheckingFS from './CheckingFS/CheckingFS';
 import ResultAnnouce from './ResultAnnouce/ResultAnnouce';
-
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+import { usePurposes } from '@/view/hooks/usePurposes';
 
 function getStepContent(step: number) {
   switch (step) {
@@ -32,6 +30,7 @@ function getStepContent(step: number) {
 
 function MultipleStepPlan(): ReactElement {
   const [activeStep, setActiveStep] = useState(0);
+  const steps = (usePurposes().purposes ?? []).map((purpose) => purpose?.name);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -42,12 +41,16 @@ function MultipleStepPlan(): ReactElement {
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+    <Container
+      component="main"
+      maxWidth="sm"
+      sx={{ mb: 4, minHeight: '400px' }}
+    >
       <Paper
         variant="outlined"
-        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+        sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}
       >
-        <Typography component="h1" variant="h4" align="center">
+        <Typography variant="h5" align="center">
           Kế hoạch kiểm tra
         </Typography>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>

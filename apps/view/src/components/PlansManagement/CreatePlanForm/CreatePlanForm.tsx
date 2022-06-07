@@ -16,6 +16,10 @@ import {
 import { useSWRConfig } from 'swr';
 import { makeStyles } from '@mui/styles';
 import MultipleStepPlan from './MultiStepPlan/MultipleStepPlan';
+import { connect, ConnectedProps } from 'react-redux';
+import { notify } from '@/view/store/actions/app/notify';
+import { NotificationSeverity } from '@/view/common/types/Notification';
+import { HttpStatus } from '@nestjs/common/enums';
 
 const Root = styled.div`
   width: 100%;
@@ -35,14 +39,47 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function CreatePlanForm({ switchSegment }: ISegmentProps): ReactElement {
+const connector = connect(() => ({}), { notify });
+
+function CreatePlanForm({
+  switchSegment,
+  notify,
+}: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
   const { mutate } = useSWRConfig();
   const styles = useStyles();
 
-  const handleSubmit = async (event: SyntheticEvent) => {
+  const handleCheck = async (event: SyntheticEvent) => {
     event.preventDefault();
 
     const target = event.target as HTMLFormElement;
+    if (
+      target.facilityId.value === '' ||
+      typeof +target.facilityId.value !== 'number' ||
+      +target.facilityId.value <= 0
+    ) {
+      notify('ID cơ sở không hợp lệ', NotificationSeverity.ERROR);
+      return;
+    }
+
+    const { statusCode, message, body } = await fetch(
+      `/api/checking-plan/facilityid/${+target.facilityId.value}`,
+    ).then((res) => res.json());
+
+    if (statusCode === HttpStatus.OK) {
+      if (body.length > 0) {
+        notify(
+          'Cơ sở này đang có lịch hẹn, vui lòng chọn cơ sở khác',
+          NotificationSeverity.ERROR,
+        );
+      } else {
+        notify(
+          'Bạn có thể tạo kế hoạch kiểm tra',
+          NotificationSeverity.SUCCESS,
+        );
+      }
+    } else {
+      notify('Có lỗi xảy ra', NotificationSeverity.ERROR, message);
+    }
   };
 
   return (
@@ -65,7 +102,7 @@ function CreatePlanForm({ switchSegment }: ISegmentProps): ReactElement {
 
         <Divider />
         <div style={{ margin: '1rem 0', minHeight: '72px' }}>
-          <form onSubmit={handleSubmit} className={styles.form}>
+          <form onSubmit={handleCheck} className={styles.form}>
             <TextField
               label="Nhập ID cơ sở"
               name="facilityId"
@@ -75,6 +112,7 @@ function CreatePlanForm({ switchSegment }: ISegmentProps): ReactElement {
             <Button
               variant="contained"
               sx={{ height: '56px', marginLeft: '1rem' }}
+              type="submit"
             >
               Kiểm tra
             </Button>
@@ -86,4 +124,4 @@ function CreatePlanForm({ switchSegment }: ISegmentProps): ReactElement {
   );
 }
 
-export default CreatePlanForm;
+export default connector(CreatePlanForm);

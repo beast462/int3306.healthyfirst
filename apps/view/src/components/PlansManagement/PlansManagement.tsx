@@ -4,6 +4,7 @@ import { Navigations } from '../Navigations';
 import Flexbox from '@/view/common/components/Flexbox';
 import styled from '@emotion/styled';
 import PlansTable from './PlansTable/PlansTable';
+import CreatePlanForm from './CreatePlanForm/CreatePlanForm';
 
 const Root = styled.div`
   width: 100%;
@@ -37,7 +38,7 @@ const Segment = styled.div`
 `;
 
 function PlanManagement(): ReactElement {
-  const [viewingSegment, setViewingSegment] = useState(0);
+  const [viewingSegment, setViewingSegment] = useState(1);
 
   return (
     <Root>
@@ -52,6 +53,10 @@ function PlanManagement(): ReactElement {
             : 'fourth'
         }
       >
+        <Segment>
+          <CreatePlanForm switchSegment={() => setViewingSegment(1)} />
+        </Segment>
+
         <Segment>
           <PlansTable switchSegment={(segId) => setViewingSegment(segId)} />
         </Segment>

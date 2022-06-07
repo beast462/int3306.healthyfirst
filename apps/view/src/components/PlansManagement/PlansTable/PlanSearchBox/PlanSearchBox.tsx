@@ -22,7 +22,7 @@ const Root = styled.div`
   margin-top: 1rem;
 `;
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   searchBox: {
     flex: 2,
     margin: '0',

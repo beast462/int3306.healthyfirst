@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { ArrowLeft } from '@mui/icons-material';
-import { Button, Paper, Toolbar, Typography } from '@mui/material';
+import { Button, Divider, Paper, Toolbar, Typography } from '@mui/material';
 import { ReactElement } from 'react';
 import { ISegmentProps } from '../../AccountManagement';
+import CertificateInfo from './CertificateInfo/CertificateInfo';
 
 const Root = styled.div`
   width: 100%;
@@ -33,6 +34,9 @@ function CertificateManagement({ switchSegment }: ISegmentProps): ReactElement {
 
           <Typography variant="h6">Giấy chứng nhận</Typography>
         </Toolbar>
+
+        <Divider />
+        <CertificateInfo />
       </Container>
     </Root>
   );

@@ -20,6 +20,7 @@ import { FacilityTypeModule } from './facility-type/facility-type.module';
 import { CheckingPlanModule } from './checking-plan/checking-plan.module';
 import { PurposeModule } from './purpose/purpose.module';
 import { CheckingActivityModule } from './checking-activity/checking-activity.module';
+import { FoodSampleModule } from './food-sample/food-sample.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { CheckingActivityModule } from './checking-activity/checking-activity.mo
     CheckingPlanModule,
     PurposeModule,
     CheckingActivityModule,
+    FoodSampleModule,
   ],
   controllers: [PingController],
   providers: [ConfigService],

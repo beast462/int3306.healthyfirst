@@ -9,7 +9,7 @@ import {
   MAX_EXAMINER_NAME_LENGTH,
   MAX_FOOD_SAMPLE_NAME_LENGTH,
 } from '../entity-constraints/food-sample.entity-constraint';
-import { CheckingActivityEntity } from './checking-activity';
+import { CheckingActivityEntity } from './checking-activity.entity';
 import { FacilityEntity } from './facility.entity';
 import { InspectionUnitEntity } from './inspection-unit';
 

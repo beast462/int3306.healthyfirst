@@ -19,6 +19,8 @@ import { notify } from '@/view/store/actions/app/notify';
 import { ApplicationState } from '@/view/store';
 import { HttpStatus } from '@nestjs/common/enums';
 import { useUser } from '@/view/hooks/useUser';
+import { NotificationSeverity } from '@/view/common/types/Notification';
+import { setCreateMode } from '@/view/store/actions/createPlan/setCreateMode';
 
 function getStepContent(step: number) {
   switch (step) {
@@ -41,7 +43,7 @@ const connector = connect(
     secondStepDate: state.createPlan.secondStepDate,
     thirdStepDate: state.createPlan.thirdStepDate,
   }),
-  { notify },
+  { notify, setCreateMode },
 );
 
 function MultipleStepPlan({
@@ -51,6 +53,7 @@ function MultipleStepPlan({
   secondStepDate,
   thirdStepDate,
   notify,
+  setCreateMode,
 }: ConnectedProps<typeof connector>): ReactElement {
   const [activeStep, setActiveStep] = useState(0);
   const steps = (usePurposes().purposes ?? []).map((purpose) => purpose?.name);
@@ -108,9 +111,12 @@ function MultipleStepPlan({
             },
             body: JSON.stringify(activity),
           }).then((res) => res.json());
-
-          console.log(statusCode);
         }
+
+        notify('Tạo kế hoạch thành công', NotificationSeverity.SUCCESS);
+        setCreateMode({ canCreate: false, facilityId: 0 });
+      } else {
+        notify('Tạo kế hoạch thất bại', NotificationSeverity.ERROR, message);
       }
     }
   };
@@ -145,16 +151,7 @@ function MultipleStepPlan({
         </Stepper>
         <>
           {activeStep === steps.length ? (
-            <>
-              <Typography variant="h5" gutterBottom>
-                Thank you for your order.
-              </Typography>
-              <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
-              </Typography>
-            </>
+            <></>
           ) : (
             <>
               {getStepContent(activeStep)}

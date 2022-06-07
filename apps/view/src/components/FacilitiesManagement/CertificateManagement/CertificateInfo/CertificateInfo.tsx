@@ -2,6 +2,7 @@ import { CertificateEntity } from '@/common/entities';
 import Flexbox from '@/view/common/components/Flexbox';
 import { Facility } from '@/view/common/types/Facility';
 import { NotificationSeverity } from '@/view/common/types/Notification';
+import { useUser } from '@/view/hooks/useUser';
 import { ApplicationState } from '@/view/store';
 import { notify } from '@/view/store/actions/app/notify';
 import styled from '@emotion/styled';
@@ -14,7 +15,7 @@ import {
 import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { HttpStatus } from '@nestjs/common/enums';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, SyntheticEvent, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 const Root = styled.div`
@@ -31,6 +32,16 @@ const useStyles = makeStyles(() => ({
       borderRadius: '8px',
     },
   },
+
+  nodisplay: {
+    display: 'none',
+  },
+
+  form: {
+    display: 'block',
+    textAlign: 'center',
+    margin: '1rem 0 1rem 0',
+  },
 }));
 
 const connector = connect(
@@ -45,9 +56,12 @@ function CertificateInfo({
   notify,
 }: ConnectedProps<typeof connector>): ReactElement {
   const styles = useStyles();
+  const { user } = useUser() ?? {};
   const [facilityInfo, setFacilityInfo] = useState<Facility>(null);
   const [certificateInfo, setCertificateInfo] =
-    useState<CertificateEntity>(null);
+    useState<Omit<CertificateEntity, 'facility'>>(null);
+
+  const [editMode, setEditMode] = useState(false);
 
   let order = 0;
   let text = 'Chưa cấp';
@@ -109,7 +123,10 @@ function CertificateInfo({
       .then((data) => {
         const { statusCode, message, body } = data;
 
-        if (statusCode === HttpStatus.OK) {
+        if (
+          statusCode === HttpStatus.OK ||
+          statusCode === HttpStatus.NOT_FOUND
+        ) {
           setCertificateInfo(body);
         } else {
           setCertificateInfo(body);
@@ -128,6 +145,110 @@ function CertificateInfo({
         );
       });
   }, [facilityId]);
+
+  const handleRevokeClick = () => {
+    fetch(`/api/certificate/id/${facilityId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ ...certificateInfo, revoked: 1 }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { statusCode, message, body } = data;
+
+        if (statusCode === HttpStatus.OK) {
+          notify(
+            'Thu hồi giấy chứng nhận thành công',
+            NotificationSeverity.SUCCESS,
+          );
+          setCertificateInfo(body);
+        } else {
+          notify(
+            'Thu hồi giấy chứng nhận không thành công',
+            NotificationSeverity.ERROR,
+            message,
+          );
+        }
+      })
+      .catch((err) => {
+        notify(
+          'Lỗi khi thu hồi giấy chứng nhận',
+          NotificationSeverity.ERROR,
+          err,
+        );
+      });
+  };
+
+  const handleCheck = async (event: SyntheticEvent) => {
+    event.preventDefault();
+
+    const target = event.target as HTMLFormElement;
+
+    if (
+      target.issueId.value === '' ||
+      isNaN(+target.issueId.value) ||
+      +target.issueId.value <= 0 ||
+      +target.issueId.value <= certificateInfo?.issueId
+    ) {
+      notify('Số cấp mới không hợp lệ', NotificationSeverity.ERROR);
+      return;
+    }
+
+    let newCertificateInfo = {};
+    let method = 'PUT';
+    let url = '/api/certificate';
+
+    if (certificateInfo === undefined) {
+      newCertificateInfo = {
+        facilityId: facilityId,
+        revoked: 0,
+        issueId: +target.issueId.value,
+        issuedDate: new Date().toISOString().slice(0, 10),
+        expiredDate: new Date(Date.now() + 31536000000)
+          .toISOString()
+          .slice(0, 10),
+        issuedBy: user.displayName,
+      };
+      method = 'POST';
+    } else {
+      newCertificateInfo = {
+        ...certificateInfo,
+        revoked: 0,
+        issueId: +target.issueId.value,
+        issuedDate: new Date().toISOString().slice(0, 10),
+        expiredDate: new Date(Date.now() + 31536000000)
+          .toISOString()
+          .slice(0, 10),
+        issuedBy: user.displayName,
+      };
+
+      url = `/api/certificate/id/${certificateInfo?.id}`;
+    }
+
+    const { statusCode, message, body } = await fetch(url, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(newCertificateInfo),
+    }).then((res) => res.json());
+
+    if (statusCode === HttpStatus.OK) {
+      notify(
+        'Cấp giấy chứng nhận mới thành công',
+        NotificationSeverity.SUCCESS,
+      );
+      setCertificateInfo(body);
+      console.log(body);
+      setEditMode(false);
+    } else {
+      notify('Số cấp này đã được dùng', NotificationSeverity.ERROR, message);
+    }
+  };
 
   return (
     <Root>
@@ -193,11 +314,35 @@ function CertificateInfo({
 
       <Divider />
 
+      <form
+        onSubmit={handleCheck}
+        className={editMode ? styles.form : styles.nodisplay}
+      >
+        <TextField
+          label="Nhập số cấp mới"
+          name="issueId"
+          size="medium"
+          variant="outlined"
+        />
+        <Button
+          variant="contained"
+          sx={{
+            height: '56px',
+            marginLeft: '1rem',
+            display: 'inline-block',
+          }}
+          type="submit"
+        >
+          Kiểm tra
+        </Button>
+      </form>
+
       <Flexbox className={styles.btnGroup}>
         <Button
           variant="outlined"
           sx={{ margin: '1rem 0rem 1rem 0', height: '40px' }}
-          disabled={order > 2}
+          disabled={order > 2 || (order <= 2 && editMode)}
+          onClick={() => setEditMode(true)}
         >
           Cấp mới
         </Button>
@@ -206,6 +351,7 @@ function CertificateInfo({
           color="warning"
           sx={{ margin: '1rem 1rem 1rem 0', height: '40px' }}
           disabled={order <= 2}
+          onClick={handleRevokeClick}
         >
           Thu hồi
         </Button>

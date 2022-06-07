@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import {
   Container,
@@ -14,6 +14,11 @@ import CheckingFacility from './CheckingFacility/CheckingFacility';
 import CheckingFS from './CheckingFS/CheckingFS';
 import ResultAnnouce from './ResultAnnouce/ResultAnnouce';
 import { usePurposes } from '@/view/hooks/usePurposes';
+import { connect, ConnectedProps } from 'react-redux';
+import { notify } from '@/view/store/actions/app/notify';
+import { ApplicationState } from '@/view/store';
+import { HttpStatus } from '@nestjs/common/enums';
+import { useUser } from '@/view/hooks/useUser';
 
 function getStepContent(step: number) {
   switch (step) {
@@ -28,12 +33,86 @@ function getStepContent(step: number) {
   }
 }
 
-function MultipleStepPlan(): ReactElement {
+const connector = connect(
+  (state: ApplicationState) => ({
+    facilityId: state.createPlan.facilityId,
+    canCreate: state.createPlan.canCreate,
+    firstStepDate: state.createPlan.firstStepDate,
+    secondStepDate: state.createPlan.secondStepDate,
+    thirdStepDate: state.createPlan.thirdStepDate,
+  }),
+  { notify },
+);
+
+function MultipleStepPlan({
+  facilityId,
+  canCreate,
+  firstStepDate,
+  secondStepDate,
+  thirdStepDate,
+  notify,
+}: ConnectedProps<typeof connector>): ReactElement {
   const [activeStep, setActiveStep] = useState(0);
   const steps = (usePurposes().purposes ?? []).map((purpose) => purpose?.name);
+  const { id } = useUser().user ?? { id: 0 };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setActiveStep(activeStep + 1);
+    if (activeStep + 1 === steps.length) {
+      const planStartDate = firstStepDate.startDate.toISOString().slice(0, 10);
+      const planEndDate = thirdStepDate.endDate.toISOString().slice(0, 10);
+
+      const { statusCode, message, body } = await fetch(`/api/checking-plan`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          facilityId: facilityId,
+          createdAt: planStartDate,
+          checkedAt: planEndDate,
+        }),
+      }).then((res) => res.json());
+
+      if (statusCode === HttpStatus.OK) {
+        for (let i = 1; i < 4; ++i) {
+          const timeSent =
+            i === 1
+              ? firstStepDate.startDate
+              : i === 2
+              ? secondStepDate.startDate
+              : thirdStepDate.startDate;
+
+          const timeEnd =
+            i === 1
+              ? firstStepDate.endDate
+              : i === 2
+              ? secondStepDate.endDate
+              : thirdStepDate.endDate;
+
+          const activity = {
+            checkingPlanId: body.id,
+            createdAt: timeSent.toISOString().slice(0, 10),
+            checkedAt: timeEnd.toISOString().slice(0, 10),
+            inspectorId: id,
+            inspectionActivityId: i,
+            passed: 0,
+          };
+
+          const { statusCode } = await fetch(`/api/checking-activity`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify(activity),
+          }).then((res) => res.json());
+
+          console.log(statusCode);
+        }
+      }
+    }
   };
 
   const handleBack = () => {
@@ -44,7 +123,11 @@ function MultipleStepPlan(): ReactElement {
     <Container
       component="main"
       maxWidth="sm"
-      sx={{ mb: 4, minHeight: '400px' }}
+      sx={
+        canCreate
+          ? { mb: 4, minHeight: '400px', display: 'flex' }
+          : { display: 'none' }
+      }
     >
       <Paper
         variant="outlined"
@@ -99,4 +182,4 @@ function MultipleStepPlan(): ReactElement {
   );
 }
 
-export default MultipleStepPlan;
+export default connector(MultipleStepPlan);

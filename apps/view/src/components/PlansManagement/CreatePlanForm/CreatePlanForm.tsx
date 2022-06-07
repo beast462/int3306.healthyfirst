@@ -20,6 +20,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { notify } from '@/view/store/actions/app/notify';
 import { NotificationSeverity } from '@/view/common/types/Notification';
 import { HttpStatus } from '@nestjs/common/enums';
+import { ApplicationState } from '@/view/store';
+import { setCreateMode } from '@/view/store/actions/createPlan/setCreateMode';
 
 const Root = styled.div`
   width: 100%;
@@ -39,11 +41,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const connector = connect(() => ({}), { notify });
+const connector = connect(
+  (state: ApplicationState) => ({
+    canCreate: state.createPlan.canCreate,
+  }),
+  {
+    notify,
+    setCreateMode,
+  },
+);
 
 function CreatePlanForm({
+  canCreate,
   switchSegment,
   notify,
+  setCreateMode,
 }: ISegmentProps & ConnectedProps<typeof connector>): ReactElement {
   const { mutate } = useSWRConfig();
   const styles = useStyles();
@@ -52,9 +64,11 @@ function CreatePlanForm({
     event.preventDefault();
 
     const target = event.target as HTMLFormElement;
+    console.log(typeof +target.facilityId.value, +target.facilityId.value);
+
     if (
       target.facilityId.value === '' ||
-      typeof +target.facilityId.value !== 'number' ||
+      isNaN(+target.facilityId.value) ||
       +target.facilityId.value <= 0
     ) {
       notify('ID cơ sở không hợp lệ', NotificationSeverity.ERROR);
@@ -76,7 +90,13 @@ function CreatePlanForm({
           'Bạn có thể tạo kế hoạch kiểm tra',
           NotificationSeverity.SUCCESS,
         );
+        setCreateMode({
+          canCreate: true,
+          facilityId: +target.facilityId.value,
+        });
       }
+    } else if (statusCode === HttpStatus.NOT_FOUND) {
+      notify('Cơ sở không tồn tại', NotificationSeverity.ERROR);
     } else {
       notify('Có lỗi xảy ra', NotificationSeverity.ERROR, message);
     }
@@ -94,6 +114,7 @@ function CreatePlanForm({
             onClick={() => {
               switchSegment();
               mutate(swrHookKeys.USE_CHECKING_PLANS);
+              setCreateMode({ canCreate: false, facilityId: 0 });
             }}
           >
             quay lại danh sách
@@ -111,10 +132,31 @@ function CreatePlanForm({
             />
             <Button
               variant="contained"
-              sx={{ height: '56px', marginLeft: '1rem' }}
+              sx={
+                canCreate
+                  ? { display: 'none' }
+                  : {
+                      height: '56px',
+                      marginLeft: '1rem',
+                      display: 'inline-block',
+                    }
+              }
               type="submit"
             >
               Kiểm tra
+            </Button>
+            <Button
+              variant="outlined"
+              sx={
+                !canCreate
+                  ? { display: 'none' }
+                  : { height: '56px', marginLeft: '1rem' }
+              }
+              onClick={() => {
+                setCreateMode({ canCreate: false, facilityId: 0 });
+              }}
+            >
+              Huỷ
             </Button>
           </form>
         </div>

@@ -13,7 +13,7 @@ import {
 import {
   reduce as createPlanReduce,
   initialState as createPlanIS,
-} from './reducers/facilityDetail';
+} from './reducers/createPlan';
 
 const store = configureStore({
   reducer: {

@@ -3,7 +3,10 @@ import { Action, AppThunkAction } from './../../store';
 
 export function setStepData(stepDate: {
   step: string;
-  data: string;
+  data: {
+    startDate: Date;
+    endDate: Date;
+  };
 }): AppThunkAction<Action<object>, unknown> {
   return (dispatch) => {
     dispatch({

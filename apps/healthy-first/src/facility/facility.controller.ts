@@ -35,7 +35,7 @@ export class FacilityController {
     };
   }
 
-  @Get('details')
+  @Get('cert/details')
   public async getAllFacilitiesWithDetails(): Promise<ResponseDTO<any>> {
     const facilities = await this.facilityService.getAllFacilities();
 
@@ -45,7 +45,9 @@ export class FacilityController {
       statusCode: HttpStatus.OK,
       message: [],
       errorCode: ErrorCodes.SUCCESS,
-      body: await this.facilityService.getAllFacilitiesWithDetails(facilities),
+      body: await this.facilityService.getAllFacilitiesWithDetailsCert(
+        facilities,
+      ),
     };
   }
 
@@ -103,8 +105,8 @@ export class FacilityController {
     };
   }
 
-  @Get('code/:locationCode/children/details')
-  public async getFacilityAndChildrenWithDetailByLocationCode(
+  @Get('code/:locationCode/children/cert/details')
+  public async getFacilityAndChildrenWithDetailCertByLocationCode(
     @Param() { locationCode }: GetFacilityLocationByCodeParamDTO,
   ): Promise<any> {
     const facility =
@@ -118,7 +120,30 @@ export class FacilityController {
       statusCode: HttpStatus.OK,
       message: [],
       errorCode: ErrorCodes.SUCCESS,
-      body: await this.facilityService.getAllFacilitiesWithDetails(facility),
+      body: await this.facilityService.getAllFacilitiesWithDetailsCert(
+        facility,
+      ),
+    };
+  }
+
+  @Get('code/:locationCode/children/plan/details')
+  public async getFacilityAndChildrenWithDetailPlanByLocationCode(
+    @Param() { locationCode }: GetFacilityLocationByCodeParamDTO,
+  ): Promise<any> {
+    const facility =
+      await this.facilityService.getFacilityAndChildrenByLocationCode(
+        locationCode,
+      );
+
+    if (!facility) throw new NotFoundException('Facility not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: await this.facilityService.getAllFacilitiesWithDetailsPlan(
+        facility,
+      ),
     };
   }
 

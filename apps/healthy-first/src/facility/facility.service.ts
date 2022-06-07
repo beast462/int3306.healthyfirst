@@ -1,4 +1,8 @@
-import { CertificateEntity, FacilityEntity } from '@/common/entities';
+import {
+  CertificateEntity,
+  CheckingPlanEntity,
+  FacilityEntity,
+} from '@/common/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Raw, Repository } from 'typeorm';
@@ -10,13 +14,15 @@ export class FacilityService {
     private readonly facilityRepository: Repository<FacilityEntity>,
     @InjectRepository(CertificateEntity)
     private readonly certificateRepository: Repository<CertificateEntity>,
+    @InjectRepository(CheckingPlanEntity)
+    private readonly checkingPlanRepository: Repository<CheckingPlanEntity>,
   ) {}
 
   public async getAllFacilities(): Promise<FacilityEntity[]> {
     return this.facilityRepository.find();
   }
 
-  public async getAllFacilitiesWithDetails(
+  public async getAllFacilitiesWithDetailsCert(
     facilities: FacilityEntity[],
   ): Promise<any> {
     const facilityDetails = [];
@@ -34,6 +40,32 @@ export class FacilityService {
         ...facility,
         expiredDate: expiredDate,
         revoked: revoked,
+      };
+      facilityDetails.push(facilityWithDetails);
+    }
+    return facilityDetails;
+  }
+
+  public async getAllFacilitiesWithDetailsPlan(
+    facilities: FacilityEntity[],
+  ): Promise<any> {
+    const facilityDetails = [];
+    for (const facility of facilities) {
+      const checkingPlan = await this.checkingPlanRepository.findOne({
+        where: { facilityId: facility.id },
+      });
+
+      if (!checkingPlan) continue;
+
+      const planId = checkingPlan.id;
+      const createdAt = checkingPlan.createdAt;
+      const checkedAt = checkingPlan.checkedAt;
+
+      const facilityWithDetails = {
+        ...facility,
+        planId: planId,
+        createdAt: createdAt,
+        checkedAt: checkedAt,
       };
       facilityDetails.push(facilityWithDetails);
     }

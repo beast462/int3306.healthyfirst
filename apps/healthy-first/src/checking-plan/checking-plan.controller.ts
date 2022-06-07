@@ -1,5 +1,6 @@
 import { ErrorCodes } from '@/common/constants/error-codes';
 import { CreateCheckingPlanBodyDTO } from '@/common/dto/checking-plan/create-checking-plan.body.dto';
+import { GetCheckingPlanFacilityIdParamDTO } from '@/common/dto/checking-plan/get-checking-plan-facility-id.param.dto';
 import { GetCheckingPlanIdParamDTO } from '@/common/dto/checking-plan/get-checking-plan-id.param.dto';
 import { ModifyCheckingPlanBodyDTO } from '@/common/dto/checking-plan/modify-checking-plan.body.dto';
 import { ResponseDTO } from '@/common/dto/response.dto';
@@ -34,11 +35,28 @@ export class CheckingPlanController {
     };
   }
 
-  @Get(':id')
+  @Get('id/:id')
   public async getCheckingPlanById(
     @Param() { id }: GetCheckingPlanIdParamDTO,
   ): Promise<ResponseDTO<CheckingPlanEntity>> {
     const checkingPlan = await this.checkingPlanService.getCheckingPlanById(id);
+
+    if (!checkingPlan) throw new NotFoundException('Checking plan not found');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: [],
+      errorCode: ErrorCodes.SUCCESS,
+      body: checkingPlan,
+    };
+  }
+
+  @Get('facilityid/:facilityId')
+  public async getCheckingPlanByFacilityId(
+    @Param() { facilityId }: GetCheckingPlanFacilityIdParamDTO,
+  ): Promise<ResponseDTO<CheckingPlanEntity[]>> {
+    const checkingPlan =
+      await this.checkingPlanService.getCheckingPlanByFacilityId(facilityId);
 
     if (!checkingPlan) throw new NotFoundException('Checking plan not found');
 

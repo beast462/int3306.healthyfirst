@@ -1,7 +1,7 @@
 import { CheckingPlanEntity } from '@/common/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 
 @Injectable()
 export class CheckingPlanService {
@@ -17,6 +17,17 @@ export class CheckingPlanService {
   public async getCheckingPlanById(id: number): Promise<CheckingPlanEntity> {
     return this.checkingPlanRepository.findOne({
       where: { id: id },
+    });
+  }
+
+  public async getCheckingPlanByFacilityId(
+    facilityId: number,
+  ): Promise<CheckingPlanEntity[]> {
+    return this.checkingPlanRepository.find({
+      where: {
+        facilityId: facilityId,
+        checkedAt: Raw((alias) => `${alias} > curdate()`),
+      },
     });
   }
 
